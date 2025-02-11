@@ -1,0 +1,22 @@
+{
+  "Login": {
+    "email": "بريد الكتروني",
+    "emailPlaceHolder": "ادخل بريدك الالكتروني",
+    "signIn": "تسجيل الدخول",
+    "password": "Password",
+    "LoginWithGoogle": "Login With Google",
+    "HeaderTitle": "Welcome Back!",
+    "HeaderSubTitle": "log into your account, please enter your details.",
+    "Or": "or",
+    "DontHaveAccount": "Don't have an account?",
+    "CreateAccount": "Create an account"
+  },
+  "Register": {
+    "HeaderTitle": "Stay in touch with your",
+    "Client": "clients",
+    "HeaderSubTitle": "Get the best offers on the first 90 days.",
+    "CreateAccount": "create account",
+    "username": "Username",
+    "HaveAccount": "Already have an account?"
+  }
+}
