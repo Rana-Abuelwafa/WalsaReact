@@ -17,6 +17,14 @@
     "HeaderSubTitle": "Get the best offers on the first 90 days.",
     "CreateAccount": "create account",
     "username": "Username",
-    "HaveAccount": "Already have an account?"
+    "HaveAccount": "Already have an account?",
+    "WelcomeMsg": "Welcome To wasla",
+    "WelcomeMsgSubTitle": "Dear customer,These questions are asked for you to provide the desired result",
+    "GetStart": "Get Start",
+    "BackHome": "Back To Home",
+    "Previous": "Previous",
+    "Submit": "Submit",
+    "Yes": "Yes",
+    "No": "No"
   }
 }

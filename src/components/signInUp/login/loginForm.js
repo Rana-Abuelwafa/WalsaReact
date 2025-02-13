@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Row, Button, Form } from "react-bootstrap";
 import { useTranslation } from "react-multi-lang";
+import { useNavigate } from "react-router-dom";
 function LoginForm() {
+  const navigate = useNavigate();
   const [validated, setvalidated] = useState(false);
   const [formData, setformData] = useState({ email: "", password: "" });
   const signin = (event) => {
@@ -10,6 +12,9 @@ function LoginForm() {
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
+    } else {
+      let path = `/home`;
+      navigate(path);
     }
     setvalidated(true);
   };

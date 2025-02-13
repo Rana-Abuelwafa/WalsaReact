@@ -26,6 +26,7 @@ function SignInUpShared(props) {
         //disabled={this.state.progressVariant == "danger" || this.state.userErr}
         className="frmBtn transBtn FullWidthBtn"
       >
+        <img src="../images/gmail_icon.png" className="gmail_icon" />
         {t("Login.LoginWithGoogle")}
       </Button>
       <p className="or_line_tit">

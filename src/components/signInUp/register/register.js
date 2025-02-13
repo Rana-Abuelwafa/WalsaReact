@@ -18,7 +18,7 @@ function Register() {
             <RegisterForm />
             <p className="form_option">
               {t("Register.HaveAccount")}
-              <Link to="/">{t("Login.signIn")}</Link>
+              <Link to="/login">{t("Login.signIn")}</Link>
             </p>
           </div>
         </Col>

@@ -1,0 +1,83 @@
+@import "../../../styles/variables";
+.ques_container {
+  background-color: #fff;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  max-width: 800px;
+  max-height: 600px;
+  height: 600px;
+  margin: 50px auto;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  position: relative;
+  .stepbtn {
+    position: absolute;
+    bottom: 20px;
+    left: 10px;
+    right: 10px;
+    /* width: auto; */
+    margin: 0 auto;
+  }
+  .mutliStep_contain {
+    width: 100%;
+  }
+  .fmWGLX,
+  .hWkrao {
+    background-color: $purple-color;
+    width: 30px;
+    height: 30px;
+    margin: 0 5px;
+    &::before {
+      display: none;
+    }
+  }
+  .GICev {
+    background-color: transparent;
+    border: 1px solid $purple-color;
+    width: 30px;
+    height: 30px;
+    margin: 0 5px;
+  }
+  .kfYyRX {
+    background-color: $purple-color;
+  }
+  .ques_content {
+    margin-top: 30px;
+    .ques_title {
+      font-weight: 500;
+      font-size: 20px;
+      margin: 20px 0;
+      color: $purple-color;
+    }
+    .answer_content {
+      margin: 50px 0;
+    }
+    .form-check {
+      background-color: #f7f7f7;
+      width: 200px;
+      border-radius: 50px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      text-align: center;
+      padding: 10px 0;
+    }
+    .form-check-input {
+      float: none;
+      vertical-align: sub;
+      width: 20px;
+      height: 20px;
+      margin: 0 5px;
+      //margin: 0 10px;
+    }
+    .form-check-input:checked {
+      background-color: $dark-green-color;
+      border-color: $dark-green-color;
+    }
+    label {
+      font-size: 20px;
+      color: $purple-color;
+      font-weight: 400;
+    }
+  }
+}

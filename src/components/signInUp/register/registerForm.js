@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Row, Button, Form } from "react-bootstrap";
 import { useTranslation } from "react-multi-lang";
+import { useNavigate } from "react-router-dom";
 function RegisterForm() {
+  const navigate = useNavigate();
   const [validated, setvalidated] = useState(false);
   const [formData, setformData] = useState({
     username: "",
@@ -14,6 +16,9 @@ function RegisterForm() {
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
+    } else {
+      let path = `/Welcome`;
+      navigate(path);
     }
     setvalidated(true);
   };
@@ -33,6 +38,7 @@ function RegisterForm() {
         <Form.Control
           type="text"
           name="username"
+          placeholder={t("Register.username")}
           onChange={fillFormData}
           pattern="^[a-zA-Z0-9]+$"
           className="formInput"
