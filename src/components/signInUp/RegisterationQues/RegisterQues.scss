@@ -11,13 +11,16 @@
   align-items: center;
   padding: 20px;
   position: relative;
-  .stepbtn {
+  .steps_btns {
     position: absolute;
     bottom: 20px;
     left: 10px;
     right: 10px;
     /* width: auto; */
     margin: 0 auto;
+    .stepbtn {
+      margin: 0 3px;
+    }
   }
   .mutliStep_contain {
     width: 100%;

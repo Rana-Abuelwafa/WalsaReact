@@ -1,0 +1,49 @@
+.language-dropdown {
+    .dropdown-toggle {
+      background: none;
+      border: none;
+      padding: 0;
+      
+      &:after {
+        background:transparent !important;
+        display: none;
+      }
+
+      &:hover,
+      &:focus { 
+        background:transparent !important;
+      }
+  
+      .globe-icon {
+        font-size: 32px;
+        color: #542D72;
+        cursor: pointer;
+        margin-right: 15px;
+        &:hover {
+            background:transparent !important;
+          color: #B181D6;
+        }
+      }
+    }
+  
+    .dropdown-menu {
+      min-width: 100px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 5px 0;
+      text-align: center;
+      border: none;
+      right:0;
+      left:auto;
+
+      .lang-item {
+        padding: 8px 12px;
+        font-size: 14px;
+        color: #5b357d;
+  
+        &:hover {
+          background: rgba(91, 53, 125, 0.1);
+        }
+      }
+    }
+  }

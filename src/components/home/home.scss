@@ -1,0 +1,273 @@
+@import 'bootstrap/scss/bootstrap';
+/* Narrow Scrollbar */
+::-webkit-scrollbar {
+  width: 6px; /* Adjust width for vertical scrollbar */
+  height: 6px; /* Adjust height for horizontal scrollbar */
+}
+
+/* Scrollbar Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+  border-radius: 10px;
+}
+
+/* Scrollbar Handle */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #2A1739, #522C70, #00BC82); /* Gradient handle */
+  border-radius: 10px;
+}
+
+/* Scrollbar Handle on Hover */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #522C70, #00BC82, #2A1739);
+}
+
+// Global Styles
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #ffffff;
+}
+// Hero Section
+.content-section{
+  margin: 0 50px;
+  align-content: center;
+  overflow: hidden;
+}
+.hero-section {
+  padding:10px;
+  margin-top:180px;
+  background: white;
+}
+
+.hero-heading {
+  line-height: 80px;
+  font-size: 50px;
+  font-weight: bold;
+  color: #542D72;
+}
+
+.hero-heading .highlight {
+  color: #00BC82;
+}
+
+.hero-text {
+  color: #816F8F ;
+  font-size: 22px;
+  line-height: 32px;
+}
+
+.countdown {
+  font-weight: bold;
+  color: #000;
+}
+
+.cta-button {
+  margin-top:10px;
+  background: transparent;
+  border: 1px solid #B181D6;
+  font-size: 28px;
+  font-weight:bold;
+  padding: 15px 40px;
+  border-radius: 50px;
+  color: #542D72;
+  &:hover {
+    background: transparent;
+    color: #542D72;
+  }
+}
+
+// Illustration
+.illustration-container {
+  text-align: center;
+}
+
+.illustration {
+  // padding-right:10px;
+  max-width: 100%;
+  height: auto;
+}
+
+// Services Section
+.services-section,
+.market-section {
+  padding:10px;
+  background: #fff;
+}
+
+.contact-designers{
+  padding:10px;
+  background: #fff;
+}
+
+.service-item {
+  display: flex;
+  align-items: center;
+  margin-top:60px;
+}
+.service-item-designers {
+  display: flex;
+  align-items: left;
+  margin-left:10%;
+}
+
+.service-icon {
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fa;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.service-content {
+  flex-grow: 1;
+}
+
+.service-title {
+  font-size: 38px;
+  font-weight: bold;
+  color: #542D72;
+  line-height: 85px;
+}
+
+.service-description{
+  font-size: 30px;
+  color: #542D72;
+  line-height: 58px;
+  letter-spacing: 2px;
+}
+.design-title {
+  font-size: 34px;
+  font-weight: bold;
+  color: #542D72;
+  line-height: 65px;
+}
+
+.design-description{
+  font-size: 28px;
+  color: #542D72;
+  line-height: 48px;
+  letter-spacing: 2px;
+}
+.service-img {
+  max-width: 60%;
+  height: auto;
+}
+.service-img2 {
+  margin-top: -35%;
+  max-width: 100%;
+  height: auto;
+}
+.design-text{
+  margin-top: 10%;
+}
+.identity-img{
+    margin-left:10px;
+    max-width: 100%;
+    height: auto;
+}
+
+.hero-container {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size:70% 100%;
+}
+
+.hero-content {
+  position: absolute;
+  margin-left: 280px;
+  margin-bottom: 50px;
+  width: 60%;
+  text-align: center;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  z-index: 1;
+  h2{
+    line-height: 60px;
+    font-size: 36px;
+
+  }
+}
+
+.hero-button {
+  position: absolute;
+  bottom: 20%;
+  left: 24%;
+  background: #5b2c79;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 28px;
+  border-radius: 35px;
+  cursor: pointer;
+  z-index: 2;
+  transition: background 0.3s ease-in-out;
+
+  &:hover {
+    background: #3a1d52;
+  }
+}
+
+.how-work-section{
+  margin: 120px 0;
+  .how-work-text{
+     font-size:24px;
+     font-weight:bold;
+     color:#00BC82;
+     text-transform: uppercase;
+  }
+  .three-steps-text{
+    font-size:35px;
+    font-weight:bold;
+    color:#542D72;
+    line-height: 100px;
+    margin-bottom: 60px;
+ }
+ .card {
+  border-radius: 24px;
+  // text-align: center;
+  background-color: #F7F7F7;
+}
+.steps-img-small{
+  width: 56px;  // Adjust size as needed
+  height: auto;
+  margin:auto;
+}
+.steps-img {
+  width: 70px;  // Adjust size as needed
+  height: auto;
+  margin:auto;
+}
+.card h5 {
+   color:#542D72;
+    line-height: 60px;
+  font-weight: bold;
+}
+.card p{
+  font-size: 14px;
+  color: #542D72;
+  line-height: 30px;
+}
+.pickup-btn{
+  margin: 26px auto;
+}
+.offer-img {
+  max-width: 100%;
+  height: auto;
+  margin:auto;
+}
+.offer-Text{
+text-align:left;
+line-height:30px
+}
+}

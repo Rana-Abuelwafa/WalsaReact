@@ -33,30 +33,34 @@ function RegisterQues() {
                 })
               : null}
           </MultiStepForm>
-
-          {/* {active !== 1 && (
-            <Button onClick={() => setActive(active - 1)}>
-              {t("Register.Previous")}
-            </Button>
-          )} */}
-          {active !== Quesions.length && (
-            <Button
-              className="stepbtn roundedBtn SmallWidthBtn transBtn"
-              onClick={() => setActive(active + 1)}
-              //style={{ float: "right" }}
-            >
-              {t("Register.Next")}
-            </Button>
-          )}
-          {active == Quesions.length && (
-            <Button
-              className="stepbtn roundedBtn SmallWidthBtn transBtn"
-              onClick={() => navigate("/Response")}
-              //style={{ float: "right" }}
-            >
-              {t("Register.Submit")}
-            </Button>
-          )}
+          <div className="steps_btns">
+            {active !== 1 && (
+              <Button
+                onClick={() => setActive(active - 1)}
+                className="stepbtn roundedBtn SmallWidthBtn transBtn"
+              >
+                {t("Register.Previous")}
+              </Button>
+            )}
+            {active !== Quesions.length && (
+              <Button
+                className="stepbtn roundedBtn SmallWidthBtn transBtn"
+                onClick={() => setActive(active + 1)}
+                //style={{ float: "right" }}
+              >
+                {t("Register.Next")}
+              </Button>
+            )}
+            {active == Quesions.length && (
+              <Button
+                className="stepbtn roundedBtn SmallWidthBtn transBtn"
+                onClick={() => navigate("/Response")}
+                //style={{ float: "right" }}
+              >
+                {t("Register.Submit")}
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     </Container>

@@ -1,38 +1,54 @@
-.App {
+.custom-navbar {
+  padding: 1rem 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.custom-navbar .nav-link {
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: #333 !important;
+  margin: 0 10px;
+}
+
+.brand {
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-right: 2rem;
+}
+
+.main-content {
+  padding: 4rem 0;
   text-align: center;
+  background-color: #f8f9fa;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.sale-timer {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  color: #dc3545;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.special-heading {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: #333;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.offer-text {
+  font-size: 1.4rem;
+  color: #666;
+  margin-bottom: 2rem;
+  line-height: 1.6;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.cta-button {
+  padding: 12px 30px;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: bold;
+  border-radius: 30px;
 }

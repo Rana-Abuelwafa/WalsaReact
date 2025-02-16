@@ -1,0 +1,45 @@
+//sale-navbar
+.sale-navbar{
+    margin-top: 90px;
+    padding:10px 50px !important;
+    background: white;
+    height:80px;
+  }
+  .sale-text{
+    background: linear-gradient(90deg, #2A1739, #00BC82);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size:26px;
+    font-weight: bold;
+    font-family:"Arial";
+  }
+  .countdown-timer{
+    color:#542D72;
+    font-weight: bold;
+    font-family:"Roboto";
+    font-size:22px;
+  }
+  .countdown-labels{
+    margin-top:-18px;
+  }
+  .countdown-label{
+    color:#CFC4D8;
+    font-weight: 300;
+    font-family:"Arial";
+    font-size:12px;
+    margin-right: 14px;
+  }
+  .check-button{
+    background: transparent !important;
+    border:1px solid #B181D6 !important;
+    font-size: 18px !important;
+    font-weight:bold !important;
+    margin-right: 23px !important;
+    padding: 10px 42px !important;
+    border-radius: 50px !important;
+    color: #542D72 !important;
+    &:hover {
+      background: transparent !important;
+      color: #542D72 !important;
+    }
+  }
