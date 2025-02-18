@@ -17,9 +17,9 @@ function App() {
           <Route path="/Welcome" element={<WelcomeMsg />} />
           <Route path="/Response" element={<RegisterationResponse />} />
           <Route path="/RegisterQues" element={<RegisterQues />} />
-          <Route path="/" element={<Login />} />
+          <Route path="login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
         </Routes>
       </BrowserRouter>
     </div>

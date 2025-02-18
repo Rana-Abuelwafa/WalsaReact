@@ -1,0 +1,85 @@
+@keyframes popupFadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes floatIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+.offer-popup .modal-content {
+    border-radius: 1px;
+    position: relative !important;
+    text-align: center;
+    max-width: 300px;
+    margin-top:35% !important;
+    margin: auto;
+    animation: popupFadeIn 0.3s ease-in-out;
+  }
+  .offer-content{
+    padding: 100px 20px 10px 20px;
+  }
+  /* Floating image above popup */
+  .floating-image {
+    position: absolute !important;
+    top: -145px; /* Adjust this to move image up */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%; /* Adjust size */
+    height: auto;
+    z-index: 10;
+    // animation: floatIn 0.5s ease-out;
+  }
+  
+  /* Close Button */
+  .offer-popup .close-btn {
+    color:#BDBDBD;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  /* Content Styling */
+  .offer-popup .offer-content p {
+    font-weight: bold;
+    color: #816F8F;
+    line-height:30px;
+  }
+  
+  .offer-popup .discount {
+    font-size: 40px;
+    font-weight: bold;
+    color: #FF6363;
+  }
+  
+  .offer-popup .check-btn {
+    background-color: #542D72;
+    color: white;
+    border-radius: 20px;
+    padding: 8px 15px;
+    margin-top: 10px;
+    border: none;
+    &:hover,
+    &:focus{
+        background-color: #542D72;
+        color: white;
+    }
+  }
+  

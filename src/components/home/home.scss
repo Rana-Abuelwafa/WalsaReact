@@ -70,9 +70,11 @@ body {
   padding: 15px 40px;
   border-radius: 50px;
   color: #542D72;
-  &:hover {
+  &:hover,
+  &:focus {
     background: transparent;
     color: #542D72;
+    border: 1px solid #B181D6;
   }
 }
 

@@ -1,12 +1,14 @@
 // Navbar Styles
 .brand{
     margin-left:12px;
+    margin-right:23px !important;
   }
   .navbar-custom {
     background: white;
     height:90px;
     padding: 10px 50px !important;
-    z-index:99999 !important;
+    // z-index:99999 !important;
+    border-bottom: 2px solid #ddd;
     box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.1);
     // padding: 15px 20px;
   }
@@ -65,4 +67,14 @@
     display: flex;
     align-items: center;
     font-weight: 500;
+  }
+
+  .user{
+    margin-top: 8px !important;
+  }
+  .userCol{
+    padding:5px 0 !important;
+  }
+  .userName{
+    font-size:21px;
   }

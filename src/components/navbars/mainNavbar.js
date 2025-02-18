@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {Navbar,Nav,Dropdown,Row,Col} from "react-bootstrap";
 import {FaCommentDots,FaBullhorn} from "react-icons/fa";
 import { GoSearch } from "react-icons/go";
@@ -8,6 +9,7 @@ import LanguageDropdown from '../Dropdowns/LanguageDropdown';
 import MenuDropdown from '../Dropdowns/MenuDropdown';
 import "./mainNavbar.scss";
 const MainNavbar = () => {
+  const navigate = useNavigate();
     return (  
     <Navbar fixed="top" expand="lg" className="navbar-custom">
         <Navbar.Brand href="#" className="brand d-flex align-items-center">
@@ -26,44 +28,16 @@ const MainNavbar = () => {
         </Nav>
         <div className="ms-auto d-flex gap-3 align-items-center nav-icons">
           <GoSearch className="icon" />
-          <FiUser className="icon" />
+          <Row className="user">
+            <Col md={6}>
+             <FiUser className="icon" onClick={() => navigate("/login")}/>
+            </Col>
+            <Col md={6} className="userCol">
+             <span className="userName"> User </span>
+            </Col>
+          </Row>
           <LanguageDropdown /> 
           <MenuDropdown />
-          {/* <Dropdown>
-            <Dropdown.Toggle
-              variant="light"
-              id="dropdown-basic"
-              className="dropdown-toggle-custom"
-            >
-              <CiMenuFries className="icon" />
-            </Dropdown.Toggle>
-            <Dropdown.Menu align="end" className="dropdown-menu-custom">
-              <Row className="">
-                <Col md={6} className="">
-                  <Dropdown.Item href="#" className="dropdown-item-custom">
-                    <FaCommentDots className="me-2" /> CHAT
-                  </Dropdown.Item>
-                </Col>
-                <Col md={6} className="">
-                  <Dropdown.Item href="#" className="dropdown-item-custom">
-                    <FaBullhorn className="me-2" /> MARKETING
-                  </Dropdown.Item>
-                </Col>
-              </Row>
-              <Row className="">
-                <Col md={6} className="">
-                  <Dropdown.Item href="#" className="dropdown-item-custom">
-                    <FaCommentDots className="me-2" /> CHAT
-                  </Dropdown.Item>
-                </Col>
-                <Col md={6} className="">
-                  <Dropdown.Item href="#" className="dropdown-item-custom">
-                    <FaBullhorn className="me-2" /> MARKETING
-                  </Dropdown.Item>
-                </Col>
-              </Row>
-            </Dropdown.Menu>
-          </Dropdown> */}
         </div>
       </Navbar>
        );
