@@ -33,8 +33,10 @@
       padding: 5px 0;
       text-align: center;
       border: none;
-      right:0;
-      left:auto;
+      right:0 !important;
+      left:auto !important;
+      position:absolute !important;
+      z-index:1050 !important;
 
       .lang-item {
         padding: 8px 12px;

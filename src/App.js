@@ -1,4 +1,5 @@
 import "./styles/shared.scss";
+import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./components/signInUp/login/login";
 import Register from "./components/signInUp/register/register";
@@ -7,6 +8,10 @@ import RegisterationResponse from "./components/signInUp/RegisterationQues/Regis
 import RegisterQues from "./components/signInUp/RegisterationQues/RegisterQues";
 import Home from "./components/home/home";
 function App() {
+  const currentLang = localStorage.getItem("lang") || "en"; 
+  useEffect(() => {
+    document.documentElement.setAttribute("dir", currentLang === "ar" ? "rtl" : "ltr");
+  }, [currentLang]);
   return (
     <div className="App">
       <BrowserRouter>

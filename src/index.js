@@ -6,18 +6,25 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import reportWebVitals from "./reportWebVitals";
 import { setDefaultTranslations, setDefaultLanguage } from "react-multi-lang";
 import { Provider } from "react-redux";
+import { LanguageProvider } from "react-multi-lang";
 import store from "./redux/store";
 import ar from "./translation/arb.json";
 import en from "./translation/en.json";
+
+// const translations = { en, arb };
+// const locale =localStorage.getItem("lang")? localStorage.getItem("lang") :"en";
 setDefaultTranslations({ ar, en });
 setDefaultLanguage(localStorage.getItem("lang") || "en");
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      {" "}
-      <App />
+      {/* <LanguageProvider translations={translations} locale="en"> */}
+        {" "}
+        <App />
+      {/* </LanguageProvider> */}
     </Provider>
   </React.StrictMode>
 );

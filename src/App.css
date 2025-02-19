@@ -52,3 +52,23 @@
   font-weight: bold;
   border-radius: 30px;
 }
+
+
+body[dir="rtl"] {
+  .container {
+    direction: rtl;
+    text-align: right;
+  }
+  
+  .navbar {
+    flex-direction: row-reverse;
+  }
+
+  .dropdown-menu {
+    text-align: right;
+  }
+
+  .btn {
+    float: right;
+  }
+}
