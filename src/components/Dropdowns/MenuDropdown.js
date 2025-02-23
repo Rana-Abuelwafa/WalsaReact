@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Dropdown, Button, Row, Col, Card } from "react-bootstrap";
 import { CiMenuFries } from "react-icons/ci"; // Menu Icon
+import { useTranslation } from "react-multi-lang"; // Import translation hook
 import './MenuDropdown.scss';
 
 const MenuDropdown = () => {
+  const t = useTranslation(); // Initialize translation
   const [show, setShow] = useState(false);
 
   return (
@@ -14,66 +16,54 @@ const MenuDropdown = () => {
 
       <Dropdown.Menu align="end" className="dropdown-menu-custom">
         <Row className="px-3 py-2">
-          {/* <Col xs={6}>
+          <Col xs={6}>
             <Card className="dropdown-card">
-              <img src="/images/chat.png" alt="Chat" className="icon-img" />
-              <span>CHAT</span>
-            </Card>
-          </Col> */}
-           <Col xs={6}>
-            <Card className="dropdown-card">
-            <Row>
+              <Row>
                 <Col xs={3}>
                   <img src="/images/brand-identity.png" alt="Brand Identity" className="icon-img" />
                 </Col>
-            
                 <Col xs={9}>
-                  <span>BRAND IDENTITY</span>
+                  <span>{t("MenuDropdown.brandIdentity")}</span>
                 </Col>
-            </Row>
+              </Row>
             </Card>
           </Col>
           <Col xs={6}>
             <Card className="dropdown-card">
-            <Row>
+              <Row>
                 <Col xs={3}>
-                <img src="/images/marketing.png" alt="Marketing" className="icon-img" />
+                  <img src="/images/marketing.png" alt="Marketing" className="icon-img" />
                 </Col>
                 <Col xs={9}>
-                <span>MARKETING</span>
+                  <span>{t("MenuDropdown.marketing")}</span>
                 </Col>
-            </Row>
+              </Row>
             </Card>
           </Col>
           <Col xs={6}>
             <Card className="dropdown-card">
-            <Row>
+              <Row>
                 <Col xs={3}>
-                <img src="/images/ads-campaign.png" alt="Ads Campaign" className="icon-img" />
+                  <img src="/images/ads-campaign.png" alt="Ads Campaign" className="icon-img" />
                 </Col>
                 <Col xs={9}>
-                <span>ADS CAMPAIGN</span>
+                  <span>{t("MenuDropdown.adsCampaign")}</span>
                 </Col>
-            </Row>
+              </Row>
             </Card>
           </Col>
           <Col xs={6}>
             <Card className="dropdown-card">
-            <Row>
+              <Row>
                 <Col xs={3}>
-                <img src="/images/graphic-design.png" alt="Website Design" className="icon-img" />
+                  <img src="/images/graphic-design.png" alt="Website Design" className="icon-img" />
                 </Col>
                 <Col xs={9}>
-                <span>WEBSITE DESIGN</span>
+                  <span>{t("MenuDropdown.websiteDesign")}</span>
                 </Col>
-            </Row>
+              </Row>
             </Card>
           </Col>
-          {/* <Col xs={12}>
-            <Card className="dropdown-card full-width">
-              <span>ENTIRE SCOPE OF SERVICE</span>
-            </Card>
-          </Col> */}
         </Row>
       </Dropdown.Menu>
     </Dropdown>

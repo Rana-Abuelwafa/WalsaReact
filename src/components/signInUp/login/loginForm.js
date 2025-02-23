@@ -13,7 +13,7 @@ function LoginForm() {
       event.preventDefault();
       event.stopPropagation();
     } else {
-      let path = `/home`;
+      let path = `/`;
       navigate(path);
     }
     setvalidated(true);

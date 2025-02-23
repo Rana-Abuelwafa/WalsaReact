@@ -273,3 +273,69 @@ text-align:left;
 line-height:30px
 }
 }
+
+
+// Directions
+/* Default LTR Styles */
+.content-section {
+  text-align: left;
+  direction: ltr;
+}
+
+.hero-section {
+  text-align: left;
+}
+
+.service-item {
+  text-align: left;
+}
+
+.design-text {
+  text-align: left;
+}
+
+.how-work-section {
+  text-align: center;
+}
+
+/* RTL Support */
+body[dir="rtl"] {
+  .content-section {
+    text-align: right;
+    direction: rtl;
+  }
+
+  .hero-section {
+    text-align: right;
+  }
+
+  .service-item {
+    text-align: right;
+    flex-direction: row-reverse; /* Reverse row layout */
+  }
+
+  .design-text {
+    text-align: right;
+  }
+
+  .how-work-section {
+    text-align: center;
+  }
+
+  .contact-designers .service-item {
+    flex-direction: row-reverse;
+  }
+
+  .three-steps-text,
+  .how-work-text {
+    text-align: center;
+  }
+
+  .hero-container {
+    text-align: right;
+  }
+
+  .hero-button {
+    float: right;
+  }
+}

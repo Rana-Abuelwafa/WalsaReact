@@ -1,4 +1,12 @@
 //sale-navbar
+body[dir="rtl"] .sale-navbar {
+  direction: rtl;
+}
+
+body[dir="rtl"] .countdown-timer {
+  text-align: left;
+}
+
 .sale-navbar{
     margin-top: 90px;
     padding:10px 50px !important;

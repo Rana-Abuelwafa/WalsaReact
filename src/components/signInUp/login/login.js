@@ -4,6 +4,7 @@ import { Row, Col, Container, Button } from "react-bootstrap";
 import { useTranslation } from "react-multi-lang";
 import LoginForm from "./loginForm";
 import { Link } from "react-router-dom";
+import MiniNavbar from "../../navbars/miniNavbar";
 import SignInUpShared from "../signInUpShared";
 import "../SignInUp.scss";
 function Login() {
@@ -13,6 +14,7 @@ function Login() {
       {/* <Container> */}
       <Row className="justify-content-md-center">
         <Col md={5} sm={6} xs={12}>
+          <MiniNavbar />
           <div className="login_form">
             <SignInUpShared login={true} />
             <LoginForm />

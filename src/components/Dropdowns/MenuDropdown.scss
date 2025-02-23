@@ -1,3 +1,11 @@
+body[dir="rtl"] .Menu-dropdown {
+  direction: rtl;
+}
+
+body[dir="rtl"] .dropdown-menu-custom {
+  text-align: right;
+}
+
 .Menu-dropdown {
     .dropdown-toggle {
         background: none;
