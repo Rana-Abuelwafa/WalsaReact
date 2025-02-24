@@ -2,6 +2,7 @@ import React from "react";
 import { Row, Col } from "react-bootstrap";
 import { useTranslation } from "react-multi-lang";
 import { Link } from "react-router-dom";
+import MiniNavbar from "../../navbars/miniNavbar";
 import SignInUpShared from "../signInUpShared";
 import RegisterForm from "./registerForm";
 import "../SignInUp.scss";
@@ -12,7 +13,8 @@ function Register() {
     <div className="SignSection">
       {/* <Container> */}
       <Row className="justify-content-md-center">
-        <Col md={5} sm={12} xs={12}>
+        <Col md={5} sm={6} xs={12}>
+        <MiniNavbar />
           <div className="login_form">
             <SignInUpShared />
             <RegisterForm />

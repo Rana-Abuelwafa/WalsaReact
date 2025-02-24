@@ -28,16 +28,31 @@
     "Yes": "Yes",
     "No": "No"
   },
-  "PopUp": {
-    "Header": "Error Message",
-    "Close":"Close"
+  "Navbar": {
+    "home": "HOME",
+    "pricing": "PRICING",
+    "ourWork": "OUR WORK",
+    "user": "User"
   },
-  "Home": {
-    "hero_title": "Make your\nBrand Special!",
-    "hero_text": "Everything to bring your brand into the\nhands of customers with ease",
-    "get_started": "Get Started",
-    "design_identity": "Design your brand identity",
-    "design_identity_text": "Do you have the project idea but\nneed to create your identity from\nthe name to the marketing\nstage?",
+"SaleNavbar": {
+    "saleText": "Our Huge",
+    "saleEndsIn": "Sale Ends in",
+    "days": "Days",
+    "hours": "Hrs",
+    "minutes": "Mins",
+    "seconds": "Secs",
+    "checkItOut": "Check it out"
+  },
+
+  "Home":{
+    "heroTitle1": "Make your",
+    "heroTitle2": "Brand",
+    "heroHighlight": "Special!",
+    "heroDescription": "Everything to bring your brand into the \nhands of customers with ease",
+    "getStarted": "Get Started",
+    "heroImageAlt": "Illustration of brand success",
+    "desigIdentity": "Design your brand identity",
+    "designDescription": "Do you have the project idea but\nneed to create your identity from\nthe name to the marketing\nstage?",
     "design_website": "Design your website",
     "design_website_text": "Make your brand more\nwidespread and facilitate access\nto your products.",
     "contact_designers": "Contact our creative designers",
@@ -64,5 +79,40 @@
     "budget_flexible": "Budget flexible",
     "budget_flexible_text": "Plan according to your budget and the\nservices you need.",
     "wasla_mission": "Waslaa aims to make\nyour brand successful\nthrough the access of\nyour customers to\nyour brand with ease."
+  },
+  "OfferPopup": {
+    "imageAlt": "Offer",
+    "getOffer": "Get our opening offers",
+    "discount": "50%",
+    "description": "on all our services for \nthe first 60 days",
+    "checkButton": "Check it out"
+  },
+  "MenuDropdown": {
+    "brandIdentity": "BRAND IDENTITY",
+    "marketing": "MARKETING",
+    "adsCampaign": "ADS CAMPAIGN",
+    "websiteDesign": "WEBSITE DESIGN"
+  },
+
+  "Footer": {
+    "description": "Waslaa aims to make your brand successful \nthrough the access of your customers to \nyour brand with ease.",
+    "company": {
+      "title": "Company",
+      "home": "Home",
+      "about": "About",
+      "pricing": "Pricing",
+      "contact": "Contact",
+      "privacy": "Privacy"
+    },
+    "support": {
+      "title": "Support",
+      "helpCenter": "Help Center",
+      "chat": "Chat with us"
+    },
+    "ourNew": "Our New",
+    "copyright": "Copyright © Waslaa Inc. 2024-2025 - All Rights Reserved"
   }
+
+
+  
 }

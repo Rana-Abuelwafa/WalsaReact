@@ -1,42 +1,56 @@
 {
   "Login": {
-    "email": "بريد الكتروني",
-    "emailPlaceHolder": "ادخل بريدك الالكتروني",
+    "email": "البريد الإلكتروني",
+    "emailPlaceHolder": "ادخل بريدك الإلكتروني",
     "signIn": "تسجيل الدخول",
-    "password": "Password",
-    "LoginWithGoogle": "Login With Google",
-    "HeaderTitle": "Welcome Back!",
-    "HeaderSubTitle": "log into your account, please enter your details.",
-    "Or": "or",
-    "DontHaveAccount": "Don't have an account?",
-    "CreateAccount": "Create an account"
+    "password": "كلمة المرور",
+    "LoginWithGoogle": "تسجيل الدخول باستخدام جوجل",
+    "HeaderTitle": "مرحبًا بعودتك!",
+    "HeaderSubTitle": "لتسجيل الدخول إلى حسابك، يرجى إدخال التفاصيل الخاصة بك.",
+    "Or": "أو",
+    "DontHaveAccount": "ليس لديك حساب؟",
+    "CreateAccount": "إنشاء حساب"
   },
   "Register": {
-    "HeaderTitle": "Stay in touch with your",
-    "Client": "clients",
-    "HeaderSubTitle": "Get the best offers on the first 90 days.",
-    "CreateAccount": "create account",
-    "username": "Username",
-    "HaveAccount": "Already have an account?",
-    "WelcomeMsg": "Welcome To wasla",
-    "WelcomeMsgSubTitle": "Dear customer,These questions are asked for you to provide the desired result",
-    "GetStart": "Get Start",
-    "BackHome": "Back To Home",
-    "Previous": "Previous",
-    "Submit": "Submit",
-    "Yes": "Yes",
-    "No": "No"
+    "HeaderTitle": "ابقَ على تواصل مع",
+    "Client": "عملائك",
+    "HeaderSubTitle": "احصل على أفضل العروض لأول 90 يومًا.",
+    "CreateAccount": "إنشاء حساب",
+    "username": "اسم المستخدم",
+    "HaveAccount": "هل لديك حساب بالفعل؟",
+    "WelcomeMsg": "مرحبًا بك في وصلة",
+    "WelcomeMsgSubTitle": "عزيزي العميل، هذه الأسئلة تُطرح لك لتقديم النتيجة المطلوبة.",
+    "GetStart": "ابدأ الآن",
+    "BackHome": "العودة إلى الصفحة الرئيسية",
+    "Previous": "السابق",
+    "Submit": "إرسال",
+    "Yes": "نعم",
+    "No": "لا"
   },
-  "PopUp": {
-    "Header": "Error Message",
-    "Close": "Close"
+  "Navbar": {
+    "home": "الرئيسية",
+    "pricing": "الأسعار",
+    "ourWork": "أعمالنا",
+    "user": "المستخدم"
+  },
+"SaleNavbar": {
+    "saleText": "عرضنا الضخم",
+    "saleEndsIn": "ينتهي خلال",
+    "days": "أيام",
+    "hours": "ساعات",
+    "minutes": "دقائق",
+    "seconds": "ثواني",
+    "checkItOut": "تحقق من ذلك"
   },
   "Home": {
-    "hero_title": "اجعل\nعلامتك التجارية مميزة!",
-    "hero_text": "كل ما تحتاجه لجعل علامتك التجارية\nفي متناول العملاء بسهولة",
-    "get_started": "ابدأ الآن",
-    "design_identity": "صمم هوية علامتك التجارية",
-    "design_identity_text": "هل لديك فكرة مشروع ولكنك\nتحتاج إلى إنشاء هويتك من\nالاسم حتى مرحلة التسويق؟",
+    "heroTitle1": "اجعل",
+    "heroTitle2": "علامتك التجارية",
+    "heroHighlight": "مميزة!",
+    "heroDescription": "كل ما تحتاجه لجعل علامتك التجارية تصل\n بسهولة إلى العملاء",
+    "getStarted": "ابدأ الآن",
+    "heroImageAlt": "رسم توضيحي لنجاح العلامة التجارية",
+    "desigIdentity": "صمم هوية علامتك التجارية",
+    "designDescription": "هل لديك فكرة مشروع ولكنك\nتحتاج إلى إنشاء هويتك من\nالاسم حتى مرحلة التسويق؟",
     "design_website": "صمم موقعك الإلكتروني",
     "design_website_text": "اجعل علامتك التجارية أكثر\nانتشارًا وسهّل وصول\nالعملاء إلى منتجاتك.",
     "contact_designers": "تواصل مع مصممينا المبدعين",
@@ -63,5 +77,38 @@
     "budget_flexible": "مرونة في الميزانية",
     "budget_flexible_text": "خطط وفقًا لميزانيتك والخدمات التي تحتاجها.",
     "wasla_mission": "تهدف وصلة إلى جعل\nعلامتك التجارية ناجحة\nمن خلال وصول\nعملائك إليها\nبسهولة."
+  },
+  "OfferPopup": {
+    "imageAlt": "عرض",
+    "getOffer": "احصل على عروضنا الافتتاحية",
+    "discount": "٥٠٪",
+    "description": "على جميع خدماتنا \nلأول ٦٠ يومًا",
+    "checkButton": "تحقق منه"
+  },
+  "MenuDropdown": {
+    "brandIdentity": "هوية العلامة التجارية",
+    "marketing": "التسويق",
+    "adsCampaign": "حملة إعلانية",
+    "websiteDesign": "تصميم الموقع"
+  },
+  "Footer": {
+    "description": "تسعى وصلاء إلى جعل علامتك التجارية ناجحة \nمن خلال تسهيل وصول عملائك إلى \nعلامتك التجارية بسهولة.",
+    "company": {
+      "title": "الشركة",
+      "home": "الرئيسية",
+      "about": "معلومات عنا",
+      "pricing": "الأسعار",
+      "contact": "اتصل بنا",
+      "privacy": "الخصوصية"
+    },
+    "support": {
+      "title": "الدعم",
+      "helpCenter": "مركز المساعدة",
+      "chat": "تحدث معنا"
+    },
+    "ourNew": "جديدنا",
+    "copyright": "حقوق النشر © وصلا 2024-2025 - جميع الحقوق محفوظة"
   }
+
+
 }

@@ -1,6 +1,7 @@
 @import "../../styles/variables";
 .SignSection {
   padding: 0 50px;
+  margin-top: 40px;
   align-content: center;
   overflow: hidden;
   h2 {
@@ -23,6 +24,7 @@
     margin: 30px 0;
   }
   .login_form {
+    margin-top: 40px;
     padding: 50px;
   }
   .sign-img_bg {

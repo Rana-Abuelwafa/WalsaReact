@@ -1,4 +1,17 @@
 // Navbar Styles
+
+body[dir="rtl"] .navbar-custom {
+  direction: rtl;
+}
+
+body[dir="rtl"] .nav-items {
+  margin-right: auto !important;
+  margin-left: 0 !important;
+}
+
+body[dir="rtl"] .userCol {
+  text-align: left;
+}
 .brand{
     margin-left:12px;
     margin-right:23px !important;
@@ -77,4 +90,11 @@
   }
   .userName{
     font-size:21px;
+  }
+
+  .navbar-mini{
+    background-color: white;
+    width: 45%;
+    height: 90px;
+    padding: 5px 90px !important;
   }

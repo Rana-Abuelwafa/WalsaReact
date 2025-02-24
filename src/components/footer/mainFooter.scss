@@ -1,4 +1,13 @@
 // Footer
+body[dir="rtl"] .footer {
+  text-align: right;
+}
+
+body[dir="rtl"] .footer-links ul,
+body[dir="rtl"] .footer-support ul {
+  padding-right: 0;
+  text-align: right;
+}
 .footer {
     background: #ffffff;
     padding: 40px 70px;
