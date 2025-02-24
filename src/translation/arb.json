@@ -27,7 +27,11 @@
     "Yes": "Yes",
     "No": "No"
   },
-  "Home":{
+  "PopUp": {
+    "Header": "Error Message",
+    "Close": "Close"
+  },
+  "Home": {
     "hero_title": "اجعل\nعلامتك التجارية مميزة!",
     "hero_text": "كل ما تحتاجه لجعل علامتك التجارية\nفي متناول العملاء بسهولة",
     "get_started": "ابدأ الآن",

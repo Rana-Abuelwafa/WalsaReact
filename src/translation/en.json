@@ -25,10 +25,14 @@
     "Previous": "Previous",
     "Next": "Next",
     "Submit": "Submit",
-    "Yes":"Yes",
-    "No":"No"
+    "Yes": "Yes",
+    "No": "No"
   },
-  "Home":{
+  "PopUp": {
+    "Header": "Error Message",
+    "Close":"Close"
+  },
+  "Home": {
     "hero_title": "Make your\nBrand Special!",
     "hero_text": "Everything to bring your brand into the\nhands of customers with ease",
     "get_started": "Get Started",
@@ -61,5 +65,4 @@
     "budget_flexible_text": "Plan according to your budget and the\nservices you need.",
     "wasla_mission": "Waslaa aims to make\nyour brand successful\nthrough the access of\nyour customers to\nyour brand with ease."
   }
-  
 }

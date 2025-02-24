@@ -15,18 +15,16 @@ import en from "./translation/en.json";
 // const locale =localStorage.getItem("lang")? localStorage.getItem("lang") :"en";
 setDefaultTranslations({ ar, en });
 setDefaultLanguage(localStorage.getItem("lang") || "en");
+var createHistory = require("history").createBrowserHistory;
 
-
+// in your function then call add the below
+export const history = createHistory();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      {/* <LanguageProvider translations={translations} locale="en"> */}
-        {" "}
-        <App />
-      {/* </LanguageProvider> */}
-    </Provider>
-  </React.StrictMode>
+  <Provider store={store}>
+    {/* <LanguageProvider translations={translations} locale="en"> */} <App />
+    {/* </LanguageProvider> */}
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

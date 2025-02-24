@@ -2,14 +2,20 @@ import React, { useState } from "react";
 import { Row, Button, Form } from "react-bootstrap";
 import { useTranslation } from "react-multi-lang";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { RegisterUser, GetQuestionsData } from "../../../slices/RegisterSlice";
+import Loader from "../../Loader/Loader";
+import PopUpMsg from "../../shared/PopupMsg";
 function RegisterForm() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [validated, setvalidated] = useState(false);
   const [formData, setformData] = useState({
     username: "",
     email: "",
     password: "",
   });
+  const { User, loading } = useSelector((state) => state.register);
   const signin = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -17,8 +23,14 @@ function RegisterForm() {
       event.preventDefault();
       event.stopPropagation();
     } else {
-      let path = `/Welcome`;
-      navigate(path);
+      dispatch(RegisterUser(formData)).then((result) => {
+        if (result.payload && result.payload.isSuccessed) {
+          // const payload = { lang: "en", token: result.payload.accessToken };
+          // dispatch(GetQuestionsData(payload));
+          let path = `/Welcome`;
+          navigate(path);
+        }
+      });
     }
     setvalidated(true);
   };
@@ -89,6 +101,10 @@ function RegisterForm() {
       >
         {t("Register.CreateAccount")}
       </Button>
+      {loading ? <Loader /> : null}
+      {User != null && User.isSuccessed == false ? (
+        <PopUpMsg text={User.msg} show={true} />
+      ) : null}
     </Form>
   );
 }

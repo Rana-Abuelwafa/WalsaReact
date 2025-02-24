@@ -6,6 +6,7 @@
     "@react-oauth/google": "^0.12.1",
     "@reduxjs/toolkit": "^2.5.1",
     "@testing-library/react": "^16.2.0",
+    "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "cra-template": "1.2.0",
     "formik": "^2.4.6",
@@ -16,8 +17,11 @@
     "react-multi-form": "^1.0.5",
     "react-multi-lang": "^2.2.0",
     "react-multistep": "^5.5.9",
+    "react-popup-alert": "^2.0.0",
     "react-redux": "^9.2.0",
     "react-scripts": "5.0.1",
+    "react-toastify": "^11.0.3",
+    "redux-first-history": "^5.2.0",
     "sass": "^1.84.0"
   },
   "scripts": {

@@ -2,10 +2,16 @@ import React, { useState } from "react";
 import { Row, Button, Form } from "react-bootstrap";
 import { useTranslation } from "react-multi-lang";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { LoginUser } from "../../../slices/RegisterSlice";
+import Loader from "../../Loader/Loader";
+import PopUpMsg from "../../shared/PopupMsg";
 function LoginForm() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [validated, setvalidated] = useState(false);
   const [formData, setformData] = useState({ email: "", password: "" });
+  const { User, loading } = useSelector((state) => state.register);
   const signin = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -13,8 +19,12 @@ function LoginForm() {
       event.preventDefault();
       event.stopPropagation();
     } else {
-      let path = `/home`;
-      navigate(path);
+      let path = `/`;
+      dispatch(LoginUser(formData)).then((result) => {
+        if (result.payload && result.payload.isSuccessed) {
+          navigate(path);
+        }
+      });
     }
     setvalidated(true);
   };
@@ -69,6 +79,10 @@ function LoginForm() {
       >
         {t("Login.signIn")}
       </Button>
+      {loading ? <Loader /> : null}
+      {User != null && User.isSuccessed == false ? (
+        <PopUpMsg text={User.msg} show={true} />
+      ) : null}
     </Form>
   );
 }
