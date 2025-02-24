@@ -28,13 +28,17 @@
     "Yes": "Yes",
     "No": "No"
   },
+  "PopUp": {
+    "Header": "Error Message",
+    "Close": "Close"
+  },
   "Navbar": {
     "home": "HOME",
     "pricing": "PRICING",
     "ourWork": "OUR WORK",
     "user": "User"
   },
-"SaleNavbar": {
+  "SaleNavbar": {
     "saleText": "Our Huge",
     "saleEndsIn": "Sale Ends in",
     "days": "Days",
@@ -44,7 +48,7 @@
     "checkItOut": "Check it out"
   },
 
-  "Home":{
+  "Home": {
     "heroTitle1": "Make your",
     "heroTitle2": "Brand",
     "heroHighlight": "Special!",
@@ -112,7 +116,4 @@
     "ourNew": "Our New",
     "copyright": "Copyright © Waslaa Inc. 2024-2025 - All Rights Reserved"
   }
-
-
-  
 }
