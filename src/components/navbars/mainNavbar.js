@@ -17,19 +17,19 @@ const MainNavbar = () => {
   };
   return (
     <Navbar fixed="top" expand="lg" className="navbar-custom">
-      <Navbar.Brand href="#" className="brand d-flex align-items-center">
+      <Navbar.Brand href="/" className="brand d-flex align-items-center">
         <img src="logo/wasla logo.png" alt="Logo" className="logo" />
       </Navbar.Brand>
       <Nav className="nav-items d-none d-lg-flex">
-        <Nav.Link href="#" className="nav-item">
+        <Nav.Link href="/" className="nav-item">
           {t("Navbar.home")}
         </Nav.Link>
-        <Nav.Link href="#" className="nav-item">
+        {/* <Nav.Link href="/" className="nav-item">
           {t("Navbar.pricing")}
         </Nav.Link>
-        <Nav.Link href="#" className="nav-item">
+        <Nav.Link href="/" className="nav-item">
           {t("Navbar.ourWork")}
-        </Nav.Link>
+        </Nav.Link> */}
       </Nav>
       <div className="ms-auto d-flex gap-3 align-items-center nav-icons">
         <GoSearch className="icon" />
@@ -38,7 +38,7 @@ const MainNavbar = () => {
             <FiUser className="icon" onClick={() => navigate("/login")} />
           </Col>
           <Col md={6} className="userCol">
-            <span className="userName">{t("Navbar.user")}</span>
+            {/* <span className="userName">{t("Navbar.user")}</span> */}
           </Col>
         </Row>
         <FiLogOut className="icon" onClick={logOut} />

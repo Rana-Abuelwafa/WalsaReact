@@ -1,9 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { Navbar, Container, Button } from "react-bootstrap";
 import { useTranslation } from "react-multi-lang";
 import "./saleNavbar.scss";
 
 const SaleNavbar = () => {
+  const navigate = useNavigate();
   const t = useTranslation(); // Initialize translation
 
   const [targetDate] = useState(() => {
@@ -53,7 +55,7 @@ const SaleNavbar = () => {
             <span className="countdown-label">{t("SaleNavbar.seconds")}</span>
           </div>
         </div>
-        <Button className="check-button">{t("SaleNavbar.checkItOut")}</Button>
+        <Button className="check-button" onClick={() => navigate("/login")}>{t("SaleNavbar.checkItOut")}</Button>
       </Container>
     </Navbar>
   );

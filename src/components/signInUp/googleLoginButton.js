@@ -3,7 +3,7 @@ import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 
 const GoogleLoginButton = () => {
   const handleLoginSuccess = async (credentialResponse) => {
-    //console.log("Google Token:", credentialResponse.credential);
+    console.log("Google Token:", credentialResponse.credential);
   };
 
   return (

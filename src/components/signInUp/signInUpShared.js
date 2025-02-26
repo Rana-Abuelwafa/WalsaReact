@@ -2,6 +2,7 @@ import React from "react";
 import { useTranslation } from "react-multi-lang";
 import { Button } from "react-bootstrap";
 import GoogleLoginButton from "./googleLoginButton";
+// import FacebookLoginButton from "./FacebookLoginButton";
 function SignInUpShared(props) {
   const t = useTranslation();
   return (
@@ -31,6 +32,7 @@ function SignInUpShared(props) {
         {t("Login.LoginWithGoogle")}
       </Button> */}
       <GoogleLoginButton />
+      {/* <FacebookLoginButton /> */}
       <p className="or_line_tit">
         <span className="or_line"></span>
         <span>{t("Login.Or")}</span>

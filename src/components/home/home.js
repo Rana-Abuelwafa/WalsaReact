@@ -39,10 +39,9 @@ const Home = () => {
             <Row className="align-items-center">
               <Col md={6} className="text-center text-md-start">
                 <h1 className="hero-heading">
-                  {t("Home.heroTitle1")} <br />
-                  {t("Home.heroTitle2")} <span className="highlight">{t("Home.heroHighlight")}</span>
+                  {t("Home.heroTitle1")} {t("Home.heroTitle2")} <br /><span className="highlight">{t("Home.heroHighlight")}</span>
                 </h1>
-                <p className="hero-text">
+                <p className="service-description"> {/*hero-text*/}
                   {t("Home.heroDescription").split("\n").map((line, index) => (
                     <React.Fragment key={index}>
                       {line}
@@ -202,7 +201,7 @@ const Home = () => {
                 </Col>
               </Row>
   
-              <Button className="transBtn SmallWidthBtn roundedBtn fw-bold pickup-btn">{t("Home.pick_plan")}</Button>
+              <Button className="transBtn SmallWidthBtn roundedBtn fw-bold pickup-btn" onClick={() => navigate("/login")}>{t("Home.pick_plan")}</Button>
               {/* WHAT WE OFFER Section */}
           </div>
   
