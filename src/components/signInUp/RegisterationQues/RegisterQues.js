@@ -23,16 +23,18 @@ function RegisterQues() {
     dispatch(GetQuestionsData(payload)).then((result) => {
       //fillQuesList(result);
       const arr = result.payload;
-      arr.forEach((ques) => {
-        const obj = {
-          answer: "yes",
-          client_id: "",
-          id: 0,
-          lang_code: localStorage.getItem("lang") || "en",
-          ques_id: ques.ques_id,
-        };
-        quesLst.push(obj);
-      });
+      if (arr != null) {
+        arr.forEach((ques) => {
+          const obj = {
+            answer: "yes",
+            client_id: "",
+            id: 0,
+            lang_code: localStorage.getItem("lang") || "en",
+            ques_id: ques.ques_id,
+          };
+          quesLst.push(obj);
+        });
+      }
     });
 
     return () => {

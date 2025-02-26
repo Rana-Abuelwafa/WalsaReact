@@ -3,13 +3,14 @@ import { Row, Button, Form, Col } from "react-bootstrap";
 import { useTranslation } from "react-multi-lang";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { RegisterUser, GetQuestionsData } from "../../../slices/RegisterSlice";
+import { RegisterUser } from "../../../slices/RegisterSlice";
 import Loader from "../../Loader/Loader";
 import PopUpMsg from "../../shared/PopupMsg";
 function RegisterForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [validated, setvalidated] = useState(false);
+  const [isMatch, setIsMatch] = useState(false);
   const [formData, setformData] = useState({
     FirstName: "",
     LastName: "",
@@ -124,11 +125,13 @@ function RegisterForm() {
         <Form.Group as={Col}>
           <Form.Label>{t("Register.confirmPassword")}</Form.Label>
           <Form.Control
+            required
             type="password"
             placeholder={t("Register.confirmPassword")}
             name="ConfirmPassword"
             className="formInput"
             minLength={6}
+            //onChange={handlePasswordonfirm}
             onChange={fillFormData}
             isInvalid={
               validated && formData.password !== formData.ConfirmPassword
@@ -160,6 +163,7 @@ function RegisterForm() {
         type="submit"
         //disabled={this.state.progressVariant == "danger" || this.state.userErr}
         className="frmBtn purbleBtn FullWidthBtn"
+        //disabled={validated == false && isMatch == false}
       >
         {t("Register.CreateAccount")}
       </Button>

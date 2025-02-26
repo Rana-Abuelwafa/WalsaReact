@@ -117,6 +117,7 @@ export const RegisterUser = createAsyncThunk(
         return res.data;
       })
       .catch((error) => {
+        //console.log("error.response.data ", error.response.data);
         return error.response.data;
       });
     return response;
@@ -148,12 +149,35 @@ const registerSlice = createSlice({
       // state.errors = null;
     });
     builder.addCase(RegisterUser.fulfilled, (state, { payload }) => {
+      //console.log("fulfill");
+      // if (payload.status != null && payload.status !== 200) {
+      //   state.loading = false;
+      //   const errors = payload.errors;
+      //   for (var key in payload.errors) {
+      //     if (errors.hasOwnProperty(key)) {
+      //       console.log(errors[key]);
+      //     }
+      //   }
+      //   state.errors = payload.errors.ConfirmPassword.map((a) => `${a}`).join(
+      //     " "
+      //   );
+      //   state.isSuccessed = false;
+      // } else {
+      //   state.User = payload;
+      //   state.loading = false;
+      //   localStorage.setItem("token", payload.accessToken);
+      //   localStorage.setItem("user", payload);
+      //   state.errors = payload.msg;
+      //   state.isSuccessed = payload.isSuccessed;
+      // }
       state.User = payload;
       state.loading = false;
       localStorage.setItem("token", payload.accessToken);
-      // state.errors = payload != null ? payload.msg : "";
+      localStorage.setItem("user", payload);
+      state.errors = payload != null ? payload.msg : "";
     });
     builder.addCase(RegisterUser.rejected, (state, { payload }) => {
+      //console.log("rejected");
       state.User = payload;
       state.loading = false;
       // state.errors = payload.msg;
@@ -168,6 +192,7 @@ const registerSlice = createSlice({
       state.User = payload;
       state.loading = false;
       localStorage.setItem("token", payload.accessToken);
+      localStorage.setItem("user", payload);
       // state.isSuccessed = payload != null ? payload.isSuccessed : true;
       // state.errors = payload != null ? payload.msg : "";
     });

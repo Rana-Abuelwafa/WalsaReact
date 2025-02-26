@@ -6,6 +6,10 @@ import "./LanguageDropdown.scss";
 
 const LanguageDropdown = () => {
   const t = useTranslation();
+  const changeLang = (lang) => {
+    setLanguage(lang);
+    localStorage.setItem("lang", lang);
+  };
   return (
     <Dropdown className="language-dropdown">
       <Dropdown.Toggle id="dropdown-basic">
@@ -13,10 +17,18 @@ const LanguageDropdown = () => {
       </Dropdown.Toggle>
 
       <Dropdown.Menu align="end">
-        <Dropdown.Item href="#" className="lang-item" onClick={() => setLanguage("ar")}>
-        <strong>العربية</strong>
+        <Dropdown.Item
+          href="#"
+          className="lang-item"
+          onClick={() => changeLang("ar")}
+        >
+          <strong>العربية</strong>
         </Dropdown.Item>
-        <Dropdown.Item href="#" className="lang-item" onClick={() => setLanguage("en")}>
+        <Dropdown.Item
+          href="#"
+          className="lang-item"
+          onClick={() => changeLang("en")}
+        >
           <strong>ENGLISH</strong>
         </Dropdown.Item>
       </Dropdown.Menu>

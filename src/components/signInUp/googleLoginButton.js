@@ -3,7 +3,7 @@ import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 
 const GoogleLoginButton = () => {
   const handleLoginSuccess = async (credentialResponse) => {
-    console.log("Google Token:", credentialResponse.credential);
+    //console.log("Google Token:", credentialResponse.credential);
   };
 
   return (
@@ -12,6 +12,8 @@ const GoogleLoginButton = () => {
         onSuccess={handleLoginSuccess}
         onError={() => console.log("Google Login Failed")}
         className="frmBtn transBtn FullWidthBtn"
+        logo_alignment="center"
+        shape="rectangular"
       />
     </GoogleOAuthProvider>
   );

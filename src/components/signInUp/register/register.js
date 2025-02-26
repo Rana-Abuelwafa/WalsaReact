@@ -13,8 +13,8 @@ function Register() {
     <div className="SignSection">
       {/* <Container> */}
       <Row className="justify-content-md-center">
-        <Col md={5} sm={6} xs={12}>
-        <MiniNavbar />
+        <Col md={5} sm={12} xs={12}>
+          <MiniNavbar />
           <div className="login_form">
             <SignInUpShared />
             <RegisterForm />

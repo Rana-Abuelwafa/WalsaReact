@@ -8,7 +8,6 @@ function PopUpMsg(props) {
   const onCloseAlert = () => {
     setshow(!show);
   };
-  console.log("show ", show);
   return (
     <Alert
       header={t("PopUp.Header")}
