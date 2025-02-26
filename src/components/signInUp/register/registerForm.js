@@ -11,9 +11,11 @@ function RegisterForm() {
   const dispatch = useDispatch();
   const [validated, setvalidated] = useState(false);
   const [formData, setformData] = useState({
-    username: "",
+    FirstName: "",
+    LastName: "",
     email: "",
     password: "",
+    ConfirmPassword: "",
   });
   const { User, loading } = useSelector((state) => state.register);
   const signin = (event) => {
@@ -48,12 +50,26 @@ function RegisterForm() {
       <Row className="mb-3">
         <Form.Group as={Col}>
           <Form.Label>{t("Register.firstname")}</Form.Label>
-          <Form.Control type="text" placeholder={t("Register.firstname")} />
+          <Form.Control
+            type="text"
+            placeholder={t("Register.firstname")}
+            className="formInput"
+            required
+            name="FirstName"
+            onChange={fillFormData}
+          />
         </Form.Group>
 
         <Form.Group as={Col}>
           <Form.Label>{t("Register.lastname")}</Form.Label>
-          <Form.Control type="text" placeholder={t("Register.lastname")} />
+          <Form.Control
+            type="text"
+            placeholder={t("Register.lastname")}
+            className="formInput"
+            required
+            name="LastName"
+            onChange={fillFormData}
+          />
         </Form.Group>
       </Row>
       {/* <Form.Group>
