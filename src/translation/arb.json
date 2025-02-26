@@ -9,7 +9,9 @@
     "HeaderSubTitle": "لتسجيل الدخول إلى حسابك، يرجى إدخال التفاصيل الخاصة بك.",
     "Or": "أو",
     "DontHaveAccount": "ليس لديك حساب؟",
-    "CreateAccount": "إنشاء حساب"
+    "CreateAccount": "إنشاء حساب",
+    "EmailError": "ادخل عنوان بريد الكتروني صحيح",
+    "PasswordError": "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل"
   },
   "Register": {
     "HeaderTitle": "ابقَ على تواصل مع",
@@ -25,7 +27,11 @@
     "Previous": "السابق",
     "Submit": "إرسال",
     "Yes": "نعم",
-    "No": "لا"
+    "No": "لا",
+    "firstname": "الاسم الأول",
+    "lastname": "اسم العائلة",
+    "confirmPassword": "تأكيد كلمه السر",
+    "ConfirmPasswordError": "كلمه السر غير متطابقة."
   },
   "PopUp": {
     "Header": "رسالة خطأ",

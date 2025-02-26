@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Row, Button, Form } from "react-bootstrap";
+import { Row, Button, Form, Col } from "react-bootstrap";
 import { useTranslation } from "react-multi-lang";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -45,7 +45,18 @@ function RegisterForm() {
 
   return (
     <Form validated={validated} onSubmit={signin} noValidate>
-      <Form.Group>
+      <Row className="mb-3">
+        <Form.Group as={Col}>
+          <Form.Label>{t("Register.firstname")}</Form.Label>
+          <Form.Control type="text" placeholder={t("Register.firstname")} />
+        </Form.Group>
+
+        <Form.Group as={Col}>
+          <Form.Label>{t("Register.lastname")}</Form.Label>
+          <Form.Control type="text" placeholder={t("Register.lastname")} />
+        </Form.Group>
+      </Row>
+      {/* <Form.Group>
         <Form.Label>{t("Register.username")}</Form.Label>
         <Form.Control
           type="text"
@@ -60,7 +71,7 @@ function RegisterForm() {
         <Form.Control.Feedback type="invalid">
           Please enter a valid username (alphanumeric characters only).
         </Form.Control.Feedback>
-      </Form.Group>
+      </Form.Group> */}
       <Form.Group className="mb-3">
         <Form.Label className="formLabel">{t("Login.email")}</Form.Label>
         <Form.Control
@@ -73,11 +84,46 @@ function RegisterForm() {
           isInvalid={validated && !/^\S+@\S+\.\S+$/.test(formData.email)}
         />
         <Form.Control.Feedback type="invalid">
-          Please enter a valid email address.
+          {t("Login.EmailError")}
         </Form.Control.Feedback>
       </Form.Group>
+      <Row className="mb-3">
+        <Form.Group as={Col}>
+          <Form.Label>{t("Login.password")}</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder={t("Login.password")}
+            required
+            name="password"
+            className="formInput"
+            minLength={6}
+            onChange={fillFormData}
+            isInvalid={validated && formData.password.length < 6}
+          />
+          <Form.Control.Feedback type="invalid">
+            {t("Login.PasswordError")}
+          </Form.Control.Feedback>
+        </Form.Group>
 
-      <Form.Group className="mb-3">
+        <Form.Group as={Col}>
+          <Form.Label>{t("Register.confirmPassword")}</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder={t("Register.confirmPassword")}
+            name="ConfirmPassword"
+            className="formInput"
+            minLength={6}
+            onChange={fillFormData}
+            isInvalid={
+              validated && formData.password !== formData.ConfirmPassword
+            }
+          />
+          <Form.Control.Feedback type="invalid">
+            {t("Register.ConfirmPasswordError")}
+          </Form.Control.Feedback>
+        </Form.Group>
+      </Row>
+      {/* <Form.Group className="mb-3">
         <Form.Label className="formLabel">{t("Login.password")}</Form.Label>
         <Form.Control
           type="password"
@@ -92,7 +138,7 @@ function RegisterForm() {
         <Form.Control.Feedback type="invalid">
           Password must be at least 6 characters long.
         </Form.Control.Feedback>
-      </Form.Group>
+      </Form.Group> */}
 
       <Button
         type="submit"

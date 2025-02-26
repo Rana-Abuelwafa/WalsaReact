@@ -19,21 +19,48 @@ function RegisterQues() {
     (state) => state.register
   );
   useEffect(() => {
-    const payload = { lang: "en" };
-    dispatch(GetQuestionsData(payload));
+    const payload = { lang: localStorage.getItem("lang") || "en" };
+    dispatch(GetQuestionsData(payload)).then((result) => {
+      //fillQuesList(result);
+      const arr = result.payload;
+      arr.forEach((ques) => {
+        const obj = {
+          answer: "yes",
+          client_id: "",
+          id: 0,
+          lang_code: localStorage.getItem("lang") || "en",
+          ques_id: ques.ques_id,
+        };
+        quesLst.push(obj);
+      });
+    });
 
-    return () => {};
+    return () => {
+      setQuesLst([]);
+    };
   }, []);
   const saveLst = () => {
     dispatch(saveQuesList(quesLst)).then((result) => {
       if (result.payload && result.payload.success) {
+        setQuesLst([]);
         navigate("/Response");
       }
     });
   };
+  const fillQuesList = () => {
+    if (Quesions != null && Quesions.length > 0) {
+      Quesions.forEach((ques) => {
+        const obj = {
+          answer: "yes",
+          client_id: "",
+          id: 0,
+          lang_code: localStorage.getItem("lang") || "en",
+          ques_id: ques.ques_id,
+        };
+        quesLst.push(obj);
+      });
+    }
 
-  const fillQuesList = (ques) => {
-    quesLst.push(ques);
     // console.log("quesssss ", quesLst);
     // setQuesLst([...quesLst, ques]);
   };
@@ -65,7 +92,7 @@ function RegisterQues() {
                     <StepComp
                       ques={ques}
                       updateLst={updateLst}
-                      fillQuesList={fillQuesList}
+                      //fillQuesList={fillQuesList}
                     />
                   </Step>
                 );

@@ -9,7 +9,9 @@
     "HeaderSubTitle": "log into your account, please enter your details.",
     "Or": "or",
     "DontHaveAccount": "Don't have an account?",
-    "CreateAccount": "Create an account"
+    "CreateAccount": "Create an account",
+    "EmailError": "Please enter a valid email address.",
+    "PasswordError": "Password must be at least 6 characters long."
   },
   "Register": {
     "HeaderTitle": "Stay in touch with your",
@@ -26,7 +28,11 @@
     "Next": "Next",
     "Submit": "Submit",
     "Yes": "Yes",
-    "No": "No"
+    "No": "No",
+    "firstname": "First Name",
+    "lastname": "Last Name",
+    "confirmPassword": "Confirm Password",
+    "ConfirmPasswordError": "Password donnot match."
   },
   "PopUp": {
     "Header": "Error Message",

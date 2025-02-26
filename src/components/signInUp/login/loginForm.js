@@ -51,7 +51,7 @@ function LoginForm() {
           isInvalid={validated && !/^\S+@\S+\.\S+$/.test(formData.email)}
         />
         <Form.Control.Feedback type="invalid">
-          Please enter a valid email address.
+          {t("Login.EmailError")}
         </Form.Control.Feedback>
       </Form.Group>
 
@@ -68,7 +68,7 @@ function LoginForm() {
           isInvalid={validated && formData.password.length < 6}
         />
         <Form.Control.Feedback type="invalid">
-          Password must be at least 6 characters long.
+          {t("Login.PasswordError")}
         </Form.Control.Feedback>
       </Form.Group>
 

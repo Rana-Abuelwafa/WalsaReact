@@ -6,10 +6,10 @@ function StepComp(props) {
   const [answer, setAnswer] = useState("yes");
   const [Ques, setQues] = useState({
     id: 0,
-    ques_id: 0,
+    ques_id: props.ques != null ? props.ques.ques_id : 0,
     client_id: "",
     answer: "yes",
-    lang_code: "en",
+    lang_code: localStorage.getItem("lang") || "en",
   });
   const updateAnswer = (e) => {
     setAnswer(e.target.id);
@@ -21,19 +21,19 @@ function StepComp(props) {
     props.updateLst(Ques);
   };
   // useEffect(() => {
+  //    Ques["answer"] = answer;
+  //   Ques["ques_id"] = props.ques != null ? props.ques.ques_id : 0;
+  //   Ques["lang_code"] = localStorage.getItem("lang") || "en";
+  //   //props.updateLst(Ques);
+  //   return () => {};
+  // }, []);
+  // useEffect(() => {
   //   Ques["answer"] = answer;
   //   Ques["ques_id"] = props.ques != null ? props.ques.ques_id : 0;
   //   Ques["lang_code"] = localStorage.getItem("lang") || "en";
-  //   props.updateLst(Ques);
+  //   props.fillQuesList(Ques);
   //   return () => {};
   // }, []);
-  useEffect(() => {
-    Ques["answer"] = answer;
-    Ques["ques_id"] = props.ques != null ? props.ques.ques_id : 0;
-    Ques["lang_code"] = localStorage.getItem("lang") || "en";
-    props.fillQuesList(Ques);
-    return () => {};
-  }, []);
   return (
     <div className="ques_content">
       <p className="ques_title">{props.ques.ques_title}</p>
