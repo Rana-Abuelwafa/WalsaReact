@@ -14,6 +14,7 @@ const MainNavbar = () => {
   const t = useTranslation(); // Initialize translation
   const logOut = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("users");
     navigate("/login");
   };
   useEffect(() => {
