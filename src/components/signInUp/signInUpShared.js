@@ -31,17 +31,15 @@ function SignInUpShared(props) {
         <img src="../images/gmail_icon.png" className="gmail_icon" />
         {t("Login.LoginWithGoogle")}
       </Button> */}
-      <GoogleLoginButton />
+      {/* <GoogleLoginButton /> */}
       {/* <FacebookLoginButton /> */}
-      <p className="or_line_tit">
+      {/* <p className="or_line_tit">
         <span className="or_line"></span>
         <span>{t("Login.Or")}</span>
         <span className="or_line"></span>
-      </p>
+      </p> */}
     </div>
   );
 }
 
 export default SignInUpShared;
-
-

@@ -11,6 +11,7 @@ function RegisterForm() {
   const dispatch = useDispatch();
   const [validated, setvalidated] = useState(false);
   const [isMatch, setIsMatch] = useState(false);
+  const [errors, setErrors] = useState({});
   const [formData, setformData] = useState({
     FirstName: "",
     LastName: "",
@@ -19,13 +20,50 @@ function RegisterForm() {
     ConfirmPassword: "",
   });
   const { User, loading } = useSelector((state) => state.register);
+  const validate = () => {
+    if (formData.FirstName == null || formData.FirstName.trim() == "") {
+      setErrors({
+        ...errors,
+        firstname: t("Register.fillField"),
+      });
+      return false;
+    }
+
+    if (formData.LastName == null || formData.LastName.trim() == "") {
+      setErrors({
+        ...errors,
+        lastname: t("Register.fillField"),
+      });
+      return false;
+    }
+    if (!/^\S+@\S+\.\S+$/.test(formData.email) || formData.email.trim() == "") {
+      setErrors({
+        ...errors,
+        email: t("Login.EmailError"),
+      });
+      return false;
+    }
+
+    if (formData.password.trim() == "" || formData.password.length < 6) {
+      setErrors({
+        ...errors,
+        password: t("Login.PasswordError"),
+      });
+      return false;
+    }
+    if (formData.ConfirmPassword !== formData.password) {
+      setErrors({
+        ...errors,
+        ConfirmPassword: t("Register.ConfirmPasswordError"),
+      });
+      return false;
+    }
+    return true;
+  };
   const signin = (event) => {
     event.preventDefault();
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    } else {
+    // validation
+    if (validate()) {
       dispatch(RegisterUser(formData)).then((result) => {
         if (result.payload && result.payload.isSuccessed) {
           // const payload = { lang: "en", token: result.payload.accessToken };
@@ -35,10 +73,15 @@ function RegisterForm() {
         }
       });
     }
-    setvalidated(true);
+    // const form = event.currentTarget;
+    // if (form.checkValidity() === false) {
+    //   event.preventDefault();
+    //   event.stopPropagation();
+    // }
   };
   const fillFormData = (e) => {
     setvalidated(false);
+    setErrors({});
     setformData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -47,7 +90,7 @@ function RegisterForm() {
   const t = useTranslation();
 
   return (
-    <Form validated={validated} onSubmit={signin} noValidate>
+    <Form onSubmit={signin} noValidate>
       <Row className="mb-3">
         <Form.Group as={Col}>
           <Form.Label>{t("Register.firstname")}</Form.Label>
@@ -59,6 +102,11 @@ function RegisterForm() {
             name="FirstName"
             onChange={fillFormData}
           />
+          {errors.firstname && (
+            <Form.Text type="invalid" className="errorTxt">
+              {errors.firstname}
+            </Form.Text>
+          )}
         </Form.Group>
 
         <Form.Group as={Col}>
@@ -71,6 +119,11 @@ function RegisterForm() {
             name="LastName"
             onChange={fillFormData}
           />
+          {errors.lastname && (
+            <Form.Text type="invalid" className="errorTxt">
+              {errors.lastname}
+            </Form.Text>
+          )}
         </Form.Group>
       </Row>
       {/* <Form.Group>
@@ -98,11 +151,16 @@ function RegisterForm() {
           name="email"
           className="formInput"
           onChange={fillFormData}
-          isInvalid={validated && !/^\S+@\S+\.\S+$/.test(formData.email)}
+          // isInvalid={validated && !/^\S+@\S+\.\S+$/.test(formData.email)}
         />
-        <Form.Control.Feedback type="invalid">
+        {errors.email && (
+          <Form.Text type="invalid" className="errorTxt">
+            {errors.email}
+          </Form.Text>
+        )}
+        {/* <Form.Control.Feedback type="invalid">
           {t("Login.EmailError")}
-        </Form.Control.Feedback>
+        </Form.Control.Feedback> */}
       </Form.Group>
       <Row className="mb-3">
         <Form.Group as={Col}>
@@ -114,12 +172,18 @@ function RegisterForm() {
             name="password"
             className="formInput"
             minLength={6}
+            //onChange={handlePasswordChange}
             onChange={fillFormData}
-            isInvalid={validated && formData.password.length < 6}
+            // isInvalid={formData.password.length < 6}
           />
-          <Form.Control.Feedback type="invalid">
+          {errors.password && (
+            <Form.Text type="invalid" className="errorTxt">
+              {errors.password}
+            </Form.Text>
+          )}
+          {/* <Form.Control.Feedback type="invalid">
             {t("Login.PasswordError")}
-          </Form.Control.Feedback>
+          </Form.Control.Feedback> */}
         </Form.Group>
 
         <Form.Group as={Col}>
@@ -131,15 +195,23 @@ function RegisterForm() {
             name="ConfirmPassword"
             className="formInput"
             minLength={6}
-            //onChange={handlePasswordonfirm}
+            //onChange={handleConfirmPasswordChange}
             onChange={fillFormData}
-            isInvalid={
-              validated && formData.password !== formData.ConfirmPassword
-            }
+            // isInvalid={
+            //   validated && formData.password !== formData.ConfirmPassword
+            // }
           />
-          <Form.Control.Feedback type="invalid">
+          {errors.ConfirmPassword && (
+            <Form.Text className="errorTxt">{errors.ConfirmPassword}</Form.Text>
+          )}
+          {/* {isMatch == false ? (
+            <Form.Text className="errorTxt">
+              {t("Register.ConfirmPasswordError")}
+            </Form.Text>
+          ) : null} */}
+          {/* <Form.Control.Feedback type="invalid">
             {t("Register.ConfirmPasswordError")}
-          </Form.Control.Feedback>
+          </Form.Control.Feedback> */}
         </Form.Group>
       </Row>
       {/* <Form.Group className="mb-3">
@@ -159,12 +231,7 @@ function RegisterForm() {
         </Form.Control.Feedback>
       </Form.Group> */}
 
-      <Button
-        type="submit"
-        //disabled={this.state.progressVariant == "danger" || this.state.userErr}
-        className="frmBtn purbleBtn FullWidthBtn"
-        //disabled={validated == false && isMatch == false}
-      >
+      <Button type="submit" className="frmBtn purbleBtn FullWidthBtn">
         {t("Register.CreateAccount")}
       </Button>
       {loading ? <Loader /> : null}

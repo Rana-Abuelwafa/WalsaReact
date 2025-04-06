@@ -31,7 +31,8 @@
     "firstname": "الاسم الأول",
     "lastname": "اسم العائلة",
     "confirmPassword": "تأكيد كلمه السر",
-    "ConfirmPasswordError": "كلمه السر غير متطابقة."
+    "ConfirmPasswordError": "كلمه السر غير متطابقة.",
+    "fillField": "املأ هذا الحقل"
   },
   "PopUp": {
     "Header": "رسالة خطأ",
