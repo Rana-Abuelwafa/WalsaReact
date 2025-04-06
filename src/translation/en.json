@@ -32,7 +32,8 @@
     "firstname": "First Name",
     "lastname": "Last Name",
     "confirmPassword": "Confirm Password",
-    "ConfirmPasswordError": "Password donnot match."
+    "ConfirmPasswordError": "Password donnot match.",
+    "fillField": "Please fill this field"
   },
   "PopUp": {
     "Header": "Error Message",
