@@ -4,9 +4,11 @@ import axios from "axios";
 // import { replace, push } from "redux-first-history";
 import { checkAUTH } from "../helper/helperFN";
 import { history } from "../index";
-const BASE_URL_AUTH = "https://localhost:7019/api/Authentication";
-const BASE_URL = "https://localhost:7283/api/WaslaClient";
-
+// const BASE_URL_AUTH = "https://localhost:7019/api/Authentication";
+// const BASE_URL = "https://localhost:7283/api/WaslaClient";
+const BASE_URL_AUTH = process.env.REACT_APP_AUTH_API_URL;
+const BASE_URL = process.env.REACT_APP_API_URL;
+console.log("BASE_URL_AUTH ", BASE_URL_AUTH);
 const initialState = {
   Quesions: [],
   Token: "",

@@ -26,6 +26,7 @@ function RegisterForm() {
       event.preventDefault();
       event.stopPropagation();
     } else {
+      setvalidated(true);
       dispatch(RegisterUser(formData)).then((result) => {
         if (result.payload && result.payload.isSuccessed) {
           // const payload = { lang: "en", token: result.payload.accessToken };
@@ -35,7 +36,31 @@ function RegisterForm() {
         }
       });
     }
-    setvalidated(true);
+  };
+
+  const handlePasswordChange = (e) => {
+    setvalidated(false);
+    setformData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+    if (e.target.value !== formData.ConfirmPassword) {
+      setIsMatch(false);
+    } else {
+      setIsMatch(true);
+    }
+  };
+  const handleConfirmPasswordChange = (e) => {
+    setvalidated(false);
+    setformData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+    if (e.target.value !== formData.password) {
+      setIsMatch(false);
+    } else {
+      setIsMatch(true);
+    }
   };
   const fillFormData = (e) => {
     setvalidated(false);
@@ -114,8 +139,9 @@ function RegisterForm() {
             name="password"
             className="formInput"
             minLength={6}
-            onChange={fillFormData}
-            isInvalid={validated && formData.password.length < 6}
+            onChange={handlePasswordChange}
+            // onChange={fillFormData}
+            isInvalid={formData.password.length < 6}
           />
           <Form.Control.Feedback type="invalid">
             {t("Login.PasswordError")}
@@ -131,15 +157,20 @@ function RegisterForm() {
             name="ConfirmPassword"
             className="formInput"
             minLength={6}
-            //onChange={handlePasswordonfirm}
-            onChange={fillFormData}
+            onChange={handleConfirmPasswordChange}
+            //onChange={fillFormData}
             isInvalid={
               validated && formData.password !== formData.ConfirmPassword
             }
           />
-          <Form.Control.Feedback type="invalid">
+          {isMatch == false ? (
+            <Form.Text className="errorTxt">
+              {t("Register.ConfirmPasswordError")}
+            </Form.Text>
+          ) : null}
+          {/* <Form.Control.Feedback type="invalid">
             {t("Register.ConfirmPasswordError")}
-          </Form.Control.Feedback>
+          </Form.Control.Feedback> */}
         </Form.Group>
       </Row>
       {/* <Form.Group className="mb-3">
@@ -163,7 +194,8 @@ function RegisterForm() {
         type="submit"
         //disabled={this.state.progressVariant == "danger" || this.state.userErr}
         className="frmBtn purbleBtn FullWidthBtn"
-        //disabled={validated == false && isMatch == false}
+        //disabled={validated == false}
+        disabled={isMatch == false && validated == false}
       >
         {t("Register.CreateAccount")}
       </Button>
