@@ -18,7 +18,7 @@ const GoogleLoginButton = () => {
   const handleLoginSuccess = async (credentialResponse) => {
     //console.log("Google Token:", credentialResponse.code);
     const DecodedToken = jwtDecode(credentialResponse.code);
-    //console.log("DecodedToken:", DecodedToken);
+    console.log("DecodedToken:", DecodedToken);
     let { family_name, given_name, email } = DecodedToken;
 
     let data = {
