@@ -112,9 +112,9 @@ export const saveQuesList = createAsyncThunk(
 ///register
 export const RegisterUser = createAsyncThunk(
   "RegisterUser",
-  async (payload, thunkAPI) => {
+  async (data, thunkAPI) => {
     var response = await axios
-      .post(BASE_URL_AUTH + "/RegisterUser", payload)
+      .post(BASE_URL_AUTH + data.path, data.payload)
       .then((res) => {
         return res.data;
       })

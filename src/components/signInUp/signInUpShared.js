@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-multi-lang";
-import { Button } from "react-bootstrap";
+import { Button, Row, Col } from "react-bootstrap";
 import GoogleLoginButton from "./googleLoginButton";
 import FacebookLoginButton from "./FacebookLoginButton";
 function SignInUpShared(props) {
@@ -20,13 +20,16 @@ function SignInUpShared(props) {
             <span>{t("Register.Client")}</span>
           </h2>
           <p>{t("Register.HeaderSubTitle")}</p>
- <GoogleLoginButton />
-      <FacebookLoginButton />
-      <p className="or_line_tit">
-        <span className="or_line"></span>
-        <span>{t("Login.Or")}</span>
-        <span className="or_line"></span>
-      </p>
+
+          <GoogleLoginButton />
+
+          <FacebookLoginButton />
+
+          <p className="or_line_tit">
+            <span className="or_line"></span>
+            <span>{t("Login.Or")}</span>
+            <span className="or_line"></span>
+          </p>
         </>
       )}
 

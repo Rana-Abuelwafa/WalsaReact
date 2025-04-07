@@ -64,7 +64,8 @@ function RegisterForm() {
     event.preventDefault();
     // validation
     if (validate()) {
-      dispatch(RegisterUser(formData)).then((result) => {
+      let data = { payload: formData, path: "/RegisterUser" };
+      dispatch(RegisterUser(data)).then((result) => {
         if (result.payload && result.payload.isSuccessed) {
           // const payload = { lang: "en", token: result.payload.accessToken };
           // dispatch(GetQuestionsData(payload));
