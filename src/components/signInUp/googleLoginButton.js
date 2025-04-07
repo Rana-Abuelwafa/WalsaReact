@@ -1,9 +1,11 @@
 import React from "react";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
-
+import { jwtDecode } from "jwt-decode";
 const GoogleLoginButton = () => {
   const handleLoginSuccess = async (credentialResponse) => {
     console.log("Google Token:", credentialResponse.credential);
+    const DecodedToken = jwtDecode(credentialResponse.credential);
+    console.log("DecodedToken:", DecodedToken);
   };
 
   return (
