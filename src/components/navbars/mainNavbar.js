@@ -14,12 +14,12 @@ const MainNavbar = () => {
   const t = useTranslation(); // Initialize translation
   const logOut = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("users");
+    localStorage.removeItem("user");
     navigate("/login");
   };
   useEffect(() => {
     const userLocal = localStorage.getItem("user");
-    //console.log("lllll  ", userLocal);
+    console.log("lllll  ", userLocal);
     if (userLocal != null) {
       const user = JSON.parse(localStorage.getItem("user"));
       if (user != null) {
