@@ -13,7 +13,7 @@ function Register() {
     <div className="SignSection">
       {/* <Container> */}
       <Row className="justify-content-md-center">
-        <Col md={5} sm={12} xs={12}>
+        <Col lg={5} md={12} sm={12} xs={12}>
           <MiniNavbar />
           <div className="login_form">
             <SignInUpShared />
@@ -24,7 +24,7 @@ function Register() {
             </p>
           </div>
         </Col>
-        <Col md={7} className="d-none d-md-block">
+        <Col lg={7} md={12} sm={12} xs={12} className="d-none d-md-block">
           <div className="sign-img_bg register_img_bg">
             <img src="images/register_bg_img.png" alt="wasla_login_img" />
           </div>

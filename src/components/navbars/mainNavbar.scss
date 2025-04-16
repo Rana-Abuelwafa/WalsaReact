@@ -97,4 +97,7 @@ body[dir="rtl"] .userCol {
   width: 45%;
   height: 90px;
   padding: 5px 90px !important;
+  @media only screen and (max-width: 1200px) {
+    width: 100%;
+  }
 }

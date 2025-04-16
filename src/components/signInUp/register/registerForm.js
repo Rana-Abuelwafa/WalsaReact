@@ -93,39 +93,42 @@ function RegisterForm() {
   return (
     <Form onSubmit={signin} noValidate>
       <Row className="mb-3">
-        <Form.Group as={Col}>
-          <Form.Label>{t("Register.firstname")}</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder={t("Register.firstname")}
-            className="formInput"
-            required
-            name="FirstName"
-            onChange={fillFormData}
-          />
-          {errors.firstname && (
-            <Form.Text type="invalid" className="errorTxt">
-              {errors.firstname}
-            </Form.Text>
-          )}
-        </Form.Group>
-
-        <Form.Group as={Col}>
-          <Form.Label>{t("Register.lastname")}</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder={t("Register.lastname")}
-            className="formInput"
-            required
-            name="LastName"
-            onChange={fillFormData}
-          />
-          {errors.lastname && (
-            <Form.Text type="invalid" className="errorTxt">
-              {errors.lastname}
-            </Form.Text>
-          )}
-        </Form.Group>
+        <Col lg={6} md={12} sm={12} xs={12}>
+          <Form.Group>
+            <Form.Label>{t("Register.firstname")}</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder={t("Register.firstname")}
+              className="formInput"
+              required
+              name="FirstName"
+              onChange={fillFormData}
+            />
+            {errors.firstname && (
+              <Form.Text type="invalid" className="errorTxt">
+                {errors.firstname}
+              </Form.Text>
+            )}
+          </Form.Group>
+        </Col>
+        <Col lg={6} md={12} sm={12} xs={12}>
+          <Form.Group>
+            <Form.Label>{t("Register.lastname")}</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder={t("Register.lastname")}
+              className="formInput"
+              required
+              name="LastName"
+              onChange={fillFormData}
+            />
+            {errors.lastname && (
+              <Form.Text type="invalid" className="errorTxt">
+                {errors.lastname}
+              </Form.Text>
+            )}
+          </Form.Group>
+        </Col>
       </Row>
       {/* <Form.Group>
         <Form.Label>{t("Register.username")}</Form.Label>
@@ -164,56 +167,61 @@ function RegisterForm() {
         </Form.Control.Feedback> */}
       </Form.Group>
       <Row className="mb-3">
-        <Form.Group as={Col}>
-          <Form.Label>{t("Login.password")}</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder={t("Login.password")}
-            required
-            name="password"
-            className="formInput"
-            minLength={6}
-            //onChange={handlePasswordChange}
-            onChange={fillFormData}
-            // isInvalid={formData.password.length < 6}
-          />
-          {errors.password && (
-            <Form.Text type="invalid" className="errorTxt">
-              {errors.password}
-            </Form.Text>
-          )}
-          {/* <Form.Control.Feedback type="invalid">
+        <Col lg={6} md={12} sm={12} xs={12}>
+          <Form.Group>
+            <Form.Label>{t("Login.password")}</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder={t("Login.password")}
+              required
+              name="password"
+              className="formInput"
+              minLength={6}
+              //onChange={handlePasswordChange}
+              onChange={fillFormData}
+              // isInvalid={formData.password.length < 6}
+            />
+            {errors.password && (
+              <Form.Text type="invalid" className="errorTxt">
+                {errors.password}
+              </Form.Text>
+            )}
+            {/* <Form.Control.Feedback type="invalid">
             {t("Login.PasswordError")}
           </Form.Control.Feedback> */}
-        </Form.Group>
-
-        <Form.Group as={Col}>
-          <Form.Label>{t("Register.confirmPassword")}</Form.Label>
-          <Form.Control
-            required
-            type="password"
-            placeholder={t("Register.confirmPassword")}
-            name="ConfirmPassword"
-            className="formInput"
-            minLength={6}
-            //onChange={handleConfirmPasswordChange}
-            onChange={fillFormData}
-            // isInvalid={
-            //   validated && formData.password !== formData.ConfirmPassword
-            // }
-          />
-          {errors.ConfirmPassword && (
-            <Form.Text className="errorTxt">{errors.ConfirmPassword}</Form.Text>
-          )}
-          {/* {isMatch == false ? (
+          </Form.Group>
+        </Col>
+        <Col lg={6} md={12} sm={12} xs={12}>
+          <Form.Group>
+            <Form.Label>{t("Register.confirmPassword")}</Form.Label>
+            <Form.Control
+              required
+              type="password"
+              placeholder={t("Register.confirmPassword")}
+              name="ConfirmPassword"
+              className="formInput"
+              minLength={6}
+              //onChange={handleConfirmPasswordChange}
+              onChange={fillFormData}
+              // isInvalid={
+              //   validated && formData.password !== formData.ConfirmPassword
+              // }
+            />
+            {errors.ConfirmPassword && (
+              <Form.Text className="errorTxt">
+                {errors.ConfirmPassword}
+              </Form.Text>
+            )}
+            {/* {isMatch == false ? (
             <Form.Text className="errorTxt">
               {t("Register.ConfirmPasswordError")}
             </Form.Text>
           ) : null} */}
-          {/* <Form.Control.Feedback type="invalid">
+            {/* <Form.Control.Feedback type="invalid">
             {t("Register.ConfirmPasswordError")}
           </Form.Control.Feedback> */}
-        </Form.Group>
+          </Form.Group>
+        </Col>
       </Row>
       {/* <Form.Group className="mb-3">
         <Form.Label className="formLabel">{t("Login.password")}</Form.Label>

@@ -23,7 +23,7 @@ function SignInUpShared(props) {
 
           <GoogleLoginButton />
 
-          <FacebookLoginButton />
+          {/* <FacebookLoginButton /> */}
 
           <p className="or_line_tit">
             <span className="or_line"></span>

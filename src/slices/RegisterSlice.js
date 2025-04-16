@@ -86,7 +86,7 @@ export const saveQuesList = createAsyncThunk(
     // const navigate = useNavigate();
     if (checkAUTH()) {
       var response = await axios
-        .post(BASE_URL + "/saveQuesList", payload, {
+        .post(BASE_URL + "/saveRegistrationSteps", payload, {
           headers: AuthHeaders(),
         })
         .then((res) => {

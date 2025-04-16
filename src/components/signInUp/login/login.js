@@ -12,7 +12,7 @@ function Login() {
     <div className="SignSection">
       {/* <Container> */}
       <Row className="justify-content-md-center">
-        <Col md={5} sm={12} xs={12}>
+        <Col lg={5} md={12} sm={12} xs={12}>
           <MiniNavbar />
           <div className="login_form">
             <SignInUpShared login={true} />
@@ -23,7 +23,7 @@ function Login() {
             </p>
           </div>
         </Col>
-        <Col md={7} className="d-none d-sm-block">
+        <Col lg={7} md={12} sm={12} xs={12}>
           <div className="login_img_bg sign-img_bg">
             <img src="images/login_bg_img.png" alt="wasla_login_img" />
           </div>
