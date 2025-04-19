@@ -10,12 +10,12 @@ import Home from "./components/home/home";
 import { ToastContainer } from "react-toastify";
 function App() {
   const currentLang = localStorage.getItem("lang") || "en";
-  useEffect(() => {
-    document.documentElement.setAttribute(
-      "dir",
-      currentLang === "ar" ? "rtl" : "ltr"
-    );
-  }, [currentLang]);
+  // useEffect(() => {
+  //   document.documentElement.setAttribute(
+  //     "dir",
+  //     currentLang === "ar" ? "rtl" : "ltr"
+  //   );
+  // }, [currentLang]);
   return (
     <div className="App">
       <BrowserRouter>
