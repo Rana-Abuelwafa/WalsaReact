@@ -53,8 +53,32 @@
   border-radius: 30px;
 }
 
+html, body {
+  transition: all 0.3s ease;
+}
 
-body[dir="rtl"] {
+/* RTL layout adjustments */
+body.rtl {
+  direction: rtl;
+  
+  /* Add any RTL-specific layout fixes here */
+  .container {
+    margin-right: auto;
+    margin-left: 0;
+  }
+  .navbar {
+    flex-direction: row-reverse;
+  }
+
+  .dropdown-menu {
+    text-align: right;
+  }
+
+  .btn {
+    float: right;
+  }
+}
+/* body[dir="rtl"] {
   .container {
     direction: rtl;
     text-align: right;
@@ -71,4 +95,4 @@ body[dir="rtl"] {
   .btn {
     float: right;
   }
-}
+} */
