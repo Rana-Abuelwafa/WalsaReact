@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { Navbar, Container } from "react-bootstrap";
+import { Navbar } from "react-bootstrap";
 import LanguageDropdown from "../Dropdowns/LanguageDropdown";
 import "./mainNavbar.scss";
 

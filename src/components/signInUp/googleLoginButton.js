@@ -35,7 +35,7 @@ const GoogleLoginButton = (props) => {
 
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
-      // console.log(tokenResponse);
+      console.log(tokenResponse);
       const token = "Bearer " + tokenResponse.access_token;
       const userInfo = await axios.get(
         "https://www.googleapis.com/oauth2/v3/userinfo",

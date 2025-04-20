@@ -8,14 +8,7 @@ function RegisterationResponse() {
   const { WelcomeMsg } = useSelector((state) => state.register);
   return (
     <div className="registrationMsg centerContainer">
-      <div
-        dangerouslySetInnerHTML={{
-          __html:
-            WelcomeMsg != null
-              ? WelcomeMsg
-              : localStorage.getItem("WelcomeMsg"),
-        }}
-      />
+      <div dangerouslySetInnerHTML={{ __html: WelcomeMsg }} />
       {/* <div>
         <p className="welcomMsgSubTit">
           Dear customer, the form has been submitted to our designers for review
