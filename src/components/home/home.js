@@ -148,16 +148,16 @@ const Home = () => {
               </Row>
             </section>
 
-            <section className="how-work-section text-center">
+            <section className="how-work-section text-center my-15">
               <h5 className="how-work-text">{t("Home.how_it_works")}</h5>
               <h2 className="three-steps-text">{t("Home.three_steps")}</h2>
 
-              <Row className="g-4">
+              <Row className="my-4">
                 <Col md={4}>
-                  <Card className="h-100 p-4 border-0">
+                  <Card className="p-4 border-0">
                     <img src="/images/submit-request.png" alt="Submit Request" className="steps-img-small mb-3" />
                     <h5>{t("Home.submit_request")}</h5>
-                    <p>{t("Home.submit_request_text").split("\n").map((line, index) => (
+                    <p className="text-center">{t("Home.submit_request_text").split("\n").map((line, index) => (
                                             <React.Fragment key={index}>
                                               {line}
                                               <br />
@@ -167,10 +167,10 @@ const Home = () => {
                   </Card>
                 </Col>
                 <Col md={4}>
-                  <Card className="h-100 p-4 border-0">
+                  <Card className="p-4 border-0">
                     <img src="/images/designers-work.png" alt="Designers Work" className="steps-img mb-3" />
                     <h5>{t("Home.designers_work")}</h5>
-                    <p>{t("Home.designers_work_text").split("\n").map((line, index) => (
+                    <p className="text-center">{t("Home.designers_work_text").split("\n").map((line, index) => (
                                             <React.Fragment key={index}>
                                               {line}
                                               <br />
@@ -180,17 +180,15 @@ const Home = () => {
                   </Card>
                 </Col>
                 <Col md={4}>
-                  <Card className="h-100 p-4 border-0">
+                  <Card className="p-4 border-0">
                     <img src="/images/receive-design.png" alt="Receive Design" className="steps-img mb-3" />
                     <h5>{t("Home.receive_design")}</h5>
-                    <p>{t("Home.receive_design_text").split("\n").map((line, index) => (
+                    <p className="text-center">{t("Home.receive_design_text").split("\n").map((line, index) => (
                                             <React.Fragment key={index}>
                                               {line}
                                               <br />
                                             </React.Fragment>
                                           ))}
-                                          <br />
-                                          <br />
                                           </p>  
                   </Card>
                 </Col>
@@ -201,13 +199,13 @@ const Home = () => {
               </Button>
             </section>
 
-            <section className="how-work-section text-center">
+            <section className="how-work-section text-center my-15">
               <h5 className="how-work-text">{t("Home.what_we_offer")}</h5>
               <h2 className="three-steps-text">{t("Home.design_solution")}</h2>
 
-              <Row className="g-4">
+              <Row className="mb-4" >
                 <Col md={6}>
-                  <Card className="h-100 p-4 border-0">
+                  <Card className="p-4 border-0">
                     <Row className="align-items-center">
                       <Col xs={3}>
                         <img src="/images/fast-reliable.png" alt="Fast & Reliable" className="img-fluid offer-img" />
@@ -226,10 +224,10 @@ const Home = () => {
                   </Card>
                 </Col>
                 <Col md={6}>
-                  <Card className="h-100 p-4 border-0">
+                  <Card className="p-4 border-0">
                     <Row className="align-items-center">
                       <Col xs={3}>
-                        <img src="/images/integrated-brand.png" alt="Integrated Brand" className="img-fluid offer-img" />
+                        <img src="/images/integrated-brand.png" alt="Integrated Brand" className="img-fluid offer-img no-flip" />
                       </Col>
                       <Col xs={9} className="offer-Text">
                         <h5>{t("Home.integrated_brand")}</h5>
@@ -248,7 +246,7 @@ const Home = () => {
                 </Row>
                 <Row className="mb-4">
                   <Col md={6}>
-                  <Card className="h-100 p-4 border-0">
+                  <Card className="p-4 border-0">
                     <Row className="align-items-center">
                       <Col xs={3}>
                         <img src="/images/collaborative-team.png" alt="Collaborative Team" className="img-fluid offer-img" />
@@ -267,7 +265,7 @@ const Home = () => {
                   </Card>
                 </Col>
                 <Col md={6}>
-                  <Card className="h-100 p-4 border-0">
+                  <Card className="p-4 border-0">
                     <Row className="align-items-center">
                       <Col xs={3}>
                         <img src="/images/budget-flexible.png" alt="Budget Flexible" className="img-fluid offer-img" />

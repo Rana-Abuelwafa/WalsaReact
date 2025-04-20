@@ -190,3 +190,17 @@
     }
   }
 }
+
+.navbar-mini {
+  background-color: white;
+  width: 45%;
+  height: 90px;
+  padding: 5px 90px !important;
+  .logo{
+    height: 35px;
+    width: 135px;
+  }
+  @media only screen and (max-width: 1200px) {
+    width: 100%;
+  }
+}

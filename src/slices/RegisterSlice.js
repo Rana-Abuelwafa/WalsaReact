@@ -8,7 +8,7 @@ import { history } from "../index";
 // const BASE_URL = "https://localhost:7283/api/WaslaClient";
 const BASE_URL_AUTH = process.env.REACT_APP_AUTH_API_URL;
 const BASE_URL = process.env.REACT_APP_API_URL;
-//console.log("BASE_URL_AUTH ", BASE_URL_AUTH);
+console.log("BASE_URL_AUTH ", BASE_URL_AUTH);
 const initialState = {
   Quesions: [],
   Token: "",
@@ -226,14 +226,12 @@ const registerSlice = createSlice({
     });
     builder.addCase(saveQuesList.fulfilled, (state, { payload }) => {
       state.WelcomeMsg = payload.WelcomeMsg;
-      localStorage.setItem("WelcomeMsg", payload.WelcomeMsg);
       state.loading = false;
       state.errors = payload.errors;
       state.isSuccessed = payload.success;
     });
     builder.addCase(saveQuesList.rejected, (state, { payload }) => {
       state.WelcomeMsg = payload.WelcomeMsg;
-      localStorage.setItem("WelcomeMsg", payload.WelcomeMsg);
       state.loading = false;
       state.errors = payload.errors;
       state.isSuccessed = payload.success;

@@ -19,7 +19,7 @@
       color: #542D72;
       cursor: pointer;
       transition: color 0.2s ease;
-      
+     
       &:hover {
         color: #B181D6;
       }
@@ -86,6 +86,9 @@
     }
     .dropdown-card {
       text-align: right;
+    }
+    .menu-icon{
+      transform: scaleX(-1);
     }
   }
 }

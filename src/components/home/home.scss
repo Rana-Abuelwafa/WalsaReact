@@ -129,6 +129,21 @@ body {
     text-align: right;
   }
   
+  .illustration,
+  .service-img,
+  .service-img2,
+  .identity-img,
+  .steps-img,
+  .steps-img-small,
+  .offer-img {
+    transform: scaleX(-1); // This flips the image horizontally
+  }
+
+  // Specific adjustments for certain images if needed
+  .hero-button {
+    // No flip for buttons
+    transform: none !important;
+  }
   // Force center alignment on mobile for RTL
   @media (max-width: 768px) {
     .hero-heading, 
@@ -176,19 +191,19 @@ body {
 
 .cta-button {
   margin-top: 10px;
-  background: transparent;
-  border: 1px solid #B181D6;
+  background: transparent !important;
+  border: 1px solid #B181D6 !important;
   font-size: 28px;
   font-weight: bold;
   padding: 15px 40px;
   border-radius: 50px;
-  color: #542D72;
+  color: #542D72 !important;
 
   &:hover,
   &:focus {
-    background: transparent;
-    color: #542D72;
-    border: 1px solid #B181D6;
+    background: transparent !important;
+    color: #542D72 !important;
+    border: 1px solid #B181D6 !important;
   }
 
   @media (max-width: 768px) {
@@ -203,6 +218,7 @@ body {
 .illustration {
   max-width: 90%;
   height: auto;
+  transition: transform 0.3s ease;
 }
 
 // Services Section
@@ -331,7 +347,7 @@ body {
 .service-img {
   max-width: 60%;
   height: auto;
-
+  transition: transform 0.3s ease;
   @media (max-width: 768px) {
     max-width: 100%;
     margin-bottom: 20px;
@@ -342,7 +358,7 @@ body {
   margin-top: 0;
   max-width: 70%;
   height: auto;
-
+  transition: transform 0.3s ease;
   @media (max-width: 768px) {
     margin-top: 20px;
     max-width: 100%;
@@ -368,7 +384,7 @@ body {
 .identity-img {
   max-width: 90%;
   height: auto;
-
+  transition: transform 0.3s ease;
   [dir="rtl"] & {
     margin-left: 0;
     margin-right: 10px;
@@ -379,7 +395,7 @@ body {
 .hero-container {
   position: relative;
   width: 100%;
-  height: 600px;
+  height: 700px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -390,7 +406,6 @@ body {
   
   [dir="rtl"] & {
     background-image: url(/imgs/wasla-bg-rtl.png);
-    background-position: left center;
   }
   
   @media (max-width: 992px) {
@@ -423,8 +438,8 @@ body {
 
   [dir="rtl"] & {
     margin-left: 0;
-    margin-right: 280px;
-    text-align: right;
+    margin-right: 330px;
+    text-align: center;
   }
 
   @media (max-width: 992px) {
@@ -500,7 +515,12 @@ body {
   @media (max-width: 768px) {
     margin: 80px 0;
   }
-
+  .row{
+    margin-right: 6.5rem !important;
+    &[dir="rtl"] {
+      margin-left: 6.5rem !important;
+    }
+  }
   .how-work-text {
     font-size: 24px;
     font-weight: bold;
@@ -555,12 +575,14 @@ body {
     width: 56px;
     height: auto;
     margin: auto;
+    transition: transform 0.3s ease;
   }
 
   .steps-img {
     width: 70px;
     height: auto;
     margin: auto;
+    transition: transform 0.3s ease;
   }
 
   .pickup-btn {
@@ -575,6 +597,7 @@ body {
     max-width: 100%;
     height: auto;
     margin: auto;
+    transition: transform 0.3s ease;
   }
 
   .offer-Text {
@@ -613,4 +636,9 @@ body {
   .text-left, .text-right, .text-start, .text-end {
     text-align: center !important;
   }
+}
+
+
+.no-flip {
+  transform: none !important;
 }

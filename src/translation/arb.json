@@ -14,7 +14,7 @@
     "PasswordError": "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل"
   },
   "Register": {
-    "HeaderTitle": " ابقَ على تواصل مع",
+    "HeaderTitle": "ابقَ على تواصل مع",
     "Client": "عملائك",
     "HeaderSubTitle": "احصل على أفضل العروض لأول 90 يومًا.",
     "CreateAccount": "إنشاء حساب",
