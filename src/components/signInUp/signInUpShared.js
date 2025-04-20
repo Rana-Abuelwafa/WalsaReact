@@ -20,19 +20,17 @@ function SignInUpShared(props) {
             <span>{t("Register.Client")}</span>
           </h2>
           <p>{t("Register.HeaderSubTitle")}</p>
-
-          <GoogleLoginButton />
-
-          {/* <FacebookLoginButton /> */}
-
-          <p className="or_line_tit">
-            <span className="or_line"></span>
-            <span>{t("Login.Or")}</span>
-            <span className="or_line"></span>
-          </p>
         </>
       )}
+      <GoogleLoginButton login={props.login} />
 
+      {/* <FacebookLoginButton /> */}
+
+      <p className="or_line_tit">
+        <span className="or_line"></span>
+        <span>{t("Login.Or")}</span>
+        <span className="or_line"></span>
+      </p>
       {/* <Button
         // type="submit"
         //disabled={this.state.progressVariant == "danger" || this.state.userErr}

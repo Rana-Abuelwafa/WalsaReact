@@ -10,19 +10,19 @@ const MiniNavbar = () => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
     <Navbar fixed="top" className="navbar-mini">
-      <Container fluid>
+      <Container>
         <Navbar.Brand href="/" className="brand">
-          <img 
-            src="logo/wasla logo.png" 
-            alt="Logo" 
-            className="logo" 
-            style={{ width: isMobile ? '100px' : '135px' }}
+          <img
+            src="logo/wasla logo.png"
+            alt="Logo"
+            className="logo"
+            style={{ width: isMobile ? "100px" : "135px" }}
           />
         </Navbar.Brand>
         <div className="ms-auto d-flex align-items-center">
