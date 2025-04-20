@@ -35,9 +35,9 @@ const Home = () => {
           <SaleNavbar />
           <Container fluid className="content-section">
             {/* Hero Section */}
-            <section className="hero-section">
+            <section className="hero-section" dir={t("dir")}>
               <Row className="align-items-center">
-                <Col lg={6} className="order-lg-1 order-2 text-center text-lg-start">
+                <Col lg={6} className={`order-lg-1 order-2 text-lg-${t("dir") === "rtl" ? "end" : "start"}`}>
                   <h1 className="hero-heading">
                     {t("Home.heroTitle1")} {t("Home.heroTitle2")} <br /><span className="highlight">{t("Home.heroHighlight")}</span>
                   </h1>

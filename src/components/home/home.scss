@@ -20,13 +20,16 @@
   background: linear-gradient(180deg, #522C70, #00BC82, #2A1739);
 }
 
-// Global Styles - Exact match
-body[lang="en"] {
+// Global Styles
+body {
   font-family: 'Roboto', sans-serif;
   background-color: #ffffff;
+  &[dir="rtl"] {
+    text-align: right;
+  }
 }
 
-// Content Section - Exact match with responsive additions
+// Content Section
 .content-section {
   margin: 0 50px;
   align-content: center;
@@ -37,7 +40,7 @@ body[lang="en"] {
   }
 }
 
-// Hero Section - Exact match with responsive additions
+// Hero Section
 .hero-section {
   padding: 10px;
   margin-top: 180px;
@@ -50,8 +53,94 @@ body[lang="en"] {
   @media (max-width: 768px) {
     margin-top: 100px;
   }
+
+  .row {
+    &[dir="rtl"] {
+      flex-direction: row-reverse;
+    }
+  }
+  
+}
+// Hero Section - RTL modifications
+.hero-section {
+  padding: 10px;
+  margin-top: 180px;
+  background: white;
+
+  @media (max-width: 992px) {
+    margin-top: 120px;
+  }
+
+  @media (max-width: 768px) {
+    margin-top: 100px;
+  }
+  .row {
+    &[dir="rtl"] {
+      flex-direction: row-reverse;
+    }
+  }
+  // RTL specific styles
+  &[dir="rtl"] {
+    text-align: right;
+    
+    .hero-heading {
+      text-align: right;
+    }
+    
+    .service-description {
+      text-align: right;
+    }
+    
+    .cta-button {
+      margin-right: 0;
+      margin-left: auto;
+      
+      @media (max-width: 768px) {
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  }
+
+  // Mobile responsive for both LTR and RTL
+  @media (max-width: 768px) {
+    text-align: center;
+    
+    .hero-heading,
+    .service-description {
+      text-align: center !important;
+    }
+    
+    .cta-button {
+      margin-right: auto !important;
+      margin-left: auto !important;
+    }
+  }
 }
 
+// Additional RTL text alignment
+[dir="rtl"] {
+  .hero-heading, 
+  .hero-text,
+  .service-title,
+  .service-description,
+  .design-title,
+  .design-description {
+    text-align: right;
+  }
+  
+  // Force center alignment on mobile for RTL
+  @media (max-width: 768px) {
+    .hero-heading, 
+    .hero-text,
+    .service-title,
+    .service-description,
+    .design-title,
+    .design-description {
+      text-align: center !important;
+    }
+  }
+}
 .hero-heading {
   line-height: 80px;
   font-size: 50px;
@@ -66,6 +155,7 @@ body[lang="en"] {
   @media (max-width: 768px) {
     font-size: 32px;
     line-height: 48px;
+    text-align: center;
   }
 }
 
@@ -104,16 +194,18 @@ body[lang="en"] {
   @media (max-width: 768px) {
     font-size: 22px;
     padding: 12px 30px;
+    display: block;
+    margin: 20px auto;
   }
 }
 
-// Illustration - Exact match
+// Illustration
 .illustration {
   max-width: 90%;
   height: auto;
 }
 
-// Services Section - Exact match with responsive additions
+// Services Section
 .services-section,
 .market-section {
   padding: 10px;
@@ -130,9 +222,15 @@ body[lang="en"] {
   align-items: center;
   margin-top: 60px;
 
+  &[dir="rtl"] {
+    flex-direction: row-reverse;
+    text-align: right;
+  }
+
   @media (max-width: 768px) {
     flex-direction: column;
     margin-top: 40px;
+    text-align: center !important;
   }
 }
 
@@ -182,6 +280,7 @@ body[lang="en"] {
   @media (max-width: 768px) {
     font-size: 28px;
     line-height: 48px;
+    text-align: center;
   }
 }
 
@@ -199,6 +298,7 @@ body[lang="en"] {
   @media (max-width: 768px) {
     font-size: 20px;
     line-height: 36px;
+    text-align: center;
   }
 }
 
@@ -211,6 +311,7 @@ body[lang="en"] {
   @media (max-width: 768px) {
     font-size: 28px;
     line-height: 48px;
+    text-align: center;
   }
 }
 
@@ -223,6 +324,7 @@ body[lang="en"] {
   @media (max-width: 768px) {
     font-size: 20px;
     line-height: 36px;
+    text-align: center;
   }
 }
 
@@ -232,6 +334,7 @@ body[lang="en"] {
 
   @media (max-width: 768px) {
     max-width: 100%;
+    margin-bottom: 20px;
   }
 }
 
@@ -241,16 +344,27 @@ body[lang="en"] {
   height: auto;
 
   @media (max-width: 768px) {
-    margin-top: 0;
+    margin-top: 20px;
+    max-width: 100%;
   }
 }
 
 .design-text {
   margin-top: 0;
+  
+  @media (max-width: 768px) {
+    text-align: center !important;
+  }
 }
-.design-left{
-  margin-top: -10%;;
+
+.design-left {
+  margin-top: -10%;
+  
+  @media (max-width: 768px) {
+    margin-top: 20px;
+  }
 }
+
 .identity-img {
   max-width: 90%;
   height: auto;
@@ -261,8 +375,7 @@ body[lang="en"] {
   }
 }
 
-// Hero Container - Exact match with responsive additions
-
+// Hero Container
 .hero-container {
   position: relative;
   width: 100%;
@@ -276,8 +389,10 @@ body[lang="en"] {
   background-image: url(/imgs/wasla-bg.png);
   
   [dir="rtl"] & {
-    background-image: url(/imgs/wasla-bg-rtl.png); // Pre-flipped version
+    background-image: url(/imgs/wasla-bg-rtl.png);
+    background-position: left center;
   }
+  
   @media (max-width: 992px) {
     height: 500px;
     background-size: 90% 100%;
@@ -286,6 +401,7 @@ body[lang="en"] {
   @media (max-width: 768px) {
     height: 400px;
     background-size: cover;
+    background-position: center;
   }
 }
 
@@ -305,25 +421,28 @@ body[lang="en"] {
     font-size: 36px;
   }
 
+  [dir="rtl"] & {
+    margin-left: 0;
+    margin-right: 280px;
+    text-align: right;
+  }
+
   @media (max-width: 992px) {
     margin-left: 180px;
     width: 70%;
+    
+    [dir="rtl"] & {
+      margin-left: 0;
+      margin-right: 180px;
+    }
   }
 
   @media (max-width: 768px) {
     margin-left: 0;
     width: 90%;
-  }
-
-  [dir="rtl"] & {
-    margin-left: 0;
-    margin-right: 280px;
-
-    @media (max-width: 992px) {
-      margin-right: 180px;
-    }
-
-    @media (max-width: 768px) {
+    text-align: center;
+    
+    [dir="rtl"] & {
       margin-right: 0;
     }
   }
@@ -347,6 +466,11 @@ body[lang="en"] {
     background: #3a1d52;
   }
 
+  [dir="rtl"] & {
+    left: auto;
+    right: 24%;
+  }
+
   @media (max-width: 992px) {
     font-size: 24px;
   }
@@ -355,26 +479,24 @@ body[lang="en"] {
     font-size: 20px;
     left: 50%;
     transform: translateX(-50%);
-  }
-
-  [dir="rtl"] & {
-    left: auto;
-    right: 24%;
-
-    @media (max-width: 768px) {
-      right: 50%;
-      transform: translateX(50%);
+    
+    [dir="rtl"] & {
+      right: auto;
+      left: 50%;
+      transform: translateX(-50%);
     }
   }
 }
 
-// How Work Section - Exact match with responsive additions
+// How Work Section
 .how-work-section {
   margin: 120px 0;
+  
   > * {
     text-align: center;
     justify-content: center;
   }
+  
   @media (max-width: 768px) {
     margin: 80px 0;
   }
@@ -422,6 +544,10 @@ body[lang="en"] {
       font-size: 14px;
       color: #542D72;
       line-height: 30px;
+      
+      [dir="rtl"] & {
+        text-align: right;
+      }
     }
   }
 
@@ -458,140 +584,33 @@ body[lang="en"] {
     [dir="rtl"] & {
       text-align: right;
     }
+    
+    @media (max-width: 768px) {
+      text-align: center !important;
+      
+      [dir="rtl"] & {
+        text-align: center !important;
+      }
+    }
   }
 }
 
-// Directions - Enhanced RTL/LTR support
-/* Default LTR Styles */
-.content-section {
-  text-align: left;
-  direction: ltr;
-}
-
-.hero-section {
-  text-align: left;
-}
-
-.service-item {
-  text-align: left;
-}
-
-.design-text {
-  text-align: left;
-}
-
-.how-work-section {
-  text-align: center;
-}
-
-// /* RTL Support */
-// body[dir="rtl"] {
-//   .content-section {
-//     text-align: right;
-//     direction: rtl;
-//   }
-
-//   .hero-section {
-//     text-align: right;
-//   }
-
-//   .service-item {
-//     text-align: right;
-//     flex-direction: row-reverse;
-//   }
-
-//   .design-text {
-//     text-align: right;
-//   }
-
-//   .how-work-section {
-//     text-align: center;
-//   }
-
-//   .contact-designers .service-item {
-//     flex-direction: row-reverse;
-//   }
-
-//   .three-steps-text,
-//   .how-work-text {
-//     text-align: center;
-//   }
-
-//   .hero-container {
-//     text-align: right;
-//   }
-
-//   .hero-button {
-//     float: right;
-//   }
-
-//   .service-icon {
-//     margin-right: 0;
-//     margin-left: 20px;
-//   }
-
-//   .identity-img {
-//     margin-left: 0;
-//     margin-right: 10px;
-//   }
-
-
-//   /* Hero Section - Image Left/Text Right */
-//   .hero-section {
-//     .row {
-//       flex-direction: row-reverse;
-      
-//       > div:first-child {
-//         order: 2; // Text column to right
-//         text-align: right;
-//       }
-      
-//       > div:last-child {
-//         order: 1; // Image column to left
-//       }
-//     }
-//   }
-
-//   /* Services Sections - Image Left/Text Right */
-//   .service-item,
-//   .contact-designers .service-item {
-//     > div:first-child {
-//       order: 2; // Text column to right
-//     }
+// Market Section specific adjustments
+.market-section {
+  .service-item {
+    &[dir="rtl"] {
+      flex-direction: row-reverse;
+    }
     
-//     > div:last-child {
-//       order: 1; // Image column to left
-//     }
-//   }
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
+}
 
-//   /* Hero Container (Last Section) - Image Left/Text Right */
-//   .hero-container {
-//     background-position: left center;
-    
-//     .hero-content {
-//       margin-right: 280px;
-//       margin-left: 0;
-//       text-align: right;
-      
-//       @media (max-width: 992px) {
-//         margin-right: 180px;
-//       }
-      
-//       @media (max-width: 768px) {
-//         margin-right: 0;
-//       }
-//     }
-//   }
-
-//   /* Market Section - Image Left/Text Right */
-//   .market-section .service-item {
-//     > div:first-child {
-//       order: 2; // Text column to right
-//     }
-    
-//     > div:last-child {
-//       order: 1; // Image column to left
-//     }
-//   }
-// }
-
+// Responsive text alignment fixes
+@media (max-width: 768px) {
+  .text-left, .text-right, .text-start, .text-end {
+    text-align: center !important;
+  }
+}
