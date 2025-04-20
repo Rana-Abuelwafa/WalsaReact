@@ -94,9 +94,11 @@ body[dir="rtl"] .userCol {
 
 .navbar-mini {
   background-color: white;
-  width: 45%;
+  // width: 45%;
+  width: 100%;
   height: 90px;
   padding: 5px 90px !important;
+  direction: ltr !important;
   @media only screen and (max-width: 1200px) {
     width: 100%;
   }

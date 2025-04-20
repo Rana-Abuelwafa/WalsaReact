@@ -43,6 +43,7 @@
     height: 100%;
     width: 100%;
     padding: 20px;
+    margin-top: 30px;
     //background-position: center;
     // display: flex;
     justify-content: center;
@@ -120,11 +121,15 @@
   background-size: contain;
   text-align: center;
   background-repeat: no-repeat;
+  padding: 0 10px;
 
   p {
     font-weight: 500;
     font-size: 30px;
     max-width: 800px;
     margin: 0 auto;
+    @media only screen and (max-width: 992px) {
+      font-size: 20px;
+    }
   }
 }

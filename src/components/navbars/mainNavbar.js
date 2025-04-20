@@ -19,7 +19,7 @@ const MainNavbar = () => {
   };
   useEffect(() => {
     const userLocal = localStorage.getItem("user");
-    console.log("lllll  ", userLocal);
+  //  console.log("lllll  ", userLocal);
     if (userLocal != null) {
       const user = JSON.parse(localStorage.getItem("user"));
       if (user != null) {

@@ -35,7 +35,7 @@ const GoogleLoginButton = () => {
 
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
-      console.log(tokenResponse);
+      // console.log(tokenResponse);
       const token = "Bearer " + tokenResponse.access_token;
       const userInfo = await axios.get(
         "https://www.googleapis.com/oauth2/v3/userinfo",
@@ -48,7 +48,7 @@ const GoogleLoginButton = () => {
         let data = {
           payload: {
             FirstName: given_name,
-            LastName: family_name,
+            LastName: family_name != null ? family_name : given_name,
             email: email,
           },
           path: "/ExternalRegister",

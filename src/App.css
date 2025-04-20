@@ -1,3 +1,4 @@
+
 .custom-navbar {
   padding: 1rem 0;
   border-bottom: 1px solid #ddd;
@@ -53,8 +54,7 @@
   border-radius: 30px;
 }
 
-
-body[dir="rtl"] {
+/* body[dir="rtl"] {
   .container {
     direction: rtl;
     text-align: right;
@@ -71,4 +71,4 @@ body[dir="rtl"] {
   .btn {
     float: right;
   }
-}
+} */
