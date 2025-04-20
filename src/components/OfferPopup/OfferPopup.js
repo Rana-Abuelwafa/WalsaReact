@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
 import { useTranslation } from "react-multi-lang";
@@ -7,7 +7,7 @@ import popupImage from "../../imgs/popup-image.png"; // Update the path
 
 const OfferPopup = () => {
   const navigate = useNavigate();
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
   const t = useTranslation(); 
 
   const handleClose = () => setShow(false);
@@ -15,7 +15,12 @@ const OfferPopup = () => {
     setShow(false);
     navigate("/login");
   }
-
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (!user) {
+      setShow(true); // show popup if no user
+    }
+  }, []);
   return (
     <Modal show={show} onHide={handleClose} centered className="offer-popup">
       <Modal.Body className="text-center">

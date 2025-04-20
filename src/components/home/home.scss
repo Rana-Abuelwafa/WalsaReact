@@ -1,47 +1,55 @@
 @import "bootstrap/scss/bootstrap";
-/* Narrow Scrollbar */
+
+/* Narrow Scrollbar - Exact match */
 ::-webkit-scrollbar {
-  width: 6px; /* Adjust width for vertical scrollbar */
-  height: 6px; /* Adjust height for horizontal scrollbar */
+  width: 6px;
+  height: 6px;
 }
 
-/* Scrollbar Track */
 ::-webkit-scrollbar-track {
   background: #f1f1f1;
   border-radius: 10px;
 }
 
-/* Scrollbar Handle */
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(
-    180deg,
-    #2a1739,
-    #522c70,
-    #00bc82
-  ); /* Gradient handle */
+  background: linear-gradient(180deg, #2a1739, #522c70, #00bc82);
   border-radius: 10px;
 }
 
-/* Scrollbar Handle on Hover */
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(180deg, #522c70, #00bc82, #2a1739);
 }
 
-// Global Styles
-body {
-  //font-family: 'Roboto', sans-serif;
+// Global Styles - Exact match
+body[lang="en"] {
+  font-family: "Roboto", sans-serif;
   background-color: #ffffff;
 }
-// Hero Section
+
+// Content Section - Exact match with responsive additions
 .content-section {
   margin: 0 50px;
   align-content: center;
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    margin: 0 20px;
+  }
 }
+
+// Hero Section - Exact match with responsive additions
 .hero-section {
   padding: 10px;
   margin-top: 180px;
   background: white;
+
+  @media (max-width: 992px) {
+    margin-top: 120px;
+  }
+
+  @media (max-width: 768px) {
+    margin-top: 100px;
+  }
 }
 
 .hero-heading {
@@ -49,6 +57,16 @@ body {
   font-size: 50px;
   font-weight: bold;
   color: #542d72;
+
+  @media (max-width: 992px) {
+    font-size: 40px;
+    line-height: 60px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 32px;
+    line-height: 48px;
+  }
 }
 
 .hero-heading .highlight {
@@ -59,11 +77,11 @@ body {
   color: #816f8f;
   font-size: 22px;
   line-height: 32px;
-}
 
-.countdown {
-  font-weight: bold;
-  color: #000;
+  @media (max-width: 768px) {
+    font-size: 18px;
+    line-height: 28px;
+  }
 }
 
 .cta-button {
@@ -75,26 +93,27 @@ body {
   padding: 15px 40px;
   border-radius: 50px;
   color: #542d72;
+
   &:hover,
   &:focus {
     background: transparent;
     color: #542d72;
     border: 1px solid #b181d6;
   }
+
+  @media (max-width: 768px) {
+    font-size: 22px;
+    padding: 12px 30px;
+  }
 }
 
-// Illustration
-.illustration-container {
-  text-align: center;
-}
-
+// Illustration - Exact match
 .illustration {
-  // padding-right:10px;
-  max-width: 100%;
+  max-width: 90%;
   height: auto;
 }
 
-// Services Section
+// Services Section - Exact match with responsive additions
 .services-section,
 .market-section {
   padding: 10px;
@@ -110,11 +129,22 @@ body {
   display: flex;
   align-items: center;
   margin-top: 60px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    margin-top: 40px;
+  }
 }
+
 .service-item-designers {
   display: flex;
-  align-items: left;
+  align-items: flex-start;
   margin-left: 10%;
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+    flex-direction: column;
+  }
 }
 
 .service-icon {
@@ -127,6 +157,11 @@ body {
   background: #f8f9fa;
   border-radius: 50%;
   margin-right: 20px;
+
+  [dir="rtl"] & {
+    margin-right: 0;
+    margin-left: 20px;
+  }
 }
 
 .service-content {
@@ -138,44 +173,95 @@ body {
   font-weight: bold;
   color: #542d72;
   line-height: 85px;
+
+  @media (max-width: 992px) {
+    font-size: 32px;
+    line-height: 60px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 28px;
+    line-height: 48px;
+  }
 }
 
 .service-description {
   font-size: 30px;
   color: #542d72;
   line-height: 58px;
-  //letter-spacing: 2px;
+  // letter-spacing: 2px;
+
+  @media (max-width: 992px) {
+    font-size: 24px;
+    line-height: 42px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+    line-height: 36px;
+  }
 }
+
 .design-title {
   font-size: 34px;
   font-weight: bold;
   color: #542d72;
   line-height: 65px;
+
+  @media (max-width: 768px) {
+    font-size: 28px;
+    line-height: 48px;
+  }
 }
 
 .design-description {
   font-size: 28px;
   color: #542d72;
   line-height: 48px;
-  // letter-spacing: 2px;
+  //letter-spacing: 2px;
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+    line-height: 36px;
+  }
 }
+
 .service-img {
   max-width: 60%;
   height: auto;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
 }
+
 .service-img2 {
-  margin-top: -35%;
-  max-width: 100%;
+  margin-top: 0;
+  max-width: 70%;
   height: auto;
+
+  @media (max-width: 768px) {
+    margin-top: 0;
+  }
 }
+
 .design-text {
-  margin-top: 10%;
+  margin-top: 0;
+}
+.design-left {
+  margin-top: -10%;
 }
 .identity-img {
-  margin-left: 10px;
-  max-width: 100%;
+  max-width: 90%;
   height: auto;
+
+  [dir="rtl"] & {
+    margin-left: 0;
+    margin-right: 10px;
+  }
 }
+
+// Hero Container - Exact match with responsive additions
 
 .hero-container {
   position: relative;
@@ -187,6 +273,20 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   background-size: 70% 100%;
+  background-image: url(/imgs/wasla-bg.png);
+
+  [dir="rtl"] & {
+    background-image: url(/imgs/wasla-bg-rtl.png); // Pre-flipped version
+  }
+  @media (max-width: 992px) {
+    height: 500px;
+    background-size: 90% 100%;
+  }
+
+  @media (max-width: 768px) {
+    height: 400px;
+    background-size: cover;
+  }
 }
 
 .hero-content {
@@ -199,9 +299,33 @@ body {
   font-size: 1.5rem;
   font-weight: bold;
   z-index: 1;
+
   h2 {
     line-height: 60px;
     font-size: 36px;
+  }
+
+  @media (max-width: 992px) {
+    margin-left: 180px;
+    width: 70%;
+  }
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+    width: 90%;
+  }
+
+  [dir="rtl"] & {
+    margin-left: 0;
+    margin-right: 280px;
+
+    @media (max-width: 992px) {
+      margin-right: 180px;
+    }
+
+    @media (max-width: 768px) {
+      margin-right: 0;
+    }
   }
 }
 
@@ -222,63 +346,122 @@ body {
   &:hover {
     background: #3a1d52;
   }
+
+  @media (max-width: 992px) {
+    font-size: 24px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  [dir="rtl"] & {
+    left: auto;
+    right: 24%;
+
+    @media (max-width: 768px) {
+      right: 50%;
+      transform: translateX(50%);
+    }
+  }
 }
 
+// How Work Section - Exact match with responsive additions
 .how-work-section {
   margin: 120px 0;
+  > * {
+    text-align: center;
+    justify-content: center;
+  }
+  @media (max-width: 768px) {
+    margin: 80px 0;
+  }
+
   .how-work-text {
     font-size: 24px;
     font-weight: bold;
     color: #00bc82;
     text-transform: uppercase;
+
+    @media (max-width: 768px) {
+      font-size: 20px;
+    }
   }
+
   .three-steps-text {
     font-size: 35px;
     font-weight: bold;
     color: #542d72;
     line-height: 100px;
     margin-bottom: 60px;
+
+    @media (max-width: 768px) {
+      font-size: 28px;
+      line-height: 60px;
+      margin-bottom: 40px;
+    }
   }
+
   .card {
     border-radius: 24px;
-    // text-align: center;
     background-color: #f7f7f7;
+
+    h5 {
+      color: #542d72;
+      line-height: 60px;
+      font-weight: bold;
+
+      @media (max-width: 768px) {
+        line-height: 40px;
+      }
+    }
+
+    p {
+      font-size: 14px;
+      color: #542d72;
+      line-height: 30px;
+    }
   }
+
   .steps-img-small {
-    width: 56px; // Adjust size as needed
+    width: 56px;
     height: auto;
     margin: auto;
   }
+
   .steps-img {
-    width: 70px; // Adjust size as needed
+    width: 70px;
     height: auto;
     margin: auto;
   }
-  .card h5 {
-    color: #542d72;
-    line-height: 60px;
-    font-weight: bold;
-  }
-  .card p {
-    font-size: 14px;
-    color: #542d72;
-    line-height: 30px;
-  }
+
   .pickup-btn {
     margin: 26px auto;
+
+    @media (max-width: 768px) {
+      margin: 20px auto;
+    }
   }
+
   .offer-img {
     max-width: 100%;
     height: auto;
     margin: auto;
   }
+
   .offer-Text {
     text-align: left;
     line-height: 30px;
+
+    [dir="rtl"] & {
+      text-align: right;
+    }
   }
 }
 
-// Directions
+// Directions - Enhanced RTL/LTR support
 /* Default LTR Styles */
 .content-section {
   text-align: left;
@@ -301,44 +484,112 @@ body {
   text-align: center;
 }
 
-/* RTL Support */
-body[dir="rtl"] {
-  .content-section {
-    text-align: right;
-    direction: rtl;
-  }
+// /* RTL Support */
+// body[dir="rtl"] {
+//   .content-section {
+//     text-align: right;
+//     direction: rtl;
+//   }
 
-  .hero-section {
-    text-align: right;
-  }
+//   .hero-section {
+//     text-align: right;
+//   }
 
-  .service-item {
-    text-align: right;
-    flex-direction: row-reverse; /* Reverse row layout */
-  }
+//   .service-item {
+//     text-align: right;
+//     flex-direction: row-reverse;
+//   }
 
-  .design-text {
-    text-align: right;
-  }
+//   .design-text {
+//     text-align: right;
+//   }
 
-  .how-work-section {
-    text-align: center;
-  }
+//   .how-work-section {
+//     text-align: center;
+//   }
 
-  .contact-designers .service-item {
-    flex-direction: row-reverse;
-  }
+//   .contact-designers .service-item {
+//     flex-direction: row-reverse;
+//   }
 
-  .three-steps-text,
-  .how-work-text {
-    text-align: center;
-  }
+//   .three-steps-text,
+//   .how-work-text {
+//     text-align: center;
+//   }
 
-  .hero-container {
-    text-align: right;
-  }
+//   .hero-container {
+//     text-align: right;
+//   }
 
-  .hero-button {
-    float: right;
-  }
-}
+//   .hero-button {
+//     float: right;
+//   }
+
+//   .service-icon {
+//     margin-right: 0;
+//     margin-left: 20px;
+//   }
+
+//   .identity-img {
+//     margin-left: 0;
+//     margin-right: 10px;
+//   }
+
+//   /* Hero Section - Image Left/Text Right */
+//   .hero-section {
+//     .row {
+//       flex-direction: row-reverse;
+
+//       > div:first-child {
+//         order: 2; // Text column to right
+//         text-align: right;
+//       }
+
+//       > div:last-child {
+//         order: 1; // Image column to left
+//       }
+//     }
+//   }
+
+//   /* Services Sections - Image Left/Text Right */
+//   .service-item,
+//   .contact-designers .service-item {
+//     > div:first-child {
+//       order: 2; // Text column to right
+//     }
+
+//     > div:last-child {
+//       order: 1; // Image column to left
+//     }
+//   }
+
+//   /* Hero Container (Last Section) - Image Left/Text Right */
+//   .hero-container {
+//     background-position: left center;
+
+//     .hero-content {
+//       margin-right: 280px;
+//       margin-left: 0;
+//       text-align: right;
+
+//       @media (max-width: 992px) {
+//         margin-right: 180px;
+//       }
+
+//       @media (max-width: 768px) {
+//         margin-right: 0;
+//       }
+//     }
+//   }
+
+//   /* Market Section - Image Left/Text Right */
+//   .market-section .service-item {
+//     > div:first-child {
+//       order: 2; // Text column to right
+//     }
+
+//     > div:last-child {
+//       order: 1; // Image column to left
+//     }
+//   }
+// }

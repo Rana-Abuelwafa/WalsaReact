@@ -1,54 +1,142 @@
-//sale-navbar
-body[dir="rtl"] .sale-navbar {
-  direction: rtl;
+.sale-navbar {
+  margin-top: 90px;
+  padding: 10px 20px !important;
+  background: white;
+  height: auto;
+  min-height: 80px;
+  z-index: 1000 !important;
+  border-bottom: 1px solid #eee;
+  
+  // .container-fluid {
+  //   padding: 0;
+  // }
 }
 
-body[dir="rtl"] .countdown-timer {
-  text-align: left;
+.sale-text {
+  background: linear-gradient(90deg, #2A1739, #00BC82);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 22px;
+  font-weight: bold;
+  font-family: "Arial";
+  white-space: nowrap;
 }
 
-.sale-navbar{
-    margin-top: 90px;
-    padding:10px 50px !important;
-    background: white;
-    height:80px;
-    z-index: 1000 !important;
-  }
-  .sale-text{
-    background: linear-gradient(90deg, #2A1739, #00BC82);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-size:26px;
-    font-weight: bold;
-    font-family:"Arial";
-  }
-  .countdown-timer{
-    color:#542D72;
-    font-weight: bold;
-    font-family:"Roboto";
-    font-size:26px;
-  }
-  .countdown-labels{
-    margin-top:-18px;
-  }
-  .countdown-label{
-    color:#CFC4D8;
+.countdown-timer {
+  color: #542D72;
+  font-weight: bold;
+  font-family: "Roboto";
+  font-size: 22px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.countdown-labels {
+  margin-top: -12px;
+  
+  span {
+    color: #CFC4D8;
     font-weight: 300;
-    font-family:"Arial";
-    font-size:14px;
-    margin-right: 20px;
+    font-family: "Arial";
+    font-size: 12px;
+    margin-right: 15px;
+    display: inline-block;
+    min-width: 25px;
   }
-  .check-button{
-    background: transparent !important;
-    border:1px solid #B181D6 !important;
-    font-size: 18px !important;
-    font-weight:bold !important;
-    margin-right: 23px !important;
-    padding: 10px 42px !important;
-    border-radius: 50px !important;
-    color: #542D72 !important;
-    &:hover {
-      background: transparent !important;
-      color: #542D72 !important;
+}
+
+.check-button {
+  background: transparent !important;
+  border: 1px solid #B181D6 !important;
+  font-size: 16px !important;
+  font-weight: bold !important;
+  padding: 8px 25px !important;
+  border-radius: 50px !important;
+  color: #542D72 !important;
+  float: right;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba(177, 129, 214, 0.1) !important;
+  }
+}
+
+// RTL/LTR specific styles
+[dir="rtl"] {
+  .sale-navbar {
+    .countdown-labels span {
+      margin-right: 0;
+      margin-left: 15px;
+    }
+    
+    .check-button {
+      float: left;
     }
   }
+}
+
+// Responsive styles
+@media (max-width: 992px) {
+  .sale-navbar {
+    margin-top: 90px !important;
+    padding: 15px !important;
+    
+    .sale-text {
+      font-size: 18px;
+    }
+    
+    .countdown-timer {
+      font-size: 18px;
+    }
+    
+    .check-button {
+      padding: 6px 15px !important;
+      font-size: 14px !important;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .sale-navbar {
+    min-height: auto;
+    padding: 10px !important;
+    margin-top: 80px !important;
+    
+    .row > div {
+      margin-bottom: 10px;
+      text-align: center !important;
+    }
+    
+    .sale-text {
+      font-size: 16px;
+      white-space: normal;
+    }
+    
+    .countdown-timer {
+      font-size: 16px;
+    }
+    
+    .countdown-labels span {
+      margin-right: 8px;
+      min-width: 30px;
+      font-size: 10px;
+    }
+    
+    .check-button {
+      float: none !important;
+      display: block;
+      margin: 0 auto !important;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .sale-navbar {
+    margin-top: 70px !important;
+    
+    .countdown-labels span {
+      margin-right: 5px;
+      min-width: 25px;
+    }
+  }
+}

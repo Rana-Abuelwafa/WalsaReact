@@ -1,105 +1,192 @@
-// Navbar Styles
-
-body[dir="rtl"] .navbar-custom {
-  direction: rtl;
-}
-
-body[dir="rtl"] .nav-items {
-  margin-right: auto !important;
-  margin-left: 0 !important;
-}
-
-body[dir="rtl"] .userCol {
-  text-align: left;
-}
-.brand {
-  margin-left: 12px;
-  margin-right: 23px !important;
-}
+// Base styles
 .navbar-custom {
   background: white;
-  height: 90px;
-  padding: 10px 50px !important;
-  // z-index:99999 !important;
+  height: auto;
+  min-height: 90px;
+  padding: 10px 20px !important;
   border-bottom: 2px solid #ddd;
   box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.1);
-  // padding: 15px 20px;
+  transition: all 0.3s ease;
+
+  .container-fluid {
+    padding: 0;
+  }
+
+  .logo {
+    width: 135px;
+    height: 35px;
+    transition: all 0.3s ease;
+  }
+
+  .navbar-toggler {
+    border: none;
+    padding: 0.5rem;
+    &:focus {
+      box-shadow: none;
+    }
+  }
 }
 
-.logo {
-  width: 135px;
-  height: 35px;
-  //  margin:15px 20px;
+
+// RTL/LTR specific styles
+[dir="rtl"] {
+  .navbar-custom {
+    .brand {
+      margin-right: 12px;
+      margin-left: 23px;
+    }
+    .nav-items {
+      margin-right: 0 !important;
+      margin-left: auto !important;  // Push to left side in RTL
+    }
+    
+    .nav-icons {
+      margin-right: auto !important;
+      margin-left: 0 !important;
+    }
+    .nav-item {
+      margin-right: 0;
+      margin-left: 15px;
+      text-align: center;
+    }
+    
+    .user-name-col {
+      text-align: right;
+    }
+  }
 }
 
+[dir="ltr"] {
+  .navbar-custom {
+    .brand {
+      margin-left: 12px;
+      margin-right: 23px;
+    }
+
+    .nav-items {
+      margin-right: auto !important;  // Default left-aligned in LTR
+      margin-left: 0 !important;
+    }
+  }
+}
+
+// Nav items
+
+.nav-items,
+.nav-icons {
+  padding-top: 8px;
+}
 .nav-item {
   font-weight: 400;
   font-family: "Arial";
   font-size: 16px;
   color: #542d72;
   margin-right: 15px;
+  padding: 0.5rem 1rem;
+  transition: color 0.3s ease;
+  
   &:hover {
     color: #b181d6;
   }
 }
-.nav-items,
+
+// Icons
 .nav-icons {
-  padding-top: 8px;
-}
-
-.nav-icons .icon {
-  font-size: 32px;
-  color: #542d72;
-  cursor: pointer;
-  margin-right: 15px;
-  &:hover {
-    color: #b181d6;
-  }
-}
-
-// Dropdown Menu
-
-.dropdown-toggle-custom {
-  background: none;
-  border: none;
-  font-size: 20px;
-  &:hover {
-    background: transparent;
-  }
-}
-.dropdown-toggle-custom::after {
-  display: none !important;
-}
-.dropdown-menu-custom {
-  border-radius: 8px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-}
-
-.dropdown-item-custom {
   display: flex;
   align-items: center;
-  font-weight: 500;
+  gap: 15px;
+  
+  .icon {
+    font-size: 24px;
+    color: #542d72;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    margin-right: 15px;
+    &:hover {
+      color: #b181d6;
+    }
+  }
+  
+  .search-icon {
+    margin-right: 0;
+  }
 }
 
-.user {
-  margin-top: 8px !important;
-}
-.userCol {
-  padding: 5px 0 !important;
-}
-.userName {
-  font-size: 16px;
+// User info
+.user-info {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  
+  .user-icon-col {
+    padding: 0;
+  }
+  
+  .user-name-col {
+    padding: 0 0 0 10px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .userName {
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 120px;
+  }
 }
 
-.navbar-mini {
-  background-color: white;
-  // width: 45%;
-  width: 100%;
-  height: 90px;
-  padding: 5px 90px !important;
-  direction: ltr !important;
-  @media only screen and (max-width: 1200px) {
-    width: 100%;
+// Responsive styles
+@media (max-width: 992px) {
+  .navbar-custom {
+    padding: 10px 15px !important;
+    
+    .logo {
+      width: 110px;
+      height: 28px;
+    }
+    
+    .navbar-collapse {
+      background: white;
+      padding: 15px;
+      margin-top: 10px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .nav-item {
+      margin: 5px 0;
+      padding: 8px 0;
+    }
+    
+    .nav-icons {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      
+      .icon {
+        margin: 5px 0;
+      }
+    }
+    
+    .user-info {
+      margin: 5px 0;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar-custom {
+    min-height: 80px;
+    
+    .logo {
+      width: 100px;
+      height: 25px;
+    }
+    
+    .userName {
+      max-width: 80px;
+    }
   }
 }
