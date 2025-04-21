@@ -8,12 +8,14 @@ import { useNavigate } from "react-router-dom";
 import StepComp from "./StepComp";
 import "./RegisterQues.scss";
 import Loader from "../../Loader/Loader";
-import PopUpMsg from "../../shared/PopupMsg";
+import PopUp from "../../shared/popoup/PopUp";
+
 function RegisterQues() {
   const navigate = useNavigate();
   const t = useTranslation();
   const [active, setActive] = useState(1);
   const [quesLst, setQuesLst] = useState([]);
+  const [showAlert, setShowAlert] = useState(false);
   const dispatch = useDispatch();
   const { Quesions, loading, isSuccessed, errors } = useSelector(
     (state) => state.register
@@ -41,11 +43,16 @@ function RegisterQues() {
       setQuesLst([]);
     };
   }, []);
+  const closeAlert = () => {
+    setShowAlert(false);
+  };
   const saveLst = () => {
     dispatch(saveQuesList(quesLst)).then((result) => {
       if (result.payload && result.payload.success) {
         setQuesLst([]);
         navigate("/Response");
+      } else {
+        setShowAlert(true);
       }
     });
   };
@@ -134,8 +141,9 @@ function RegisterQues() {
         ) : null}
       </div>
       {loading ? <Loader /> : null}
-      {isSuccessed != null && isSuccessed == false ? (
-        <PopUpMsg text={errors} show={true} />
+      {showAlert ? (
+        // <PopUpMsg text={errors} show={true} />
+        <PopUp msg={errors} closeAlert={closeAlert} />
       ) : null}
     </Container>
   );

@@ -5,8 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { LoginUser } from "../../../slices/RegisterSlice";
 import Loader from "../../Loader/Loader";
-import PopUpMsg from "../../shared/PopupMsg";
-import Alert from "react-popup-alert";
+import PopUp from "../../shared/popoup/PopUp";
 function LoginForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -32,7 +31,7 @@ function LoginForm() {
     }
     return true;
   };
-  const onCloseAlert = () => {
+  const closeAlert = () => {
     setShowAlert(false);
   };
   const signin = (event) => {
@@ -122,22 +121,7 @@ function LoginForm() {
       </Button>
       {loading ? <Loader /> : null}
       {/* {User != null && User.isSuccessed == false ? ( */}
-      {showAlert ? (
-        <Alert
-          header={t("PopUp.Header")}
-          btnText={t("PopUp.Close")}
-          text={User != null ? User.msg : ""}
-          type={"error"}
-          show={showAlert}
-          onClosePress={onCloseAlert}
-          pressCloseOnOutsideClick={true}
-          showBorderBottom={true}
-          alertStyles={{}}
-          headerStyles={{}}
-          textStyles={{}}
-          buttonStyles={{ backgroundColor: "#00bc82" }}
-        />
-      ) : null}
+      {showAlert ? <PopUp msg={User.msg} closeAlert={closeAlert} /> : null}
       {/* ) : */}
       {/* // <PopUpMsg text={User.msg} show={showAlert} closeAlert={closeAlert} /> */}
       {/* null} */}

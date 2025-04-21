@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useTranslation } from "react-multi-lang";
 import { jwtDecode } from "jwt-decode";
@@ -6,13 +6,14 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RegisterUser, LoginUser } from "../../slices/RegisterSlice";
 import Loader from "../Loader/Loader";
-import PopUpMsg from "../shared/PopupMsg";
 import { Button } from "react-bootstrap";
+import PopUp from "../shared/popoup/PopUp";
 import axios from "axios";
 const GoogleLoginButton = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const t = useTranslation();
+  const [showAlert, setShowAlert] = useState(false);
   const { User, loading } = useSelector((state) => state.register);
 
   const handleLoginSuccess = async (credentialResponse) => {
@@ -32,7 +33,9 @@ const GoogleLoginButton = (props) => {
       }
     });
   };
-
+  const closeAlert = () => {
+    setShowAlert(false);
+  };
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       // console.log(tokenResponse);
@@ -55,7 +58,10 @@ const GoogleLoginButton = (props) => {
           let data = { payload: formData, path: "/LoginGmail" };
           dispatch(LoginUser(data)).then((result) => {
             if (result.payload && result.payload.isSuccessed) {
+              setShowAlert(false);
               navigate(path);
+            } else {
+              setShowAlert(true);
             }
           });
         } else {
@@ -72,7 +78,10 @@ const GoogleLoginButton = (props) => {
           dispatch(RegisterUser(data)).then((result) => {
             if (result.payload && result.payload.isSuccessed) {
               let path = `/Welcome`;
+              setShowAlert(false);
               navigate(path);
+            } else {
+              setShowAlert(true);
             }
           });
         }
@@ -99,9 +108,10 @@ const GoogleLoginButton = (props) => {
         /> */}
       {/* </GoogleOAuthProvider> */}
       {loading ? <Loader /> : null}
-      {User != null && User.isSuccessed == false ? (
+      {showAlert ? <PopUp msg={User.msg} closeAlert={closeAlert} /> : null}
+      {/* {User != null && User.isSuccessed == false ? (
         <PopUpMsg text={User.msg} show={true} />
-      ) : null}
+      ) : null} */}
     </>
   );
 };

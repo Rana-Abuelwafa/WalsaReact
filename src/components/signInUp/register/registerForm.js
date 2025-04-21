@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RegisterUser } from "../../../slices/RegisterSlice";
 import Loader from "../../Loader/Loader";
-import PopUpMsg from "../../shared/PopupMsg";
+import PopUp from "../../shared/popoup/PopUp";
 function RegisterForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -78,11 +78,9 @@ function RegisterForm() {
         }
       });
     }
-    // const form = event.currentTarget;
-    // if (form.checkValidity() === false) {
-    //   event.preventDefault();
-    //   event.stopPropagation();
-    // }
+  };
+  const closeAlert = () => {
+    setShowAlert(false);
   };
   const fillFormData = (e) => {
     setvalidated(false);
@@ -249,13 +247,14 @@ function RegisterForm() {
       </Button>
       {loading ? <Loader /> : null}
       {/* {User != null && User.isSuccessed == false ? ( */}
-      {showAlert ? (
+      {/* {showAlert ? (
         <PopUpMsg
           text={User.msg}
           show={showAlert}
           closeAlert={() => setShowAlert(false)}
         />
-      ) : null}
+      ) : null} */}
+      {showAlert ? <PopUp msg={User.msg} closeAlert={closeAlert} /> : null}
     </Form>
   );
 }
