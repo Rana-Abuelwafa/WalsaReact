@@ -12,6 +12,7 @@ function RegisterForm() {
   const [validated, setvalidated] = useState(false);
   const [isMatch, setIsMatch] = useState(false);
   const [errors, setErrors] = useState({});
+  const [showAlert, setShowAlert] = useState(false);
   const [formData, setformData] = useState({
     FirstName: "",
     LastName: "",
@@ -70,7 +71,10 @@ function RegisterForm() {
           // const payload = { lang: "en", token: result.payload.accessToken };
           // dispatch(GetQuestionsData(payload));
           let path = `/Welcome`;
+          setShowAlert(false);
           navigate(path);
+        } else {
+          setShowAlert(true);
         }
       });
     }
@@ -244,8 +248,13 @@ function RegisterForm() {
         {t("Register.CreateAccount")}
       </Button>
       {loading ? <Loader /> : null}
-      {User != null && User.isSuccessed == false ? (
-        <PopUpMsg text={User.msg} show={true} />
+      {/* {User != null && User.isSuccessed == false ? ( */}
+      {showAlert ? (
+        <PopUpMsg
+          text={User.msg}
+          show={showAlert}
+          closeAlert={() => setShowAlert(false)}
+        />
       ) : null}
     </Form>
   );

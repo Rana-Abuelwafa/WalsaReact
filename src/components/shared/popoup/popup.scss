@@ -1,0 +1,151 @@
+@import '../../../styles/variables'; 
+.popup{
+  @media only  screen and (max-width : $minSmall) {
+    left: 5px;
+      right: 5px;
+      }
+    position: fixed;
+    z-index: 99999;
+    background-color: white;
+    box-shadow: rgba(172, 172, 202, 0.1) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+    max-width: 800px;
+     width: 800px;
+    height: auto;
+    color: #004057;
+    padding: 20px;
+    top: 12%;
+    left: 15%;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 20px;
+    letter-spacing: .8px;
+    animation: anvil 0.3s cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards;
+    -webkit-animation: anvil 0.3s cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards;
+
+    .close{
+        background-color: $green;
+        color: white;
+        font-size: 14px;
+        height: 40px;
+        width: fit-content;
+        margin: 20px auto;
+        border: 0;
+    }
+    .closeicon{
+      color: #18AF9A;
+      background-color: transparent;
+      width: 20px;
+      height: 20px;
+      border: 0;
+      position: absolute;
+      right: 10px;
+      top: 0;
+      &:hover,&:focus{
+        background-color: transparent;
+      }
+    }
+    h3{
+      font-size: 14px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    span{
+      color: #666;
+      font-size: 16px;
+      margin: 20px 0;
+      display: block;
+    }
+}
+.popupContent{
+  text-align: right;
+  input{margin: 20px 0;}
+  .labelcontainer{
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-size: 12px;
+    letter-spacing: .8;
+    margin: 0 20px;
+    
+  }
+  .forgetpassIn{
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  /* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  right: -25px;
+  height: 20px;
+  width: 20px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+  /* On mouse-over, add a grey background color */
+.labelcontainer:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.labelcontainer input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.labelcontainer input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.labelcontainer .checkmark:after {
+ 	top: 6px;
+	left: 6px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: white;
+}
+}
+.dangerAlert{
+  height: auto;
+  line-height: 2.5;
+  padding: 0 5px;
+  font-size: 12px;
+  text-align: center !important;
+  margin: 35px 0 0 0;
+  animation: anvil 0.3s cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards;
+  -webkit-animation: anvil 0.3s cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards;
+}
+@keyframes anvil {
+    0% {
+      transform: scale(1) translateY(0px);
+      opacity: 0;
+      box-shadow: 0 0 0 rgba(241, 241, 241, 0);
+    }
+    1% {
+      transform: scale(0.96) translateY(10px);
+      opacity: 0;
+      box-shadow: 0 0 0 rgba(241, 241, 241, 0);
+    }
+    100% {
+      transform: scale(1) translateY(0px);
+      opacity: 1;
+      box-shadow: 0 0 500px rgba(241, 241, 241, 0);
+    }
+  }
+  
