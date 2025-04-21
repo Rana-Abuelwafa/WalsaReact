@@ -27,7 +27,6 @@
   }
 }
 
-
 // RTL/LTR specific styles
 [dir="rtl"] {
   .navbar-custom {
@@ -37,9 +36,9 @@
     }
     .nav-items {
       margin-right: 0 !important;
-      margin-left: auto !important;  // Push to left side in RTL
+      margin-left: auto !important; // Push to left side in RTL
     }
-    
+
     .nav-icons {
       margin-right: auto !important;
       margin-left: 0 !important;
@@ -49,7 +48,7 @@
       margin-left: 15px;
       text-align: center;
     }
-    
+
     .user-name-col {
       text-align: right;
     }
@@ -64,7 +63,7 @@
     }
 
     .nav-items {
-      margin-right: auto !important;  // Default left-aligned in LTR
+      margin-right: auto !important; // Default left-aligned in LTR
       margin-left: 0 !important;
     }
   }
@@ -85,7 +84,6 @@
   padding: 0.5rem 1rem !important;
   transition: color 0.3s ease;
 
-
   &:hover {
     color: #b181d6;
   }
@@ -96,7 +94,7 @@
   display: flex;
   align-items: center;
   gap: 15px;
-  
+
   .icon {
     font-size: 32px;
     color: #542d72;
@@ -108,7 +106,7 @@
       color: #b181d6;
     }
   }
-  
+
   .search-icon {
     margin-right: 0;
   }
@@ -119,17 +117,17 @@
   display: flex;
   align-items: center;
   margin: 0;
-  
+
   .user-icon-col {
     padding: 0;
   }
-  
+
   .user-name-col {
     padding: 0 0 0 10px;
     display: flex;
     align-items: center;
   }
-  
+
   .userName {
     font-size: 16px;
     white-space: nowrap;
@@ -143,12 +141,12 @@
 @media (max-width: 992px) {
   .navbar-custom {
     padding: 10px 15px !important;
-    
+
     .logo {
       width: 110px;
       height: 28px;
     }
-    
+
     .navbar-collapse {
       background: white;
       padding: 15px;
@@ -156,22 +154,22 @@
       border-radius: 8px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
-    
+
     .nav-item {
       margin: 5px 0;
       padding: 8px 0;
     }
-    
+
     .nav-icons {
       flex-direction: column;
       align-items: flex-start;
       gap: 10px;
-      
+
       .icon {
         margin: 5px 0;
       }
     }
-    
+
     .user-info {
       margin: 5px 0;
     }
@@ -181,28 +179,14 @@
 @media (max-width: 576px) {
   .navbar-custom {
     min-height: 80px;
-    
+
     .logo {
       width: 100px;
       height: 25px;
     }
-    
+
     .userName {
       max-width: 80px;
     }
-  }
-}
-
-.navbar-mini {
-  background-color: white;
-  width: 45%;
-  height: 90px;
-  padding: 5px 90px !important;
-  .logo{
-    height: 35px;
-    width: 135px;
-  }
-  @media only screen and (max-width: 1200px) {
-    width: 100%;
   }
 }
