@@ -18,7 +18,7 @@ const GoogleLoginButton = () => {
   const handleLoginSuccess = async (credentialResponse) => {
     //console.log("Google Token:", credentialResponse.code);
     const DecodedToken = jwtDecode(credentialResponse.code);
-   // console.log("DecodedToken:", DecodedToken);
+    // console.log("DecodedToken:", DecodedToken);
     let { family_name, given_name, email } = DecodedToken;
 
     let data = {
@@ -35,7 +35,7 @@ const GoogleLoginButton = () => {
 
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
-     // console.log(tokenResponse);
+      // console.log(tokenResponse);
       const token = "Bearer " + tokenResponse.access_token;
       const userInfo = await axios.get(
         "https://www.googleapis.com/oauth2/v3/userinfo",
@@ -45,7 +45,7 @@ const GoogleLoginButton = () => {
       if (userInfo && userInfo.data) {
         let { family_name, given_name, email } = userInfo.data;
         if (props.login) {
-         // console.log("this is login");
+          // console.log("this is login");
           let formData = {
             email: email,
             FirstName: given_name,

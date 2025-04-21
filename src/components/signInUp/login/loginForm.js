@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { LoginUser } from "../../../slices/RegisterSlice";
 import Loader from "../../Loader/Loader";
 import PopUpMsg from "../../shared/PopupMsg";
+import Alert from "react-popup-alert";
 function LoginForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ function LoginForm() {
   const [errors, setErrors] = useState({});
   const [formData, setformData] = useState({ email: "", password: "" });
   const { User, loading } = useSelector((state) => state.register);
+  const [showAlert, setShowAlert] = useState(false);
   const validate = () => {
     if (!/^\S+@\S+\.\S+$/.test(formData.email) || formData.email.trim() == "") {
       setErrors({
@@ -30,14 +32,21 @@ function LoginForm() {
     }
     return true;
   };
+  const onCloseAlert = () => {
+    setShowAlert(false);
+  };
   const signin = (event) => {
     event.preventDefault();
     if (validate()) {
       let path = `/`;
       let data = { payload: formData, path: "/LoginUser" };
       dispatch(LoginUser(data)).then((result) => {
+        console.log("result.payload.isSuccessed ", result.payload.isSuccessed);
         if (result.payload && result.payload.isSuccessed) {
+          setShowAlert(false);
           navigate(path);
+        } else {
+          setShowAlert(true);
         }
       });
     }
@@ -64,7 +73,7 @@ function LoginForm() {
     });
   };
   const t = useTranslation();
-
+  console.log("showAlert ", showAlert);
   return (
     <Form onSubmit={signin} noValidate>
       <Form.Group className="mb-3">
@@ -87,7 +96,6 @@ function LoginForm() {
           {t("Login.EmailError")}
         </Form.Control.Feedback> */}
       </Form.Group>
-
       <Form.Group className="mb-3">
         <Form.Label className="formLabel">{t("Login.password")}</Form.Label>
         <Form.Control
@@ -109,14 +117,30 @@ function LoginForm() {
           {t("Login.PasswordError")}
         </Form.Control.Feedback> */}
       </Form.Group>
-
       <Button type="submit" className="frmBtn purbleBtn FullWidthBtn">
         {t("Login.signIn")}
       </Button>
       {loading ? <Loader /> : null}
-      {User != null && User.isSuccessed == false ? (
-        <PopUpMsg text={User.msg} show={true} />
+      {/* {User != null && User.isSuccessed == false ? ( */}
+      {showAlert ? (
+        <Alert
+          header={t("PopUp.Header")}
+          btnText={t("PopUp.Close")}
+          text={User != null ? User.msg : ""}
+          type={"error"}
+          show={showAlert}
+          onClosePress={onCloseAlert}
+          pressCloseOnOutsideClick={true}
+          showBorderBottom={true}
+          alertStyles={{}}
+          headerStyles={{}}
+          textStyles={{}}
+          buttonStyles={{ backgroundColor: "#00bc82" }}
+        />
       ) : null}
+      {/* ) : */}
+      {/* // <PopUpMsg text={User.msg} show={showAlert} closeAlert={closeAlert} /> */}
+      {/* null} */}
     </Form>
   );
 }

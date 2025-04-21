@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "react-popup-alert/dist/index.css";
 import reportWebVitals from "./reportWebVitals";
 import { setDefaultTranslations, setDefaultLanguage } from "react-multi-lang";
 import { Provider } from "react-redux";
