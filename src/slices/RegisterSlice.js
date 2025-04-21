@@ -8,7 +8,7 @@ import { history } from "../index";
 // const BASE_URL = "https://localhost:7283/api/WaslaClient";
 const BASE_URL_AUTH = process.env.REACT_APP_AUTH_API_URL;
 const BASE_URL = process.env.REACT_APP_API_URL;
-console.log("BASE_URL_AUTH ", BASE_URL_AUTH);
+// console.log("BASE_URL_AUTH ", BASE_URL_AUTH);
 const initialState = {
   Quesions: [],
   Token: "",
@@ -128,9 +128,9 @@ export const RegisterUser = createAsyncThunk(
 
 export const LoginUser = createAsyncThunk(
   "LoginUser",
-  async (payload, thunkAPI) => {
+  async (data, thunkAPI) => {
     var response = await axios
-      .post(BASE_URL_AUTH + "/LoginUser", payload)
+      .post(BASE_URL_AUTH + data.path, data.payload)
       .then((res) => {
         return res.data;
       })
@@ -191,6 +191,7 @@ const registerSlice = createSlice({
       // state.isSuccessed = true;
     });
     builder.addCase(LoginUser.fulfilled, (state, { payload }) => {
+      // console.log("fulfilled ", payload);
       state.User = payload;
       state.loading = false;
       localStorage.setItem("token", payload.accessToken);
@@ -199,9 +200,8 @@ const registerSlice = createSlice({
       // state.errors = payload != null ? payload.msg : "";
     });
     builder.addCase(LoginUser.rejected, (state, { payload }) => {
-      state.User = payload;
+      //console.log("rejected ", payload);
       state.loading = false;
-      // state.errors = null;
       // state.isSuccessed = false;
     });
     builder.addCase(GetQuestionsData.pending, (state, { payload }) => {

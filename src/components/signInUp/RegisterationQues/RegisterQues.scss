@@ -1,4 +1,4 @@
-@import "../../../styles/variables";
+@use "../../../styles/variables" as variables;
 .ques_container {
   background-color: #fff;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -27,7 +27,7 @@
   }
   .fmWGLX,
   .hWkrao {
-    background-color: $purple-color;
+    background-color: variables.$purple-color;
     width: 30px;
     height: 30px;
     margin: 0 5px;
@@ -37,13 +37,13 @@
   }
   .GICev {
     background-color: transparent;
-    border: 1px solid $purple-color;
+    border: 1px solid variables.$purple-color;
     width: 30px;
     height: 30px;
     margin: 0 5px;
   }
   .kfYyRX {
-    background-color: $purple-color;
+    background-color: variables.$purple-color;
   }
   .ques_content {
     margin-top: 30px;
@@ -51,7 +51,7 @@
       font-weight: 500;
       font-size: 20px;
       margin: 20px 0;
-      color: $purple-color;
+      color: variables.$purple-color;
     }
     .answer_content {
       margin: 50px 0;
@@ -74,12 +74,12 @@
       //margin: 0 10px;
     }
     .form-check-input:checked {
-      background-color: $dark-green-color;
-      border-color: $dark-green-color;
+      background-color: variables.$dark-green-color;
+      border-color: variables.$dark-green-color;
     }
     label {
       font-size: 20px;
-      color: $purple-color;
+      color: variables.$purple-color;
       font-weight: 400;
     }
   }

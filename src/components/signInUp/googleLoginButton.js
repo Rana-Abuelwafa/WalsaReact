@@ -18,7 +18,7 @@ const GoogleLoginButton = () => {
   const handleLoginSuccess = async (credentialResponse) => {
     //console.log("Google Token:", credentialResponse.code);
     const DecodedToken = jwtDecode(credentialResponse.code);
-    console.log("DecodedToken:", DecodedToken);
+   // console.log("DecodedToken:", DecodedToken);
     let { family_name, given_name, email } = DecodedToken;
 
     let data = {
@@ -35,30 +35,47 @@ const GoogleLoginButton = () => {
 
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
-      console.log(tokenResponse);
+     // console.log(tokenResponse);
       const token = "Bearer " + tokenResponse.access_token;
       const userInfo = await axios.get(
         "https://www.googleapis.com/oauth2/v3/userinfo",
         { headers: { Authorization: token } }
       );
-      console.log(userInfo);
+      //console.log(userInfo);
       if (userInfo && userInfo.data) {
         let { family_name, given_name, email } = userInfo.data;
-
-        let data = {
-          payload: {
-            FirstName: given_name,
-            LastName: family_name,
+        if (props.login) {
+         // console.log("this is login");
+          let formData = {
             email: email,
-          },
-          path: "/ExternalRegister",
-        };
-        dispatch(RegisterUser(data)).then((result) => {
-          if (result.payload && result.payload.isSuccessed) {
-            let path = `/Welcome`;
-            navigate(path);
-          }
-        });
+            FirstName: given_name,
+            LastName: family_name != null ? family_name : given_name,
+          };
+          let path = `/`;
+          let data = { payload: formData, path: "/LoginGmail" };
+          dispatch(LoginUser(data)).then((result) => {
+            if (result.payload && result.payload.isSuccessed) {
+              navigate(path);
+            }
+          });
+        } else {
+          //console.log("this is register");
+          let data = {
+            payload: {
+              FirstName: given_name,
+              LastName: family_name != null ? family_name : given_name,
+              email: email,
+              password: tokenResponse.access_token,
+            },
+            path: "/ExternalRegister",
+          };
+          dispatch(RegisterUser(data)).then((result) => {
+            if (result.payload && result.payload.isSuccessed) {
+              let path = `/Welcome`;
+              navigate(path);
+            }
+          });
+        }
       }
     },
     onError: (errorResponse) => console.log(errorResponse),

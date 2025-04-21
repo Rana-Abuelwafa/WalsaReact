@@ -13,10 +13,10 @@ function Login() {
     <div
       className={currentLang == "ar" ? "SignSection right" : "SignSection left"}
     >
+      <MiniNavbar />
       {/* <Container> */}
       <Row className="justify-content-md-center">
         <Col lg={5} md={12} sm={12} xs={12}>
-          <MiniNavbar />
           <div className="login_form">
             <SignInUpShared login={true} />
             <LoginForm />

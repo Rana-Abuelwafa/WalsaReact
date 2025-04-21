@@ -34,7 +34,8 @@ function LoginForm() {
     event.preventDefault();
     if (validate()) {
       let path = `/`;
-      dispatch(LoginUser(formData)).then((result) => {
+      let data = { payload: formData, path: "/LoginUser" };
+      dispatch(LoginUser(data)).then((result) => {
         if (result.payload && result.payload.isSuccessed) {
           navigate(path);
         }
