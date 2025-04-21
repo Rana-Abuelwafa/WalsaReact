@@ -1,4 +1,4 @@
-@import "bootstrap/scss/bootstrap";
+@import 'bootstrap/scss/bootstrap';
 
 /* Narrow Scrollbar - Exact match */
 ::-webkit-scrollbar {
@@ -12,26 +12,30 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #2a1739, #522c70, #00bc82);
+  background: linear-gradient(180deg, #2A1739, #522C70, #00BC82);
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #522c70, #00bc82, #2a1739);
+  background: linear-gradient(180deg, #522C70, #00BC82, #2A1739);
 }
 
 // Global Styles
 body {
-  font-family: "Roboto", sans-serif;
   background-color: #ffffff;
+  &[dir="ltr"] {
+    font-family: 'Roboto', sans-serif;
+  }
+ 
   &[dir="rtl"] {
+    font-family: 'Tajawal', sans-serif !important;
     text-align: right;
   }
 }
 
 // Content Section
 .content-section {
-  margin: 0 50px;
+  padding:50px;
   align-content: center;
   overflow: hidden;
 
@@ -40,29 +44,10 @@ body {
   }
 }
 
-// Hero Section
-.hero-section {
-  padding: 10px;
-  margin-top: 180px;
-  background: white;
 
-  @media (max-width: 992px) {
-    margin-top: 120px;
-  }
-
-  @media (max-width: 768px) {
-    margin-top: 100px;
-  }
-
-  .row {
-    &[dir="rtl"] {
-      flex-direction: row-reverse;
-    }
-  }
-}
 // Hero Section - RTL modifications
 .hero-section {
-  padding: 10px;
+  padding:10px;
   margin-top: 180px;
   background: white;
 
@@ -81,45 +66,42 @@ body {
   // RTL specific styles
   &[dir="rtl"] {
     text-align: right;
-
+    
     .hero-heading {
       text-align: right;
     }
-
+    
     .service-description {
       text-align: right;
     }
-
+    
     .cta-button {
-      margin-right: 0;
-      margin-left: auto;
-
-      @media (max-width: 768px) {
-        margin-left: auto;
-        margin-right: auto;
-      }
+      margin-right: 0 !important;
+      margin-left: auto !important;
+      display: block !important;
     }
   }
 
   // Mobile responsive for both LTR and RTL
   @media (max-width: 768px) {
     text-align: center;
-
+    
     .hero-heading,
     .service-description {
       text-align: center !important;
     }
-
+    
     .cta-button {
       margin-right: auto !important;
       margin-left: auto !important;
+      display: inline-block !important;
     }
   }
 }
 
 // Additional RTL text alignment
 [dir="rtl"] {
-  .hero-heading,
+  .hero-heading, 
   .hero-text,
   .service-title,
   .service-description,
@@ -145,7 +127,7 @@ body {
   }
   // Force center alignment on mobile for RTL
   @media (max-width: 768px) {
-    .hero-heading,
+    .hero-heading, 
     .hero-text,
     .service-title,
     .service-description,
@@ -159,7 +141,7 @@ body {
   line-height: 80px;
   font-size: 50px;
   font-weight: bold;
-  color: #542d72;
+  color: #542D72;
 
   @media (max-width: 992px) {
     font-size: 40px;
@@ -174,11 +156,11 @@ body {
 }
 
 .hero-heading .highlight {
-  color: #00bc82;
+  color: #00BC82;
 }
 
 .hero-text {
-  color: #816f8f;
+  color: #816F8F;
   font-size: 22px;
   line-height: 32px;
 
@@ -189,15 +171,28 @@ body {
 }
 
 .cta-button {
+  display: block !important;
   margin-top: 10px;
   background: transparent !important;
-  border: 1px solid #b181d6 !important;
-  color: #542d72 !important;
+  border: 1px solid #B181D6 !important;
+  font-size: 28px;
+  font-weight: bold;
+  padding: 15px 40px;
+  border-radius: 50px;
+  color: #542D72 !important;
+
   &:hover,
   &:focus {
     background: transparent !important;
-    color: #542d72 !important;
-    border: 1px solid #b181d6 !important;
+    color: #542D72 !important;
+    border: 1px solid #B181D6 !important;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 22px;
+    padding: 12px 30px;
+    display: block;
+    margin: 20px auto;
   }
 }
 
@@ -211,12 +206,12 @@ body {
 // Services Section
 .services-section,
 .market-section {
-  padding: 10px;
+  padding:10px;
   background: #fff;
 }
 
 .contact-designers {
-  padding: 10px;
+  padding:10px;
   background: #fff;
 }
 
@@ -272,7 +267,7 @@ body {
 .service-title {
   font-size: 38px;
   font-weight: bold;
-  color: #542d72;
+  color: #542D72;
   line-height: 85px;
 
   @media (max-width: 992px) {
@@ -289,9 +284,9 @@ body {
 
 .service-description {
   font-size: 30px;
-  color: #542d72;
+  color: #542D72;
   line-height: 58px;
-  // letter-spacing: 2px;
+  
 
   @media (max-width: 992px) {
     font-size: 24px;
@@ -308,7 +303,7 @@ body {
 .design-title {
   font-size: 34px;
   font-weight: bold;
-  color: #542d72;
+  color: #542D72;
   line-height: 65px;
 
   @media (max-width: 768px) {
@@ -320,9 +315,9 @@ body {
 
 .design-description {
   font-size: 28px;
-  color: #542d72;
+  color: #542D72;
   line-height: 48px;
-  //letter-spacing: 2px;
+ 
 
   @media (max-width: 768px) {
     font-size: 20px;
@@ -354,7 +349,7 @@ body {
 
 .design-text {
   margin-top: 0;
-
+  
   @media (max-width: 768px) {
     text-align: center !important;
   }
@@ -362,7 +357,7 @@ body {
 
 .design-left {
   margin-top: -10%;
-
+  
   @media (max-width: 768px) {
     margin-top: 20px;
   }
@@ -390,11 +385,11 @@ body {
   background-position: center;
   background-size: 70% 100%;
   background-image: url(/imgs/wasla-bg.png);
-
+  
   [dir="rtl"] & {
     background-image: url(/imgs/wasla-bg-rtl.png);
   }
-
+  
   @media (max-width: 992px) {
     height: 500px;
     background-size: 90% 100%;
@@ -432,7 +427,7 @@ body {
   @media (max-width: 992px) {
     margin-left: 180px;
     width: 70%;
-
+    
     [dir="rtl"] & {
       margin-left: 0;
       margin-right: 180px;
@@ -443,7 +438,7 @@ body {
     margin-left: 0;
     width: 90%;
     text-align: center;
-
+    
     [dir="rtl"] & {
       margin-right: 0;
     }
@@ -481,7 +476,7 @@ body {
     font-size: 20px;
     left: 50%;
     transform: translateX(-50%);
-
+    
     [dir="rtl"] & {
       right: auto;
       left: 50%;
@@ -492,26 +487,22 @@ body {
 
 // How Work Section
 .how-work-section {
+  padding:10px;
   margin: 120px 0;
-
+  
   > * {
     text-align: center;
     justify-content: center;
   }
-
+  
   @media (max-width: 768px) {
     margin: 80px 0;
   }
-  .row {
-    margin-right: 6.5rem !important;
-    &[dir="rtl"] {
-      margin-left: 6.5rem !important;
-    }
-  }
+  
   .how-work-text {
     font-size: 24px;
     font-weight: bold;
-    color: #00bc82;
+    color: #00BC82;
     text-transform: uppercase;
 
     @media (max-width: 768px) {
@@ -522,7 +513,7 @@ body {
   .three-steps-text {
     font-size: 35px;
     font-weight: bold;
-    color: #542d72;
+    color: #542D72;
     line-height: 100px;
     margin-bottom: 60px;
 
@@ -535,10 +526,10 @@ body {
 
   .card {
     border-radius: 24px;
-    background-color: #f7f7f7;
+    background-color: #F7F7F7;
 
     h5 {
-      color: #542d72;
+      color: #542D72;
       line-height: 60px;
       font-weight: bold;
 
@@ -549,9 +540,9 @@ body {
 
     p {
       font-size: 14px;
-      color: #542d72;
+      color: #542D72;
       line-height: 30px;
-
+      
       [dir="rtl"] & {
         text-align: right;
       }
@@ -594,10 +585,10 @@ body {
     [dir="rtl"] & {
       text-align: right;
     }
-
+    
     @media (max-width: 768px) {
       text-align: center !important;
-
+      
       [dir="rtl"] & {
         text-align: center !important;
       }
@@ -607,11 +598,12 @@ body {
 
 // Market Section specific adjustments
 .market-section {
+  padding:10px;
   .service-item {
     &[dir="rtl"] {
       flex-direction: row-reverse;
     }
-
+    
     @media (max-width: 768px) {
       flex-direction: column;
     }
@@ -620,13 +612,12 @@ body {
 
 // Responsive text alignment fixes
 @media (max-width: 768px) {
-  .text-left,
-  .text-right,
-  .text-start,
-  .text-end {
+  .text-left, .text-right, .text-start, .text-end {
     text-align: center !important;
   }
 }
+
+
 .no-flip {
   transform: none !important;
 }

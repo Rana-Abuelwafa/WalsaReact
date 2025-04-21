@@ -1,3 +1,4 @@
+
 .Menu-dropdown {
   .dropdown-toggle {
     background: none;
@@ -78,6 +79,10 @@
   }
 
   [dir="rtl"] {
+    .dropdown-toggle{
+      transform: scaleX(-1);
+      transition: transform 0.2s ease;
+    }
     .dropdown-toggle .menu-icon {
       margin-left: 15px;
     }
@@ -86,9 +91,6 @@
     }
     .dropdown-card {
       text-align: right;
-    }
-    .menu-icon{
-      transform: scaleX(-1);
     }
   }
 }
