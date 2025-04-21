@@ -38,6 +38,9 @@
   .login_form {
     margin-top: 40px;
     padding: 50px;
+    @media only screen and (max-width: 1000px) {
+      padding: 10px !important;
+    }
   }
   .sign-img_bg {
     height: 100%;
