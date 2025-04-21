@@ -23,8 +23,7 @@
     "react-redux": "^9.2.0",
     "react-scripts": "5.0.1",
     "react-toastify": "^11.0.3",
-    "redux-first-history": "^5.2.0",
-    "sass": "^1.84.0"
+    "redux-first-history": "^5.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -52,6 +51,8 @@
   },
   "devDependencies": {
     "react-router-dom": "^7.1.5",
+    "sass": "^1.86.3",
+    "sass-loader": "^16.0.5",
     "web-vitals": "^4.2.4"
   }
 }
