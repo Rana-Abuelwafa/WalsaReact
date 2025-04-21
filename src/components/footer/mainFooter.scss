@@ -25,8 +25,8 @@
   
     .footer-links,
     .footer-support {
-      padding-right: 80px !important;
-      padding-left: 10px !important;
+      padding-right: 80px ;
+      padding-left: 10px;
     }
   
     .footer-links ul,
@@ -70,12 +70,12 @@
   // Links Columns
   .footer-links,
   .footer-support {
-      padding-right: 10px !important;
-      padding-left: 80px !important;
+      padding-right: 10px ;
+      padding-left: 80px ;
     @media (max-width: 768px) {
       text-align: center !important;
       margin-bottom: 30px;
-      padding-left: 15px !important;
+      padding: 0 !important;
     }
   
     ul {

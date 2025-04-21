@@ -191,7 +191,6 @@ const registerSlice = createSlice({
       // state.isSuccessed = true;
     });
     builder.addCase(LoginUser.fulfilled, (state, { payload }) => {
-      console.log("fulfilled ", payload);
       state.User = payload;
       state.loading = false;
       localStorage.setItem("token", payload.accessToken);
@@ -200,7 +199,6 @@ const registerSlice = createSlice({
       // state.errors = payload != null ? payload.msg : "";
     });
     builder.addCase(LoginUser.rejected, (state, { payload }) => {
-      console.log("rejected ", payload);
       state.User = payload;
       state.loading = false;
       // state.errors = null;

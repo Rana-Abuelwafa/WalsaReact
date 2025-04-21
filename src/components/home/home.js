@@ -89,7 +89,7 @@ const Home = () => {
 
             <section className="contact-designers">
               <Row className="service-item align-items-center">
-                <Col md={5} className="design-text">
+                <Col md={5} className="design-text order-md-1 order-2">
                   <h3 className="design-title">{t("Home.design_website")}</h3>
                   <p className="design-description">
                     {t("Home.design_website_text").split("\n").map((line, index) => (
@@ -100,7 +100,7 @@ const Home = () => {
                                       ))}
                   </p>
                 </Col>
-                <Col md={7} className="text-left">
+                <Col md={7} className="text-left order-md-2 order-1">
                   <img src="images/web-design.png" alt="Website Design" className="img-fluid service-img" />
                 </Col>
               </Row>

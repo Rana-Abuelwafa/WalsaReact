@@ -158,6 +158,7 @@
     .nav-item {
       margin: 5px 0;
       padding: 8px 0;
+      text-align: center;
     }
 
     .nav-icons {
@@ -187,6 +188,12 @@
 
     .userName {
       max-width: 80px;
+    }
+    .nav-icons {
+      .icon {
+        margin:0;
+        font-size: 21px;
+      }
     }
   }
 }

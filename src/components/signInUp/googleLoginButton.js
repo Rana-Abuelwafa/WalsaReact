@@ -4,12 +4,12 @@ import { useTranslation } from "react-multi-lang";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { RegisterUser, LoginUser } from "../../slices/RegisterSlice";
+import { RegisterUser } from "../../slices/RegisterSlice";
 import Loader from "../Loader/Loader";
 import PopUpMsg from "../shared/PopupMsg";
 import { Button } from "react-bootstrap";
 import axios from "axios";
-const GoogleLoginButton = (props) => {
+const GoogleLoginButton = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const t = useTranslation();
@@ -44,36 +44,21 @@ const GoogleLoginButton = (props) => {
       console.log(userInfo);
       if (userInfo && userInfo.data) {
         let { family_name, given_name, email } = userInfo.data;
-        if (props.login) {
-          console.log("this is login");
-          let data = {
+
+        let data = {
+          payload: {
+            FirstName: given_name,
+            LastName: family_name,
             email: email,
-            password: tokenResponse.access_token,
-          };
-          let path = `/`;
-          dispatch(LoginUser(data)).then((result) => {
-            if (result.payload && result.payload.isSuccessed) {
-              navigate(path);
-            }
-          });
-        } else {
-          console.log("this is register");
-          let data = {
-            payload: {
-              FirstName: given_name,
-              LastName: family_name != null ? family_name : given_name,
-              email: email,
-              password: tokenResponse.access_token,
-            },
-            path: "/ExternalRegister",
-          };
-          dispatch(RegisterUser(data)).then((result) => {
-            if (result.payload && result.payload.isSuccessed) {
-              let path = `/Welcome`;
-              navigate(path);
-            }
-          });
-        }
+          },
+          path: "/ExternalRegister",
+        };
+        dispatch(RegisterUser(data)).then((result) => {
+          if (result.payload && result.payload.isSuccessed) {
+            let path = `/Welcome`;
+            navigate(path);
+          }
+        });
       }
     },
     onError: (errorResponse) => console.log(errorResponse),

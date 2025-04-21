@@ -88,7 +88,14 @@
     .countdown-timer {
       font-size: 18px;
     }
-    
+    .countdown-labels{
+      margin-top: -10px;
+     span {
+      margin-right: 3px !important;
+      margin-left: 0px !important;
+      font-size: 12px;
+      }
+    }
     .check-button {
       padding: 6px 15px !important;
       font-size: 14px !important;
@@ -116,10 +123,14 @@
       font-size: 16px;
     }
     
-    .countdown-labels span {
-      margin-right: 8px;
+    .countdown-labels{
+      margin-top: -10px;
+     span {
+      margin-right: 3px !important;
+      margin-left: 0px !important;
       min-width: 30px;
       font-size: 10px;
+      }
     }
     
     .check-button {
@@ -134,9 +145,13 @@
   .sale-navbar {
     margin-top: 70px !important;
     
-    .countdown-labels span {
-      margin-right: 5px;
+    .countdown-labels{
+      margin-top: -8px;
+      span {
+      margin-right: 5px !important;
+      margin-left: 0px !important;
       min-width: 25px;
+      }
     }
   }
 }
