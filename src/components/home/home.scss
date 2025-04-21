@@ -127,7 +127,7 @@ body {
   .design-description {
     text-align: right;
   }
-  
+
   .illustration,
   .service-img,
   .service-img2,
@@ -191,14 +191,15 @@ body {
 .cta-button {
   margin-top: 10px;
   background: transparent !important;
-  border: 1px solid #B181D6 !important;
-  color: #542D72 !important;
+  border: 1px solid #b181d6 !important;
+  color: #542d72 !important;
   &:hover,
   &:focus {
     background: transparent !important;
-    color: #542D72 !important;
-    border: 1px solid #B181D6 !important;
-
+    color: #542d72 !important;
+    border: 1px solid #b181d6 !important;
+  }
+}
 
 // Illustration
 .illustration {
@@ -501,7 +502,7 @@ body {
   @media (max-width: 768px) {
     margin: 80px 0;
   }
-  .row{
+  .row {
     margin-right: 6.5rem !important;
     &[dir="rtl"] {
       margin-left: 6.5rem !important;

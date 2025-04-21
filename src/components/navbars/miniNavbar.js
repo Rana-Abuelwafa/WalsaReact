@@ -1,4 +1,5 @@
-import { Navbar } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Navbar, Container } from "react-bootstrap";
 import LanguageDropdown from "../Dropdowns/LanguageDropdown";
 import "./mainNavbar.scss";
 
@@ -24,7 +25,7 @@ const MiniNavbar = () => {
             style={{ width: isMobile ? "100px" : "135px" }}
           />
         </Navbar.Brand>
-        <div className="ms-auto d-flex align-items-center">
+        <div className="d-flex align-items-center">
           <LanguageDropdown />
         </div>
       </Container>
