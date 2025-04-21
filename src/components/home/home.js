@@ -148,7 +148,7 @@ const Home = () => {
               </Row>
             </section>
 
-            <section className="how-work-section text-center my-15">
+            <section className="how-work-section text-center">
               <h5 className="how-work-text">{t("Home.how_it_works")}</h5>
               <h2 className="three-steps-text">{t("Home.three_steps")}</h2>
 
@@ -199,7 +199,7 @@ const Home = () => {
               </Button>
             </section>
 
-            <section className="how-work-section text-center my-15">
+            <section className="how-work-section text-center">
               <h5 className="how-work-text">{t("Home.what_we_offer")}</h5>
               <h2 className="three-steps-text">{t("Home.design_solution")}</h2>
 
