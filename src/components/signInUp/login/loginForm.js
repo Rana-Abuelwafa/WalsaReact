@@ -40,7 +40,7 @@ function LoginForm() {
       let path = `/`;
       let data = { payload: formData, path: "/LoginUser" };
       dispatch(LoginUser(data)).then((result) => {
-        console.log("result.payload.isSuccessed ", result.payload.isSuccessed);
+        //console.log("result.payload.isSuccessed ", result.payload.isSuccessed);
         if (result.payload && result.payload.isSuccessed) {
           setShowAlert(false);
           navigate(path);
@@ -72,7 +72,7 @@ function LoginForm() {
     });
   };
   const t = useTranslation();
-  console.log("showAlert ", showAlert);
+  //console.log("showAlert ", showAlert);
   return (
     <Form onSubmit={signin} noValidate>
       <Form.Group className="mb-3">
