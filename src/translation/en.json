@@ -122,5 +122,18 @@
     },
     "ourNew": "Our New",
     "copyright": "Copyright © Waslaa Inc. 2024-2025 - All Rights Reserved"
+  },
+  "contact": {
+    "title": "Contact us",
+    "subtitle": "Get in touch with the right people at Waslaa, we’re here to help",
+    "chatTitle": "Chat with us",
+    "chatDesc": "Get dedicated support by chatting with a\nWaslaa Care Expert",
+    "chatBtn": "Chat with us",
+    "emailTitle": "Send us an e-mail",
+    "emailDesc": "Get dedicated support by sending an\nemail to a Waslaa Care Expert",
+    "emailBtn": "Send us an e-mail",
+    "helpTitle": "Help Center",
+    "helpDesc": "Watch tutorials and read detailed\narticles in our Help Center",
+    "helpBtn": "Visit Help Center"
   }
 }
