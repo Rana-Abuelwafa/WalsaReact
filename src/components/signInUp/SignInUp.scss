@@ -11,9 +11,10 @@
     @media only screen and (max-width: 1200px) {
       font-size: 30px;
     }
-    @media only screen and (max-width: 992px) {
-      font-size: 50px;
-    }
+    // @media only screen and (max-width: 992px) {
+    //   font-size: 50px;
+    // }
+
     span {
       padding: 0 5px;
       color: variables.$dark-green-color;
@@ -25,9 +26,9 @@
     @media only screen and (max-width: 1200px) {
       font-size: 15px;
     }
-    @media only screen and (max-width: 992px) {
-      font-size: 20px;
-    }
+    // @media only screen and (max-width: 992px) {
+    //   font-size: 20px;
+    // }
   }
   .frmBtn {
     width: 100%;
@@ -40,9 +41,6 @@
     padding: 50px;
     @media only screen and (max-width: 1200px) {
       padding: 10px !important;
-    }
-    @media only screen and (max-width: 992px) {
-      padding: 50px !important;
     }
   }
   .sign-img_bg {
