@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { FaFacebookF, FaInstagram, FaTwitter, FaEnvelope } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-multi-lang";
 import "./mainFooter.scss";
 
@@ -35,7 +36,9 @@ const MainFooter = () => {
               <li className="small-text">{t("Footer.company.home")}</li>
               <li className="small-text">{t("Footer.company.about")}</li>
               <li className="small-text">{t("Footer.company.pricing")}</li>
-              <li className="small-text">{t("Footer.company.contact")}</li>
+              <Link to="/contactUs">
+                <li className="small-text">{t("Footer.company.contact")}</li>
+              </Link>
               <li className="small-text">{t("Footer.company.privacy")}</li>
             </ul>
           </Col>
