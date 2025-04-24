@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { MultiStepForm, Step } from "react-multi-form";
 import { Container, Button } from "react-bootstrap";
-import { useTranslation } from "react-multi-lang";
+import { useTranslation, getLanguage } from "react-multi-lang";
 import { useSelector, useDispatch } from "react-redux";
 import { GetQuestionsData, saveQuesList } from "../../../slices/RegisterSlice";
 import { useNavigate } from "react-router-dom";
@@ -21,7 +21,7 @@ function RegisterQues() {
     (state) => state.register
   );
   useEffect(() => {
-    const payload = { lang: localStorage.getItem("lang") || "en" };
+    const payload = { lang: localStorage.getItem("lang") || getLanguage() };
     dispatch(GetQuestionsData(payload)).then((result) => {
       //fillQuesList(result);
       const arr = result.payload;
@@ -31,7 +31,7 @@ function RegisterQues() {
             answer: "yes",
             client_id: "",
             id: 0,
-            lang_code: localStorage.getItem("lang") || "en",
+            lang_code: localStorage.getItem("lang") || getLanguage(),
             ques_id: ques.ques_id,
           };
           quesLst.push(obj);
@@ -63,7 +63,7 @@ function RegisterQues() {
           answer: "yes",
           client_id: "",
           id: 0,
-          lang_code: localStorage.getItem("lang") || "en",
+          lang_code: localStorage.getItem("lang") || getLanguage(),
           ques_id: ques.ques_id,
         };
         quesLst.push(obj);

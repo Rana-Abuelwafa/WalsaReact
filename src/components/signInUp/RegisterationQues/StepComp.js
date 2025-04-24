@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useTranslation } from "react-multi-lang";
+import { useTranslation, getLanguage } from "react-multi-lang";
 import { Form } from "react-bootstrap";
 function StepComp(props) {
   const t = useTranslation();
@@ -9,7 +9,7 @@ function StepComp(props) {
     ques_id: props.ques != null ? props.ques.ques_id : 0,
     client_id: "",
     answer: "yes",
-    lang_code: localStorage.getItem("lang") || "en",
+    lang_code: localStorage.getItem("lang") || getLanguage(),
   });
   const updateAnswer = (e) => {
     setAnswer(e.target.id);
