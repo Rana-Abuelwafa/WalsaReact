@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import { CiGlobe } from "react-icons/ci";
-import { useTranslation, setLanguage } from "react-multi-lang";
+import { useTranslation, setLanguage,getLanguage } from "react-multi-lang";
 import "./LanguageDropdown.scss";
 
 const LanguageDropdown = () => {
   const t = useTranslation();
-  const [currentLang, setCurrentLang] = useState(localStorage.getItem("lang") || "en");
+  const [currentLang, setCurrentLang] = useState(localStorage.getItem("lang") || getLanguage());
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {

@@ -10,13 +10,20 @@ import Home from "./components/home/home";
 import ContactUs from "./components/contact/ContactUs";
 import { ToastContainer } from "react-toastify";
 function App() {
-  const currentLang = localStorage.getItem("lang") || "en";
+  //const currentLang = localStorage.getItem("lang") || "en";
   // useEffect(() => {
   //   document.documentElement.setAttribute(
   //     "dir",
   //     currentLang === "ar" ? "rtl" : "ltr"
   //   );
   // }, [currentLang]);
+  // useEffect(() => {
+  //   var FullUserLang = navigator.language || navigator.userLanguage;
+  //   var userLang = FullUserLang.slice(0, 2);
+  //   if (localStorage.getItem("lang") == null) {
+  //     localStorage.setItem("lang", userLang);
+  //   }
+  // }, []);
   return (
     <div className="App">
       <BrowserRouter>

@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-import { useTranslation } from "react-multi-lang";
+import { useTranslation, getLanguage } from "react-multi-lang";
 import { Link } from "react-router-dom";
 import MiniNavbar from "../../navbars/miniNavbar";
 import SignInUpShared from "../signInUpShared";
@@ -9,7 +9,7 @@ import "../SignInUp.scss";
 
 function Register() {
   const t = useTranslation();
-  const currentLang = localStorage.getItem("lang") || "en";
+  const currentLang = localStorage.getItem("lang") || getLanguage();
   return (
     <div
       className={currentLang == "ar" ? "SignSection right" : "SignSection left"}

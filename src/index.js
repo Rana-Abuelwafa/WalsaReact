@@ -15,7 +15,10 @@ import en from "./translation/en.json";
 // const translations = { en, arb };
 // const locale =localStorage.getItem("lang")? localStorage.getItem("lang") :"en";
 setDefaultTranslations({ ar, en });
-setDefaultLanguage(localStorage.getItem("lang") || "en");
+var FullUserLang = navigator.language || navigator.userLanguage;
+var userLang = FullUserLang.slice(0, 2);
+console.log("FullUserLang ", userLang);
+setDefaultLanguage(localStorage.getItem("lang") || userLang);
 var createHistory = require("history").createBrowserHistory;
 
 // in your function then call add the below
