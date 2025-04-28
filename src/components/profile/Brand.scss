@@ -1,0 +1,65 @@
+.brand-settings{
+    display: flex;
+    width:900px;
+    justify-content: left;
+    background: #ffffff;
+    min-height: 100vh;
+    position: relative;
+  
+    .form-container {
+      width: 95%;
+      background: #fff;
+      display: flex;
+      padding: 20px;
+      flex-direction: column;
+      position: relative;
+      .input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        label {
+          font-size: 14px;
+          color: #542D72;
+          font-weight: 500;
+        }
+
+        .custom-input {
+          padding: 7px;
+          border: 1px solid #542D72;
+          border-radius: 6p !important;
+          border-top-left-radius: 6px !important;
+          border-bottom-left-radius: 6px !important;
+          font-size: 14px;
+          width: 80%;
+        }
+        .area-input{
+            padding: 7px;
+            border: 1px solid #542D72;
+            border-radius: 6p !important;
+            border-top-left-radius: 6px !important;
+            border-bottom-left-radius: 6px !important;
+            font-size: 14px;
+            width: 90%;
+          }
+      }
+    }
+
+
+    .save-btn {
+        position: absolute;
+        bottom: 130px;
+        right:30px;
+        background-color: #542D72;
+        color: white;
+        border-radius: 20px;
+        padding: 10px 40px;
+        font-weight:bold;
+        border: none;
+        &:hover,
+        &:focus{
+            background-color: #542D72;
+            color: white;
+        }
+      }
+}

@@ -65,7 +65,7 @@ const MainNavbar = () => {
             <GoSearch className="icon" />
             <Row className="user-info">
               <Col className="user-icon-col">
-                <FiUser className="icon" onClick={() => navigate("/login")} />
+                <FiUser className="icon" onClick={() => MyName?navigate("/profile"):navigate("/login")} />
               </Col>
               <Col className="user-name-col">
                 <span className="userName">{MyName}</span>

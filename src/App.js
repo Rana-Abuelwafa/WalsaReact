@@ -8,6 +8,7 @@ import RegisterationResponse from "./components/signInUp/RegisterationQues/Regis
 import RegisterQues from "./components/signInUp/RegisterationQues/RegisterQues";
 import Home from "./components/home/home";
 import ContactUs from "./components/contact/ContactUs";
+import Profile from "./components/profile/Profile";
 import { ToastContainer } from "react-toastify";
 function App() {
   const currentLang = localStorage.getItem("lang") || "en";
@@ -28,6 +29,7 @@ function App() {
           <Route path="/Response" element={<RegisterationResponse />} />
           <Route path="/RegisterQues" element={<RegisterQues />} />
           <Route path="/contactUs" element={<ContactUs />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </BrowserRouter>
       {/* <ToastContainer /> */}
