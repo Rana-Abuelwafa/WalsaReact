@@ -23,141 +23,141 @@ const ProfileSettings = () => {
     twitter_link: "",
     birth_month: "",
     birth_day: "",
-    birth_year: ""
+    birth_year: "",
   });
   const [profileImage, setProfileImage] = useState(defaultProfileImg);
   const [loadingImage, setLoadingImage] = useState(false);
   const [loading, setLoading] = useState(true);
   const [profileExists, setProfileExists] = useState(false);
 
- // Fetch profile image using POST
- useEffect(() => {
-  const fetchProfileImage = async () => {
+  // Fetch profile image using POST
+  useEffect(() => {
+    const fetchProfileImage = async () => {
+      try {
+        setLoadingImage(true);
+        const response = await axios.post(
+          "https://waslaa.de:4431/api/WaslaClient/GetProfileImage",
+          {}, // Empty body or add required parameters if needed
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (response.data?.img) {
+          setProfileImage(response.data.img);
+        }
+      } catch (error) {
+        console.error("Error fetching profile image:", error);
+      } finally {
+        setLoadingImage(false);
+      }
+    };
+
+    if (accessToken) {
+      fetchProfileImage();
+    }
+  }, [accessToken]);
+
+  // Handle image upload
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // Validate image
+    if (!file.type.match("image.*")) {
+      alert("Please select an image file");
+      return;
+    }
+
+    if (file.size > 2 * 1024 * 1024) {
+      alert("Image size should be less than 2MB");
+      return;
+    }
+
     try {
-      setLoadingImage(true);
+      console.log(file);
       const response = await axios.post(
-        "https://waslaa.de:4431/api/WaslaClient/GetProfileImage",
-        {}, // Empty body or add required parameters if needed
+        "https://waslaa.de:4431/api/WaslaClient/saveProfileImage",
+        { img: file },
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json"
-          }
+            "Content-Type": "multipart/form-data",
+          },
         }
       );
-      
-      if (response.data?.img) {
-        setProfileImage(response.data.img);
-      }
+
+      // Update image preview immediately
+      setProfileImage(URL.createObjectURL(file));
+
+      // Optionally refetch the image from server to confirm
+      // await fetchProfileImage();
+
+      alert("Profile image updated successfully!");
     } catch (error) {
-      console.error("Error fetching profile image:", error);
-    } finally {
-      setLoadingImage(false);
+      console.error("Error uploading profile image:", error);
+      setProfileImage(defaultProfileImg);
+      alert("Error uploading profile image. Please try again.");
     }
   };
 
-  if (accessToken) {
-    fetchProfileImage();
-  }
-}, [accessToken]);
-
-
-
-// Handle image upload
-const handleImageUpload = async (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
-
-  // Validate image
-  if (!file.type.match('image.*')) {
-    alert("Please select an image file");
-    return;
-  }
-
-  if (file.size > 2 * 1024 * 1024) {
-    alert("Image size should be less than 2MB");
-    return;
-  }
-
-  try {
-    console.log(file)
-    const response = await axios.post(
-      "https://waslaa.de:4431/api/WaslaClient/saveProfileImage",
-      { img: file},
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "multipart/form-data"
-        }
-      }
-    );
-
-    // Update image preview immediately
-    setProfileImage(URL.createObjectURL(file));
-    
-    // Optionally refetch the image from server to confirm
-    // await fetchProfileImage();
-    
-    alert("Profile image updated successfully!");
-  } catch (error) {
-    console.error("Error uploading profile image:", error);
-    setProfileImage(defaultProfileImg); 
-    alert("Error uploading profile image. Please try again.");
-  }
-};
-
-const handleCameraClick = () => {
-  fileInputRef.current.click();
-};
+  const handleCameraClick = () => {
+    fileInputRef.current.click();
+  };
 
   useEffect(() => {
     const fetchProfileData = async () => {
-        try {
-          const response = await axios.post(
-            "https://waslaa.de:4431/api/WaslaClient/GetClientProfiles",
-            {}, // Empty request body
-            {
-              headers: {
-                Authorization: `Bearer ${accessToken}`,
-                "Content-Type": "application/json"
-              }
-            }
-          );
-    
-          // Handle response - assuming it returns an array of profiles
-          if (response.data && Array.isArray(response.data)) {
-            const userProfile = response.data.find(profile => 
-              profile.client_id === user.id
-            );
-            
-            if (userProfile) {
-              setFormData(prev => ({
-                ...prev,
-                ...userProfile,
-                client_name: userProfile.client_name || `${user.firstName} ${user.lastName}`.trim()
-              }));
-              setProfileExists(true);
-            }
+      try {
+        const response = await axios.post(
+          "https://waslaa.de:4431/api/WaslaClient/GetClientProfiles",
+          {}, // Empty request body
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              "Content-Type": "application/json",
+            },
           }
-        } catch (error) {
-          console.error("Error fetching profile data:", error);
-        } finally {
-          setLoading(false);
+        );
+
+        // Handle response - assuming it returns an array of profiles
+        if (response.data && Array.isArray(response.data)) {
+          const userProfile = response.data.find(
+            (profile) => profile.client_id === user.id
+          );
+
+          if (userProfile) {
+            setFormData((prev) => ({
+              ...prev,
+              ...userProfile,
+              client_name:
+                userProfile.client_name ||
+                `${user.firstName} ${user.lastName}`.trim(),
+            }));
+            setProfileExists(true);
+          }
         }
-      };
-    
-      if (user?.id && accessToken) {
-        fetchProfileData();
-      } else {
+      } catch (error) {
+        console.error("Error fetching profile data:", error);
+      } finally {
         setLoading(false);
       }
-    }, [user?.id, accessToken]);
+    };
+
+    if (user?.id && accessToken) {
+      fetchProfileData();
+    } else {
+      setLoading(false);
+    }
+  }, [user?.id, accessToken]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -170,8 +170,8 @@ const handleCameraClick = () => {
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json"
-          }
+            "Content-Type": "application/json",
+          },
         }
       );
       console.log("Profile saved successfully:", response.data);
@@ -195,10 +195,10 @@ const handleCameraClick = () => {
             {/* Column 1 */}
             <div className="form-column">
               <div className="profile-picture">
-              {loadingImage ? (
+                {loadingImage ? (
                   <div className="avatar-loading">Loading...</div>
                 ) : (
-                  <div 
+                  <div
                     className="avatar"
                     style={{ backgroundImage: `url(${profileImage})` }}
                   >
@@ -207,16 +207,16 @@ const handleCameraClick = () => {
                       ref={fileInputRef}
                       onChange={handleImageUpload}
                       accept="image/*"
-                      style={{ display: 'none' }}
+                      style={{ display: "none" }}
                     />
-                    <MdOutlineCameraAlt 
-                      className="camera-icon" 
-                      onClick={handleCameraClick} 
+                    <MdOutlineCameraAlt
+                      className="camera-icon"
+                      onClick={handleCameraClick}
                     />
                   </div>
                 )}
               </div>
-              
+
               <div className="input-group">
                 <Form.Label>Name</Form.Label>
                 <Form.Control
@@ -295,7 +295,9 @@ const handleCameraClick = () => {
                     <option>Month</option>
                     {Array.from({ length: 12 }, (_, i) => (
                       <option key={i} value={i + 1}>
-                        {new Date(0, i).toLocaleString('default', { month: 'long' })}
+                        {new Date(0, i).toLocaleString("default", {
+                          month: "long",
+                        })}
                       </option>
                     ))}
                   </Form.Select>
@@ -343,7 +345,7 @@ const handleCameraClick = () => {
                   </div>
                 </div>
                 <Button className="add-payment">
-                  <MdOutlinePayment className="pay-icon"/> Add payments method
+                  <MdOutlinePayment className="pay-icon" /> Add payments method
                 </Button>
               </div>
             </div>

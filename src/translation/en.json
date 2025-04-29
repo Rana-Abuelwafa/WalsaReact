@@ -43,7 +43,9 @@
     "home": "HOME",
     "pricing": "PRICING",
     "ourWork": "OUR WORK",
-    "user": "User"
+    "user": "User",
+    "contact":"Contact",
+    "about": "About"
   },
   "SaleNavbar": {
     "saleText": "Our Huge",
@@ -135,5 +137,37 @@
     "helpTitle": "Help Center",
     "helpDesc": "Watch tutorials and read detailed\narticles in our Help Center",
     "helpBtn": "Visit Help Center"
+  },
+  "changePassword": {
+    "oldPasswordLabel": "Old password",
+    "oldPasswordPlaceholder": "Password",
+    "newPasswordLabel": "New password",
+    "newPasswordPlaceholder": "New password",
+    "confirmPasswordLabel": "Confirm new password",
+    "confirmPasswordPlaceholder": "Confirm new password",
+    "submitButton": "Change password",
+    "changingButton": "Changing...",
+    "successMessage": "Your password has been changed successfully. Please login again with your new password.",
+    "errors": {
+      "oldPasswordRequired": "Old password is required",
+      "newPasswordRequired": "New password is required",
+      "passwordLength": "Password must be at least 8 characters",
+      "confirmPasswordRequired": "Please confirm your new password",
+      "passwordsDontMatch": "Passwords don't match",
+      "userIdNotFound": "User ID not found. Please log in again."
+    }
+  },
+  "brand": {
+    "loading": "Loading brand data...",
+    "nameLabel": "Brand Name",
+    "namePlaceholder": "Enter your Brand Name",
+    "typeLabel": "Brand Type",
+    "typePlaceholder": "Enter your Brand Type",
+    "aboutLabel": "About Brand",
+    "aboutPlaceholder": "Write a small summary of your business identity",
+    "saveButton": "Save",
+    "updateButton": "Update",
+    "successMessage": "Brand information saved successfully!",
+    "errorMessage": "Error saving brand information. Please try again."
   }
 }

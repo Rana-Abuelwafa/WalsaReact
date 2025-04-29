@@ -57,7 +57,7 @@ const Home = () => {
                   <img
                     src="images/webs3.png"
                     alt={t("Home.heroImageAlt")}
-                    className="img-fluid illustration"
+                    className="img-fluid illustration no-flip"
                   />
                 </Col>
               </Row>

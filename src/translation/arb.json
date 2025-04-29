@@ -43,7 +43,9 @@
     "home": "الرئيسية",
     "pricing": "الأسعار",
     "ourWork": "أعمالنا",
-    "user": "المستخدم"
+    "user": "المستخدم",
+    "about": "معلومات عنا",
+    "contact": "اتصل بنا"
   },
   "SaleNavbar": {
     "saleText": "عرضنا الضخم",
@@ -133,5 +135,37 @@
     "helpTitle": "مركز المساعدة",
     "helpDesc": "شاهد الشروحات واقرأ المقالات التفصيلية في مركز المساعدة",
     "helpBtn": "زيارة مركز المساعدة"
+  },
+  "changePassword": {
+    "oldPasswordLabel": "كلمة المرور القديمة",
+    "oldPasswordPlaceholder": "كلمة المرور",
+    "newPasswordLabel": "كلمة المرور الجديدة",
+    "newPasswordPlaceholder": "كلمة المرور الجديدة",
+    "confirmPasswordLabel": "تأكيد كلمة المرور الجديدة",
+    "confirmPasswordPlaceholder": "تأكيد كلمة المرور الجديدة",
+    "submitButton": "تغيير كلمة المرور",
+    "changingButton": "جاري التغيير...",
+    "successMessage": "تم تغيير كلمة المرور بنجاح. يرجى تسجيل الدخول مرة أخرى باستخدام كلمة المرور الجديدة.",
+    "errors": {
+      "oldPasswordRequired": "كلمة المرور القديمة مطلوبة",
+      "newPasswordRequired": "كلمة المرور الجديدة مطلوبة",
+      "passwordLength": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل",
+      "confirmPasswordRequired": "يرجى تأكيد كلمة المرور الجديدة",
+      "passwordsDontMatch": "كلمات المرور غير متطابقة",
+      "userIdNotFound": "لم يتم العثور على معرف المستخدم. يرجى تسجيل الدخول مرة أخرى."
+    }
+  },
+  "brand": {
+    "loading": "جارٍ تحميل بيانات العلامة التجارية...",
+    "nameLabel": "اسم العلامة التجارية",
+    "namePlaceholder": "أدخل اسم العلامة التجارية",
+    "typeLabel": "نوع العلامة التجارية",
+    "typePlaceholder": "أدخل نوع العلامة التجارية",
+    "aboutLabel": "حول العلامة التجارية",
+    "aboutPlaceholder": "اكتب ملخصًا صغيرًا عن هوية عملك",
+    "saveButton": "حفظ",
+    "updateButton": "تحديث",
+    "successMessage": "تم حفظ معلومات العلامة التجارية بنجاح!",
+    "errorMessage": "خطأ في حفظ معلومات العلامة التجارية. يرجى المحاولة مرة أخرى."
   }
 }

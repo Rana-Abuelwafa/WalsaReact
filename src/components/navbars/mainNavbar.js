@@ -53,6 +53,12 @@ const MainNavbar = () => {
             <Nav.Link href="/" className="nav-item">
               {t("Navbar.home")}
             </Nav.Link>
+            <Nav.Link href="/contactUs" className="nav-item">
+          {t("Navbar.contact")}
+        </Nav.Link>
+        <Nav.Link href="/" className="nav-item">
+          {t("Navbar.about")}
+        </Nav.Link>
         {/* <Nav.Link href="/" className="nav-item">
           {t("Navbar.pricing")}
         </Nav.Link>
