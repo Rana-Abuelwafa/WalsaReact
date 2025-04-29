@@ -3,7 +3,11 @@ import { MultiStepForm, Step } from "react-multi-form";
 import { Container, Button } from "react-bootstrap";
 import { useTranslation, getLanguage } from "react-multi-lang";
 import { useSelector, useDispatch } from "react-redux";
-import { GetQuestionsData, saveQuesList } from "../../../slices/RegisterSlice";
+import {
+  GetQuestionsData,
+  saveQuesList,
+  CompleteMyProfile,
+} from "../../../slices/RegisterSlice";
 import { useNavigate } from "react-router-dom";
 import StepComp from "./StepComp";
 import "./RegisterQues.scss";
@@ -17,10 +21,19 @@ function RegisterQues() {
   const [quesLst, setQuesLst] = useState([]);
   const [showAlert, setShowAlert] = useState(false);
   const dispatch = useDispatch();
+  const [myEmail, setMyEmail] = useState("");
   const { Quesions, loading, isSuccessed, errors } = useSelector(
     (state) => state.register
   );
   useEffect(() => {
+    const userLocal = localStorage.getItem("user");
+    // console.log("userLocal ", userLocal);
+    if (userLocal) {
+      const user = JSON.parse(userLocal);
+      if (user) {
+        setMyEmail(user.email);
+      }
+    }
     const payload = { lang: localStorage.getItem("lang") || getLanguage() };
     dispatch(GetQuestionsData(payload)).then((result) => {
       //fillQuesList(result);
@@ -43,6 +56,7 @@ function RegisterQues() {
       setQuesLst([]);
     };
   }, []);
+
   const closeAlert = () => {
     setShowAlert(false);
   };
@@ -50,6 +64,8 @@ function RegisterQues() {
     dispatch(saveQuesList(quesLst)).then((result) => {
       if (result.payload && result.payload.success) {
         setQuesLst([]);
+        const cls = { email: myEmail };
+        dispatch(CompleteMyProfile(cls));
         navigate("/Response");
       } else {
         setShowAlert(true);

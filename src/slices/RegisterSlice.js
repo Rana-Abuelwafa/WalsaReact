@@ -108,6 +108,22 @@ export const saveQuesList = createAsyncThunk(
     }
   }
 );
+//complete myprofile
+export const CompleteMyProfile = createAsyncThunk(
+  "CompleteMyProfile",
+  async (payload, thunkAPI) => {
+    var response = await axios
+      .post(BASE_URL_AUTH + "/CompleteMyProfile", payload)
+      .then((res) => {
+        return res.data;
+      })
+      .catch((error) => {
+        //console.log("error.response.data ", error.response.data);
+        return error.response.data;
+      });
+    return response;
+  }
+);
 //verify email
 export const ConfirmOTP = createAsyncThunk(
   "ConfirmOTP",
@@ -227,6 +243,17 @@ const registerSlice = createSlice({
     });
     builder.addCase(ConfirmOTP.rejected, (state, action) => {
       state.User = null;
+      state.loading = false;
+    });
+
+    //complete my profile
+    builder.addCase(CompleteMyProfile.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(CompleteMyProfile.fulfilled, (state, action) => {
+      state.loading = false;
+    });
+    builder.addCase(CompleteMyProfile.rejected, (state, action) => {
       state.loading = false;
     });
 

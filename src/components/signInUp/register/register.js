@@ -7,6 +7,7 @@ import SignInUpShared from "../signInUpShared";
 import RegisterForm from "./registerForm";
 import "../SignInUp.scss";
 
+
 function Register() {
   const t = useTranslation();
   const currentLang = localStorage.getItem("lang") || getLanguage();
@@ -21,6 +22,7 @@ function Register() {
           <div className="login_form">
             <SignInUpShared />
             <RegisterForm />
+
             <p className="form_option">
               {t("Register.HaveAccount")}
               <Link to="/login">{t("Login.signIn")}</Link>

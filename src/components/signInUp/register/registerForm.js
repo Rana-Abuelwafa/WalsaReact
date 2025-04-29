@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RegisterUser } from "../../../slices/RegisterSlice";
 import Loader from "../../Loader/Loader";
 import PopUp from "../../shared/popoup/PopUp";
+import RecaptchaForm from "../RecaptchaForm";
 function RegisterForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -246,7 +247,7 @@ function RegisterForm() {
           Password must be at least 6 characters long.
         </Form.Control.Feedback>
       </Form.Group> */}
-
+      <RecaptchaForm />
       <Button type="submit" className="frmBtn purbleBtn FullWidthBtn">
         {t("Register.CreateAccount")}
       </Button>
