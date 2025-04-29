@@ -5,13 +5,17 @@
     "signIn": "تسجيل الدخول",
     "password": "كلمة المرور",
     "LoginWithGoogle": "تسجيل الدخول باستخدام جوجل",
+    "RegisterWithGoogle": "انشاء حساب باستخدام جوجل",
     "HeaderTitle": "مرحبًا بعودتك!",
     "HeaderSubTitle": "لتسجيل الدخول إلى حسابك، يرجى إدخال التفاصيل الخاصة بك.",
     "Or": "أو",
     "DontHaveAccount": "ليس لديك حساب؟",
     "CreateAccount": "إنشاء حساب",
     "EmailError": "ادخل عنوان بريد الكتروني صحيح",
-    "PasswordError": "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل"
+    "PasswordError": "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل",
+    "CodeVerifyTitle": "قم بادخال الكود الذي تم ارساله",
+    "CodeVerifyTitle2": "لتأكيد الايميل الخاص بك",
+    "SendCode": "ارسال الكود"
   },
   "Register": {
     "HeaderTitle": "ابقَ على تواصل مع",

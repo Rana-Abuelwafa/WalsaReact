@@ -10,21 +10,21 @@ function LoginForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [validated, setvalidated] = useState(false);
-  const [errors, setErrors] = useState({});
+  const [errorsLst, seterrorsLst] = useState({});
   const [formData, setformData] = useState({ email: "", password: "" });
-  const { User, loading } = useSelector((state) => state.register);
+  const { User, loading, errors } = useSelector((state) => state.register);
   const [showAlert, setShowAlert] = useState(false);
   const validate = () => {
     if (!/^\S+@\S+\.\S+$/.test(formData.email) || formData.email.trim() == "") {
-      setErrors({
-        ...errors,
+      seterrorsLst({
+        ...errorsLst,
         email: t("Login.EmailError"),
       });
       return false;
     }
     if (formData.password.trim() == "" || formData.password.length < 6) {
-      setErrors({
-        ...errors,
+      seterrorsLst({
+        ...errorsLst,
         password: t("Login.PasswordError"),
       });
       return false;
@@ -37,13 +37,17 @@ function LoginForm() {
   const signin = (event) => {
     event.preventDefault();
     if (validate()) {
-      let path = `/`;
+      //let path = `/`;
       let data = { payload: formData, path: "/LoginUser" };
       dispatch(LoginUser(data)).then((result) => {
         //console.log("result.payload.isSuccessed ", result.payload.isSuccessed);
         if (result.payload && result.payload.isSuccessed) {
           setShowAlert(false);
-          navigate(path);
+          if (result.payload.emailConfirmed == true) {
+            navigate("/");
+          } else {
+            navigate("/verifyEmail", { replace: true, state: { path: "/" } });
+          }
         } else {
           setShowAlert(true);
         }
@@ -65,7 +69,7 @@ function LoginForm() {
   };
   const fillFormData = (e) => {
     setvalidated(false);
-    setErrors({});
+    seterrorsLst({});
     setformData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -86,9 +90,9 @@ function LoginForm() {
           onChange={fillFormData}
           //isInvalid={validated && !/^\S+@\S+\.\S+$/.test(formData.email)}
         />
-        {errors.email && (
+        {errorsLst.email && (
           <Form.Text type="invalid" className="errorTxt">
-            {errors.email}
+            {errorsLst.email}
           </Form.Text>
         )}
         {/* <Form.Control.Feedback type="invalid">
@@ -107,9 +111,9 @@ function LoginForm() {
           onChange={fillFormData}
           //isInvalid={validated && formData.password.length < 6}
         />
-        {errors.password && (
+        {errorsLst.password && (
           <Form.Text type="invalid" className="errorTxt">
-            {errors.password}
+            {errorsLst.password}
           </Form.Text>
         )}
         {/* <Form.Control.Feedback type="invalid">
@@ -121,7 +125,9 @@ function LoginForm() {
       </Button>
       {loading ? <Loader /> : null}
       {/* {User != null && User.isSuccessed == false ? ( */}
-      {showAlert ? <PopUp msg={User.msg} closeAlert={closeAlert} /> : null}
+      {showAlert ? (
+        <PopUp msg={User != null ? User.msg : errors} closeAlert={closeAlert} />
+      ) : null}
       {/* ) : */}
       {/* // <PopUpMsg text={User.msg} show={showAlert} closeAlert={closeAlert} /> */}
       {/* null} */}

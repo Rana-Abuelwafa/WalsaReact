@@ -19,6 +19,7 @@
     "react-multi-form": "^1.0.5",
     "react-multi-lang": "^2.2.0",
     "react-multistep": "^5.5.9",
+    "react-otp-input": "^3.1.1",
     "react-popup-alert": "^2.0.0",
     "react-redux": "^9.2.0",
     "react-scripts": "5.0.1",

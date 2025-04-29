@@ -11,7 +11,7 @@ function RegisterForm() {
   const dispatch = useDispatch();
   const [validated, setvalidated] = useState(false);
   const [isMatch, setIsMatch] = useState(false);
-  const [errors, setErrors] = useState({});
+  const [errorsLst, seterrorsLst] = useState({});
   const [showAlert, setShowAlert] = useState(false);
   const [formData, setformData] = useState({
     FirstName: "",
@@ -20,41 +20,41 @@ function RegisterForm() {
     password: "",
     ConfirmPassword: "",
   });
-  const { User, loading } = useSelector((state) => state.register);
+  const { User, loading, errors } = useSelector((state) => state.register);
   const validate = () => {
     if (formData.FirstName == null || formData.FirstName.trim() == "") {
-      setErrors({
-        ...errors,
+      seterrorsLst({
+        ...errorsLst,
         firstname: t("Register.fillField"),
       });
       return false;
     }
 
     if (formData.LastName == null || formData.LastName.trim() == "") {
-      setErrors({
-        ...errors,
+      seterrorsLst({
+        ...errorsLst,
         lastname: t("Register.fillField"),
       });
       return false;
     }
     if (!/^\S+@\S+\.\S+$/.test(formData.email) || formData.email.trim() == "") {
-      setErrors({
-        ...errors,
+      seterrorsLst({
+        ...errorsLst,
         email: t("Login.EmailError"),
       });
       return false;
     }
 
     if (formData.password.trim() == "" || formData.password.length < 6) {
-      setErrors({
-        ...errors,
+      seterrorsLst({
+        ...errorsLst,
         password: t("Login.PasswordError"),
       });
       return false;
     }
     if (formData.ConfirmPassword !== formData.password) {
-      setErrors({
-        ...errors,
+      seterrorsLst({
+        ...errorsLst,
         ConfirmPassword: t("Register.ConfirmPasswordError"),
       });
       return false;
@@ -70,9 +70,14 @@ function RegisterForm() {
         if (result.payload && result.payload.isSuccessed) {
           // const payload = { lang: "en", token: result.payload.accessToken };
           // dispatch(GetQuestionsData(payload));
-          let path = `/Welcome`;
+          // let path = `/Welcome`;
+          //let path = `/verifyEmail`;
           setShowAlert(false);
-          navigate(path);
+          navigate("/verifyEmail", {
+            replace: true,
+            state: { path: "/welcome" },
+          });
+          // navigate(path);
         } else {
           setShowAlert(true);
         }
@@ -84,7 +89,7 @@ function RegisterForm() {
   };
   const fillFormData = (e) => {
     setvalidated(false);
-    setErrors({});
+    seterrorsLst({});
     setformData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -106,9 +111,9 @@ function RegisterForm() {
               name="FirstName"
               onChange={fillFormData}
             />
-            {errors.firstname && (
+            {errorsLst.firstname && (
               <Form.Text type="invalid" className="errorTxt">
-                {errors.firstname}
+                {errorsLst.firstname}
               </Form.Text>
             )}
           </Form.Group>
@@ -124,9 +129,9 @@ function RegisterForm() {
               name="LastName"
               onChange={fillFormData}
             />
-            {errors.lastname && (
+            {errorsLst.lastname && (
               <Form.Text type="invalid" className="errorTxt">
-                {errors.lastname}
+                {errorsLst.lastname}
               </Form.Text>
             )}
           </Form.Group>
@@ -159,9 +164,9 @@ function RegisterForm() {
           onChange={fillFormData}
           // isInvalid={validated && !/^\S+@\S+\.\S+$/.test(formData.email)}
         />
-        {errors.email && (
+        {errorsLst.email && (
           <Form.Text type="invalid" className="errorTxt">
-            {errors.email}
+            {errorsLst.email}
           </Form.Text>
         )}
         {/* <Form.Control.Feedback type="invalid">
@@ -183,9 +188,9 @@ function RegisterForm() {
               onChange={fillFormData}
               // isInvalid={formData.password.length < 6}
             />
-            {errors.password && (
+            {errorsLst.password && (
               <Form.Text type="invalid" className="errorTxt">
-                {errors.password}
+                {errorsLst.password}
               </Form.Text>
             )}
             {/* <Form.Control.Feedback type="invalid">
@@ -209,9 +214,9 @@ function RegisterForm() {
               //   validated && formData.password !== formData.ConfirmPassword
               // }
             />
-            {errors.ConfirmPassword && (
+            {errorsLst.ConfirmPassword && (
               <Form.Text className="errorTxt">
-                {errors.ConfirmPassword}
+                {errorsLst.ConfirmPassword}
               </Form.Text>
             )}
             {/* {isMatch == false ? (
@@ -254,7 +259,9 @@ function RegisterForm() {
           closeAlert={() => setShowAlert(false)}
         />
       ) : null} */}
-      {showAlert ? <PopUp msg={User.msg} closeAlert={closeAlert} /> : null}
+      {showAlert ? (
+        <PopUp msg={User != null ? User.msg : errors} closeAlert={closeAlert} />
+      ) : null}
     </Form>
   );
 }
