@@ -1,0 +1,184 @@
+.profile-settings {
+    display: flex;
+    width:1100px;
+    justify-content: center;
+    background: #ffffff;
+    min-height: 100vh;
+    position: relative;
+  
+    .form-container {
+      width: 95%;
+      background: #fff;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+  
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 120px;
+        margin-bottom: 40px;
+  
+        .form-column {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+  
+          .profile-picture {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+  
+            .avatar {
+              width: 140px;
+              height: 140px;
+              background-image: url(/imgs/profileImg.png);
+              background-repeat: no-repeat;
+              background-position: center;
+              background-size: contain;
+              position: relative;
+  
+              .camera-icon {
+                position: absolute;
+                bottom: 13px;
+                right: 1px;
+                padding: 2px;
+                font-weight: bold;
+                font-size: 32px;
+                color: #542D72;
+                cursor: pointer;
+              }
+            }
+          }
+  
+          .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+  
+            label {
+              font-size: 14px;
+              color: #542D72;
+              font-weight: 500;
+            }
+  
+            .custom-input {
+              padding: 7px;
+              border: 1px solid #542D72;
+              border-top-left-radius: 6px !important;
+      border-bottom-left-radius: 6px !important;
+              border-radius: 6px;
+              font-size: 14px;
+              width: 100%;
+            }
+          }
+  
+          .dob-selects {
+            display: flex;
+            gap: 10px;
+  
+            .custom-input {
+              flex: 1;
+            }
+          }
+  
+          .payment-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+  
+            label {
+              font-size: 14px;
+              color: #542D72;
+              font-weight: 500;
+            }
+  
+            .payment-methods {
+              display: flex;
+              flex-direction: column;
+              gap: 10px;
+  
+              .payment-card {
+                display: flex;
+                align-items: center;
+                background: #ffffff;
+                border: 1px solid #542D72;
+                color: #542D72;
+                padding: 10px;
+                border-radius: 6px;
+                justify-content: space-between;
+                
+                .paypalImg {
+                  width: 40px;
+                  height: 40px;
+                  background-image: url(/imgs/paypal.png);
+                  background-repeat: no-repeat;
+                  background-position: center;
+                  background-size: contain;
+                  position: relative;
+                }
+                
+                .visaImg {
+                  width: 40px;
+                  height: 40px;
+                  background-image: url(/imgs/visa.png);
+                  background-repeat: no-repeat;
+                  background-position: center;
+                  background-size: contain;
+                  position: relative;
+                }
+  
+                span {
+                  flex: 1;
+                  text-align: center;
+                  font-size: 12px;
+                }
+  
+                a {
+                  font-size: 12px;
+                  color: #f00;
+                  text-decoration: none;
+                }
+              }
+            }
+  
+            .add-payment {
+              background: #ffffff;
+              border: 1px solid #542D72;
+              padding: 10px;
+              color: #542D72;
+              border-radius: 6px;
+              font-size: 14px;
+              cursor: pointer;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              
+              .pay-icon {
+                font-size: 24px;
+                margin-right: 10px;
+              }
+            }
+          }
+        }
+      }
+  
+      .save-btn {
+        position: absolute;
+        bottom: 130px;
+        right:30px;
+        background-color: #542D72;
+        color: white;
+        border-radius: 20px;
+        padding: 10px 40px;
+        font-weight:bold;
+        border: none;
+        &:hover,
+        &:focus{
+            background-color: #542D72;
+            color: white;
+        }
+      }
+    }
+  }

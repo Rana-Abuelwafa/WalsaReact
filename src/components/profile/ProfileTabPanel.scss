@@ -1,0 +1,112 @@
+.tab-panel-container {
+  margin: 120px 50px 0;
+  display: grid;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 20px;
+  }
+  
+  .tab-panel {
+    display: flex;
+    width: 1230px;
+    height: 90vh;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.16);
+    overflow: hidden;
+  }
+  
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    width: 60px;
+    background-color: #F8F8FF;
+    border-right: 1px solid #e0e0e0;
+  }
+  
+  .tab {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin: 10px 0;
+    transition: all 0.3s ease;
+  }
+  
+  .tab:hover {
+    background-color: #e9ecef;
+  }
+  
+  .tab.active {
+    background-color: transparent;
+    color: transparent;
+    border-right: 5px solid #E7D9EA;
+  }
+  
+  .tab-icon {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .tab-content {
+    flex: 1;
+    padding: 25px;
+    min-height: 400px;
+  }
+  .save-button-container {
+    padding: 40px 0;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .save-button {
+    background-color: #542D72;
+    color: white;
+    border-radius: 20px;
+    padding: 10px 40px;
+    margin-top: 10px;
+    font-weight:bold;
+    border: none;
+    &:hover,
+    &:focus{
+        background-color: #542D72;
+        color: white;
+    }
+  }
+  
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .tab-panel {
+      flex-direction: column;
+      width: 100%;
+    }
+  
+    .tabs {
+      flex-direction: row;
+      width: 100%;
+      overflow-x: auto;
+      border-right: none;
+      border-bottom: 1px solid #e0e0e0;
+    }
+  
+    .tab {
+      flex-direction: column;
+      padding: 10px;
+      min-width: 80px;
+      text-align: center;
+    }
+  
+    .tab-icon {
+      margin-right: 0;
+      margin-bottom: 5px;
+    }
+  
+    .tab.active {
+      border-left: none;
+      border-bottom: 3px solid #007bff;
+    }
+  }
