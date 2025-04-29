@@ -108,7 +108,38 @@ export const saveQuesList = createAsyncThunk(
     }
   }
 );
-
+//complete myprofile
+export const CompleteMyProfile = createAsyncThunk(
+  "CompleteMyProfile",
+  async (payload, thunkAPI) => {
+    var response = await axios
+      .post(BASE_URL_AUTH + "/CompleteMyProfile", payload)
+      .then((res) => {
+        return res.data;
+      })
+      .catch((error) => {
+        //console.log("error.response.data ", error.response.data);
+        return error.response.data;
+      });
+    return response;
+  }
+);
+//verify email
+export const ConfirmOTP = createAsyncThunk(
+  "ConfirmOTP",
+  async (payload, thunkAPI) => {
+    var response = await axios
+      .post(BASE_URL_AUTH + "/ConfirmOTP", payload)
+      .then((res) => {
+        return res.data;
+      })
+      .catch((error) => {
+        //console.log("error.response.data ", error.response.data);
+        return error.response.data;
+      });
+    return response;
+  }
+);
 ///register
 export const RegisterUser = createAsyncThunk(
   "RegisterUser",
@@ -145,67 +176,88 @@ const registerSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(RegisterUser.pending, (state, { action }) => {
+    builder.addCase(RegisterUser.pending, (state, action) => {
       state.User = null;
       state.loading = true;
       // state.errors = null;
     });
-    builder.addCase(RegisterUser.fulfilled, (state, { payload }) => {
-      //console.log("fulfill");
-      // if (payload.status != null && payload.status !== 200) {
-      //   state.loading = false;
-      //   const errors = payload.errors;
-      //   for (var key in payload.errors) {
-      //     if (errors.hasOwnProperty(key)) {
-      //       console.log(errors[key]);
-      //     }
-      //   }
-      //   state.errors = payload.errors.ConfirmPassword.map((a) => `${a}`).join(
-      //     " "
-      //   );
-      //   state.isSuccessed = false;
-      // } else {
-      //   state.User = payload;
-      //   state.loading = false;
-      //   localStorage.setItem("token", payload.accessToken);
-      //   localStorage.setItem("user", payload);
-      //   state.errors = payload.msg;
-      //   state.isSuccessed = payload.isSuccessed;
-      // }
-      state.User = payload;
-      state.loading = false;
-      localStorage.setItem("token", payload.accessToken);
-      localStorage.setItem("user", JSON.stringify(payload));
-      state.errors = payload != null ? payload.msg : "";
+    builder.addCase(RegisterUser.fulfilled, (state, action) => {
+      if (action.payload.status != null && action.payload.status != 200) {
+        state.User = null;
+        state.loading = false;
+        state.errors = JSON.stringify(action.payload.errors);
+      } else {
+        state.User = action.payload;
+        state.loading = false;
+        localStorage.setItem("token", action.payload.accessToken);
+        localStorage.setItem("user", JSON.stringify(action.payload));
+        state.errors = action.payload != null ? action.payload.msg : "";
+      }
     });
     builder.addCase(RegisterUser.rejected, (state, { payload }) => {
       //console.log("rejected");
-      state.User = payload;
+      state.User = null;
       state.loading = false;
       // state.errors = payload.msg;
     });
-    builder.addCase(LoginUser.pending, (state, { action }) => {
+    builder.addCase(LoginUser.pending, (state, action) => {
       state.User = null;
       state.loading = true;
-      // state.errors = null;
-      // state.isSuccessed = true;
     });
-    builder.addCase(LoginUser.fulfilled, (state, { payload }) => {
-      // console.log("fulfilled ", payload);
-      state.User = payload;
+    builder.addCase(LoginUser.fulfilled, (state, action) => {
+      console.log("action ", action);
+      if (action.payload.status != null && action.payload.status != 200) {
+        state.User = null;
+        state.loading = false;
+        state.errors = JSON.stringify(action.payload.errors);
+      } else {
+        state.User = action.payload;
+        state.loading = false;
+        localStorage.setItem("token", action.payload.accessToken);
+        localStorage.setItem("user", JSON.stringify(action.payload));
+      }
+    });
+    builder.addCase(LoginUser.rejected, (state, action) => {
+      state.User = null;
       state.loading = false;
-      localStorage.setItem("token", payload.accessToken);
-      localStorage.setItem("user", JSON.stringify(payload));
-      // state.isSuccessed = payload != null ? payload.isSuccessed : true;
-      // state.errors = payload != null ? payload.msg : "";
     });
-    builder.addCase(LoginUser.rejected, (state, { payload }) => {
-      //console.log("rejected ", payload);
-      state.User = payload;
+    //confirm otp
+    builder.addCase(ConfirmOTP.pending, (state, action) => {
+      state.User = null;
+      state.loading = true;
+    });
+    builder.addCase(ConfirmOTP.fulfilled, (state, action) => {
+      console.log("action ", action);
+      if (action.payload.status != null && action.payload.status != 200) {
+        state.User = null;
+        state.loading = false;
+        state.errors = JSON.stringify(action.payload.errors);
+      } else {
+        state.User = action.payload;
+        state.loading = false;
+        localStorage.setItem("token", action.payload.accessToken);
+        localStorage.setItem("user", JSON.stringify(action.payload));
+      }
+
+      // }
+    });
+    builder.addCase(ConfirmOTP.rejected, (state, action) => {
+      state.User = null;
       state.loading = false;
-      // state.errors = null;
-      // state.isSuccessed = false;
     });
+
+    //complete my profile
+    builder.addCase(CompleteMyProfile.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(CompleteMyProfile.fulfilled, (state, action) => {
+      state.loading = false;
+    });
+    builder.addCase(CompleteMyProfile.rejected, (state, action) => {
+      state.loading = false;
+    });
+
+    //registration questions
     builder.addCase(GetQuestionsData.pending, (state, { payload }) => {
       state.Quesions = null;
       state.loading = true;

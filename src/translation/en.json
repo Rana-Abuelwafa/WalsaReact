@@ -5,13 +5,17 @@
     "signIn": "Sign in",
     "password": "Password",
     "LoginWithGoogle": "Login With Google",
+    "RegisterWithGoogle": "Register With Google",
     "HeaderTitle": "Welcome Back!",
     "HeaderSubTitle": "log into your account, please enter your details.",
     "Or": "or",
     "DontHaveAccount": "Don't have an account?",
     "CreateAccount": "Create an account",
     "EmailError": "Please enter a valid email address.",
-    "PasswordError": "Password must be at least 6 characters long."
+    "PasswordError": "Password must be at least 6 characters long.",
+    "CodeVerifyTitle": "Enter The Code sent To",
+    "CodeVerifyTitle2": "To Verify your mail",
+    "SendCode": "Send Code"
   },
   "Register": {
     "HeaderTitle": "Stay in touch with your",

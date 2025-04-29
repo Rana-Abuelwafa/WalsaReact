@@ -10,6 +10,7 @@ import Home from "./components/home/home";
 import ContactUs from "./components/contact/ContactUs";
 import Profile from "./components/profile/Profile";
 import { ToastContainer } from "react-toastify";
+import OTPInput from "./components/signInUp/OTP/OTPInput";
 function App() {
   //const currentLang = localStorage.getItem("lang") || "en";
   // useEffect(() => {
@@ -32,6 +33,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/verifyEmail" element={<OTPInput />} />
           <Route path="/Welcome" element={<WelcomeMsg />} />
           <Route path="/Response" element={<RegisterationResponse />} />
           <Route path="/RegisterQues" element={<RegisterQues />} />

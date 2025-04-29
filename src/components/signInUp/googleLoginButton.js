@@ -54,12 +54,19 @@ const GoogleLoginButton = (props) => {
             FirstName: given_name,
             LastName: family_name != null ? family_name : given_name,
           };
-          let path = `/`;
+          // let path = `/`;
           let data = { payload: formData, path: "/LoginGmail" };
           dispatch(LoginUser(data)).then((result) => {
             if (result.payload && result.payload.isSuccessed) {
               setShowAlert(false);
-              navigate(path);
+              if (result.payload.emailConfirmed == true) {
+                navigate("/");
+              } else {
+                navigate("/verifyEmail", {
+                  replace: true,
+                  state: { path: "/" },
+                });
+              }
             } else {
               setShowAlert(true);
             }
@@ -77,9 +84,11 @@ const GoogleLoginButton = (props) => {
           };
           dispatch(RegisterUser(data)).then((result) => {
             if (result.payload && result.payload.isSuccessed) {
-              let path = `/Welcome`;
               setShowAlert(false);
-              navigate(path);
+              navigate("/verifyEmail", {
+                replace: true,
+                state: { path: "/welcome" },
+              });
             } else {
               setShowAlert(true);
             }
@@ -97,7 +106,9 @@ const GoogleLoginButton = (props) => {
         onClick={() => googleLogin()}
       >
         <img src="../images/gmail_icon.png" className="gmail_icon" />
-        {t("Login.LoginWithGoogle")}
+        {props.login
+          ? t("Login.LoginWithGoogle")
+          : t("Login.RegisterWithGoogle")}
       </Button>
       {/* <GoogleLogin
           onSuccess={handleLoginSuccess}
@@ -108,7 +119,9 @@ const GoogleLoginButton = (props) => {
         /> */}
       {/* </GoogleOAuthProvider> */}
       {loading ? <Loader /> : null}
-      {showAlert ? <PopUp msg={User.msg} closeAlert={closeAlert} /> : null}
+      {showAlert ? (
+        <PopUp msg={User != null ? User.msg : ""} closeAlert={closeAlert} />
+      ) : null}
       {/* {User != null && User.isSuccessed == false ? (
         <PopUpMsg text={User.msg} show={true} />
       ) : null} */}
