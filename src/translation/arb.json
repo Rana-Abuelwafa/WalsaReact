@@ -49,7 +49,9 @@
     "ourWork": "أعمالنا",
     "user": "المستخدم",
     "about": "معلومات عنا",
-    "contact": "اتصل بنا"
+    "contact": "اتصل بنا",
+    "MyProfile": "الملف الشخصي",
+    "MyQuestions": "الأسئلة"
   },
   "SaleNavbar": {
     "saleText": "عرضنا الضخم",

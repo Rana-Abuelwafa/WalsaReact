@@ -48,8 +48,10 @@
     "pricing": "PRICING",
     "ourWork": "OUR WORK",
     "user": "User",
-    "contact":"Contact",
-    "about": "About"
+    "contact": "Contact",
+    "about": "About",
+    "MyProfile": "My Profile",
+    "MyQuestions": "My Questions"
   },
   "SaleNavbar": {
     "saleText": "Our Huge",

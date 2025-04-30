@@ -1,4 +1,5 @@
 // Base styles
+@use "../../styles/variables" as variables;
 .navbar-custom {
   background: white;
   height: auto;
@@ -191,7 +192,7 @@
     }
     .nav-icons {
       .icon {
-        margin:0;
+        margin: 0;
         font-size: 21px;
       }
     }
@@ -204,4 +205,40 @@
   height: 90px;
   justify-content: space-between;
   // padding: 0 50px;
+}
+
+.userDropDown {
+  .userDropDownBtn {
+    background-color: transparent !important;
+    border: 0 !important;
+    color: variables.$purple-color !important;
+    font-size: 20px;
+    padding: 0 !important;
+    &:hover,
+    &:focus {
+      background-color: transparent !important;
+      border: 0 !important;
+    }
+    &::after {
+      display: none !important;
+    }
+    .icon {
+      font-size: 32px;
+      color: #542d72;
+      transition: color 0.3s ease;
+      vertical-align: bottom;
+    }
+  }
+  .dropdown-item,
+  a {
+    color: variables.$purple-color !important;
+    text-decoration: none;
+    &:hover,
+    &:active,
+    &:focus {
+      color: variables.$dark-green-color !important;
+      background-color: transparent !important;
+      border: 0 !important;
+    }
+  }
 }

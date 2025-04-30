@@ -6,14 +6,14 @@
   min-height: 80px;
   z-index: 1000 !important;
   border-bottom: 1px solid #eee;
-  
+
   // .container-fluid {
   //   padding: 0;
   // }
 }
 
 .sale-text {
-  background: linear-gradient(90deg, #2A1739, #00BC82);
+  background: linear-gradient(90deg, #2a1739, #00bc82);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: 26px;
@@ -23,7 +23,7 @@
 }
 
 .countdown-timer {
-  color: #542D72;
+  color: #542d72;
   font-weight: bold;
   font-family: "Roboto";
   font-size: 26px;
@@ -33,9 +33,9 @@
 
 .countdown-labels {
   margin-top: -18px;
- 
+
   span {
-    color: #CFC4D8;
+    color: #cfc4d8;
     font-weight: 300;
     font-family: "Arial";
     font-size: 14px;
@@ -47,15 +47,15 @@
 
 .check-button {
   background: transparent !important;
-  border: 1px solid #B181D6 !important;
+  border: 1px solid #b181d6 !important;
   font-size: 18px !important;
   font-weight: bold !important;
   padding: 10px 42px !important;
   border-radius: 50px !important;
-  color: #542D72 !important;
+  color: #542d72 !important;
   float: right;
   transition: all 0.3s ease;
-  
+
   &:hover {
     background: rgba(177, 129, 214, 0.1) !important;
   }
@@ -68,7 +68,7 @@
       margin-right: 0;
       margin-left: 15px;
     }
-    
+
     .check-button {
       float: left;
     }
@@ -80,20 +80,20 @@
   .sale-navbar {
     margin-top: 90px !important;
     padding: 15px !important;
-    
+
     .sale-text {
       font-size: 18px;
     }
-    
+
     .countdown-timer {
       font-size: 18px;
     }
-    .countdown-labels{
+    .countdown-labels {
       margin-top: -10px;
-     span {
-      margin-right: 3px !important;
-      margin-left: 0px !important;
-      font-size: 12px;
+      span {
+        margin-right: 3px !important;
+        margin-left: 0px !important;
+        font-size: 12px;
       }
     }
     .check-button {
@@ -108,31 +108,31 @@
     min-height: auto;
     padding: 10px !important;
     margin-top: 80px !important;
-    
+
     .row > div {
       margin-bottom: 10px;
       text-align: center !important;
     }
-    
+
     .sale-text {
       font-size: 16px;
       white-space: normal;
     }
-    
+
     .countdown-timer {
       font-size: 16px;
     }
-    
-    .countdown-labels{
+
+    .countdown-labels {
       margin-top: -10px;
-     span {
-      margin-right: 3px !important;
-      margin-left: 0px !important;
-      min-width: 30px;
-      font-size: 10px;
+      span {
+        margin-right: 3px !important;
+        margin-left: 0px !important;
+        min-width: 30px;
+        font-size: 10px;
       }
     }
-    
+
     .check-button {
       float: none !important;
       display: block;
@@ -144,13 +144,13 @@
 @media (max-width: 576px) {
   .sale-navbar {
     margin-top: 70px !important;
-    
-    .countdown-labels{
+
+    .countdown-labels {
       margin-top: -8px;
       span {
-      margin-right: 5px !important;
-      margin-left: 0px !important;
-      min-width: 25px;
+        margin-right: 5px !important;
+        margin-left: 0px !important;
+        min-width: 25px;
       }
     }
   }

@@ -1,27 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Navbar, Nav, Row, Col ,Container} from "react-bootstrap";
+import { Navbar, Nav, Row, Col, Container } from "react-bootstrap";
 import { GoSearch } from "react-icons/go";
 import { FiUser, FiLogOut } from "react-icons/fi";
 import { useTranslation } from "react-multi-lang";
 import LanguageDropdown from "../Dropdowns/LanguageDropdown";
 import MenuDropdown from "../Dropdowns/MenuDropdown";
+import UserDropDown from "./UserDropDown";
 import "./mainNavbar.scss";
 
 const MainNavbar = () => {
   const [MyName, setMyName] = useState("");
+  const [completeprofile, setcompleteProfile] = useState(0);
   const navigate = useNavigate();
-  const t = useTranslation(); 
+  const t = useTranslation();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 992);
-  
 
   useEffect(() => {
-      const handleResize = () => {
-        setIsMobile(window.innerWidth < 992);
-      };
-      window.addEventListener('resize', handleResize);
-      return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 992);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const logOut = () => {
     localStorage.removeItem("token");
@@ -30,56 +31,67 @@ const MainNavbar = () => {
   };
 
   useEffect(() => {
-      const userLocal = localStorage.getItem("user");
-      if (userLocal) {
-        const user = JSON.parse(userLocal);
-        if (user) {
-          setMyName(`${user.firstName} ${user.lastName}`);
-        }
+    const userLocal = localStorage.getItem("user");
+    if (userLocal) {
+      const user = JSON.parse(userLocal);
+      if (user) {
+        setMyName(`${user.firstName} ${user.lastName}`);
+        // setcompleteProfile(user.completeprofile);
       }
-    }, []);
- 
+    }
+  }, []);
+
   return (
     <Navbar fixed="top" expand="lg" className="navbar-custom">
       <Container fluid>
-      <Navbar.Brand href="/" className="brand d-flex align-items-center">
-        <img src="logo/wasla logo.png" alt="Logo" className="logo" />
-      </Navbar.Brand>
+        <Navbar.Brand href="/" className="brand d-flex align-items-center">
+          <img src="logo/wasla logo.png" alt="Logo" className="logo" />
+        </Navbar.Brand>
 
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-        {/* <Nav className="nav-items d-none d-lg-flex"> */}
-          <Nav className={`nav-items ${document.documentElement.dir === "rtl" ? "ms-auto" : "me-auto"}`}>
+          {/* <Nav className="nav-items d-none d-lg-flex"> */}
+          <Nav
+            className={`nav-items ${
+              document.documentElement.dir === "rtl" ? "ms-auto" : "me-auto"
+            }`}
+          >
             <Nav.Link href="/" className="nav-item">
               {t("Navbar.home")}
             </Nav.Link>
             <Nav.Link href="/contactUs" className="nav-item">
-          {t("Navbar.contact")}
-        </Nav.Link>
-        <Nav.Link href="/" className="nav-item">
-          {t("Navbar.about")}
-        </Nav.Link>
-        {/* <Nav.Link href="/" className="nav-item">
+              {t("Navbar.contact")}
+            </Nav.Link>
+            <Nav.Link href="/" className="nav-item">
+              {t("Navbar.about")}
+            </Nav.Link>
+            {/* <Nav.Link href="/" className="nav-item">
           {t("Navbar.pricing")}
         </Nav.Link>
         <Nav.Link href="/" className="nav-item">
           {t("Navbar.ourWork")}
         </Nav.Link> */}
-      </Nav>
-      
-      <div className="d-flex align-items-center nav-icons">
-            <GoSearch className="icon" />
-            <Row className="user-info">
+          </Nav>
+
+          <div className="d-flex align-items-center nav-icons">
+            <UserDropDown MyName={MyName} completeprofile={completeprofile} />
+            {/* <Row className="user-info">
               <Col className="user-icon-col">
-                <FiUser className="icon" onClick={() => MyName?navigate("/profile"):navigate("/login")} />
+                <FiUser
+                  className="icon"
+                  onClick={() =>
+                    MyName ? navigate("/profile") : navigate("/login")
+                  }
+                />
               </Col>
               <Col className="user-name-col">
                 <span className="userName">{MyName}</span>
               </Col>
-            </Row>
-            <FiLogOut className="icon" onClick={logOut} />
+            </Row> */}
+            <GoSearch className="icon" />
             <LanguageDropdown />
             {!isMobile && <MenuDropdown />}
+            {MyName ? <FiLogOut className="icon" onClick={logOut} /> : null}
           </div>
         </Navbar.Collapse>
       </Container>

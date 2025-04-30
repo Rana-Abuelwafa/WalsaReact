@@ -56,9 +56,13 @@ export const GetQuestionsData = createAsyncThunk(
   async (payload, thunkAPI) => {
     if (checkAUTH()) {
       var response = await axios
-        .post(BASE_URL + "/getQuesList", payload, {
+        .post(BASE_URL + "/getQuesWithAnswers", payload, {
           headers: AuthHeaders(),
         })
+        // var response = await axios
+        //   .post(BASE_URL + "/getQuesList", payload, {
+        //     headers: AuthHeaders(),
+        //   })
         .then((res) => {
           return res.data;
         })
@@ -249,12 +253,24 @@ const registerSlice = createSlice({
     //complete my profile
     builder.addCase(CompleteMyProfile.pending, (state, action) => {
       state.loading = true;
+      state.User = null;
     });
     builder.addCase(CompleteMyProfile.fulfilled, (state, action) => {
-      state.loading = false;
+      if (action.payload.status != null && action.payload.status != 200) {
+        state.User = null;
+        state.loading = false;
+        state.errors = JSON.stringify(action.payload.errors);
+      } else {
+        state.User = action.payload;
+        state.loading = false;
+        localStorage.setItem("token", action.payload.accessToken);
+        localStorage.setItem("user", JSON.stringify(action.payload));
+        state.errors = action.payload != null ? action.payload.msg : "";
+      }
     });
     builder.addCase(CompleteMyProfile.rejected, (state, action) => {
       state.loading = false;
+      state.User = null;
     });
 
     //registration questions
