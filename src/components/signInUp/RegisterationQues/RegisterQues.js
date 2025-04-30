@@ -8,13 +8,14 @@ import {
   saveQuesList,
   CompleteMyProfile,
 } from "../../../slices/RegisterSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import StepComp from "./StepComp";
 import "./RegisterQues.scss";
 import Loader from "../../Loader/Loader";
 import PopUp from "../../shared/popoup/PopUp";
 
 function RegisterQues() {
+  // const { state } = useLocation();
   const navigate = useNavigate();
   const t = useTranslation();
   const [active, setActive] = useState(1);
@@ -22,6 +23,7 @@ function RegisterQues() {
   const [showAlert, setShowAlert] = useState(false);
   const dispatch = useDispatch();
   const [myEmail, setMyEmail] = useState("");
+  const [completeprofile, setcompleteProfile] = useState(0);
   const { Quesions, loading, isSuccessed, errors } = useSelector(
     (state) => state.register
   );
@@ -32,6 +34,7 @@ function RegisterQues() {
       const user = JSON.parse(userLocal);
       if (user) {
         setMyEmail(user.email);
+        setcompleteProfile(user.completeprofile);
       }
     }
     const payload = { lang: localStorage.getItem("lang") || getLanguage() };
@@ -117,6 +120,7 @@ function RegisterQues() {
                     <StepComp
                       ques={ques}
                       updateLst={updateLst}
+                      edit={completeprofile}
                       //fillQuesList={fillQuesList}
                     />
                   </Step>
@@ -142,16 +146,25 @@ function RegisterQues() {
                   {t("Register.Next")}
                 </Button>
               )}
-              {active == Quesions.length && (
-                <Button
-                  className="stepbtn roundedBtn SmallWidthBtn transBtn"
-                  onClick={saveLst}
-                  // onClick={() => navigate("/Response")}
-                  //style={{ float: "right" }}
-                >
-                  {t("Register.Submit")}
-                </Button>
-              )}
+              {active == Quesions.length &&
+                (completeprofile == 0 ? (
+                  <Button
+                    className="stepbtn roundedBtn SmallWidthBtn transBtn"
+                    onClick={saveLst}
+                    // onClick={() => navigate("/Response")}
+                    //style={{ float: "right" }}
+                  >
+                    {t("Register.Submit")}
+                  </Button>
+                ) : (
+                  <Button
+                    className="stepbtn roundedBtn SmallWidthBtn transBtn"
+                    onClick={() => navigate("/")}
+                    //style={{ float: "right" }}
+                  >
+                    {t("Register.BackHome")}
+                  </Button>
+                ))}
             </div>
           </div>
         ) : null}

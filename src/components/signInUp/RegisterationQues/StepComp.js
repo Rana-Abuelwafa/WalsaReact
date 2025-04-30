@@ -3,12 +3,12 @@ import { useTranslation, getLanguage } from "react-multi-lang";
 import { Form } from "react-bootstrap";
 function StepComp(props) {
   const t = useTranslation();
-  const [answer, setAnswer] = useState("yes");
+  const [answer, setAnswer] = useState(props.ques.answer || "yes");
   const [Ques, setQues] = useState({
     id: 0,
     ques_id: props.ques != null ? props.ques.ques_id : 0,
     client_id: "",
-    answer: "yes",
+    answer: props.ques.answer || "yes",
     lang_code: localStorage.getItem("lang") || getLanguage(),
   });
   const updateAnswer = (e) => {
@@ -48,6 +48,7 @@ function StepComp(props) {
             onChange={updateAnswer}
             // onChange={(e) => setAnswer(e.target.id)}
             checked={answer === "yes"}
+            disabled={props.edit == 1}
           />
           <Form.Check
             inline
@@ -58,6 +59,7 @@ function StepComp(props) {
             onChange={updateAnswer}
             //onChange={(e) => setAnswer(e.target.id)}
             checked={answer === "no"}
+            disabled={props.edit == 1}
           />
         </div>
       </Form>
