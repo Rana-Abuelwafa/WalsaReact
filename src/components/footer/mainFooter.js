@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { FaFacebookF, FaInstagram, FaTwitter, FaEnvelope } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -7,7 +7,19 @@ import "./mainFooter.scss";
 
 const MainFooter = () => {
   const t = useTranslation();
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth" // for smooth scrolling
+    });
+  };
 
+  // Add scroll to top when component mounts
+  useEffect(() => {
+    // This will run when the component first mounts
+    // You can remove this if you don't want it to scroll on initial render
+    scrollToTop();
+  }, []);
   return (
     <footer className="footer" dir={t("dir")}>
       <hr className="custom-hr" />
@@ -34,9 +46,11 @@ const MainFooter = () => {
             <h5>{t("Footer.company.title")}</h5>
             <ul>
               <li className="small-text">{t("Footer.company.home")}</li>
+              <Link to="/AboutUs" onClick={scrollToTop}>
               <li className="small-text">{t("Footer.company.about")}</li>
+              </Link>
               <li className="small-text">{t("Footer.company.pricing")}</li>
-              <Link to="/contactUs">
+              <Link to="/contactUs" onClick={scrollToTop}>
                 <li className="small-text">{t("Footer.company.contact")}</li>
               </Link>
               <li className="small-text">{t("Footer.company.privacy")}</li>

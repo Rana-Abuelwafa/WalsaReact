@@ -1,13 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const BASE_URL = process.env.REACT_APP_API_URL;
 // Async thunks for API calls
 export const fetchBrand = createAsyncThunk(
   'brand/fetchBrand',
   async ({ clientId, accessToken }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "https://waslaa.de:4431/api/WaslaClient/GetClientBrands",
+        BASE_URL + "/GetClientBrands",
         {},
         {
           headers: {
@@ -28,7 +29,7 @@ export const saveBrand = createAsyncThunk(
   async ({ formData, accessToken }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "https://waslaa.de:4431/api/WaslaClient/saveClientBrand",
+        BASE_URL + "/saveClientBrand",
         formData,
         {
           headers: {

@@ -88,7 +88,7 @@ a,
 a:hover,
 a:focus,
 a:active {
-  text-decoration: none;
+  text-decoration: none !important;
 }
 .marked {
   color: $dark-green-color;

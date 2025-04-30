@@ -12,10 +12,7 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActionPaths: ['payload.file'],
-        ignoredPaths: ['profile.image']
-      }
+      serializableCheck: false
     })
 });
 

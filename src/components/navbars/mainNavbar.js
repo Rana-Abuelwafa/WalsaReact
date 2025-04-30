@@ -56,7 +56,7 @@ const MainNavbar = () => {
             <Nav.Link href="/contactUs" className="nav-item">
           {t("Navbar.contact")}
         </Nav.Link>
-        <Nav.Link href="/" className="nav-item">
+        <Nav.Link href="/AboutUs" className="nav-item">
           {t("Navbar.about")}
         </Nav.Link>
         {/* <Nav.Link href="/" className="nav-item">

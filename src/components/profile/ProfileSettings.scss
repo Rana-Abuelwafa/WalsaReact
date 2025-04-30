@@ -1,29 +1,38 @@
 .profile-settings {
     display: flex;
-    width:1100px;
+    max-width: 1100px;
+    width: 100%;
     justify-content: center;
     background: #ffffff;
-    min-height: 100vh;
     position: relative;
+    margin: 0 auto;
+  
+    [dir="rtl"] & {
+      direction: rtl;
+    }
   
     .form-container {
       width: 95%;
       background: #fff;
-      padding: 20px;
       display: flex;
       flex-direction: column;
       position: relative;
   
       .form-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 120px;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
         margin-bottom: 40px;
+  
+        @media (min-width: 992px) {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 60px;
+        }
   
         .form-column {
           display: flex;
           flex-direction: column;
-          gap: 10px;
+          gap: 20px;
   
           .profile-picture {
             display: flex;
@@ -38,7 +47,11 @@
               background-position: center;
               background-size: contain;
               position: relative;
-  
+              transition: transform 0.3s ease;
+
+              [dir="rtl"] & {
+                transform: scaleX(-1);
+              }
               .camera-icon {
                 position: absolute;
                 bottom: 13px;
@@ -48,6 +61,11 @@
                 font-size: 32px;
                 color: #542D72;
                 cursor: pointer;
+
+                // [dir="rtl"] & {
+                //   right: auto;
+                //   left: 1px;
+                // }
               }
             }
           }
@@ -61,27 +79,31 @@
               font-size: 14px;
               color: #542D72;
               font-weight: 500;
-            }
-  
+            }  
             .custom-input {
               padding: 7px;
               border: 1px solid #542D72;
               border-top-left-radius: 6px !important;
-      border-bottom-left-radius: 6px !important;
+              border-bottom-left-radius: 6px !important;
               border-radius: 6px;
               font-size: 14px;
               width: 100%;
+              appearance: none;
+              background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23542D72' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+              background-repeat: no-repeat;
+              background-position: right 0.75rem center;
+              background-size: 16px 12px;
+              padding-right: 2.5rem;
+            
+              [dir="rtl"] & {
+                background-position: left 0.75rem center;
+                padding-right: 0.75rem;
+                padding-left: 2.5rem;
+              }
             }
           }
   
-          .dob-selects {
-            display: flex;
-            gap: 10px;
-  
-            .custom-input {
-              flex: 1;
-            }
-          }
+          
   
           .payment-section {
             display: flex;
@@ -158,6 +180,11 @@
               .pay-icon {
                 font-size: 24px;
                 margin-right: 10px;
+
+                [dir="rtl"] & {
+                  margin-right: 0;
+                  margin-left: 10px;
+                }
               }
             }
           }
@@ -166,19 +193,57 @@
   
       .save-btn {
         position: absolute;
-        bottom: 130px;
-        right:30px;
-        background-color: #542D72;
-        color: white;
+        bottom: 30px;
+        right: 30px;
+        background-color: #542D72 !important;
+        color: white !important;
         border-radius: 20px;
         padding: 10px 40px;
-        font-weight:bold;
+        font-weight: bold;
         border: none;
+        
+        [dir="rtl"] & {
+          right: auto;
+          left: 30px;
+        }
+  
         &:hover,
-        &:focus{
-            background-color: #542D72;
-            color: white;
+        &:focus {
+          background-color: #542D72 !important;
+          color: white !important;
+        }
+  
+        @media (max-width: 768px) {
+          position: relative;
+          bottom: auto;
+          right: auto;
+          left: auto;
+          margin-top: 20px;
+          width: 100%;
         }
       }
     }
   }
+
+  .dob-selects {
+    display: flex;
+    gap: 10px;
+
+    .form-select.custom-input {
+      flex: 1;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23542D72' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 0.5rem center;
+      background-size: 12px 8px;
+      padding-right: 1.5rem;
+  
+      [dir="rtl"] & {
+        background-position: left 0.5rem center;
+        padding-right: 0.5rem;
+        padding-left: 1.5rem;
+      }
+    }
+  }
+
+ 

@@ -41,6 +41,9 @@
     border-right: 1px solid #e0e0e0;
     border-bottom: none;
     overflow-x: visible;
+    [dir="rtl"] & {
+      border-left: 1px solid #e0e0e0;
+    }
   }
 }
 
@@ -93,6 +96,7 @@
       height: 100%;
       background-color: #E7D9EA;
     }
+    
   }
 }
 

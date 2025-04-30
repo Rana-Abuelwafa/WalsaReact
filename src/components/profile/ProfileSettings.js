@@ -2,16 +2,38 @@ import React, { useState, useEffect, useRef } from "react";
 import { Form, Button } from "react-bootstrap";
 import { MdOutlineCameraAlt, MdOutlinePayment } from "react-icons/md";
 import defaultProfileImg from "../../imgs/profileImg.png";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-multi-lang";
+import { 
+  fetchProfile, 
+  saveProfile, 
+  fetchProfileImage, 
+  uploadProfileImage,
+  resetProfileStatus
+} from "../../slices/profileSlice";
+import PopUp from "../shared/popoup/PopUp";
 import "./ProfileSettings.scss";
 
 const ProfileSettings = () => {
+  const t = useTranslation();
   const user = JSON.parse(localStorage.getItem("user"));
   const accessToken = user?.accessToken;
+  const userId = user?.id;
   const fileInputRef = useRef(null);
+  const dispatch = useDispatch();
+  const {
+    profileData,
+    profileImage,
+    loading,
+    error,
+    success
+  } = useSelector((state) => state.profile);
+
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
   const [formData, setFormData] = useState({
     profile_id: 0,
-    client_id: user?.id || "",
+    client_id: userId || "",
     client_name: `${user?.firstName || ""} ${user?.lastName || ""}`.trim(),
     client_email: user?.email || "",
     phone_number: user?.phoneNumber || "",
@@ -21,87 +43,75 @@ const ProfileSettings = () => {
     pay_code: "",
     fb_link: "",
     twitter_link: "",
-    birth_month: "",
-    birth_day: "",
-    birth_year: "",
+    client_birthdayStr: "",
   });
-  const [profileImage, setProfileImage] = useState(defaultProfileImg);
-  const [loadingImage, setLoadingImage] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [profileExists, setProfileExists] = useState(false);
+  const [birthdayComponents, setBirthdayComponents] = useState({
+    year: "",
+    month: "",
+    day: ""
+  });
 
-  // Fetch profile image using POST
+  // Initialize form data from Redux store
   useEffect(() => {
-    const fetchProfileImage = async () => {
-      try {
-        setLoadingImage(true);
-        const response = await axios.post(
-          "https://waslaa.de:4431/api/WaslaClient/GetProfileImage",
-          {}, // Empty body or add required parameters if needed
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
+    if (profileData && Object.keys(profileData).length > 0) {
+      if (JSON.stringify(profileData) !== JSON.stringify(formData)) {
+        setFormData(prev => ({
+          ...prev,
+          ...profileData,
+          client_name: profileData.client_name || `${user?.firstName || ""} ${user?.lastName || ""}`.trim()
+        }));
 
-        if (response.data?.img) {
-          setProfileImage(response.data.img);
+        if (profileData.client_birthdayStr && 
+            profileData.client_birthdayStr !== `${birthdayComponents.year}-${birthdayComponents.month}-${birthdayComponents.day}`) {
+          const parts = profileData.client_birthdayStr.split('-');
+          setBirthdayComponents({
+            year: parts[0] || "",
+            month: parts[1] || "",
+            day: parts[2] || ""
+          });
         }
-      } catch (error) {
-        console.error("Error fetching profile image:", error);
-      } finally {
-        setLoadingImage(false);
       }
-    };
-
-    if (accessToken) {
-      fetchProfileImage();
     }
-  }, [accessToken]);
+  }, [profileData]);
 
-  // Handle image upload
+  // Fetch profile data on mount
+  useEffect(() => {
+    if (accessToken && userId) {
+      dispatch(fetchProfile({ accessToken, userId }));
+      dispatch(fetchProfileImage(accessToken));
+    }
+  }, [accessToken, userId, dispatch]);
+
+  // Handle success/error messages
+  useEffect(() => {
+    if (success) {
+      setPopupMessage(t("profile.saved_success"));
+      setShowPopup(true);
+      dispatch(resetProfileStatus());
+    } else if (error) {
+      setPopupMessage(error);
+      setShowPopup(true);
+      dispatch(resetProfileStatus());
+    }
+  }, [success, error, dispatch, t]);
+
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
-    // Validate image
     if (!file.type.match("image.*")) {
-      alert("Please select an image file");
+      setPopupMessage(t("profile.select_image_file"));
+      setShowPopup(true);
       return;
     }
 
     if (file.size > 2 * 1024 * 1024) {
-      alert("Image size should be less than 2MB");
+      setPopupMessage(t("profile.image_size_limit"));
+      setShowPopup(true);
       return;
     }
 
-    try {
-      console.log(file);
-      const response = await axios.post(
-        "https://waslaa.de:4431/api/WaslaClient/saveProfileImage",
-        { img: file },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-
-      // Update image preview immediately
-      setProfileImage(URL.createObjectURL(file));
-
-      // Optionally refetch the image from server to confirm
-      // await fetchProfileImage();
-
-      alert("Profile image updated successfully!");
-    } catch (error) {
-      console.error("Error uploading profile image:", error);
-      setProfileImage(defaultProfileImg);
-      alert("Error uploading profile image. Please try again.");
-    }
+    dispatch(uploadProfileImage({ accessToken, imageFile: file }));
   };
 
   const handleCameraClick = () => {
@@ -109,159 +119,128 @@ const ProfileSettings = () => {
   };
 
   useEffect(() => {
-    const fetchProfileData = async () => {
-      try {
-        const response = await axios.post(
-          "https://waslaa.de:4431/api/WaslaClient/GetClientProfiles",
-          {}, // Empty request body
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        // Handle response - assuming it returns an array of profiles
-        if (response.data && Array.isArray(response.data)) {
-          const userProfile = response.data.find(
-            (profile) => profile.client_id === user.id
-          );
-
-          if (userProfile) {
-            setFormData((prev) => ({
-              ...prev,
-              ...userProfile,
-              client_name:
-                userProfile.client_name ||
-                `${user.firstName} ${user.lastName}`.trim(),
-            }));
-            setProfileExists(true);
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching profile data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (user?.id && accessToken) {
-      fetchProfileData();
+    if (birthdayComponents.year && birthdayComponents.month && birthdayComponents.day) {
+      const newBirthdayStr = `${birthdayComponents.year}-${birthdayComponents.month.padStart(2, '0')}-${birthdayComponents.day.padStart(2, '0')}`;
+      setFormData(prev => ({
+        ...prev,
+        client_birthdayStr: newBirthdayStr
+      }));
     } else {
-      setLoading(false);
+      setFormData(prev => ({
+        ...prev,
+        client_birthdayStr: ""
+      }));
     }
-  }, [user?.id, accessToken]);
+  }, [birthdayComponents]);
+
+  const handleBirthdayChange = (e) => {
+    const { name, value } = e.target;
+    setBirthdayComponents(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       [name]: value,
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post(
-        "https://waslaa.de:4431/api/WaslaClient/saveMainProfile",
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      console.log("Profile saved successfully:", response.data);
-      alert("Profile saved successfully!");
-      setProfileExists(true);
-    } catch (error) {
-      console.error("Error saving profile:", error);
-      alert("Error saving profile. Please try again.");
-    }
+    dispatch(saveProfile({ accessToken, formData }));
   };
 
-  if (loading) {
-    return <div className="profile-settings">Loading profile data...</div>;
+  const closePopup = () => {
+    setShowPopup(false);
+    setPopupMessage("");
+  };
+
+  if (loading && !profileData) {
+    return <div className="profile-settings">{t("general.loading")}</div>;
   }
 
   return (
-    <div className="profile-settings">
+    <div className="profile-settings" dir={t("direction")}>
+      {showPopup && (
+        <PopUp msg={popupMessage} closeAlert={closePopup} />
+      )}
+      
       <div className="form-container">
         <Form onSubmit={handleSubmit}>
           <div className="form-grid">
             {/* Column 1 */}
             <div className="form-column">
               <div className="profile-picture">
-                {loadingImage ? (
-                  <div className="avatar-loading">Loading...</div>
-                ) : (
-                  <div
-                    className="avatar"
-                    style={{ backgroundImage: `url(${profileImage})` }}
-                  >
-                    <input
-                      type="file"
-                      ref={fileInputRef}
-                      onChange={handleImageUpload}
-                      accept="image/*"
-                      style={{ display: "none" }}
-                    />
-                    <MdOutlineCameraAlt
-                      className="camera-icon"
-                      onClick={handleCameraClick}
-                    />
-                  </div>
-                )}
+                <div
+                  className="avatar"
+                  style={{ 
+                    backgroundImage: `url(${profileImage || defaultProfileImg})`
+                  }}
+                >
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    onChange={handleImageUpload}
+                    accept="image/*"
+                    style={{ display: "none" }}
+                  />
+                  <MdOutlineCameraAlt
+                    className="camera-icon"
+                    onClick={handleCameraClick}
+                  />
+                </div>
               </div>
 
               <div className="input-group">
-                <Form.Label>Name</Form.Label>
+                <Form.Label>{t("profile.name")}</Form.Label>
                 <Form.Control
                   type="text"
                   name="client_name"
                   value={formData.client_name}
                   onChange={handleChange}
-                  placeholder="Enter your name"
-                  className="custom-input"
-                />
-              </div>
-
-              <div className="input-group">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  name="client_email"
-                  value={formData.client_email}
-                  onChange={handleChange}
-                  placeholder="Enter your email"
+                  placeholder={t("profile.enter_name")}
                   className="custom-input"
                   disabled
                 />
               </div>
 
               <div className="input-group">
-                <Form.Label>Phone number</Form.Label>
+                <Form.Label>{t("profile.email")}</Form.Label>
+                <Form.Control
+                  type="email"
+                  name="client_email"
+                  value={formData.client_email}
+                  onChange={handleChange}
+                  placeholder={t("profile.enter_email")}
+                  className="custom-input"
+                  disabled
+                />
+              </div>
+
+              <div className="input-group">
+                <Form.Label>{t("profile.phone")}</Form.Label>
                 <Form.Control
                   type="text"
                   name="phone_number"
                   value={formData.phone_number}
                   onChange={handleChange}
-                  placeholder="Enter your Phone number"
+                  placeholder={t("profile.enter_phone")}
                   className="custom-input"
                 />
               </div>
 
               <div className="input-group">
-                <Form.Label>Nation</Form.Label>
+                <Form.Label>{t("profile.nation")}</Form.Label>
                 <Form.Control
                   type="text"
                   name="nation"
                   value={formData.nation}
                   onChange={handleChange}
-                  placeholder="Enter your Nation"
+                  placeholder={t("profile.enter_nation")}
                   className="custom-input"
                 />
               </div>
@@ -270,57 +249,57 @@ const ProfileSettings = () => {
             {/* Column 2 */}
             <div className="form-column">
               <div className="input-group">
-                <Form.Label>Gender</Form.Label>
+                <Form.Label>{t("profile.gender")}</Form.Label>
                 <Form.Select
                   name="gender"
                   value={formData.gender}
                   onChange={handleChange}
                   className="custom-input"
                 >
-                  <option>Enter your Gender</option>
-                  <option>Male</option>
-                  <option>Female</option>
+                  <option value="">{t("profile.select_gender")}</option>
+                  <option value="Male">{t("profile.male")}</option>
+                  <option value="Female">{t("profile.female")}</option>
                 </Form.Select>
               </div>
 
               <div className="input-group">
-                <Form.Label>Date of birth</Form.Label>
+                <Form.Label>{t("profile.dob")}</Form.Label>
                 <div className="dob-selects">
                   <Form.Select
-                    name="birth_month"
-                    value={formData.birth_month}
-                    onChange={handleChange}
+                    name="month"
+                    value={birthdayComponents.month}
+                    onChange={handleBirthdayChange}
                     className="custom-input"
                   >
-                    <option>Month</option>
+                    <option value="">{t("profile.month")}</option>
                     {Array.from({ length: 12 }, (_, i) => (
-                      <option key={i} value={i + 1}>
-                        {new Date(0, i).toLocaleString("default", {
-                          month: "long",
+                      <option key={i} value={String(i + 1).padStart(2, '0')}>
+                        {new Date(0, i).toLocaleString(t("locale"), {
+                          month: "short",
                         })}
                       </option>
                     ))}
                   </Form.Select>
                   <Form.Select
-                    name="birth_day"
-                    value={formData.birth_day}
-                    onChange={handleChange}
+                    name="day"
+                    value={birthdayComponents.day}
+                    onChange={handleBirthdayChange}
                     className="custom-input"
                   >
-                    <option>Day</option>
+                    <option value="">{t("profile.day")}</option>
                     {Array.from({ length: 31 }, (_, i) => (
-                      <option key={i} value={i + 1}>
+                      <option key={i} value={String(i + 1).padStart(2, '0')}>
                         {i + 1}
                       </option>
                     ))}
                   </Form.Select>
                   <Form.Select
-                    name="birth_year"
-                    value={formData.birth_year}
-                    onChange={handleChange}
+                    name="year"
+                    value={birthdayComponents.year}
+                    onChange={handleBirthdayChange}
                     className="custom-input"
                   >
-                    <option>Year</option>
+                    <option value="">{t("profile.year")}</option>
                     {Array.from({ length: 100 }, (_, i) => (
                       <option key={i} value={new Date().getFullYear() - i}>
                         {new Date().getFullYear() - i}
@@ -331,21 +310,21 @@ const ProfileSettings = () => {
               </div>
 
               <div className="payment-section">
-                <Form.Label>Payments Method</Form.Label>
+                <Form.Label>{t("profile.payment_methods")}</Form.Label>
                 <div className="payment-methods">
                   <div className="payment-card">
                     <div className="paypalImg"></div>
                     <span>************000</span>
-                    <a href="#">Change</a>
+                    <a href="/">{t("profile.change")}</a>
                   </div>
                   <div className="payment-card">
                     <div className="visaImg"></div>
                     <span>************000</span>
-                    <a href="#">Change</a>
+                    <a href="/">{t("profile.change")}</a>
                   </div>
                 </div>
                 <Button className="add-payment">
-                  <MdOutlinePayment className="pay-icon" /> Add payments method
+                  <MdOutlinePayment className="pay-icon" /> {t("profile.add_payment")}
                 </Button>
               </div>
             </div>
@@ -353,47 +332,47 @@ const ProfileSettings = () => {
             {/* Column 3 */}
             <div className="form-column">
               <div className="input-group">
-                <Form.Label>Language</Form.Label>
+                <Form.Label>{t("profile.language")}</Form.Label>
                 <Form.Select
                   name="lang"
                   value={formData.lang}
                   onChange={handleChange}
                   className="custom-input"
                 >
-                  <option>Enter your Language</option>
-                  <option>English</option>
-                  <option>Arabic</option>
-                  <option>German</option>
+                  <option value="">{t("profile.select_language")}</option>
+                  <option value="English">{t("profile.english")}</option>
+                  <option value="Arabic">{t("profile.arabic")}</option>
+                  <option value="German">{t("profile.german")}</option>
                 </Form.Select>
               </div>
 
               <div className="input-group">
-                <Form.Label>Facebook</Form.Label>
+                <Form.Label>{t("profile.Facebook")}</Form.Label>
                 <Form.Control
                   type="text"
                   name="fb_link"
                   value={formData.fb_link}
                   onChange={handleChange}
-                  placeholder="Facebook"
+                  placeholder={t("profile.Facebook")}
                   className="custom-input"
                 />
               </div>
 
               <div className="input-group">
-                <Form.Label>Twitter</Form.Label>
+                <Form.Label>{t("profile.Twitter")}</Form.Label>
                 <Form.Control
                   type="text"
                   name="twitter_link"
                   value={formData.twitter_link}
                   onChange={handleChange}
-                  placeholder="Twitter"
+                  placeholder={t("profile.Twitter")}
                   className="custom-input"
                 />
               </div>
 
               <div className="text-right">
-                <Button type="submit" className="save-btn">
-                  {profileExists ? "Update" : "Save"}
+                <Button type="submit" className="save-btn" disabled={loading}>
+                  {loading ? t("general.saving") : (formData.profile_id ? t("profile.update") : t("profile.save"))}
                 </Button>
               </div>
             </div>
