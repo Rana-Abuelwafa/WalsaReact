@@ -9,6 +9,7 @@ import "../SignInUp.scss";
 function Login() {
   const t = useTranslation();
   const currentLang = localStorage.getItem("lang") || getLanguage();
+  console.log("currentLang ", currentLang);
   return (
     <div
       className={currentLang == "ar" ? "SignSection right" : "SignSection left"}

@@ -12,6 +12,7 @@ import AboutPage from "./components/about/AboutPage";
 import Profile from "./components/profile/Profile";
 import { ToastContainer } from "react-toastify";
 import OTPInput from "./components/signInUp/OTP/OTPInput";
+import { setDefaultLanguage } from "react-multi-lang";
 function App() {
   //const currentLang = localStorage.getItem("lang") || "en";
   // useEffect(() => {

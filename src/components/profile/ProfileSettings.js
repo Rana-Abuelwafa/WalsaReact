@@ -4,12 +4,12 @@ import { MdOutlineCameraAlt, MdOutlinePayment } from "react-icons/md";
 import defaultProfileImg from "../../imgs/profileImg.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-multi-lang";
-import { 
-  fetchProfile, 
-  saveProfile, 
-  fetchProfileImage, 
+import {
+  fetchProfile,
+  saveProfile,
+  fetchProfileImage,
   uploadProfileImage,
-  resetProfileStatus
+  resetProfileStatus,
 } from "../../slices/profileSlice";
 import PopUp from "../shared/popoup/PopUp";
 import "./ProfileSettings.scss";
@@ -21,13 +21,9 @@ const ProfileSettings = () => {
   const userId = user?.id;
   const fileInputRef = useRef(null);
   const dispatch = useDispatch();
-  const {
-    profileData,
-    profileImage,
-    loading,
-    error,
-    success
-  } = useSelector((state) => state.profile);
+  const { profileData, profileImage, loading, error, success } = useSelector(
+    (state) => state.profile
+  );
 
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
@@ -48,26 +44,31 @@ const ProfileSettings = () => {
   const [birthdayComponents, setBirthdayComponents] = useState({
     year: "",
     month: "",
-    day: ""
+    day: "",
   });
 
   // Initialize form data from Redux store
   useEffect(() => {
     if (profileData && Object.keys(profileData).length > 0) {
       if (JSON.stringify(profileData) !== JSON.stringify(formData)) {
-        setFormData(prev => ({
+        setFormData((prev) => ({
           ...prev,
           ...profileData,
-          client_name: profileData.client_name || `${user?.firstName || ""} ${user?.lastName || ""}`.trim()
+          client_name:
+            profileData.client_name ||
+            `${user?.firstName || ""} ${user?.lastName || ""}`.trim(),
         }));
 
-        if (profileData.client_birthdayStr && 
-            profileData.client_birthdayStr !== `${birthdayComponents.year}-${birthdayComponents.month}-${birthdayComponents.day}`) {
-          const parts = profileData.client_birthdayStr.split('-');
+        if (
+          profileData.client_birthdayStr &&
+          profileData.client_birthdayStr !==
+            `${birthdayComponents.year}-${birthdayComponents.month}-${birthdayComponents.day}`
+        ) {
+          const parts = profileData.client_birthdayStr.split("-");
           setBirthdayComponents({
             year: parts[0] || "",
             month: parts[1] || "",
-            day: parts[2] || ""
+            day: parts[2] || "",
           });
         }
       }
@@ -119,31 +120,40 @@ const ProfileSettings = () => {
   };
 
   useEffect(() => {
-    if (birthdayComponents.year && birthdayComponents.month && birthdayComponents.day) {
-      const newBirthdayStr = `${birthdayComponents.year}-${birthdayComponents.month.padStart(2, '0')}-${birthdayComponents.day.padStart(2, '0')}`;
-      setFormData(prev => ({
+    if (
+      birthdayComponents.year &&
+      birthdayComponents.month &&
+      birthdayComponents.day
+    ) {
+      const newBirthdayStr = `${
+        birthdayComponents.year
+      }-${birthdayComponents.month.padStart(
+        2,
+        "0"
+      )}-${birthdayComponents.day.padStart(2, "0")}`;
+      setFormData((prev) => ({
         ...prev,
-        client_birthdayStr: newBirthdayStr
+        client_birthdayStr: newBirthdayStr,
       }));
     } else {
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
-        client_birthdayStr: ""
+        client_birthdayStr: "",
       }));
     }
   }, [birthdayComponents]);
 
   const handleBirthdayChange = (e) => {
     const { name, value } = e.target;
-    setBirthdayComponents(prev => ({
+    setBirthdayComponents((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -165,10 +175,8 @@ const ProfileSettings = () => {
 
   return (
     <div className="profile-settings" dir={t("direction")}>
-      {showPopup && (
-        <PopUp msg={popupMessage} closeAlert={closePopup} />
-      )}
-      
+      {showPopup && <PopUp msg={popupMessage} closeAlert={closePopup} />}
+
       <div className="form-container">
         <Form onSubmit={handleSubmit}>
           <div className="form-grid">
@@ -177,8 +185,10 @@ const ProfileSettings = () => {
               <div className="profile-picture">
                 <div
                   className="avatar"
-                  style={{ 
-                    backgroundImage: `url(${profileImage || defaultProfileImg})`
+                  style={{
+                    backgroundImage: `url(${
+                      profileImage || defaultProfileImg
+                    })`,
                   }}
                 >
                   <input
@@ -273,7 +283,7 @@ const ProfileSettings = () => {
                   >
                     <option value="">{t("profile.month")}</option>
                     {Array.from({ length: 12 }, (_, i) => (
-                      <option key={i} value={String(i + 1).padStart(2, '0')}>
+                      <option key={i} value={String(i + 1).padStart(2, "0")}>
                         {new Date(0, i).toLocaleString(t("locale"), {
                           month: "short",
                         })}
@@ -288,7 +298,7 @@ const ProfileSettings = () => {
                   >
                     <option value="">{t("profile.day")}</option>
                     {Array.from({ length: 31 }, (_, i) => (
-                      <option key={i} value={String(i + 1).padStart(2, '0')}>
+                      <option key={i} value={String(i + 1).padStart(2, "0")}>
                         {i + 1}
                       </option>
                     ))}
@@ -324,7 +334,8 @@ const ProfileSettings = () => {
                   </div>
                 </div>
                 <Button className="add-payment">
-                  <MdOutlinePayment className="pay-icon" /> {t("profile.add_payment")}
+                  <MdOutlinePayment className="pay-icon" />{" "}
+                  {t("profile.add_payment")}
                 </Button>
               </div>
             </div>
@@ -372,7 +383,11 @@ const ProfileSettings = () => {
 
               <div className="text-right">
                 <Button type="submit" className="save-btn" disabled={loading}>
-                  {loading ? t("general.saving") : (formData.profile_id ? t("profile.update") : t("profile.save"))}
+                  {loading
+                    ? t("general.saving")
+                    : formData.profile_id
+                    ? t("profile.update")
+                    : t("profile.save")}
                 </Button>
               </div>
             </div>
