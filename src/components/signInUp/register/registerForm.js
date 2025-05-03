@@ -4,7 +4,7 @@ import { useTranslation } from "react-multi-lang";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RegisterUser } from "../../../slices/RegisterSlice";
-import Loader from "../../Loader/Loader";
+import LoadingPage from "../../Loader/LoadingPage";
 import PopUp from "../../shared/popoup/PopUp";
 import RecaptchaForm from "../RecaptchaForm";
 function RegisterForm() {
@@ -251,7 +251,7 @@ function RegisterForm() {
       <Button type="submit" className="frmBtn purbleBtn FullWidthBtn">
         {t("Register.CreateAccount")}
       </Button>
-      {loading ? <Loader /> : null}
+      {loading ? <LoadingPage /> : null}
       {/* {User != null && User.isSuccessed == false ? ( */}
       {/* {showAlert ? (
         <PopUpMsg

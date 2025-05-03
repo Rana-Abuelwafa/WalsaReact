@@ -53,7 +53,10 @@ export const saveProfile = createAsyncThunk(
           },
         }
       );
-      return response.data;
+      return {
+        response: response.data,
+        formData: formData
+      };
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
     }
@@ -121,8 +124,14 @@ const profileSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchProfile.fulfilled, (state, action) => {
-        state.loading = false;
-        state.profileData = action.payload;
+         state.loading = false;
+         state.success = true;
+        
+        // Update profileData with the new profile_id from response
+         state.profileData = {
+             ...action.payload.formData,
+             profile_id: action.payload.response.idout || action.payload.formData.profile_id
+         };
       })
       .addCase(fetchProfile.rejected, (state, action) => {
         state.loading = false;

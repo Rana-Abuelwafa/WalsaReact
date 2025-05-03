@@ -11,7 +11,7 @@ import {
 import { useNavigate, useLocation } from "react-router-dom";
 import StepComp from "./StepComp";
 import "./RegisterQues.scss";
-import Loader from "../../Loader/Loader";
+import LoadingPage from "../../Loader/LoadingPage";
 import PopUp from "../../shared/popoup/PopUp";
 
 function RegisterQues() {
@@ -169,7 +169,7 @@ function RegisterQues() {
           </div>
         ) : null}
       </div>
-      {loading ? <Loader /> : null}
+      {loading ? <LoadingPage /> : null}
       {showAlert ? (
         // <PopUpMsg text={errors} show={true} />
         <PopUp msg={errors} closeAlert={closeAlert} />

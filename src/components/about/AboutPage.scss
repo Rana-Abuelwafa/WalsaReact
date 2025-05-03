@@ -103,6 +103,129 @@
   
   }
 
+  // Hero Container
+.hero-container {
+    position: relative;
+    width: 100%;
+    height: 700px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 70% 100%;
+    background-image: url(/imgs/wasla-bg.png);
+    
+    [dir="rtl"] & {
+      background-image: url(/imgs/wasla-bg-rtl.png);
+    }
+    
+    @media (max-width: 992px) {
+      height: 500px;
+      background-size: 90% 100%;
+    }
+  
+    @media (max-width: 768px) {
+        height: 300px;
+        background-size: contain;;
+        background-position: center;
+    }
+    @media (max-width: 576px){
+        height: 300px;
+        background-size: contain;
+        background-position: center;
+    }
+  }
+  
+  .hero-content {
+    position: absolute;
+    margin-left: 280px;
+    margin-bottom: 50px;
+    width: 60%;
+    text-align: center;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    z-index: 1;
+  
+    h2 {
+      line-height: 60px;
+      font-size: 36px;
+    }
+  
+    [dir="rtl"] & {
+      margin-left: 0;
+      margin-right: 330px;
+      text-align: center;
+    }
+  
+    @media (max-width: 992px) {
+      margin-left: 180px;
+      width: 70%;
+      
+      [dir="rtl"] & {
+        margin-left: 0;
+        margin-right: 180px;
+      }
+    }
+  
+    @media (max-width: 768px) {
+      margin-left: 130px;
+      width: 90%;
+      text-align: center;
+      h2 {
+        line-height: 35px;
+        font-size: 18px;
+      }
+      [dir="rtl"] & {
+        margin-right: 130px;
+      }
+    }
+  }
+  
+  .hero-button {
+    position: absolute;
+    bottom: 20%;
+    left: 24%;
+    background: #5b2c79;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 28px;
+    border-radius: 35px;
+    cursor: pointer;
+    z-index: 2;
+    transition: background 0.3s ease-in-out;
+  
+    &:hover {
+      background: #3a1d52;
+    }
+  
+    [dir="rtl"] & {
+      left: auto;
+      right: 24%;
+    }
+  
+    @media (max-width: 992px) {
+      font-size: 24px;
+    }
+  
+    @media (max-width: 768px) {
+      font-size: 18px;
+      left: auto;
+      right: 43%;
+      transform: translateX(-50%);
+      
+      [dir="rtl"] & {
+        right: auto;
+        left: 68%;
+        font-size: 18px;
+        transform: translateX(-50%);
+      }
+    }
+  }
+  
+
   // RTL specific styles
 [dir="rtl"] {
     .about-page {

@@ -6,7 +6,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { ConfirmOTP } from "../../../slices/RegisterSlice";
 import PopUp from "../../shared/popoup/PopUp";
-import Loader from "../../Loader/Loader";
+import LoadingPage from "../../Loader/LoadingPage";
 function OTPInput(props) {
   const t = useTranslation();
   const { state } = useLocation();
@@ -82,7 +82,7 @@ function OTPInput(props) {
           {t("Login.SendCode")}
         </Button>
       </div>
-      {loading ? <Loader /> : null}
+      {loading ? <LoadingPage /> : null}
       {showAlert ? (
         <PopUp msg={User != null ? User.msg : errors} closeAlert={closeAlert} />
       ) : null}

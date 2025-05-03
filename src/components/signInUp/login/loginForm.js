@@ -4,7 +4,7 @@ import { useTranslation } from "react-multi-lang";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { LoginUser } from "../../../slices/RegisterSlice";
-import Loader from "../../Loader/Loader";
+import LoadingPage from "../../Loader/LoadingPage";
 import PopUp from "../../shared/popoup/PopUp";
 function LoginForm() {
   const navigate = useNavigate();
@@ -123,7 +123,7 @@ function LoginForm() {
       <Button type="submit" className="frmBtn purbleBtn FullWidthBtn">
         {t("Login.signIn")}
       </Button>
-      {loading ? <Loader /> : null}
+      {loading ? <LoadingPage /> : null}
       {/* {User != null && User.isSuccessed == false ? ( */}
       {showAlert ? (
         <PopUp msg={User != null ? User.msg : errors} closeAlert={closeAlert} />

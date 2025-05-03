@@ -6,7 +6,7 @@ import { FiUser, FiLogOut } from "react-icons/fi";
 import { useTranslation } from "react-multi-lang";
 import LanguageDropdown from "../Dropdowns/LanguageDropdown";
 import MenuDropdown from "../Dropdowns/MenuDropdown";
-import UserDropDown from "./UserDropDown";
+import UserDropDown from "../Dropdowns/UserDropDown";
 import "./mainNavbar.scss";
 
 const MainNavbar = () => {

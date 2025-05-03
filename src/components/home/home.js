@@ -7,29 +7,15 @@ import SaleNavbar from '../navbars/saleNavbar';
 import MainFooter from '../footer/mainFooter';
 import Chat from '../chatIcon/chat';
 import OfferPopup from '../OfferPopup/OfferPopup';
-import Loader from "../Loader/Loader";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./home.scss";
 
 const Home = () => {
-  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const t = useTranslation();
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
-    <>
-      {loading ? (
-        <Loader />
-      ) : (
-        <>
+  <>
           <OfferPopup />
           <MainNavbar />
           <SaleNavbar />
@@ -305,8 +291,6 @@ const Home = () => {
           <MainFooter />
           <Chat />
         </>
-      )}
-    </>
   );
 };
 

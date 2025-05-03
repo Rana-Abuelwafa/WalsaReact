@@ -5,7 +5,7 @@ import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RegisterUser, LoginUser } from "../../slices/RegisterSlice";
-import Loader from "../Loader/Loader";
+import LoadingPage from "../Loader/LoadingPage";
 import { Button } from "react-bootstrap";
 import PopUp from "../shared/popoup/PopUp";
 import axios from "axios";
@@ -118,7 +118,7 @@ const GoogleLoginButton = (props) => {
           shape="rectangular"
         /> */}
       {/* </GoogleOAuthProvider> */}
-      {loading ? <Loader /> : null}
+      {loading ? <LoadingPage /> : null}
       {showAlert ? (
         <PopUp msg={User != null ? User.msg : ""} closeAlert={closeAlert} />
       ) : null}

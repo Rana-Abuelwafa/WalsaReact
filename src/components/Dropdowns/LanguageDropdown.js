@@ -65,7 +65,8 @@ const LanguageDropdown = () => {
 
   const languages = [
     { code: "en", name: "ENGLISH", nativeName: "English" },
-    { code: "ar", name: "العربية", nativeName: "العربية" },
+    { code: "de", name: "GERMAN", nativeName: "German" },
+    { code: "ar", name: "العربية", nativeName: "العربية" }
   ];
 
   return (

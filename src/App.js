@@ -1,36 +1,45 @@
 import "./styles/shared.scss";
-import React, { useEffect } from "react";
+import React, { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./components/signInUp/login/login";
-import Register from "./components/signInUp/register/register";
-import WelcomeMsg from "./components/signInUp/SignMsgs/WelcomeMsg";
-import RegisterationResponse from "./components/signInUp/RegisterationQues/RegisterationResponse";
-import RegisterQues from "./components/signInUp/RegisterationQues/RegisterQues";
-import Home from "./components/home/home";
-import ContactUs from "./components/contact/ContactUs";
-import AboutPage from "./components/about/AboutPage";
-import Profile from "./components/profile/Profile";
-import { ToastContainer } from "react-toastify";
-import OTPInput from "./components/signInUp/OTP/OTPInput";
-import { setDefaultLanguage } from "react-multi-lang";
+import LoadingPage from './components/Loader/LoadingPage'; 
+
+const Home = lazy(() => import(/* webpackPrefetch: true */ "./components/home/home"));
+const Login = lazy(() => import(/* webpackPrefetch: true */ "./components/signInUp/login/login"));
+const Register = lazy(() => import(/* webpackPrefetch: true */ "./components/signInUp/register/register"));
+const OTPInput = lazy(() => import(/* webpackPrefetch: true */ "./components/signInUp/OTP/OTPInput"));
+const WelcomeMsg = lazy(() => import(/* webpackPrefetch: true */ "./components/signInUp/SignMsgs/WelcomeMsg"));
+const RegisterationResponse = lazy(() => import(/* webpackPrefetch: true */ "./components/signInUp/RegisterationQues/RegisterationResponse"));
+const RegisterQues = lazy(() => import(/* webpackPrefetch: true */ "./components/signInUp/RegisterationQues/RegisterQues"));
+const ContactUs = lazy(() => import(/* webpackPrefetch: true */ "./components/contact/ContactUs"));
+const AboutPage = lazy(() => import(/* webpackPrefetch: true */ "./components/about/AboutPage"));
+const Profile = lazy(() => import(/* webpackPrefetch: true */ "./components/profile/Profile"));
+
 function App() {
-  //const currentLang = localStorage.getItem("lang") || "en";
-  // useEffect(() => {
-  //   document.documentElement.setAttribute(
-  //     "dir",
-  //     currentLang === "ar" ? "rtl" : "ltr"
-  //   );
-  // }, [currentLang]);
-  // useEffect(() => {
-  //   var FullUserLang = navigator.language || navigator.userLanguage;
-  //   var userLang = FullUserLang.slice(0, 2);
-  //   if (localStorage.getItem("lang") == null) {
-  //     localStorage.setItem("lang", userLang);
-  //   }
-  // }, []);
+useEffect(() => {
+  // Programmatic preloading for likely next pages
+  const preloadPages = async () => {
+    if (window.location.pathname === '/login') {
+      await import("./components/signInUp/register/register");
+    }
+    // if (window.location.pathname === '/') {
+    //   await import("./components/home/home");
+    // }
+  };
+  
+  preloadPages();
+  
+  // // Preload fonts and critical assets
+  // const link = document.createElement('link');
+  // link.rel = 'preload';
+  // link.href = '/fonts/your-font.woff2';
+  // link.as = 'font';
+  // link.crossOrigin = 'anonymous';
+  // document.head.appendChild(link);
+}, []);
   return (
     <div className="App">
       <BrowserRouter>
+      <Suspense fallback={<LoadingPage />}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -43,8 +52,8 @@ function App() {
           <Route path="/AboutUs" element={<AboutPage />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>
+        </Suspense>
       </BrowserRouter>
-      {/* <ToastContainer /> */}
     </div>
   );
 }
