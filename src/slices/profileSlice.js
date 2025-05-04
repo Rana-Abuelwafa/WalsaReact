@@ -127,7 +127,7 @@ const profileSlice = createSlice({
          state.loading = false;
          state.success = true;
         
-        // Update profileData with the new profile_id from response
+        console.log(action.payload.response)
          state.profileData = {
              ...action.payload.formData,
              profile_id: action.payload.response.idout || action.payload.formData.profile_id

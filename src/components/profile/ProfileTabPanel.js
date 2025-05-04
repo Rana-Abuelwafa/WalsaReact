@@ -3,12 +3,14 @@ import './ProfileTabPanel.scss';
 import ProfileSettings from "./ProfileSettings";
 import Brand from "./Brand";
 import ChangePasswordForm from "./ChangePasswordForm";
+import Product from "./Product";
 import ComingSoon from "./ComingSoon";
 
 // Placeholder icons
 const profileIcon = '/images/profile_tab.png';
 const infoIcon = '/images/info_tab.png';
 const passwordIcon = '/images/pass_tab.png';
+const productIcon = '/images/shopping_tab.png';
 const previewIcon = '/images/preview_tab.png';
 const booknoteIcon = '/images/pay_tab.png';
 const shoppingIcon = '/images/shopping_tab.png';
@@ -20,6 +22,7 @@ const ProfileTabPanel = () => {
     { id: 'profile', icon: profileIcon },  
     { id: 'info', icon: infoIcon },        
     { id: 'password', icon: passwordIcon },
+    { id: 'product', icon: productIcon },
     { id: 'preview', icon: previewIcon },   
     { id: 'booknote', icon: booknoteIcon },
     { id: 'shopping', icon: shoppingIcon }   
@@ -48,6 +51,7 @@ const ProfileTabPanel = () => {
             {activeTab === 'profile' && <ProfileSettings />}
             {activeTab === 'info' && <Brand />}
             {activeTab === 'password' && <ChangePasswordForm />}
+            {activeTab === 'product' && <Product />}
             {activeTab === 'preview' && <ComingSoon />}
             {activeTab === 'booknote' && <ComingSoon />}
             {activeTab === 'shopping' && <ComingSoon />}

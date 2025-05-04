@@ -166,7 +166,6 @@ useEffect(() => {
       accessToken, 
       formData: {
         ...formData,
-        // Ensure we're sending the latest birthday string
         client_birthdayStr: `${birthdayComponents.year}-${birthdayComponents.month.padStart(2, '0')}-${birthdayComponents.day.padStart(2, '0')}`
       } 
     }));
