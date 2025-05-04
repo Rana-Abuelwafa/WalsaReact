@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
-import { useTranslation } from "react-multi-lang";
+import { useTranslation, getLanguage } from "react-multi-lang";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -53,6 +53,7 @@ const GoogleLoginButton = (props) => {
             email: email,
             FirstName: given_name,
             LastName: family_name != null ? family_name : given_name,
+            lang: localStorage.getItem("lang") || getLanguage(),
           };
           // let path = `/`;
           let data = { payload: formData, path: "/LoginGmail" };
@@ -79,6 +80,7 @@ const GoogleLoginButton = (props) => {
               LastName: family_name != null ? family_name : given_name,
               email: email,
               password: tokenResponse.access_token,
+              lang: localStorage.getItem("lang") || getLanguage(),
             },
             path: "/ExternalRegister",
           };

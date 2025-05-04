@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Row, Button, Form, Col } from "react-bootstrap";
-import { useTranslation } from "react-multi-lang";
+import { useTranslation, getLanguage } from "react-multi-lang";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RegisterUser } from "../../../slices/RegisterSlice";
@@ -66,6 +66,7 @@ function RegisterForm() {
     event.preventDefault();
     // validation
     if (validate()) {
+      formData["lang"] = localStorage.getItem("lang") || getLanguage();
       let data = { payload: formData, path: "/RegisterUser" };
       dispatch(RegisterUser(data)).then((result) => {
         if (result.payload && result.payload.isSuccessed) {

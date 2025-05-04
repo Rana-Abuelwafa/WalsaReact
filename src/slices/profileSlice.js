@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const BASE_URL = process.env.REACT_APP_API_URL;
 const initialState = {
@@ -7,12 +7,12 @@ const initialState = {
   profileImage: null,
   loading: false,
   error: null,
-  success: false
+  success: false,
 };
 
 // Async thunks
 export const fetchProfile = createAsyncThunk(
-  'profile/fetchProfile',
+  "profile/fetchProfile",
   async ({ accessToken, userId }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
@@ -25,7 +25,7 @@ export const fetchProfile = createAsyncThunk(
           },
         }
       );
-      
+
       if (response.data && Array.isArray(response.data)) {
         const userProfile = response.data.find(
           (profile) => profile.client_id === userId
@@ -40,7 +40,7 @@ export const fetchProfile = createAsyncThunk(
 );
 
 export const saveProfile = createAsyncThunk(
-  'profile/saveProfile',
+  "profile/saveProfile",
   async ({ accessToken, formData }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
@@ -55,7 +55,7 @@ export const saveProfile = createAsyncThunk(
       );
       return {
         response: response.data,
-        formData: formData
+        formData: formData,
       };
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
@@ -64,7 +64,7 @@ export const saveProfile = createAsyncThunk(
 );
 
 export const fetchProfileImage = createAsyncThunk(
-  'profile/fetchProfileImage',
+  "profile/fetchProfileImage",
   async (accessToken, { rejectWithValue }) => {
     try {
       const response = await axios.post(
@@ -85,11 +85,11 @@ export const fetchProfileImage = createAsyncThunk(
 );
 
 export const uploadProfileImage = createAsyncThunk(
-  'profile/uploadProfileImage',
+  "profile/uploadProfileImage",
   async ({ accessToken, imageFile }, { rejectWithValue }) => {
     try {
-        const requestBody = { img: imageFile };
-      
+      const requestBody = { img: imageFile };
+
       const response = await axios.post(
         BASE_URL + "/saveProfileImage",
         requestBody,
@@ -108,13 +108,13 @@ export const uploadProfileImage = createAsyncThunk(
 );
 
 const profileSlice = createSlice({
-  name: 'profile',
+  name: "profile",
   initialState,
   reducers: {
     resetProfileStatus: (state) => {
       state.success = false;
       state.error = null;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -137,7 +137,7 @@ const profileSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      
+
       // Save Profile
       .addCase(saveProfile.pending, (state) => {
         state.loading = true;
@@ -152,7 +152,7 @@ const profileSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      
+
       // Fetch Profile Image
       .addCase(fetchProfileImage.pending, (state) => {
         state.loading = true;
@@ -166,7 +166,7 @@ const profileSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      
+
       // Upload Profile Image
       .addCase(uploadProfileImage.pending, (state) => {
         state.loading = true;
@@ -181,7 +181,7 @@ const profileSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       });
-  }
+  },
 });
 
 export const { resetProfileStatus } = profileSlice.actions;

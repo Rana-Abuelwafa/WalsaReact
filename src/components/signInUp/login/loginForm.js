@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Row, Button, Form } from "react-bootstrap";
-import { useTranslation } from "react-multi-lang";
+import { useTranslation, getLanguage } from "react-multi-lang";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { LoginUser } from "../../../slices/RegisterSlice";
@@ -38,6 +38,7 @@ function LoginForm() {
     event.preventDefault();
     if (validate()) {
       //let path = `/`;
+      formData["lang"] = localStorage.getItem("lang") || getLanguage();
       let data = { payload: formData, path: "/LoginUser" };
       dispatch(LoginUser(data)).then((result) => {
         //console.log("result.payload.isSuccessed ", result.payload.isSuccessed);
