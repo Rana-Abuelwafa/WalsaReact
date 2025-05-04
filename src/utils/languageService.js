@@ -1,4 +1,4 @@
-export const supportedLanguages = ['en', 'ar', 'de'];
+export const supportedLanguages = ["en", "ar", "de"];
 
 export const detectLanguage = () => {
   const savedLang = localStorage.getItem("lang");
@@ -8,7 +8,7 @@ export const detectLanguage = () => {
     ...(navigator.languages || []),
     navigator.language,
     navigator.userLanguage,
-    'en' // final fallback
+    "en", // final fallback
   ];
 
   for (const lang of languagesToCheck) {
@@ -19,7 +19,7 @@ export const detectLanguage = () => {
     }
   }
 
-  return 'en';
+  return "en";
 };
 
 export const saveLanguagePreference = (lang) => {
