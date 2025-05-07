@@ -229,11 +229,26 @@
     "change": "Change",
     "add_payment": "Add payment method",
     "saved_success": "Profile saved successfully!",
+    "image_upload_success": "Profile Image saved successfully!",
     "select_image_file": "Please select an image file",
     "image_size_limit": "Image size should be less than 2MB",
     "Facebook":"Facebook",
     "Twitter":"Twitter",
     "update": "Update",
     "save": "Save"
+  },
+  "product":{
+    "select_your": "Select your",
+    "services": "Services",
+    "save": "Save",
+    "saving": "Saving",
+    "loading": "Loading",
+    "error": "Error",
+    "expand": "Expand",
+    "collapse": "Collapse",
+    "fetch_error": "Failed to load products. Please try again later.",
+    "save_success": "Your changes have been saved successfully!",
+    "save_error": "Failed to save your changes. Please try again.",
+    "no_changes": "No changes to save."
   }
 }

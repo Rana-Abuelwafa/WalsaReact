@@ -316,7 +316,7 @@ useEffect(() => {
                   name="gender"
                   value={formData.gender}
                   onChange={handleChange}
-                  className="custom-input"
+                  className="custom-input custom-toggle"
                 >
                   <option value="">{t("profile.select_gender")}</option>
                   <option value="Male">{t("profile.male")}</option>
@@ -331,7 +331,7 @@ useEffect(() => {
                     name="month"
                     value={birthdayComponents.month}
                     onChange={handleBirthdayChange}
-                    className="custom-input"
+                    className="custom-input custom-toggle"
                   >
                     <option value="">{t("profile.month")}</option>
                     {Array.from({ length: 12 }, (_, i) => (
@@ -346,7 +346,7 @@ useEffect(() => {
                     name="day"
                     value={birthdayComponents.day}
                     onChange={handleBirthdayChange}
-                    className="custom-input"
+                    className="custom-input custom-toggle"
                   >
                     <option value="">{t("profile.day")}</option>
                     {Array.from({ length: 31 }, (_, i) => (
@@ -359,7 +359,7 @@ useEffect(() => {
                     name="year"
                     value={birthdayComponents.year}
                     onChange={handleBirthdayChange}
-                    className="custom-input"
+                    className="custom-input custom-toggle"
                   >
                     <option value="">{t("profile.year")}</option>
                     {Array.from({ length: 100 }, (_, i) => (
@@ -399,7 +399,7 @@ useEffect(() => {
                   name="lang"
                   value={formData.lang}
                   onChange={handleChange}
-                  className="custom-input"
+                  className="custom-input custom-toggle"
                 >
                   <option value="">{t("profile.select_language")}</option>
                   <option value="English">{t("profile.english")}</option>
