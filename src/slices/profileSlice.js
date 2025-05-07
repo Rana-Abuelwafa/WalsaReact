@@ -124,14 +124,15 @@ const profileSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchProfile.fulfilled, (state, action) => {
-         state.loading = false;
-         state.success = true;
-        
-        console.log(action.payload.response)
-         state.profileData = {
-             ...action.payload.formData,
-             profile_id: action.payload.response.idout || action.payload.formData.profile_id
-         };
+        state.loading = false;
+        state.success = true;
+
+        console.log(action.payload);
+        state.profileData = {
+          ...action.payload.formData,
+          profile_id:
+            action.payload.response.idout || action.payload.formData.profile_id,
+        };
       })
       .addCase(fetchProfile.rejected, (state, action) => {
         state.loading = false;
