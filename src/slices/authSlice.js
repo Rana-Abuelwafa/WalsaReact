@@ -1,31 +1,40 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { checkAUTH } from "../helper/helperFN";
+import { history } from "../index";
 import axios from "axios";
+
 
 
 const BASE_URL_AUTH = process.env.REACT_APP_AUTH_API_URL;
 export const changePassword = createAsyncThunk(
   "auth/changePassword",
   async ({ userId, oldPassword, newPassword, confirmNewPassword, accessToken }, { rejectWithValue }) => {
-    try {
-      const response = await axios.post(
-        BASE_URL_AUTH + "/changePassword",
-        {
-          userId,
-          oldPassword,
-          newPassword,
-          confirmNewPassword
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json"
+     if (checkAUTH()) {
+          try {
+            const response = await axios.post(
+              BASE_URL_AUTH + "/changePassword",
+              {
+                userId,
+                oldPassword,
+                newPassword,
+                confirmNewPassword
+              },
+              {
+                headers: {
+                  Authorization: `Bearer ${accessToken}`,
+                  "Content-Type": "application/json"
+                }
+              }
+            );
+            return response.data;
+          } catch (error) {
+            return rejectWithValue(error.response?.data?.msg || "Failed to change password. Please try again.");
           }
-        }
-      );
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.response?.data?.msg || "Failed to change password. Please try again.");
-    }
+        }else{
+            history.push("/login");
+            window.location.reload();
+            return null;
+        }  
   }
 );
 

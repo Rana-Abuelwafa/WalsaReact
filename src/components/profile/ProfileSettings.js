@@ -9,7 +9,8 @@ import {
   saveProfile, 
   fetchProfileImage, 
   uploadProfileImage,
-  resetProfileStatus
+  resetProfileStatus,
+  clearFetchErrors
 } from "../../slices/profileSlice";
 import PopUp from "../shared/popoup/PopUp";
 import "./ProfileSettings.scss";
@@ -25,8 +26,12 @@ const ProfileSettings = () => {
     profileData,
     profileImage,
     loading,
-    error,
-    success
+    saveSuccess,
+    saveError,
+    fetchError,
+    uploadImageSuccess,
+    uploadImageError,
+    fetchImageError
   } = useSelector((state) => state.profile);
 
   const [showPopup, setShowPopup] = useState(false);
@@ -84,27 +89,46 @@ const ProfileSettings = () => {
 
   // Handle success/error messages
   // Update the success effect to handle the updated profile_id
-useEffect(() => {
-  if (success) {
-    setPopupMessage(t("profile.saved_success"));
-    setShowPopup(true);
-    
-    // Update formData with the new profile_id from Redux store
-    if (profileData?.profile_id) {
-      setFormData(prev => ({
-        ...prev,
-        profile_id: profileData.profile_id
-      }));
+  useEffect(() => {
+    if (saveSuccess) {
+      setPopupMessage(t("profile.saved_success"));
+      setShowPopup(true);
+      // if (profileData?.profile_id) {
+      //   setFormData(prev => ({
+      //     ...prev,
+      //     profile_id: profileData.profile_id
+      //   }));
+      // }
+      dispatch(resetProfileStatus());
+    } else if (uploadImageSuccess) {
+      setPopupMessage(t("profile.image_upload_success"));
+      setShowPopup(true);
+      dispatch(resetProfileStatus());
     }
-    
-    dispatch(resetProfileStatus());
-  } else if (error) {
-    setPopupMessage(error);
-    setShowPopup(true);
-    dispatch(resetProfileStatus());
-  }
-}, [success, error, dispatch, t, profileData]);
+    // Show error messages for any failed operation
+    else if (saveError || uploadImageError) {
+      setPopupMessage(saveError || uploadImageError);
+      setShowPopup(true);
+      dispatch(resetProfileStatus());
+    }
+    // Fetch errors might be handled differently (e.g., inline messages)
+  }, [
+    saveSuccess, 
+    saveError, 
+    uploadImageSuccess,
+    uploadImageError,
+    dispatch, 
+    t
+  ]);
   
+
+useEffect(() => {
+  if (fetchError || fetchImageError) {
+    console.error("Fetch error:", fetchError || fetchImageError);
+    dispatch(clearFetchErrors());
+  }
+}, [fetchError, fetchImageError, dispatch]);
+
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
@@ -122,7 +146,18 @@ useEffect(() => {
       return;
     }
 
-    dispatch(uploadProfileImage({ accessToken, imageFile: file }));
+    try {
+      await dispatch(uploadProfileImage({ accessToken, imageFile: file })).unwrap();
+      // Optionally refresh the image from server after upload
+      dispatch(fetchProfileImage(accessToken));
+    } catch (error) {
+      console.error("Image upload failed:", error);
+    }
+  };
+
+  const handleImageError = (e) => {
+    e.target.onerror = null;
+    e.target.src = defaultProfileImg;
   };
 
   const handleCameraClick = () => {
@@ -192,12 +227,20 @@ useEffect(() => {
             {/* Column 1 */}
             <div className="form-column">
               <div className="profile-picture">
-                <div
-                  className="avatar"
-                  style={{ 
-                    backgroundImage: `url(${profileImage || defaultProfileImg})`
-                  }}
-                >
+                <div className="avatar-container">
+                  <img
+                    src={
+                      profileImage?.url || // For newly uploaded images (local blob URL)
+                      profileImage ||     // For fetched images (server URL)
+                      defaultProfileImg   // Fallback
+                    }
+                    alt="Profile"
+                    className="avatar-image"
+                    onError={(e) => {
+                      e.target.onerror = null; // Prevent infinite loop if default image fails
+                      e.target.src = defaultProfileImg;
+                    }}
+                  />
                   <input
                     type="file"
                     ref={fileInputRef}
@@ -205,10 +248,12 @@ useEffect(() => {
                     accept="image/*"
                     style={{ display: "none" }}
                   />
-                  <MdOutlineCameraAlt
-                    className="camera-icon"
-                    onClick={handleCameraClick}
-                  />
+                  <div className="camera">
+                    <MdOutlineCameraAlt
+                      className="camera-icon"
+                      onClick={handleCameraClick}
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -271,7 +316,7 @@ useEffect(() => {
                   name="gender"
                   value={formData.gender}
                   onChange={handleChange}
-                  className="custom-input"
+                  className="custom-input custom-toggle"
                 >
                   <option value="">{t("profile.select_gender")}</option>
                   <option value="Male">{t("profile.male")}</option>
@@ -286,7 +331,7 @@ useEffect(() => {
                     name="month"
                     value={birthdayComponents.month}
                     onChange={handleBirthdayChange}
-                    className="custom-input"
+                    className="custom-input custom-toggle"
                   >
                     <option value="">{t("profile.month")}</option>
                     {Array.from({ length: 12 }, (_, i) => (
@@ -301,7 +346,7 @@ useEffect(() => {
                     name="day"
                     value={birthdayComponents.day}
                     onChange={handleBirthdayChange}
-                    className="custom-input"
+                    className="custom-input custom-toggle"
                   >
                     <option value="">{t("profile.day")}</option>
                     {Array.from({ length: 31 }, (_, i) => (
@@ -314,7 +359,7 @@ useEffect(() => {
                     name="year"
                     value={birthdayComponents.year}
                     onChange={handleBirthdayChange}
-                    className="custom-input"
+                    className="custom-input custom-toggle"
                   >
                     <option value="">{t("profile.year")}</option>
                     {Array.from({ length: 100 }, (_, i) => (
@@ -354,7 +399,7 @@ useEffect(() => {
                   name="lang"
                   value={formData.lang}
                   onChange={handleChange}
-                  className="custom-input"
+                  className="custom-input custom-toggle"
                 >
                   <option value="">{t("profile.select_language")}</option>
                   <option value="English">{t("profile.english")}</option>

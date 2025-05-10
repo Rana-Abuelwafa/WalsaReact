@@ -227,11 +227,26 @@
     "change": "Ändern",
     "add_payment": "Zahlungsmethode hinzufügen",
     "saved_success": "Profil erfolgreich gespeichert!",
+    "image_upload_success": "Profilbild wurde erfolgreich gespeichert!",
     "select_image_file": "Bitte wählen Sie eine Bilddatei aus",
     "image_size_limit": "Die Bildgröße sollte weniger als 2MB betragen",
     "Facebook": "Facebook",
     "Twitter": "Twitter",
     "update": "Aktualisieren",
     "save": "Speichern"
+  },
+  "product":{
+    "select_your": "Wählen Sie Ihre",
+    "services": "Dienstleistungen",
+    "save": "Speichern",
+    "saving": "Wird gespeichert",
+    "loading": "Wird geladen",
+    "error": "Fehler",
+    "expand": "Erweitern",
+    "collapse": "Zusammenklappen",
+    "fetch_error": "Produkte konnten nicht geladen werden. Bitte versuchen Sie es später noch einmal.",
+    "save_success": "Ihre Änderungen wurden erfolgreich gespeichert!",
+    "save_error": "Speichern der Änderungen fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    "no_changes": "Keine Änderungen zum Speichern."
   }
 }

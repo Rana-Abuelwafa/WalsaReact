@@ -26,17 +26,27 @@ const Brand = () => {
       brand_type: "",
       brand_desc: ""
     });
-  useEffect(() => {
+    useEffect(() => {
       if (brand) {
         setFormData({
-          id: brand.id || 0,
+          id: brand.id || 0, // Ensure id is set to 0 if not provided
           client_Id: brand.client_Id || clientId,
           brand_name: brand.brand_name || "",
           brand_type: brand.brand_type || "",
           brand_desc: brand.brand_desc || ""
         });
+      } else {
+        setFormData({
+          id: 0,
+          client_Id: clientId || "",
+          brand_name: "",
+          brand_type: "",
+          brand_desc: ""
+        });
       }
     }, [brand, clientId]);
+    
+  
      // Fetch brand data on mount
       useEffect(() => {
         if (clientId && accessToken) {
@@ -72,8 +82,13 @@ const Brand = () => {
   
     const handleSubmit = (e) => {
       e.preventDefault();
-      dispatch(saveBrand({ formData, accessToken }));
+      const payload = {
+        ...formData,
+        id: formData.id || 0 // Ensure id is never undefined
+      };
+      dispatch(saveBrand({ formData: payload, accessToken }));
     };
+    
     const closePopup = () => {
         setShowPopup(false);
         setPopupMessage("");

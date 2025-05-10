@@ -1,31 +1,34 @@
+// TreeNode.js
 import React from 'react';
 import { Form } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-multi-lang';
 
 const TreeNode = ({ 
   node, 
   depth = 0, 
-  selectedNodes, 
+  selectedProducts, 
   expandedParents, 
   onToggleExpand, 
-  onToggleSelect 
+  onToggleSelect,
+  isRTL = false
 }) => {
+  const t = useTranslation();
   const hasChildren = node.children && node.children.length > 0;
   const isParent = depth === 0;
-  const isChecked = selectedNodes[node.id] === true;
-  const isIndeterminate = selectedNodes[node.id] === 'indeterminate';
-  const isExpanded = isParent ? expandedParents[node.id] : true;
+  const isChecked = selectedProducts.includes(node.productId) || node.isSelected;
+  const isExpanded = isParent ? expandedParents[node.productId] : true;
 
   const handleToggleExpand = (e) => {
     e.stopPropagation();
     if (isParent) {
-      onToggleExpand(node.id);
+      onToggleExpand(node.productId);
     }
   };
 
   const handleSelect = (e) => {
     e.stopPropagation();
-    onToggleSelect(node.id, e.target.checked);
+    onToggleSelect(node.productId);
   };
 
   if (isParent) {
@@ -34,10 +37,9 @@ const TreeNode = ({
         <div className="node-header">
           <Form.Check 
             type="checkbox"
-            id={`checkbox-${node.id}`}
-            label={<span className="node-label parent">{node.label}</span>}
+            id={`checkbox-${node.productId}`}
+            label={<span className="node-label parent">{node.productName}</span>}
             checked={isChecked}
-            ref={(el) => el && (el.indeterminate = isIndeterminate)}
             onChange={handleSelect}
             className={`tree-checkbox ${isChecked ? 'active' : ''}`}
           />
@@ -45,7 +47,7 @@ const TreeNode = ({
             <button 
               onClick={handleToggleExpand}
               className="tree-toggle"
-              aria-label={isExpanded ? 'Collapse' : 'Expand'}
+              aria-label={isExpanded ? t("product.collapse") : t("product.expand")}
             >
               {isExpanded ? '−' : '+'}
             </button>
@@ -56,13 +58,14 @@ const TreeNode = ({
           <div className="children-container">
             {node.children.map(childNode => (
               <TreeNode
-                key={childNode.id}
+                key={childNode.productId}
                 node={childNode}
                 depth={depth + 1}
-                selectedNodes={selectedNodes}
+                selectedProducts={selectedProducts}
                 expandedParents={expandedParents}
                 onToggleExpand={onToggleExpand}
                 onToggleSelect={onToggleSelect}
+                isRTL={isRTL}
               />
             ))}
           </div>
@@ -75,8 +78,8 @@ const TreeNode = ({
     <div className="child-node">
       <Form.Check 
         type="checkbox"
-        id={`checkbox-${node.id}`}
-        label={<span className="node-label child">{node.label}</span>}
+        id={`checkbox-${node.productId}`}
+        label={<span className="node-label child">{node.productName}</span>}
         checked={isChecked}
         onChange={handleSelect}
         className={`tree-checkbox ${isChecked ? 'active' : ''}`}
@@ -88,10 +91,11 @@ const TreeNode = ({
 TreeNode.propTypes = {
   node: PropTypes.object.isRequired,
   depth: PropTypes.number,
-  selectedNodes: PropTypes.object.isRequired,
+  selectedProducts: PropTypes.array.isRequired,
   expandedParents: PropTypes.object.isRequired,
   onToggleExpand: PropTypes.func.isRequired,
-  onToggleSelect: PropTypes.func.isRequired
+  onToggleSelect: PropTypes.func.isRequired,
+  isRTL: PropTypes.bool
 };
 
 export default TreeNode;

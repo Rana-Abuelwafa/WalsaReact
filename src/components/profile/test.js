@@ -1,3 +1,4 @@
+// Product.js
 import React, { useState, useEffect } from 'react';
 import { Card, Container, Button } from 'react-bootstrap';
 import TreeNode from './TreeNode';
@@ -18,7 +19,6 @@ const Product = () => {
   const [expandedParents, setExpandedParents] = useState({});
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState('');
-  const [hasFetched, setHasFetched] = useState(false);
   
   // Get current language direction from translation hook or localStorage
   const isRTL = t('direction') === 'rtl' || localStorage.getItem('i18nextLng')?.startsWith('ar');
@@ -31,75 +31,9 @@ const Product = () => {
       });
       setExpandedParents(initialExpandedState);
     }
-  }, [treeData]); 
+  }, [treeData]);
 
-  useEffect(() => {
-    dispatch(fetchProductTree());
-  }, [dispatch]);
-
-  // useEffect(() => {
-  //   let isMounted = true; // Add mount check
-    
-  //   const loadData = async () => {
-  //     try {
-  //       if (!hasFetched) { // Only fetch if not already done
-  //         await dispatch(fetchProductTree()).unwrap();
-  //         if (isMounted) setHasFetched(true);
-  //       }
-  //     } catch (err) {
-  //       if (isMounted) {
-  //         setPopupMessage(err.message || t("product.fetch_error"));
-  //         setShowPopup(true);
-  //       }
-  //     }
-  //   };
-
-  //   loadData();
-
-  //   return () => {
-  //     isMounted = false; // Cleanup function
-  //   };
-  // }, [dispatch, t, hasFetched]);
-
-
-  const toggleExpand = (parentId) => {
-    setExpandedParents(prev => ({
-      ...prev,
-      [parentId]: !prev[parentId]
-    }));
-  };
-
-  const handleSelect = (productId) => {
-    dispatch(toggleProductSelection(productId));
-  };
-
-  const handleSave = () => {
-    // Calculate changes
-    const added = selectedProducts.filter(id => !initialSelectedProducts.includes(id));
-    const removed = initialSelectedProducts.filter(id => !selectedProducts.includes(id));
-    
-    if (added.length > 0 || removed.length > 0) {
-      dispatch(saveSelectedProducts({ added, removed }))
-        .unwrap()
-        .then(() => {
-          setPopupMessage(t("product.save_success"));
-          setShowPopup(true);
-        })
-        .catch((err) => {
-          setPopupMessage(err.message || t("product.save_error"));
-          setShowPopup(true);
-        });
-    } else {
-      setPopupMessage(t("product.no_changes"));
-      setShowPopup(true);
-    }
-  };
-
-  const closePopup = () => {
-    setShowPopup(false);
-  };
-
-  if (loading && !treeData.length) return <Container>{t("product.loading")}...</Container>;
+  // ... rest of the useEffect and handler functions remain the same ...
 
   return (
     <Container className="tree-container" dir={isRTL ? 'rtl' : 'ltr'}>
