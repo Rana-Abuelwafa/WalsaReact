@@ -3,6 +3,7 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-multi-lang";
 import { fetchBrand, saveBrand, resetBrandState } from "../../slices/brandSlice";
+import LoadingPage from '../Loader/LoadingPage';
 import PopUp from "../shared/popoup/PopUp";
 import "./Brand.scss";
 
@@ -97,7 +98,7 @@ const Brand = () => {
       };
     
       if (loading && !brand) {
-        return <div className="brand-settings">Loading brand data...</div>;
+        return <div className="brand-settings"><LoadingPage /></div>;
       }
 
   return (

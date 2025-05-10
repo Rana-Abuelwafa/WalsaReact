@@ -16,7 +16,12 @@ const TreeNode = ({
   const t = useTranslation();
   const hasChildren = node.children && node.children.length > 0;
   const isParent = depth === 0;
-  const isChecked = selectedProducts.includes(node.productId) || node.isSelected;
+  const isChecked = selectedProducts.includes(node.productId);
+
+  // Calculate if parent has some but not all children selected
+  const isIndeterminate = isParent && hasChildren && 
+  node.children.some(child => selectedProducts.includes(child.productId)) &&
+  !node.children.every(child => selectedProducts.includes(child.productId));
   const isExpanded = isParent ? expandedParents[node.productId] : true;
 
   const handleToggleExpand = (e) => {
@@ -41,7 +46,12 @@ const TreeNode = ({
             label={<span className="node-label parent">{node.productName}</span>}
             checked={isChecked}
             onChange={handleSelect}
-            className={`tree-checkbox ${isChecked ? 'active' : ''}`}
+            ref={el => {
+              if (el && isParent) {
+                el.indeterminate = isIndeterminate;
+              }
+            }}
+            className={`tree-checkbox ${isChecked ? 'active' : ''} ${isIndeterminate ? 'indeterminate' : ''}`}
           />
           {hasChildren && (
             <button 

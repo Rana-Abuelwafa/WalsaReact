@@ -13,6 +13,7 @@ import {
   clearFetchErrors
 } from "../../slices/profileSlice";
 import PopUp from "../shared/popoup/PopUp";
+import LoadingPage from '../Loader/LoadingPage';
 import "./ProfileSettings.scss";
 
 const ProfileSettings = () => {
@@ -212,7 +213,7 @@ useEffect(() => {
   };
 
   if (loading && !profileData) {
-    return <div className="profile-settings">{t("general.loading")}</div>;
+    return <div className="profile-settings"><LoadingPage /></div>;
   }
 
   return (

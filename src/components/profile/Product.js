@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, Container, Button } from 'react-bootstrap';
 import TreeNode from './TreeNode';
 import './Product.scss';
+import LoadingPage from '../Loader/LoadingPage';
 import { useDispatch, useSelector } from 'react-redux';
 import { 
   fetchProductTree, 
@@ -18,10 +19,21 @@ const Product = () => {
   const [expandedParents, setExpandedParents] = useState({});
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState('');
-  const [hasFetched, setHasFetched] = useState(false);
-  
-  // Get current language direction from translation hook or localStorage
+
   const isRTL = t('direction') === 'rtl' || localStorage.getItem('i18nextLng')?.startsWith('ar');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await dispatch(fetchProductTree()).unwrap();
+      } catch (err) {
+        setPopupMessage(err.message ||"Failed to fetch products");
+        setShowPopup(true);
+      }
+    };
+    
+    fetchData();
+  }, [dispatch]);
 
   useEffect(() => {
     if (treeData.length > 0) {
@@ -33,34 +45,9 @@ const Product = () => {
     }
   }, [treeData]); 
 
-  useEffect(() => {
-    dispatch(fetchProductTree());
-  }, [dispatch]);
-
   // useEffect(() => {
-  //   let isMounted = true; // Add mount check
-    
-  //   const loadData = async () => {
-  //     try {
-  //       if (!hasFetched) { // Only fetch if not already done
-  //         await dispatch(fetchProductTree()).unwrap();
-  //         if (isMounted) setHasFetched(true);
-  //       }
-  //     } catch (err) {
-  //       if (isMounted) {
-  //         setPopupMessage(err.message || t("product.fetch_error"));
-  //         setShowPopup(true);
-  //       }
-  //     }
-  //   };
-
-  //   loadData();
-
-  //   return () => {
-  //     isMounted = false; // Cleanup function
-  //   };
-  // }, [dispatch, t, hasFetched]);
-
+  //   dispatch(fetchProductTree());
+  // }, [dispatch]);
 
   const toggleExpand = (parentId) => {
     setExpandedParents(prev => ({
@@ -70,39 +57,40 @@ const Product = () => {
   };
 
   const handleSelect = (productId) => {
+    console.log('Toggling product:', productId, 'Current selection:', selectedProducts.includes(productId));
     dispatch(toggleProductSelection(productId));
   };
+  
+  useEffect(() => {
+    console.log('Selected products updated:', selectedProducts);
+  }, [selectedProducts]);
 
-  const handleSave = () => {
-    // Calculate changes
+  const handleSave = async () => {
     const added = selectedProducts.filter(id => !initialSelectedProducts.includes(id));
     const removed = initialSelectedProducts.filter(id => !selectedProducts.includes(id));
-    
+
+    try {
     if (added.length > 0 || removed.length > 0) {
-      dispatch(saveSelectedProducts({ added, removed }))
-        .unwrap()
-        .then(() => {
+      await dispatch(saveSelectedProducts({ added, removed })).unwrap();
           setPopupMessage(t("product.save_success"));
-          setShowPopup(true);
-        })
-        .catch((err) => {
-          setPopupMessage(err.message || t("product.save_error"));
-          setShowPopup(true);
-        });
-    } else {
-      setPopupMessage(t("product.no_changes"));
-      setShowPopup(true);
-    }
+        } else {
+          setPopupMessage(t("product.no_changes"));
+        }
+      } catch (err) {
+        setPopupMessage(err.message || t("product.save_error"));
+      } finally {
+        setShowPopup(true);
+      }
   };
 
   const closePopup = () => {
     setShowPopup(false);
   };
 
-  if (loading && !treeData.length) return <Container>{t("product.loading")}...</Container>;
+  if (loading && !treeData.length) return <div className="tree-container"><LoadingPage /></div>;
 
   return (
-    <Container className="tree-container" dir={isRTL ? 'rtl' : 'ltr'}>
+    <div className="tree-container" dir={isRTL ? 'rtl' : 'ltr'}>
       {showPopup && (
         <PopUp 
           msg={popupMessage} 
@@ -136,7 +124,7 @@ const Product = () => {
           {loading ? `${t("product.saving")}...` : t("product.save")}
         </Button>
       </div>
-    </Container>
+    </div>
   );
 };
 

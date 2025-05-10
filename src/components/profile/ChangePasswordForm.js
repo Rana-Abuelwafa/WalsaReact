@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { changePassword, clearMessages } from "../../slices/authSlice";
 import PopUp from "../shared/popoup/PopUp";
+import LoadingPage from '../Loader/LoadingPage';
 import { useTranslation } from "react-multi-lang";
 import "./ChangePasswordForm.scss";
 
