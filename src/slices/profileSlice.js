@@ -14,7 +14,7 @@ const initialState = {
   saveSuccess: false,
   fetchImageError: null,
   uploadImageError: null,
-  uploadImageSuccess: false
+  uploadImageSuccess: false,
 };
 
 // Async thunks
@@ -98,14 +98,18 @@ export const fetchProfileImage = createAsyncThunk(
           }
         );
         // Handle the array response and extract the first image URL
-        if (response.data && Array.isArray(response.data) && response.data.length > 0) {
-           console.log(response.data[0].img_path)
-            return response.data[0].img_path || null;
-          }
-          return null;
-        } catch (error) {
-          return rejectWithValue(error.response?.data?.message || error.message);
+        if (
+          response.data &&
+          Array.isArray(response.data) &&
+          response.data.length > 0
+        ) {
+          console.log(response.data[0].img_path);
+          return response.data[0].img_path || null;
         }
+        return null;
+      } catch (error) {
+        return rejectWithValue(error.response?.data?.message || error.message);
+      }
     } else {
       history.push("/login");
       window.location.reload();
@@ -133,10 +137,9 @@ export const uploadProfileImage = createAsyncThunk(
         );
 
         return {
-            url: URL.createObjectURL(imageFile),
-            apiResponse: response.data
-          };
-
+          url: URL.createObjectURL(imageFile),
+          apiResponse: response.data,
+        };
       } catch (error) {
         return rejectWithValue(error.response?.data?.message || error.message);
       }
@@ -161,7 +164,7 @@ const profileSlice = createSlice({
     clearFetchErrors: (state) => {
       state.fetchError = null;
       state.fetchImageError = null;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -190,7 +193,8 @@ const profileSlice = createSlice({
         state.saveSuccess = true;
         state.profileData = {
           ...action.payload.formData,
-          profile_id: action.payload.response.idout || action.payload.formData.profile_id
+          profile_id:
+            action.payload.response.idout || action.payload.formData.profile_id,
         };
       })
       .addCase(saveProfile.rejected, (state, action) => {
@@ -227,7 +231,7 @@ const profileSlice = createSlice({
         state.loading = false;
         state.uploadImageError = action.payload;
       });
-  }
+  },
 });
 
 export const { resetProfileStatus, clearFetchErrors } = profileSlice.actions;
