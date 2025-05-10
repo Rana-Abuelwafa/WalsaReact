@@ -87,10 +87,10 @@ const Product = () => {
     setShowPopup(false);
   };
 
-  if (loading && !treeData.length) return <div className="tree-container"><LoadingPage /></div>;
+  if (loading && !treeData.length) return <Container className="tree-container"><LoadingPage /></Container>;
 
   return (
-    <div className="tree-container" dir={isRTL ? 'rtl' : 'ltr'}>
+    <Container className="tree-container" dir={isRTL ? 'rtl' : 'ltr'}>
       {showPopup && (
         <PopUp 
           msg={popupMessage} 
@@ -124,7 +124,7 @@ const Product = () => {
           {loading ? `${t("product.saving")}...` : t("product.save")}
         </Button>
       </div>
-    </div>
+    </Container>
   );
 };
 
