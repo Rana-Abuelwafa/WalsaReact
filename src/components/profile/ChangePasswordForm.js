@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, InputGroup } from "react-bootstrap";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa"; // Eye icons for password visibility toggle
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { changePassword, clearMessages } from "../../slices/authSlice";
@@ -10,23 +10,34 @@ import { useTranslation } from "react-multi-lang";
 import "./ChangePasswordForm.scss";
 
 const ChangePasswordForm = () => {
+  // Internationalization hook for translations
   const t = useTranslation();
+  
+  // Redux hooks
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
+  // Get auth state from Redux store
   const { user, loading, error, success } = useSelector((state) => state.auth);
   const userId = user?.id;
   const accessToken = user?.accessToken;
 
+  // Form state management
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  
+  // Password visibility toggles
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  
+  // Form validation and feedback
   const [formErrors, setFormErrors] = useState({});
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
 
+  // Effect to handle success/error messages
   useEffect(() => {
     if (success) {
       setPopupMessage(t("changePassword.successMessage"));
@@ -37,19 +48,23 @@ const ChangePasswordForm = () => {
     }
   }, [success, error, t]);
 
+  // Form validation function
   const validateForm = () => {
     const errors = {};
     
+    // Validate old password
     if (!oldPassword) {
       errors.oldPassword = t("changePassword.errors.oldPasswordRequired");
     }
     
+    // Validate new password
     if (!newPassword) {
       errors.newPassword = t("changePassword.errors.newPasswordRequired");
     } else if (newPassword.length < 8) {
       errors.newPassword = t("changePassword.errors.passwordLength");
     }
     
+    // Validate password confirmation
     if (!confirmPassword) {
       errors.confirmPassword = t("changePassword.errors.confirmPasswordRequired");
     } else if (newPassword !== confirmPassword) {
@@ -57,24 +72,28 @@ const ChangePasswordForm = () => {
     }
     
     setFormErrors(errors);
-    return Object.keys(errors).length === 0;
+    return Object.keys(errors).length === 0; // Returns true if no errors
   };
 
+  // Form submission handler
   const handleSubmit = async (e) => {
     e.preventDefault();
     setFormErrors({});
     dispatch(clearMessages());
 
+    // Validate before submission
     if (!validateForm()) {
       return;
     }
 
+    // Check if user ID exists
     if (!userId) {
       setPopupMessage(t("changePassword.errors.userIdNotFound"));
       setShowPopup(true);
       return;
     }
 
+    // Dispatch password change action
     dispatch(
       changePassword({
         userId,
@@ -86,47 +105,56 @@ const ChangePasswordForm = () => {
     );
   };
 
+  // Popup close handler with success behavior
   const handlePopupClose = () => {
     setShowPopup(false);
     if (success) {
+      // On successful password change, logout and redirect to login
       localStorage.removeItem("user");
       dispatch(clearMessages());
       navigate("/login");
     }
   };
 
-  // RTL support for Arabic
+  // RTL (Right-to-Left) support for languages like Arabic
   const isRTL = localStorage.getItem("lang") === "ar";
   const formClass = isRTL ? "change-password-form rtl" : "change-password-form";
 
   return (
     <div className={`change-password-container ${isRTL ? "rtl" : ""}`}>
-      <Form className={formClass} onSubmit={handleSubmit} dir={isRTL ? "rtl" : "ltr"}>
-        {/* Old Password */}
+      {/* Main Form */}
+      <Form 
+        className={formClass} 
+        onSubmit={handleSubmit} 
+        dir={isRTL ? "rtl" : "ltr"} // Set text direction
+      >
+        {/* Old Password Field */}
         <Form.Group controlId="oldPassword" className="input-group">
           <Form.Label>{t("changePassword.oldPasswordLabel")}</Form.Label>
           <InputGroup>
             <Form.Control
-              type={showOldPassword ? "text" : "password"}
+              type={showOldPassword ? "text" : "password"} // Toggle visibility
               placeholder={t("changePassword.oldPasswordPlaceholder")}
               value={oldPassword}
               onChange={(e) => setOldPassword(e.target.value)}
               className="custom-input"
-              isInvalid={!!formErrors.oldPassword}
+              isInvalid={!!formErrors.oldPassword} // Show error state
             />
+            {/* Password visibility toggle button */}
             <InputGroup.Text 
               onClick={() => setShowOldPassword(!showOldPassword)}
               className="eye-button"
             >
-              {showOldPassword ? <FaEyeSlash /> : <FaEye />}
+              {showOldPassword ? <FaEyeSlash /> : <FaEye />} // Toggle eye icon
             </InputGroup.Text>
+            {/* Error message display */}
             <Form.Control.Feedback type="invalid">
               {formErrors.oldPassword}
             </Form.Control.Feedback>
           </InputGroup>
         </Form.Group>
 
-        {/* New Password */}
+        {/* New Password Field */}
         <Form.Group controlId="newPassword" className="input-group">
           <Form.Label>{t("changePassword.newPasswordLabel")}</Form.Label>
           <InputGroup>
@@ -150,7 +178,7 @@ const ChangePasswordForm = () => {
           </InputGroup>
         </Form.Group>
 
-        {/* Confirm New Password */}
+        {/* Confirm New Password Field */}
         <Form.Group controlId="confirmNewPassword" className="input-group">
           <Form.Label>{t("changePassword.confirmPasswordLabel")}</Form.Label>
           <InputGroup>
@@ -174,18 +202,20 @@ const ChangePasswordForm = () => {
           </InputGroup>
         </Form.Group>
 
+        {/* Submit Button */}
         <div className="button-wrapper">
           <Button 
             type="submit" 
             className="change-password-btn"
-            disabled={loading}
+            disabled={loading} // Disable during API call
           >
+            {/* Show loading state or normal text */}
             {loading ? t("changePassword.changingButton") : t("changePassword.submitButton")}
           </Button>
         </div>
       </Form>
 
-      {/* Popup for success/error messages */}
+      {/* Success/Error Popup */}
       {showPopup && (
         <PopUp
           msg={popupMessage}

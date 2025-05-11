@@ -1,21 +1,33 @@
 import React, { useState } from "react";
 import { Dropdown, Button, Row, Col, Card } from "react-bootstrap";
-import { CiMenuFries } from "react-icons/ci";
-import { useTranslation } from "react-multi-lang";
-import './MenuDropdown.scss';
+import { CiMenuFries } from "react-icons/ci"; 
+import { useTranslation } from "react-multi-lang"; 
+import './MenuDropdown.scss'; 
 
 const MenuDropdown = () => {
-  const t = useTranslation();
-  const [show, setShow] = useState(false);
+  const t = useTranslation(); // Translation hook
+  const [show, setShow] = useState(false); // State to toggle dropdown visibility
 
   return (
-    <Dropdown show={show} onToggle={() => setShow(!show)} className="Menu-dropdown">
+    <Dropdown
+      show={show}
+      onToggle={() => setShow(!show)} // Toggle the dropdown menu on click
+      className="Menu-dropdown"
+    >
+      {/* Toggle Button with icon */}
       <Dropdown.Toggle as={Button} variant="light" className="dropdown-toggle">
         <CiMenuFries className="menu-icon" />
       </Dropdown.Toggle>
 
-      <Dropdown.Menu align={document.documentElement.dir === "rtl" ? "start" : "end"} className="dropdown-menu-custom">
+      {/* Dropdown Menu aligned based on language direction */}
+      <Dropdown.Menu
+        align={document.documentElement.dir === "rtl" ? "start" : "end"}
+        className="dropdown-menu-custom"
+      >
+        {/* Menu Items Grid Layout */}
         <Row className="px-3 py-2">
+          
+          {/* Brand Identity Card */}
           <Col xs={6}>
             <Card className="dropdown-card">
               <Row>
@@ -28,6 +40,8 @@ const MenuDropdown = () => {
               </Row>
             </Card>
           </Col>
+
+          {/* Marketing Card */}
           <Col xs={6}>
             <Card className="dropdown-card">
               <Row>
@@ -40,6 +54,8 @@ const MenuDropdown = () => {
               </Row>
             </Card>
           </Col>
+
+          {/* Ads Campaign Card */}
           <Col xs={6}>
             <Card className="dropdown-card">
               <Row>
@@ -52,6 +68,8 @@ const MenuDropdown = () => {
               </Row>
             </Card>
           </Col>
+
+          {/* Website Design Card */}
           <Col xs={6}>
             <Card className="dropdown-card">
               <Row>
@@ -64,6 +82,7 @@ const MenuDropdown = () => {
               </Row>
             </Card>
           </Col>
+
         </Row>
       </Dropdown.Menu>
     </Dropdown>

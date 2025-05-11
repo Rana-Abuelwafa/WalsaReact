@@ -11,14 +11,19 @@ const ContactUs = () => {
 
   return (
     <>
+
+      {/* Main navigation at the top */}
       <MainNavbar />
-      
+
+      {/* Header section with text and image */}
       <div className="contact-us-section">
         <Container fluid className="content-section">
           <Row className="align-items-center contact-header">
             <Col lg={7} md={12} className="order-lg-1 order-md-1 order-2">
               <h2>{t("contact.title")}</h2>
               <p>{t("contact.subtitle")}</p>
+
+              {/* Social media icons */}
               <div className="social-icons">
                 <a href="/" className="icon" aria-label="Facebook"><FaFacebookF /></a>
                 <a href="/" className="icon" aria-label="Instagram"><FaInstagram /></a>
@@ -26,6 +31,8 @@ const ContactUs = () => {
                 <a href="mailto:contact@example.com" className="icon" aria-label="Email"><FaEnvelope /></a>
               </div>
             </Col>
+
+            {/* Illustration image */}
             <Col lg={5} md={12} className="order-lg-2 order-md-2 order-1 text-center">
               <img
                 src="/images/mail.png"
@@ -35,7 +42,10 @@ const ContactUs = () => {
             </Col>
           </Row>
 
+          {/* Contact option cards (Chat, Email, Help) */}
           <Row className="contact-cards">
+
+            {/* Chat Card */}
             <Col lg={4} md={6} className="mb-4">
               <Card className="contact-card h-100">
                 <Card.Body className="d-flex flex-column">
@@ -55,6 +65,8 @@ const ContactUs = () => {
                 </Card.Body>
               </Card>
             </Col>
+
+            {/* Email Card */}
             <Col lg={4} md={6} className="mb-4">
               <Card className="contact-card h-100">
                 <Card.Body className="d-flex flex-column">
@@ -74,6 +86,8 @@ const ContactUs = () => {
                 </Card.Body>
               </Card>
             </Col>
+
+            {/* Help Card */}
             <Col lg={4} md={12} className="mb-4">
               <Card className="contact-card h-100">
                 <Card.Body className="d-flex flex-column">
@@ -97,6 +111,7 @@ const ContactUs = () => {
         </Container>
       </div>
 
+      {/* Footer at the bottom */}
       <MainFooter />
     </>
   );

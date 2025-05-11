@@ -17,26 +17,36 @@ import LoadingPage from '../Loader/LoadingPage';
 import "./ProfileSettings.scss";
 
 const ProfileSettings = () => {
+  // Internationalization hook for translations
   const t = useTranslation();
+  
+  // Get user data from localStorage
   const user = JSON.parse(localStorage.getItem("user"));
   const accessToken = user?.accessToken;
   const userId = user?.id;
-  const fileInputRef = useRef(null);
+  
+  // Refs and Redux setup
+  const fileInputRef = useRef(null); // Reference for hidden file input
   const dispatch = useDispatch();
+  
+  // Get state from Redux store
   const {
-    profileData,
-    profileImage,
-    loading,
-    saveSuccess,
-    saveError,
-    fetchError,
-    uploadImageSuccess,
-    uploadImageError,
-    fetchImageError
+    profileData,          // User profile data
+    profileImage,         // Profile image URL or blob
+    loading,             // Loading state
+    saveSuccess,         // Profile save success flag
+    saveError,           // Profile save error
+    fetchError,          // Profile fetch error
+    uploadImageSuccess,  // Image upload success flag
+    uploadImageError,    // Image upload error
+    fetchImageError      // Image fetch error
   } = useSelector((state) => state.profile);
 
+  // Local state for UI
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
+  
+  // Form data state - initialized with user data from localStorage
   const [formData, setFormData] = useState({
     profile_id: 0,
     client_id: userId || "",
@@ -51,15 +61,18 @@ const ProfileSettings = () => {
     twitter_link: "",
     client_birthdayStr: "",
   });
+  
+  // Birthday components stored separately for easier select handling
   const [birthdayComponents, setBirthdayComponents] = useState({
     year: "",
     month: "",
     day: ""
   });
 
-  // Initialize form data from Redux store
+  // Initialize form data when profileData is loaded from Redux
   useEffect(() => {
     if (profileData && Object.keys(profileData).length > 0) {
+      // Only update if data is different to prevent infinite loops
       if (JSON.stringify(profileData) !== JSON.stringify(formData)) {
         setFormData(prev => ({
           ...prev,
@@ -67,6 +80,7 @@ const ProfileSettings = () => {
           client_name: profileData.client_name || `${user?.firstName || ""} ${user?.lastName || ""}`.trim()
         }));
 
+        // Parse birthday string if it exists and is different from current
         if (profileData.client_birthdayStr && 
             profileData.client_birthdayStr !== `${birthdayComponents.year}-${birthdayComponents.month}-${birthdayComponents.day}`) {
           const parts = profileData.client_birthdayStr.split('-');
@@ -80,7 +94,7 @@ const ProfileSettings = () => {
     }
   }, [profileData]);
 
-  // Fetch profile data on mount
+  // Fetch profile data and image when component mounts
   useEffect(() => {
     if (accessToken && userId) {
       dispatch(fetchProfile({ accessToken, userId }));
@@ -88,18 +102,11 @@ const ProfileSettings = () => {
     }
   }, [accessToken, userId, dispatch]);
 
-  // Handle success/error messages
-  // Update the success effect to handle the updated profile_id
+  // Handle success/error messages from various operations
   useEffect(() => {
     if (saveSuccess) {
       setPopupMessage(t("profile.saved_success"));
       setShowPopup(true);
-      // if (profileData?.profile_id) {
-      //   setFormData(prev => ({
-      //     ...prev,
-      //     profile_id: profileData.profile_id
-      //   }));
-      // }
       dispatch(resetProfileStatus());
     } else if (uploadImageSuccess) {
       setPopupMessage(t("profile.image_upload_success"));
@@ -112,7 +119,6 @@ const ProfileSettings = () => {
       setShowPopup(true);
       dispatch(resetProfileStatus());
     }
-    // Fetch errors might be handled differently (e.g., inline messages)
   }, [
     saveSuccess, 
     saveError, 
@@ -122,25 +128,27 @@ const ProfileSettings = () => {
     t
   ]);
   
+  // Handle fetch errors (logged to console but not shown to user)
+  useEffect(() => {
+    if (fetchError || fetchImageError) {
+      console.error("Fetch error:", fetchError || fetchImageError);
+      dispatch(clearFetchErrors());
+    }
+  }, [fetchError, fetchImageError, dispatch]);
 
-useEffect(() => {
-  if (fetchError || fetchImageError) {
-    console.error("Fetch error:", fetchError || fetchImageError);
-    dispatch(clearFetchErrors());
-  }
-}, [fetchError, fetchImageError, dispatch]);
-
-
+  // Handle profile image upload
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
+    // Validate file type
     if (!file.type.match("image.*")) {
       setPopupMessage(t("profile.select_image_file"));
       setShowPopup(true);
       return;
     }
 
+    // Validate file size (2MB limit)
     if (file.size > 2 * 1024 * 1024) {
       setPopupMessage(t("profile.image_size_limit"));
       setShowPopup(true);
@@ -148,23 +156,27 @@ useEffect(() => {
     }
 
     try {
+      // Dispatch upload action and wait for completion
       await dispatch(uploadProfileImage({ accessToken, imageFile: file })).unwrap();
-      // Optionally refresh the image from server after upload
+      // Refresh the image from server after successful upload
       dispatch(fetchProfileImage(accessToken));
     } catch (error) {
       console.error("Image upload failed:", error);
     }
   };
 
+  // Fallback to default image if profile image fails to load
   const handleImageError = (e) => {
-    e.target.onerror = null;
+    e.target.onerror = null; // Prevent infinite loop
     e.target.src = defaultProfileImg;
   };
 
+  // Trigger file input click when camera icon is clicked
   const handleCameraClick = () => {
     fileInputRef.current.click();
   };
 
+  // Update birthday string in formData when components change
   useEffect(() => {
     if (birthdayComponents.year && birthdayComponents.month && birthdayComponents.day) {
       const newBirthdayStr = `${birthdayComponents.year}-${birthdayComponents.month.padStart(2, '0')}-${birthdayComponents.day.padStart(2, '0')}`;
@@ -180,6 +192,7 @@ useEffect(() => {
     }
   }, [birthdayComponents]);
 
+  // Handle changes to birthday select fields
   const handleBirthdayChange = (e) => {
     const { name, value } = e.target;
     setBirthdayComponents(prev => ({
@@ -188,6 +201,7 @@ useEffect(() => {
     }));
   };
 
+  // Handle changes to form inputs
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -196,52 +210,61 @@ useEffect(() => {
     }));
   };
 
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(saveProfile({ 
       accessToken, 
       formData: {
         ...formData,
+        // Ensure birthday components are properly formatted
         client_birthdayStr: `${birthdayComponents.year}-${birthdayComponents.month.padStart(2, '0')}-${birthdayComponents.day.padStart(2, '0')}`
       } 
     }));
   };
 
+  // Close popup and clear message
   const closePopup = () => {
     setShowPopup(false);
     setPopupMessage("");
   };
 
+  // Show loading spinner if data is being fetched and profileData isn't loaded yet
   if (loading && !profileData) {
     return <div className="profile-settings"><LoadingPage /></div>;
   }
 
   return (
     <div className="profile-settings" dir={t("direction")}>
+      {/* Popup for showing success/error messages */}
       {showPopup && (
         <PopUp msg={popupMessage} closeAlert={closePopup} />
       )}
       
+      {/* Main form container */}
       <div className="form-container">
         <Form onSubmit={handleSubmit}>
+          {/* Form divided into 3 columns */}
           <div className="form-grid">
-            {/* Column 1 */}
+            {/* Column 1 - Profile picture and basic info */}
             <div className="form-column">
+              {/* Profile picture section */}
               <div className="profile-picture">
                 <div className="avatar-container">
                   <img
                     src={
-                      profileImage?.url || // For newly uploaded images (local blob URL)
-                      profileImage ||     // For fetched images (server URL)
+                      profileImage?.url || // Newly uploaded images (local blob)
+                      profileImage ||     // Fetched images (server URL)
                       defaultProfileImg   // Fallback
                     }
                     alt="Profile"
                     className="avatar-image"
                     onError={(e) => {
-                      e.target.onerror = null; // Prevent infinite loop if default image fails
-                      e.target.src = defaultProfileImg;
-                    }}
+                        e.target.onerror = null; // Prevent infinite loop if default image fails
+                        e.target.src = defaultProfileImg;
+                      }}
                   />
+                  {/* Hidden file input for image upload */}
                   <input
                     type="file"
                     ref={fileInputRef}
@@ -249,6 +272,7 @@ useEffect(() => {
                     accept="image/*"
                     style={{ display: "none" }}
                   />
+                  {/* Camera icon to trigger file input */}
                   <div className="camera">
                     <MdOutlineCameraAlt
                       className="camera-icon"
@@ -258,6 +282,7 @@ useEffect(() => {
                 </div>
               </div>
 
+              {/* Name field (disabled as it comes from auth system) */}
               <div className="input-group">
                 <Form.Label>{t("profile.name")}</Form.Label>
                 <Form.Control
@@ -271,6 +296,7 @@ useEffect(() => {
                 />
               </div>
 
+              {/* Email field (disabled) */}
               <div className="input-group">
                 <Form.Label>{t("profile.email")}</Form.Label>
                 <Form.Control
@@ -284,6 +310,7 @@ useEffect(() => {
                 />
               </div>
 
+              {/* Phone number field */}
               <div className="input-group">
                 <Form.Label>{t("profile.phone")}</Form.Label>
                 <Form.Control
@@ -296,6 +323,7 @@ useEffect(() => {
                 />
               </div>
 
+              {/* Nationality field */}
               <div className="input-group">
                 <Form.Label>{t("profile.nation")}</Form.Label>
                 <Form.Control
@@ -309,8 +337,9 @@ useEffect(() => {
               </div>
             </div>
 
-            {/* Column 2 */}
+            {/* Column 2 - Gender, birthday, and payment info */}
             <div className="form-column">
+              {/* Gender select */}
               <div className="input-group">
                 <Form.Label>{t("profile.gender")}</Form.Label>
                 <Form.Select
@@ -325,6 +354,7 @@ useEffect(() => {
                 </Form.Select>
               </div>
 
+              {/* Birthday selects (month/day/year) */}
               <div className="input-group">
                 <Form.Label>{t("profile.dob")}</Form.Label>
                 <div className="dob-selects">
@@ -372,6 +402,7 @@ useEffect(() => {
                 </div>
               </div>
 
+              {/* Payment methods section (placeholder) */}
               <div className="payment-section">
                 <Form.Label>{t("profile.payment_methods")}</Form.Label>
                 <div className="payment-methods">
@@ -392,8 +423,9 @@ useEffect(() => {
               </div>
             </div>
 
-            {/* Column 3 */}
+            {/* Column 3 - Language and social links */}
             <div className="form-column">
+              {/* Language select */}
               <div className="input-group">
                 <Form.Label>{t("profile.language")}</Form.Label>
                 <Form.Select
@@ -409,6 +441,7 @@ useEffect(() => {
                 </Form.Select>
               </div>
 
+              {/* Facebook link */}
               <div className="input-group">
                 <Form.Label>{t("profile.Facebook")}</Form.Label>
                 <Form.Control
@@ -421,6 +454,7 @@ useEffect(() => {
                 />
               </div>
 
+              {/* Twitter link */}
               <div className="input-group">
                 <Form.Label>{t("profile.Twitter")}</Form.Label>
                 <Form.Control
@@ -433,6 +467,7 @@ useEffect(() => {
                 />
               </div>
 
+              {/* Save/Update button */}
               <div className="text-right">
                 <Button type="submit" className="save-btn" disabled={loading}>
                   {loading ? t("general.saving") : (formData.profile_id ? t("profile.update") : t("profile.save"))}

@@ -10,12 +10,19 @@ import UserDropDown from "../Dropdowns/UserDropDown";
 import "./mainNavbar.scss";
 
 const MainNavbar = () => {
+  // State to hold the user's name from local storage
   const [MyName, setMyName] = useState("");
+
+  // State to track profile completion (currently not used for logic)
   const [completeprofile, setcompleteProfile] = useState(0);
-  const navigate = useNavigate();
-  const t = useTranslation();
+
+  const navigate = useNavigate(); // Hook to navigate programmatically
+  const t = useTranslation();     // Hook for translations
+
+  // State to determine if the current screen size is mobile
   const [isMobile, setIsMobile] = useState(window.innerWidth < 992);
 
+  // Effect to update 'isMobile' when the window is resized
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 992);
@@ -24,73 +31,85 @@ const MainNavbar = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Function to handle user logout
   const logOut = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    navigate("/login");
+    localStorage.removeItem("token"); // Remove auth token
+    localStorage.removeItem("user");  // Remove user info
+    navigate("/login");               // Redirect to login page
   };
 
+  // Effect to fetch and set user name from local storage on component mount
   useEffect(() => {
     const userLocal = localStorage.getItem("user");
     if (userLocal) {
       const user = JSON.parse(userLocal);
       if (user) {
         setMyName(`${user.firstName} ${user.lastName}`);
-        // setcompleteProfile(user.completeprofile);
       }
     }
   }, []);
 
   return (
+    // Bootstrap Navbar with custom styling, fixed at the top
     <Navbar fixed="top" expand="lg" className="navbar-custom">
       <Container fluid>
+        {/* Brand logo linking to the homepage */}
         <Navbar.Brand href="/" className="brand d-flex align-items-center">
           <img src="logo/wasla logo.png" alt="Logo" className="logo" />
         </Navbar.Brand>
 
+        {/* Toggle button for mobile view */}
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
+        {/* Navbar links and icons */}
         <Navbar.Collapse id="basic-navbar-nav">
-          {/* <Nav className="nav-items d-none d-lg-flex"> */}
+          {/* Navigation links, direction-aware alignment */}
           <Nav
             className={`nav-items ${
               document.documentElement.dir === "rtl" ? "ms-auto" : "me-auto"
             }`}
           >
+            {/* Home link */}
             <Nav.Link href="/" className="nav-item">
               {t("Navbar.home")}
             </Nav.Link>
+
+            {/* Contact Us link */}
             <Nav.Link href="/contactUs" className="nav-item">
-          {t("Navbar.contact")}
-        </Nav.Link>
-        <Nav.Link href="/AboutUs" className="nav-item">
-          {t("Navbar.about")}
-        </Nav.Link>
-        {/* <Nav.Link href="/" className="nav-item">
-          {t("Navbar.pricing")}
-        </Nav.Link>
-        <Nav.Link href="/" className="nav-item">
-          {t("Navbar.ourWork")}
-        </Nav.Link> */}
+              {t("Navbar.contact")}
+            </Nav.Link>
+
+            {/* About Us link */}
+            <Nav.Link href="/AboutUs" className="nav-item">
+              {t("Navbar.about")}
+            </Nav.Link>
+
+            {/* Additional links can be enabled later */}
+            {/* 
+            <Nav.Link href="/" className="nav-item">
+              {t("Navbar.pricing")}
+            </Nav.Link>
+            <Nav.Link href="/" className="nav-item">
+              {t("Navbar.ourWork")}
+            </Nav.Link> 
+            */}
           </Nav>
 
+          {/* Right-aligned icons and dropdowns */}
           <div className="d-flex align-items-center nav-icons">
+            {/* Dropdown with user info */}
             <UserDropDown MyName={MyName} completeprofile={completeprofile} />
-            {/* <Row className="user-info">
-              <Col className="user-icon-col">
-                <FiUser
-                  className="icon"
-                  onClick={() =>
-                    MyName ? navigate("/profile") : navigate("/login")
-                  }
-                />
-              </Col>
-              <Col className="user-name-col">
-                <span className="userName">{MyName}</span>
-              </Col>
-            </Row> */}
+
+            {/* Search icon */}
             <GoSearch className="icon" />
+
+            {/* Language switcher dropdown */}
             <LanguageDropdown />
+
+            {/* Only show extra menu dropdown if not mobile */}
             {!isMobile && <MenuDropdown />}
+
+            {/* Logout icon if user is logged in */}
             {MyName ? <FiLogOut className="icon" onClick={logOut} /> : null}
           </div>
         </Navbar.Collapse>
