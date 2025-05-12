@@ -7,9 +7,9 @@ const Profile = () => {
  
   return (
     <>
-      <MainNavbar />
-      <ProfileTabPanel />
-      <MainFooter />
+      <MainNavbar /> {/* Main navigation bar */}
+      <ProfileTabPanel /> {/* profile tabpanels */}
+      <MainFooter /> {/* Main footer at bottom */}
     </>
   );
 };

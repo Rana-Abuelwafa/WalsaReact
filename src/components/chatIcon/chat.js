@@ -3,13 +3,15 @@ import './chat.scss';
 
 const Chat = () => {
     return (
+        // Anchor tag linking to WhatsApp chat with a specific phone number
         <a
-            href="https://wa.me/01067551474"
+            href="https://wa.me/01011111111"   // Replace with your actual WhatsApp number
             className="whatsapp-button"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Chat on WhatsApp"
         >
+            {/* WhatsApp icon inside the button */}
             <FaWhatsapp className="whatsapp-icon" />
         </a>
     );
