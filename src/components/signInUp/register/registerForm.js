@@ -22,6 +22,7 @@ function RegisterForm() {
     email: "",
     password: "",
     ConfirmPassword: "",
+    Role: "User",
   });
   const { User, loading, errors } = useSelector((state) => state.register);
 
