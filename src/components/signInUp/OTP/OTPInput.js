@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Button, Container } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import OtpInput from "react-otp-input";
-import { useTranslation, getLanguage } from "react-multi-lang";
+import { useTranslation } from "react-multi-lang";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { ConfirmOTP } from "../../../slices/RegisterSlice";
@@ -16,20 +16,11 @@ function OTPInput(props) {
   const [otp, setOtp] = useState("");
   const [myEmail, setMyEmail] = useState("");
   const { User, loading, errors } = useSelector((state) => state.register);
+
   const sendOtpCode = () => {
-    // const userLocal = localStorage.getItem("user");
-    // console.log("userLocal ", userLocal);
-    // let Email = "";
-    // if (userLocal) {
-    //   const user = JSON.parse(userLocal);
-    //   if (user) {
-    //     Email = user.email;
-    //   }
-    // }
     const data = { Email: myEmail, otp: otp };
     let path = state.path;
     dispatch(ConfirmOTP(data)).then((result) => {
-      //console.log("result.payload.isSuccessed ", result.payload.isSuccessed);
       if (result.payload && result.payload.isSuccessed) {
         setShowAlert(false);
         navigate(path);
@@ -42,8 +33,8 @@ function OTPInput(props) {
     setShowAlert(false);
   };
   useEffect(() => {
+    //get user data from local storage
     const userLocal = localStorage.getItem("user");
-    // console.log("userLocal ", userLocal);
     if (userLocal) {
       const user = JSON.parse(userLocal);
       if (user) {
@@ -52,8 +43,6 @@ function OTPInput(props) {
     }
     return () => {};
   }, []);
-  // console.log("User ", User);
-  // console.log("props ", state);
   return (
     <section className="VerifySection">
       <div className="verify_content centerContainer">

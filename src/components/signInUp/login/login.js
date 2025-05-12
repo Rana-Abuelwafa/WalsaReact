@@ -6,16 +6,15 @@ import { Link } from "react-router-dom";
 import MiniNavbar from "../../navbars/miniNavbar";
 import SignInUpShared from "../signInUpShared";
 import "../SignInUp.scss";
+
 function Login() {
   const t = useTranslation();
   const currentLang = localStorage.getItem("lang") || getLanguage();
-  console.log("currentLang ", currentLang);
   return (
     <div
       className={currentLang == "ar" ? "SignSection right" : "SignSection left"}
     >
       <MiniNavbar />
-      {/* <Container> */}
       <Row className="justify-content-md-center">
         <Col lg={5} md={12} sm={12} xs={12}>
           <div className="login_form">
@@ -33,7 +32,6 @@ function Login() {
           </div>
         </Col>
       </Row>
-      {/* </Container> */}
     </div>
   );
 }

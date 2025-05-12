@@ -3,7 +3,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 
 function RecaptchaForm() {
   const onChange = (value) => {
-    console.log("Captcha value:", value);
+    //console.log("Captcha value:", value);
   };
   return (
     <ReCAPTCHA

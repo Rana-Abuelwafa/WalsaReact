@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useTranslation, getLanguage } from "react-multi-lang";
 import { Form } from "react-bootstrap";
 function StepComp(props) {
@@ -20,20 +20,8 @@ function StepComp(props) {
     Ques["answer"] = e.target.id;
     props.updateLst(Ques);
   };
-  // useEffect(() => {
-  //    Ques["answer"] = answer;
-  //   Ques["ques_id"] = props.ques != null ? props.ques.ques_id : 0;
-  //   Ques["lang_code"] = localStorage.getItem("lang") || "en";
-  //   //props.updateLst(Ques);
-  //   return () => {};
-  // }, []);
-  // useEffect(() => {
-  //   Ques["answer"] = answer;
-  //   Ques["ques_id"] = props.ques != null ? props.ques.ques_id : 0;
-  //   Ques["lang_code"] = localStorage.getItem("lang") || "en";
-  //   props.fillQuesList(Ques);
-  //   return () => {};
-  // }, []);
+  //each question has default answer "yes"
+  //if props edit = 1 , so this mean user answer questions before in this case can browse question only and cannot edit
   return (
     <div className="ques_content">
       <p className="ques_title">{props.ques.ques_title}</p>
@@ -46,7 +34,6 @@ function StepComp(props) {
             type="radio"
             id={"yes"}
             onChange={updateAnswer}
-            // onChange={(e) => setAnswer(e.target.id)}
             checked={answer === "yes"}
             disabled={props.edit == 1}
           />
@@ -57,7 +44,6 @@ function StepComp(props) {
             type="radio"
             id={"no"}
             onChange={updateAnswer}
-            //onChange={(e) => setAnswer(e.target.id)}
             checked={answer === "no"}
             disabled={props.edit == 1}
           />

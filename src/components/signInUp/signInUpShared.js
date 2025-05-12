@@ -1,6 +1,5 @@
 import React from "react";
 import { useTranslation } from "react-multi-lang";
-import { Button, Row, Col } from "react-bootstrap";
 import GoogleLoginButton from "./googleLoginButton";
 import FacebookLoginButton from "./FacebookLoginButton";
 function SignInUpShared(props) {
@@ -31,21 +30,6 @@ function SignInUpShared(props) {
         <span>{t("Login.Or")}</span>
         <span className="or_line"></span>
       </p>
-      {/* <Button
-        // type="submit"
-        //disabled={this.state.progressVariant == "danger" || this.state.userErr}
-        className="frmBtn transBtn FullWidthBtn"
-      >
-        <img src="../images/gmail_icon.png" className="gmail_icon" />
-        {t("Login.LoginWithGoogle")}
-      </Button> */}
-      {/* <GoogleLoginButton /> */}
-      {/* <FacebookLoginButton /> */}
-      {/* <p className="or_line_tit">
-        <span className="or_line"></span>
-        <span>{t("Login.Or")}</span>
-        <span className="or_line"></span>
-      </p> */}
     </div>
   );
 }

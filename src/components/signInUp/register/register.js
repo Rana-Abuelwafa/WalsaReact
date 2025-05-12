@@ -7,7 +7,6 @@ import SignInUpShared from "../signInUpShared";
 import RegisterForm from "./registerForm";
 import "../SignInUp.scss";
 
-
 function Register() {
   const t = useTranslation();
   const currentLang = localStorage.getItem("lang") || getLanguage();
@@ -16,7 +15,6 @@ function Register() {
       className={currentLang == "ar" ? "SignSection right" : "SignSection left"}
     >
       <MiniNavbar />
-      {/* <Container> */}
       <Row className="justify-content-md-center">
         <Col lg={5} md={12} sm={12} xs={12}>
           <div className="login_form">

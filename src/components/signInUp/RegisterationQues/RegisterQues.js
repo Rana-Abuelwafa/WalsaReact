@@ -8,28 +8,25 @@ import {
   saveQuesList,
   CompleteMyProfile,
 } from "../../../slices/RegisterSlice";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import StepComp from "./StepComp";
-import "./RegisterQues.scss";
 import LoadingPage from "../../Loader/LoadingPage";
 import PopUp from "../../shared/popoup/PopUp";
+import "./RegisterQues.scss";
 
 function RegisterQues() {
-  // const { state } = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const t = useTranslation();
   const [active, setActive] = useState(1);
   const [quesLst, setQuesLst] = useState([]);
   const [showAlert, setShowAlert] = useState(false);
-  const dispatch = useDispatch();
   const [myEmail, setMyEmail] = useState("");
   const [completeprofile, setcompleteProfile] = useState(0);
-  const { Quesions, loading, isSuccessed, errors } = useSelector(
-    (state) => state.register
-  );
+  const { Quesions, loading, errors } = useSelector((state) => state.register);
   useEffect(() => {
+    //get user data from local storage
     const userLocal = localStorage.getItem("user");
-    // console.log("userLocal ", userLocal);
     if (userLocal) {
       const user = JSON.parse(userLocal);
       if (user) {
@@ -38,8 +35,8 @@ function RegisterQues() {
       }
     }
     const payload = { lang: localStorage.getItem("lang") || getLanguage() };
+    //get questions List from API depend on lang, and each ques has default answer yes
     dispatch(GetQuestionsData(payload)).then((result) => {
-      //fillQuesList(result);
       const arr = result.payload;
       if (arr != null) {
         arr.forEach((ques) => {
@@ -54,7 +51,6 @@ function RegisterQues() {
         });
       }
     });
-
     return () => {
       setQuesLst([]);
     };
@@ -63,6 +59,7 @@ function RegisterQues() {
   const closeAlert = () => {
     setShowAlert(false);
   };
+  //send Ques List with answers to API
   const saveLst = () => {
     dispatch(saveQuesList(quesLst)).then((result) => {
       if (result.payload && result.payload.success) {
@@ -75,23 +72,7 @@ function RegisterQues() {
       }
     });
   };
-  const fillQuesList = () => {
-    if (Quesions != null && Quesions.length > 0) {
-      Quesions.forEach((ques) => {
-        const obj = {
-          answer: "yes",
-          client_id: "",
-          id: 0,
-          lang_code: localStorage.getItem("lang") || getLanguage(),
-          ques_id: ques.ques_id,
-        };
-        quesLst.push(obj);
-      });
-    }
-
-    // console.log("quesssss ", quesLst);
-    // setQuesLst([...quesLst, ques]);
-  };
+  //update Ques List with user's answers
   const updateLst = (newQues) => {
     if (quesLst != null && quesLst.length > 0) {
       const myNextList = [...quesLst];
@@ -100,12 +81,6 @@ function RegisterQues() {
         ques["answer"] = newQues.answer;
       }
       setQuesLst(myNextList);
-    } else {
-      // let newarr = [];
-      // newarr.push(newQues);
-      // console.log("first ", newarr);
-      // setQuesLst([...quesLst, newQues]);
-      // setQuesLst(newarr);
     }
   };
   return (
@@ -121,13 +96,13 @@ function RegisterQues() {
                       ques={ques}
                       updateLst={updateLst}
                       edit={completeprofile}
-                      //fillQuesList={fillQuesList}
                     />
                   </Step>
                 );
               })}
             </MultiStepForm>
 
+            {/* if user first time  answer question, so show previous & next button and can sen data, if no so can browse question only then go to home*/}
             <div className="steps_btns">
               {active !== 1 && (
                 <Button
@@ -141,7 +116,6 @@ function RegisterQues() {
                 <Button
                   className="stepbtn roundedBtn SmallWidthBtn transBtn"
                   onClick={() => setActive(active + 1)}
-                  //style={{ float: "right" }}
                 >
                   {t("Register.Next")}
                 </Button>
@@ -151,8 +125,6 @@ function RegisterQues() {
                   <Button
                     className="stepbtn roundedBtn SmallWidthBtn transBtn"
                     onClick={saveLst}
-                    // onClick={() => navigate("/Response")}
-                    //style={{ float: "right" }}
                   >
                     {t("Register.Submit")}
                   </Button>
@@ -160,7 +132,6 @@ function RegisterQues() {
                   <Button
                     className="stepbtn roundedBtn SmallWidthBtn transBtn"
                     onClick={() => navigate("/")}
-                    //style={{ float: "right" }}
                   >
                     {t("Register.BackHome")}
                   </Button>
@@ -170,10 +141,7 @@ function RegisterQues() {
         ) : null}
       </div>
       {loading ? <LoadingPage /> : null}
-      {showAlert ? (
-        // <PopUpMsg text={errors} show={true} />
-        <PopUp msg={errors} closeAlert={closeAlert} />
-      ) : null}
+      {showAlert ? <PopUp msg={errors} closeAlert={closeAlert} /> : null}
     </Container>
   );
 }

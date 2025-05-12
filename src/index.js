@@ -8,7 +8,7 @@ import reportWebVitals from "./reportWebVitals";
 import { setDefaultTranslations, setDefaultLanguage } from "react-multi-lang";
 import { Provider } from "react-redux";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { detectLanguage, supportedLanguages } from "./utils/languageService";
+import { detectLanguage } from "./utils/languageService";
 import store from "./redux/store";
 import ar from "./translation/arb.json";
 import en from "./translation/en.json";
