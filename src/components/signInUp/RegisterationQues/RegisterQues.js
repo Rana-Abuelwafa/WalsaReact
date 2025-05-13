@@ -23,6 +23,7 @@ function RegisterQues() {
   const [showAlert, setShowAlert] = useState(false);
   const [myEmail, setMyEmail] = useState("");
   const [completeprofile, setcompleteProfile] = useState(0);
+  const currentLang = localStorage.getItem("lang") || getLanguage();
   const { Quesions, loading, errors } = useSelector((state) => state.register);
   useEffect(() => {
     //get user data from local storage
@@ -89,7 +90,11 @@ function RegisterQues() {
   };
   return (
     <Container>
-      <div className="ques_container">
+      <div
+        className={
+          currentLang == "ar" ? "ques_container right" : "ques_container left"
+        }
+      >
         {Quesions != null && Quesions.length > 0 ? (
           <div className="mutliStep_contain">
             <MultiStepForm activeStep={active}>
