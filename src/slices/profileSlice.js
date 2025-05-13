@@ -3,26 +3,29 @@ import { checkAUTH } from "../helper/helperFN";
 import { history } from "../index";
 import axios from "axios";
 
+// Base API URL from environment variables
 const BASE_URL = process.env.REACT_APP_API_URL;
 
+// Initial state for the profile slice
 const initialState = {
-  profileData: {},
-  profileImage: null,
-  loading: false,
-  fetchError: null,
-  saveError: null,
-  saveSuccess: false,
-  fetchImageError: null,
-  uploadImageError: null,
-  uploadImageSuccess: false,
+  profileData: {},         // Stores user profile data
+  profileImage: null,     // Stores user profile image URL/path
+  loading: false,         // Loading state flag
+  fetchError: null,       // Error from fetching profile
+  saveError: null,        // Error from saving profile
+  saveSuccess: false,     // Success flag for saving profile
+  fetchImageError: null,  // Error from fetching image
+  uploadImageError: null, // Error from uploading image
+  uploadImageSuccess: false, // Success flag for uploading image
 };
 
-// Async thunks
+// Async thunk to fetch user profile data
 export const fetchProfile = createAsyncThunk(
   "profile/fetchProfile",
   async ({ accessToken, userId }, { rejectWithValue }) => {
-    if (checkAUTH()) {
+    if (checkAUTH()) {  // Check if user is authenticated
       try {
+        // Make API call to get client profiles
         const response = await axios.post(
           BASE_URL + "/GetClientProfiles",
           {},
@@ -34,17 +37,20 @@ export const fetchProfile = createAsyncThunk(
           }
         );
 
+        // Find the profile matching the current user ID
         if (response.data && Array.isArray(response.data)) {
           const userProfile = response.data.find(
             (profile) => profile.client_id === userId
           );
-          return userProfile || {};
+          return userProfile || {}; // Return found profile or empty object
         }
-        return {};
+        return {}; // Return empty object if no data
       } catch (error) {
+        // Return error message if request fails
         return rejectWithValue(error.response?.data?.message || error.message);
       }
     } else {
+      // Redirect to login if not authenticated
       history.push("/login");
       window.location.reload();
       return null;
@@ -52,11 +58,13 @@ export const fetchProfile = createAsyncThunk(
   }
 );
 
+// Async thunk to save profile data
 export const saveProfile = createAsyncThunk(
   "profile/saveProfile",
   async ({ accessToken, formData }, { rejectWithValue }) => {
     if (checkAUTH()) {
       try {
+        // Make API call to save profile
         const response = await axios.post(
           BASE_URL + "/saveMainProfile",
           formData,
@@ -67,6 +75,7 @@ export const saveProfile = createAsyncThunk(
             },
           }
         );
+        // Return both API response and form data
         return {
           response: response.data,
           formData: formData,
@@ -82,11 +91,13 @@ export const saveProfile = createAsyncThunk(
   }
 );
 
+// Async thunk to fetch profile image
 export const fetchProfileImage = createAsyncThunk(
   "profile/fetchProfileImage",
   async (accessToken, { rejectWithValue }) => {
     if (checkAUTH()) {
       try {
+        // Make API call to get profile image
         const response = await axios.post(
           BASE_URL + "/GetProfileImage",
           {},
@@ -97,7 +108,7 @@ export const fetchProfileImage = createAsyncThunk(
             },
           }
         );
-        // Handle the array response and extract the first image URL
+        // Handle array response and extract first image URL
         if (
           response.data &&
           Array.isArray(response.data) &&
@@ -118,6 +129,7 @@ export const fetchProfileImage = createAsyncThunk(
   }
 );
 
+// Async thunk to upload profile image
 export const uploadProfileImage = createAsyncThunk(
   "profile/uploadProfileImage",
   async ({ accessToken, imageFile }, { rejectWithValue }) => {
@@ -125,6 +137,7 @@ export const uploadProfileImage = createAsyncThunk(
       try {
         const requestBody = { img: imageFile };
 
+        // Make API call to upload image with multipart/form-data
         const response = await axios.post(
           BASE_URL + "/saveProfileImage",
           requestBody,
@@ -136,6 +149,7 @@ export const uploadProfileImage = createAsyncThunk(
           }
         );
 
+        // Return both object URL for immediate display and API response
         return {
           url: URL.createObjectURL(imageFile),
           apiResponse: response.data,
@@ -151,16 +165,19 @@ export const uploadProfileImage = createAsyncThunk(
   }
 );
 
+// Create profile slice with reducers and extra reducers for async actions
 const profileSlice = createSlice({
   name: "profile",
   initialState,
   reducers: {
+    // Action to reset success/error states
     resetProfileStatus: (state) => {
       state.saveSuccess = false;
       state.saveError = null;
       state.uploadImageSuccess = false;
       state.uploadImageError = null;
     },
+    // Action to clear fetch errors
     clearFetchErrors: (state) => {
       state.fetchError = null;
       state.fetchImageError = null;
@@ -168,7 +185,7 @@ const profileSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Fetch Profile
+      // Fetch Profile cases
       .addCase(fetchProfile.pending, (state) => {
         state.loading = true;
         state.fetchError = null;
@@ -182,7 +199,7 @@ const profileSlice = createSlice({
         state.fetchError = action.payload;
       })
 
-      // Save Profile
+      // Save Profile cases
       .addCase(saveProfile.pending, (state) => {
         state.loading = true;
         state.saveError = null;
@@ -191,6 +208,7 @@ const profileSlice = createSlice({
       .addCase(saveProfile.fulfilled, (state, action) => {
         state.loading = false;
         state.saveSuccess = true;
+        // Update profile data with new data and ID from response
         state.profileData = {
           ...action.payload.formData,
           profile_id:
@@ -202,7 +220,7 @@ const profileSlice = createSlice({
         state.saveError = action.payload;
       })
 
-      // Fetch Profile Image
+      // Fetch Profile Image cases
       .addCase(fetchProfileImage.pending, (state) => {
         state.loading = true;
         state.fetchImageError = null;
@@ -216,7 +234,7 @@ const profileSlice = createSlice({
         state.fetchImageError = action.payload;
       })
 
-      // Upload Profile Image
+      // Upload Profile Image cases
       .addCase(uploadProfileImage.pending, (state) => {
         state.loading = true;
         state.uploadImageError = null;
@@ -234,5 +252,6 @@ const profileSlice = createSlice({
   },
 });
 
+// Export actions and reducer
 export const { resetProfileStatus, clearFetchErrors } = profileSlice.actions;
 export default profileSlice.reducer;
