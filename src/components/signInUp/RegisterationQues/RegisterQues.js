@@ -66,7 +66,11 @@ function RegisterQues() {
         setQuesLst([]);
         const cls = { email: myEmail };
         dispatch(CompleteMyProfile(cls));
-        navigate("/Response");
+        navigate("/Response", {
+          replace: true,
+          state: { msg: result.payload.WelcomeMsg },
+        });
+        //navigate("/Response");
       } else {
         setShowAlert(true);
       }

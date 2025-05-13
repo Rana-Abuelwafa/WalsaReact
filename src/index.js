@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
+import "./styles/shared.scss";
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-popup-alert/dist/index.css";

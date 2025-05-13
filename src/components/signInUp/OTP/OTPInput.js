@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { ConfirmOTP } from "../../../slices/RegisterSlice";
 import PopUp from "../../shared/popoup/PopUp";
 import LoadingPage from "../../Loader/LoadingPage";
+import "./otp.scss";
 function OTPInput(props) {
   const t = useTranslation();
   const { state } = useLocation();

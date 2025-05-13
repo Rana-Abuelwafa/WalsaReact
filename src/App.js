@@ -1,4 +1,4 @@
-import "./styles/shared.scss";
+// import "./styles/shared.scss";
 import React, { lazy, Suspense, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoadingPage from "./components/Loader/LoadingPage";
