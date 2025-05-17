@@ -16,7 +16,9 @@
     "PasswordError": "Das Passwort muss mindestens 6 Zeichen lang sein.",
     "CodeVerifyTitle": "Geben Sie den an gesendeten Code ein",
     "CodeVerifyTitle2": "Um Ihre E-Mail zu bestätigen",
-    "SendCode": "Code senden"
+    "SendCode": "Code senden",
+    "AlreadyLogin": "waarmee u al inlogt ",
+    "LogOut": "Uitloggens"
   },
   "Register": {
     "HeaderTitle": "Bleiben Sie in Kontakt mit Ihren",
@@ -235,7 +237,7 @@
     "update": "Aktualisieren",
     "save": "Speichern"
   },
-  "product":{
+  "product": {
     "select_your": "Wählen Sie Ihre",
     "services": "Dienstleistungen",
     "save": "Speichern",

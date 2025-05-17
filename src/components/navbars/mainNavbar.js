@@ -17,7 +17,7 @@ const MainNavbar = () => {
   const [completeprofile, setcompleteProfile] = useState(0);
 
   const navigate = useNavigate(); // Hook to navigate programmatically
-  const t = useTranslation();     // Hook for translations
+  const t = useTranslation(); // Hook for translations
 
   // State to determine if the current screen size is mobile
   const [isMobile, setIsMobile] = useState(window.innerWidth < 992);
@@ -34,8 +34,8 @@ const MainNavbar = () => {
   // Function to handle user logout
   const logOut = () => {
     localStorage.removeItem("token"); // Remove auth token
-    localStorage.removeItem("user");  // Remove user info
-    navigate("/login");               // Redirect to login page
+    localStorage.removeItem("user"); // Remove user info
+    navigate("/login"); // Redirect to login page
   };
 
   // Effect to fetch and set user name from local storage on component mount

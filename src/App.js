@@ -2,7 +2,11 @@
 import React, { lazy, Suspense, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoadingPage from "./components/Loader/LoadingPage";
-
+const UserCheck = lazy(() =>
+  import(
+    /* webpackPrefetch: true */ "./components/signInUp/UserCheck/UserCheck"
+  )
+);
 const Home = lazy(() =>
   import(/* webpackPrefetch: true */ "./components/home/home")
 );
@@ -68,8 +72,22 @@ function App() {
         <Suspense fallback={<LoadingPage />}>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            <Route
+              path="/login"
+              element={
+                <UserCheck>
+                  <Login />
+                </UserCheck>
+              }
+            />
+            <Route
+              path="/register"
+              element={
+                <UserCheck>
+                  <Register />
+                </UserCheck>
+              }
+            />
             <Route path="/verifyEmail" element={<OTPInput />} />
             {/* page shown after user register successfully, static data */}
             <Route path="/Welcome" element={<WelcomeMsg />} />

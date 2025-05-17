@@ -16,7 +16,9 @@
     "PasswordError": "Password must be at least 6 characters long.",
     "CodeVerifyTitle": "Enter The Code sent To",
     "CodeVerifyTitle2": "To Verify your mail",
-    "SendCode": "Send Code"
+    "SendCode": "Send Code",
+    "AlreadyLogin": "you already login with ",
+    "LogOut": "LogOut"
   },
   "Register": {
     "HeaderTitle": "Stay in touch with your",
@@ -232,12 +234,12 @@
     "image_upload_success": "Profile Image saved successfully!",
     "select_image_file": "Please select an image file",
     "image_size_limit": "Image size should be less than 2MB",
-    "Facebook":"Facebook",
-    "Twitter":"Twitter",
+    "Facebook": "Facebook",
+    "Twitter": "Twitter",
     "update": "Update",
     "save": "Save"
   },
-  "product":{
+  "product": {
     "select_your": "Select your",
     "services": "Services",
     "save": "Save",

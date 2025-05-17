@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
 import { useTranslation, getLanguage } from "react-multi-lang";
 import LoginForm from "./loginForm";
 import { Link } from "react-router-dom";
 import MiniNavbar from "../../navbars/miniNavbar";
 import SignInUpShared from "../signInUpShared";
+// import { checkIsLogin } from "../../../helper/helperFN";
 import "../SignInUp.scss";
 
 function Login() {
   const t = useTranslation();
+
   const currentLang = localStorage.getItem("lang") || getLanguage();
   return (
     <div

@@ -16,7 +16,9 @@
     "PasswordError": "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل",
     "CodeVerifyTitle": "قم بادخال الكود الذي تم ارساله",
     "CodeVerifyTitle2": "لتأكيد الايميل الخاص بك",
-    "SendCode": "ارسال الكود"
+    "SendCode": "ارسال الكود",
+    "AlreadyLogin": "أنت بالفعل مسجل الدخول ب ",
+    "LogOut": "تسجيل الخروج"
   },
   "Register": {
     "HeaderTitle": "ابقَ على تواصل مع",
@@ -230,12 +232,12 @@
     "image_upload_success": "تم حفظ الصوره الشخصيه بنجاح!",
     "select_image_file": "الرجاء اختيار ملف صورة",
     "image_size_limit": "يجب أن يكون حجم الصورة أقل من 2 ميجابايت",
-    "Facebook":"فيسبوك",
-    "Twitter":"تويتر",
+    "Facebook": "فيسبوك",
+    "Twitter": "تويتر",
     "update": "تحديث",
     "save": "حفظ"
   },
-  "product":{
+  "product": {
     "select_your": "اختر",
     "services": "الخدمات",
     "save": "حفظ",
