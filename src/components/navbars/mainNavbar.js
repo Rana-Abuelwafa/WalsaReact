@@ -74,6 +74,10 @@ const MainNavbar = () => {
               {t("Navbar.home")}
             </Nav.Link>
 
+            <Nav.Link href="/pricing" className="nav-item">
+              {t("Navbar.pricing")}
+            </Nav.Link>
+
             {/* Contact Us link */}
             <Nav.Link href="/contactUs" className="nav-item">
               {t("Navbar.contact")}
@@ -86,9 +90,6 @@ const MainNavbar = () => {
 
             {/* Additional links can be enabled later */}
             {/* 
-            <Nav.Link href="/" className="nav-item">
-              {t("Navbar.pricing")}
-            </Nav.Link>
             <Nav.Link href="/" className="nav-item">
               {t("Navbar.ourWork")}
             </Nav.Link> 
