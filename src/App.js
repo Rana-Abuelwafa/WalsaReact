@@ -2,6 +2,10 @@
 import React, { lazy, Suspense, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoadingPage from "./components/Loader/LoadingPage";
+import {
+  fetchUserCountry,
+  getCurrencyFromCountry,
+} from "./utils/currencyService";
 const UserCheck = lazy(() =>
   import(
     /* webpackPrefetch: true */ "./components/signInUp/UserCheck/UserCheck"
@@ -54,20 +58,16 @@ function App() {
       if (window.location.pathname === "/login") {
         await import("./components/signInUp/register/register");
       }
-      // if (window.location.pathname === '/') {
-      //   await import("./components/home/home");
-      // }
     };
 
+    async function getCurrency() {
+      //get default currency
+      const countryCode = await fetchUserCountry();
+      const currency = await getCurrencyFromCountry(countryCode);
+      console.log("Detected Currency:", currency);
+    }
+    getCurrency();
     preloadPages();
-
-    // // Preload fonts and critical assets
-    // const link = document.createElement('link');
-    // link.rel = 'preload';
-    // link.href = '/fonts/your-font.woff2';
-    // link.as = 'font';
-    // link.crossOrigin = 'anonymous';
-    // document.head.appendChild(link);
   }, []);
   return (
     <div className="App">
