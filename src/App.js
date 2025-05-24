@@ -44,6 +44,9 @@ const Profile = lazy(() =>
   import(/* webpackPrefetch: true */ "./components/profile/Profile")
 );
 
+const Pricing = lazy(() =>
+  import(/* webpackPrefetch: true */ "./components/pricing/PricingPlansPage")
+);
 function App() {
   useEffect(() => {
     // Programmatic preloading for likely next pages
@@ -98,6 +101,7 @@ function App() {
             <Route path="/contactUs" element={<ContactUs />} />
             <Route path="/AboutUs" element={<AboutPage />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/pricing" element={<Pricing />} />
           </Routes>
         </Suspense>
       </BrowserRouter>
