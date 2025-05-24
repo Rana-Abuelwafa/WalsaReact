@@ -60,13 +60,13 @@ function App() {
       }
     };
 
-    async function getCurrency() {
-      //get default currency
-      const countryCode = await fetchUserCountry();
-      const currency = await getCurrencyFromCountry(countryCode);
-      console.log("Detected Currency:", currency);
-    }
-    getCurrency();
+    // async function getCurrency() {
+    //   //get default currency
+    //   const countryCode = await fetchUserCountry();
+    //   const currency = await getCurrencyFromCountry(countryCode);
+    //   console.log("Detected Currency:", currency);
+    // }
+    // getCurrency();
     preloadPages();
   }, []);
   return (

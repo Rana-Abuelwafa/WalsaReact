@@ -7,12 +7,13 @@ import { useTranslation } from "react-multi-lang";
 import LanguageDropdown from "../Dropdowns/LanguageDropdown";
 import MenuDropdown from "../Dropdowns/MenuDropdown";
 import UserDropDown from "../Dropdowns/UserDropDown";
+import {fetchUserCountry,getCurrencyFromCountry} from "../../utils/currencyService";
 import "./mainNavbar.scss";
 
 const MainNavbar = () => {
   // State to hold the user's name from local storage
   const [MyName, setMyName] = useState("");
-
+   const [currency, setCurrency] = useState("");
   // State to track profile completion (currently not used for logic)
   const [completeprofile, setcompleteProfile] = useState(0);
 
@@ -24,6 +25,14 @@ const MainNavbar = () => {
 
   // Effect to update 'isMobile' when the window is resized
   useEffect(() => {
+     async function getCurrency() {
+          //get default currency
+          const countryCode = await fetchUserCountry();
+          const currency = await getCurrencyFromCountry(countryCode);
+          setCurrency(currency);
+          console.log("Detected Currency:", currency);
+        }
+        getCurrency();
     const handleResize = () => {
       setIsMobile(window.innerWidth < 992);
     };
@@ -108,8 +117,8 @@ const MainNavbar = () => {
             <LanguageDropdown />
 
             {/* Only show extra menu dropdown if not mobile */}
-            {!isMobile && <MenuDropdown />}
-
+            {/* {!isMobile && <MenuDropdown />} */}
+             <span>{currency}</span>
             {/* Logout icon if user is logged in */}
             {MyName ? <FiLogOut className="icon" onClick={logOut} /> : null}
           </div>
