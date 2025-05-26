@@ -3,6 +3,7 @@ import { Container, Row, Col, Card, Button, Badge } from "react-bootstrap";
 import MainNavbar from '../navbars/mainNavbar';
 import MainFooter from '../footer/mainFooter';
 import { useTranslation } from 'react-multi-lang';
+import { useNavigate } from "react-router-dom";
 import "./PricingPlansPage.scss";
 
 const plans = {
@@ -183,103 +184,106 @@ const plans = {
 ]
 };
 
-const Section = ({ title, items }) => (
-  <div className="pricing-section">
-    <h3 className="section-title">{title}</h3>
-    <Row>
-      {items.map((plan, idx) => (
-        <Col key={idx} md={3} className="mb-4">
-          <Card className={`pricing-card ${plan.recommended ? "best" : ""}`}>
-            {plan.recommended && <Badge className="best-badge">Recommanded</Badge>}
-            <Card.Body>
-              <Card.Title>{plan.title}</Card.Title>
-              <p className="plan-desc">{plan.desc}</p>
-              <div className="pricing-info ">
-                {plan.oldPrice && (
-                  <span
-                    className={plan.oldPrice.toLowerCase() === "custom" ? "old-price custom-price" : "old-price"}
-                  >
-                    {plan.oldPrice}
-                  </span>
-                )}
-                {plan.price && <span className="current-price ms-2">{plan.price}</span>}
-              </div>
-              <hr className="pricingHr"/>
-              <ul className="features-list">
-                {plan.features.map((feat, i) => (
-                  <li key={i}>{feat}</li>
-                ))}
-              </ul>
-              <Button variant={plan.recommended ? "warning" : "outline-dark"}>Get Started</Button>
-            </Card.Body>
-          </Card>
-        </Col>
-      ))}
-    </Row>
-  </div>
-);
+const Section = ({ title, items }) => {
+  const t = useTranslation();
+  const navigate = useNavigate();
+  
+  return (
+    <div className="pricing-section">
+      <h3 className="section-title">{title}</h3>
+      <Row>
+        {items.map((plan, idx) => (
+          <Col key={idx} md={3} className="mb-4">
+            <Card className={`pricing-card ${plan.recommended ? "best" : ""}`}>
+              {plan.recommended && <Badge className="best-badge">{t('pricing.recommended')}</Badge>}
+              <Card.Body>
+                <Card.Title>{plan.title}</Card.Title>
+                <p className="plan-desc">{plan.desc}</p>
+                <div className="pricing-info">
+                  {plan.oldPrice && (
+                    <span
+                      className={plan.oldPrice.toLowerCase() === "custom" ? "old-price custom-price" : "old-price"}
+                    >
+                      {plan.oldPrice}
+                    </span>
+                  )}
+                  {plan.price && <span className="current-price ms-2">{plan.price}</span>}
+                </div>
+                <hr className="pricingHr"/>
+                <ul className="features-list">
+                  {plan.features.map((feat, i) => (
+                    <li key={i}>{feat}</li>
+                  ))}
+                </ul>
+                <Button variant={plan.recommended ? "warning" : "outline-dark"} onClick={() => navigate("/confirmation")}>{t('pricing.get_started')}</Button>
+              </Card.Body>
+            </Card>
+          </Col>
+        ))}
+      </Row>
+    </div>
+  );
+};
 
 const PricingPlansPage = () => { 
-
-  const t = useTranslation(); // Hook for multilingual translations
+  const t = useTranslation();
+  const direction = t('direction'); // Get direction from translations
 
   return (
     <>
-            {/* Top navigation bars */}
-            <MainNavbar />
-            <div className="pricing-page">
-              <Container>
-                <div className="text-center mt-5">
-                  <h2 className="pricing-header">Affordable plans for all business types</h2>
-                  <p className="pricing-desc">Begin by creating your site and get a site valid all year round</p>
-                  <hr className="pricingHr"/>
-                  <h1 className="discount">50%</h1>
-                  <p className="deal-text">Get our opening offers on all our services for the first 100 days</p>
-                </div>
+      <MainNavbar />
+      <div className="pricing-page" dir={direction}>
+        <Container>
+          <div className="text-center mt-5">
+            <h2 className="pricing-header">{t('pricing.title')}</h2>
+            <p className="pricing-desc">{t('pricing.description')}</p>
+            <hr className="pricingHr"/>
+            <h1 className="discount">{t('pricing.discount')}</h1>
+            <p className="deal-text">{t('pricing.deal_text')}</p>
+          </div>
 
-                <Section title="Website Design" items={plans.website} />
-                <Section title="Marketing" items={plans.marketing} />
-                <Section title="Brand Identity" items={plans.brand} />
+          <Section title={t('pricing.sections.website')} items={plans.website} />
+          <Section title={t('pricing.sections.marketing')} items={plans.marketing} />
+          <Section title={t('pricing.sections.brand')} items={plans.brand} />
 
-                <div className="payment-security-section mt-5 mb-4">
-                  <Container>
-                    <Row className="align-items-center text-center">
-                      <Col md={5} className="payment-methods">
-                        <h6 className="section-label">ACCEPTED PAYMENT METHODS</h6>
-                        <div className="payment-icons mt-2">
-                          <img src="/images/paypal.png" alt="PayPal" className="pay-icon" />
-                          <img src="/images/visa.png" alt="Visa" className="pay-icon" />
-                        </div>
-                      </Col>
+          <div className="payment-security-section mt-5 mb-4">
+            <Container>
+              <Row className="align-items-center text-center">
+                <Col md={5} className="payment-methods">
+                  <h6 className="section-label">{t('pricing.payment_methods')}</h6>
+                  <div className="payment-icons mt-2">
+                    <img src="/images/paypal.png" alt="PayPal" className="pay-icon" />
+                    <img src="/images/visa.png" alt="Visa" className="pay-icon" />
+                  </div>
+                </Col>
 
-                      <Col md={1} className="d-none d-md-flex justify-content-center">
-                        <div className="vertical-divider"></div>
-                      </Col>
+                <Col md={1} className="d-none d-md-flex justify-content-center">
+                  <div className="vertical-divider"></div>
+                </Col>
 
-                      <Col md={6} className="secure-payment mt-4 mt-md-0 text-center">
-                        <div className="d-flex align-items-center justify-content-center justify-content-md-start">
-                          <img src="/images/protect.jpeg" alt="SSL Secure" className="secure-icon me-3" />
-                          <div>
-                            <h6 className="section-label">SSL SECURE PAYMENT</h6>
-                            <p className="secure-text mb-0">Your information is protected</p>
-                          </div>
-                        </div>
-                      </Col>
-                    </Row>
-                  </Container>
-                </div>
+                <Col md={6} className="secure-payment mt-4 mt-md-0 text-center">
+                  <div className={`d-flex align-items-center justify-content-center ${direction === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <img src="/images/insurance.png" alt="SSL Secure" className={`secure-icon ${direction === 'rtl' ? 'ms-3' : 'me-3'}`} />
+                    <div>
+                      <h6 className="section-label">{t('pricing.ssl_secure')}</h6>
+                      <p className="secure-text mb-0">{t('pricing.secure_text')}</p>
+                    </div>
+                  </div>
+                </Col>
+              </Row>
+            </Container>
+          </div>
 
-                <div className="custom-package text-center">
-                  <p>You want to custom a special package for</p>
-                  <img src="/images/customPricing.jpeg" alt="Custom Offer" className="custom-img" />
-                </div>
-              </Container>
-            </div>
-            {/* Footer */}
-            <MainFooter />
-        </>
+          <div className="custom-package text-center">
+            <p>{t('pricing.custom_package')}</p>
+            <img src="/images/customPricing.jpeg" alt="Custom Offer" className="custom-img" />
+          </div>
+        </Container>
+      </div>
+      <MainFooter />
+    </>
   );
-} 
+}; 
 
 
 export default PricingPlansPage;

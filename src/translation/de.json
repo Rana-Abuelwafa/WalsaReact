@@ -250,5 +250,29 @@
     "save_success": "Ihre Änderungen wurden erfolgreich gespeichert!",
     "save_error": "Speichern der Änderungen fehlgeschlagen. Bitte versuchen Sie es erneut.",
     "no_changes": "Keine Änderungen zum Speichern."
+  },
+  "pricing": {
+    "title": "Erschwingliche Pläne für alle Unternehmensarten",
+    "description": "Beginnen Sie mit der Erstellung Ihrer Website und erhalten Sie eine Website, die das ganze Jahr über gültig ist",
+    "discount": "50%",
+    "deal_text": "Erhalten Sie unsere Eröffnungsangebote für alle unsere Dienstleistungen für die ersten 100 Tage",
+    "sections": {
+      "website": "Webseiten Design",
+      "marketing": "Marketing",
+      "brand": "Markenidentität"
+    },
+    "payment_methods": "AKZEPTIERTE ZAHLUNGSMETHODEN",
+    "ssl_secure": "SSL SICHERE ZAHLUNG",
+    "secure_text": "Ihre Informationen sind geschützt",
+    "custom_package": "Sie möchten ein spezielles Paket für",
+    "recommended": "Empfohlen",
+    "get_started": "Loslegen"
+  },
+  "confirmation": {
+    "dearCustomer": "Sehr geehrter Kunde",
+    "appointmentConfirmed": "Der Termin wurde bestätigt und",
+    "detailsSent": "die restlichen Details wurden an Ihre persönliche E-Mail-Adresse gesendet.",
+    "thankYou": "Vielen Dank, dass Sie sich für unseren Service entschieden haben.",
+    "backToHome": "Zurück zur Startseite"
   }
 }

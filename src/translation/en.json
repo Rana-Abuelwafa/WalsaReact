@@ -252,5 +252,29 @@
     "save_success": "Your changes have been saved successfully!",
     "save_error": "Failed to save your changes. Please try again.",
     "no_changes": "No changes to save."
+  },
+  "pricing": {
+    "title": "Affordable plans for all business types",
+    "description": "Begin by creating your site and get a site valid all year round",
+    "discount": "50%",
+    "deal_text": "Get our opening offers on all our services for the first 100 days",
+    "sections": {
+      "website": "Website Design",
+      "marketing": "Marketing",
+      "brand": "Brand Identity"
+    },
+    "payment_methods": "ACCEPTED PAYMENT METHODS",
+    "ssl_secure": "SSL SECURE PAYMENT",
+    "secure_text": "Your information is protected",
+    "custom_package": "You want to custom a special package for",
+    "recommended": "Recommended",
+    "get_started": "Get Started"
+  },
+  "confirmation": {
+    "dearCustomer": "Dear customer",
+    "appointmentConfirmed": "The appointment has been confirmed and",
+    "detailsSent": "the remaining details have been sent to your personal email.",
+    "thankYou": "Thank you for choosing our services.",
+    "backToHome": "Back to Home"
   }
 }

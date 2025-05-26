@@ -2,6 +2,41 @@
   margin-top: 160px;
   background-color: #fff;
 
+  &[dir="rtl"] {
+    .pricing-card {
+      .card-body {
+        text-align: right;
+      }
+
+      .features-list li {
+        padding-left: 0;
+        padding-right: 1.5rem;
+
+        &::before {
+          left: auto;
+          right: 0;
+        }
+      }
+
+      .pricing-info {
+        flex-direction: row-reverse;
+        
+        .current-price {
+          margin-right: 0.5rem;
+          margin-left: 0;
+        }
+      }
+    }
+
+    .payment-security-section {
+      .payment-icons {
+        .pay-icon {
+          margin: 0 10px;
+        }
+      }
+    }
+  }
+
   .pricing-header {
     line-height: 80px;
     font-size: 50px;
@@ -14,6 +49,7 @@
     font-size: 24px;
     color: #542D72;
   }
+
   .pricingHr {
     height: 3px;
     background-color: #d4d4d4;
@@ -184,42 +220,42 @@
     }
   }
 }
-}
-
-.payment-security-section {
-  border-top: 3px solid #d4d4d4;
-  padding-top: 2rem;
-
-  .section-label {
-    font-size: 1.25rem;
-    font-weight: bold;
-    color: #542D72;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
   }
 
-  .payment-icons {
+  .payment-security-section {
+    border-top: 3px solid #d4d4d4;
+    padding-top: 2rem;
 
-    .pay-icon {
-      height: 40px;
-      width:60px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      margin: 0 10px;
-      padding: 0.25rem 0.5rem;
-      background: #fff;
+    .section-label {
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: #542D72;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .payment-icons {
+
+      .pay-icon {
+        height: 40px;
+        width:60px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin: 0 10px;
+        padding: 0.25rem 0.5rem;
+        background: #fff;
+      }
+    }
+
+    .secure-icon {
+      height: 60px;
+    }
+
+    .secure-text {
+      font-size: 0.85rem;
+      color: #666;
     }
   }
-
-  .secure-icon {
-    height: 60px;
-  }
-
-  .secure-text {
-    font-size: 0.85rem;
-    color: #666;
-  }
-}
 
   .custom-package {
     margin-top: 4rem;
@@ -236,10 +272,74 @@
       border-radius: 20px;
     }
   }
-}
 
-.vertical-divider {
+  .vertical-divider {
   width: 3px;
   background-color: #d4d4d4;
   height: 100px;
+  }
+
+   /* Responsive Adjustments */
+  @media (max-width: 1200px) {
+    .pricing-card {
+      height: auto !important;
+      min-height: 600px;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .section-title {
+      font-size: 2rem;
+    }
+
+    .pricing-header {
+      font-size: 2.5rem;
+      line-height: 1.2;
+    }
+
+    .pricing-desc, .deal-text {
+      font-size: 1.2rem;
+    }
+
+    .col-md-3 {
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    margin-top: 120px;
+
+    .col-md-3 {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+
+    .custom-package p {
+      font-size: 1.8rem;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .pricing-header {
+      font-size: 2rem;
+    }
+
+    .discount {
+      font-size: 3rem;
+    }
+
+    .payment-security-section {
+      .vertical-divider {
+        display: none !important;
+      }
+
+      .payment-methods, .secure-payment {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-bottom: 1.5rem;
+      }
+    }
+  }
 }
+
