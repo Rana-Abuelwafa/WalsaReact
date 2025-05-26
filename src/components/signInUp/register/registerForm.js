@@ -104,7 +104,7 @@ function RegisterForm() {
       <Row className="mb-3">
         <Col lg={6} md={12} sm={12} xs={12}>
           <Form.Group>
-            <Form.Label>{t("Register.firstname")}</Form.Label>
+            <Form.Label className="formLabel">{t("Register.firstname")}</Form.Label>
             <Form.Control
               type="text"
               placeholder={t("Register.firstname")}
@@ -122,7 +122,7 @@ function RegisterForm() {
         </Col>
         <Col lg={6} md={12} sm={12} xs={12}>
           <Form.Group>
-            <Form.Label>{t("Register.lastname")}</Form.Label>
+            <Form.Label className="formLabel">{t("Register.lastname")}</Form.Label>
             <Form.Control
               type="text"
               placeholder={t("Register.lastname")}
@@ -158,7 +158,7 @@ function RegisterForm() {
       <Row className="mb-3">
         <Col lg={6} md={12} sm={12} xs={12}>
           <Form.Group>
-            <Form.Label>{t("Login.password")}</Form.Label>
+            <Form.Label className="formLabel">{t("Login.password")}</Form.Label>
             <Form.Control
               type="password"
               placeholder={t("Login.password")}
@@ -177,7 +177,7 @@ function RegisterForm() {
         </Col>
         <Col lg={6} md={12} sm={12} xs={12}>
           <Form.Group>
-            <Form.Label>{t("Register.confirmPassword")}</Form.Label>
+            <Form.Label className="formLabel">{t("Register.confirmPassword")}</Form.Label>
             <Form.Control
               required
               type="password"
