@@ -66,6 +66,12 @@
       color: #542D72;
       margin-bottom: 0.75rem;
       padding:40px;
+      .form-check-input:checked{
+        background-color:#3a1a4f;
+        border-color: #3a1a4f;
+        box-shadow: 0 0 0 .25rem rgb(158 168 182 / 25%);;
+      }
+ 
     }
     
 
