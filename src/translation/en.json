@@ -268,13 +268,17 @@
     "secure_text": "Your information is protected",
     "custom_package": "You want to custom a special package for",
     "recommended": "Recommended",
-    "get_started": "Get Started"
+    "get_started": "Get Started",
+    "select":"Select",
+    "next":"Next"
   },
   "confirmation": {
-    "dearCustomer": "Dear customer",
+    "termsConditions": "Terms & Conditions",
     "appointmentConfirmed": "The appointment has been confirmed and",
     "detailsSent": "the remaining details have been sent to your personal email.",
     "thankYou": "Thank you for choosing our services.",
-    "backToHome": "Back to Home"
+    "agreetoterms":"Yes, I Agree To the terms of services",
+    "back":"Back",
+    "continue":"Continue"
   }
 }

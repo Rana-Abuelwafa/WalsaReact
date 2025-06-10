@@ -266,13 +266,17 @@
     "secure_text": "معلوماتك محمية",
     "custom_package": "هل ترغب في حزمة خاصة مخصصة لـ",
     "recommended": "موصى به",
-    "get_started": "ابدأ الآن"
+    "get_started": "ابدأ الآن",
+    "select":"اختر",
+    "next": "التالي"
   },
   "confirmation": {
-    "dearCustomer": "عزيزي العميل",
+    "termsConditions": "الشروط والأحكام",
     "appointmentConfirmed": "تم تأكيد الموعد و",
-    "detailsSent": "تم إرسال التفاصيل المتبقية إلى بريدك الإلكتروني الشخصي.",
+    "detailsSent": "تم إرسال باقي التفاصيل إلى بريدك الإلكتروني الشخصي.",
     "thankYou": "شكرًا لاختيارك خدماتنا.",
-    "backToHome": "العودة إلى الصفحة الرئيسية"
+    "agreetoterms": "نعم، أوافق على شروط الخدمة",
+    "back": "رجوع",
+    "continue": "استمرار"
   }
 }

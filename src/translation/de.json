@@ -266,13 +266,17 @@
     "secure_text": "Ihre Informationen sind geschützt",
     "custom_package": "Sie möchten ein spezielles Paket für",
     "recommended": "Empfohlen",
-    "get_started": "Loslegen"
+    "get_started": "Loslegen",
+    "select":"Wählen",
+    "next":"Weiter"
   },
   "confirmation": {
-    "dearCustomer": "Sehr geehrter Kunde",
+    "termsConditions": "Allgemeine Geschäftsbedingungen",
     "appointmentConfirmed": "Der Termin wurde bestätigt und",
-    "detailsSent": "die restlichen Details wurden an Ihre persönliche E-Mail-Adresse gesendet.",
-    "thankYou": "Vielen Dank, dass Sie sich für unseren Service entschieden haben.",
-    "backToHome": "Zurück zur Startseite"
+    "detailsSent": "die restlichen Details wurden an Ihre persönliche E-Mail gesendet.",
+    "thankYou": "Vielen Dank, dass Sie unseren Service gewählt haben.",
+    "agreetoterms": "Ja, ich stimme den Nutzungsbedingungen zu",
+    "back": "Zurück",
+    "continue": "Weiter"
   }
 }
