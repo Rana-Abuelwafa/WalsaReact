@@ -1,7 +1,7 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { checkAUTH } from "../helper/helperFN";
 import { history } from "../index";
-import axios from 'axios';
+import axios from "axios";
 
 // Base URL for API calls from environment variables
 const BROWSE_URL = process.env.REACT_APP_BROWSE_API_URL;
@@ -13,42 +13,42 @@ const getAuthHeaders = () => {
   const userId = user?.id;
   return {
     headers: {
-      'Authorization': `Bearer ${accessToken}`,
-      'Content-Type': 'application/json'
-    }
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+    },
   };
 };
 // Async thunk to fetch brand data
 export const fetchPricingPlans = createAsyncThunk(
-  'pricingPlans/fetchPricingPlans',  // action type prefix
-  async ({lang, curr_code}, { rejectWithValue }) => {
+  "pricingPlans/fetchPricingPlans", // action type prefix
+  async ({ lang, curr_code }, { rejectWithValue }) => {
     // Check authentication before making the request
-    if (checkAUTH()) {
-        try {
-        // Make POST request to get client brands
-        const response = await axios.post(
-            BROWSE_URL + "/GetPricingPackageWithService",
-            { lang, curr_code },
-            getAuthHeaders()
-        );
-        // Find and return the brand matching the clientId
-        return response.data;
-        } catch (error) {
-        // Return error message if request fails
-        return rejectWithValue(error.response?.data?.message || error.message);
-        }
-    } else {
-        // Redirect to login if not authenticated
-        history.push("/login");
-        window.location.reload();
-        return null;
-    }   
+    // if (checkAUTH()) {
+    try {
+      // Make POST request to get client brands
+      const response = await axios.post(
+        BROWSE_URL + "/GetPricingPackageWithService",
+        { lang, curr_code }
+      );
+      // Find and return the brand matching the clientId
+      return response.data;
+    } catch (error) {
+      // Return error message if request fails
+      return rejectWithValue(error.response?.data?.message || error.message);
+    }
+    // }
+    // else {
+    //     // Redirect to login if not authenticated
+    //     history.push("/login");
+    //     window.location.reload();
+    //     return null;
+    // }
   }
 );
 
 // Add this to your pricingPlansSlice.js
 export const saveClientServices = createAsyncThunk(
-  'pricingPlans/saveClientServices',
+  "pricingPlans/saveClientServices",
   async (requestData, { rejectWithValue }) => {
     if (checkAUTH()) {
       try {
@@ -70,7 +70,7 @@ export const saveClientServices = createAsyncThunk(
 );
 
 const pricingPlansSlice = createSlice({
-  name: 'pricingPlans',
+  name: "pricingPlans",
   initialState: {
     data: null,
     loading: false,
@@ -94,14 +94,14 @@ const pricingPlansSlice = createSlice({
       .addCase(saveClientServices.pending, (state) => {
         state.loading = true;
         state.error = null;
-        })
-        .addCase(saveClientServices.fulfilled, (state) => {
+      })
+      .addCase(saveClientServices.fulfilled, (state) => {
         state.loading = false;
-        })
-        .addCase(saveClientServices.rejected, (state, action) => {
+      })
+      .addCase(saveClientServices.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-        });
+      });
   },
 });
 
