@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button, Badge } from "react-bootstrap";
 import MainNavbar from '../navbars/mainNavbar';
 import MainFooter from '../footer/mainFooter';
@@ -6,21 +6,36 @@ import { useTranslation } from 'react-multi-lang';
 import { useNavigate } from "react-router-dom";
 import "./PricingPlansPage.scss";
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchPricingPlans, saveClientServices  } from '../../slices/pricingPlansSlice';
+import { fetchPricingPlans, saveClientServices } from '../../slices/pricingPlansSlice';
+import {
+  fetchUserCountry,
+  getCurrencyFromCountry,
+} from "../../utils/currencyService";
 import LoadingPage from '../Loader/LoadingPage';
 import PopUp from "../shared/popoup/PopUp";
 
-const Section = ({ title, items, onSelectPackage, serviceId, selectedPackageId }) => {
+const Section = ({ 
+  title, 
+  items, 
+  onSelectPackage, 
+  serviceId, 
+  selectedPackageId
+ }) => {
   const t = useTranslation();
   const navigate = useNavigate();
-  
+
+  // Check if any package in this section is selected
+  const hasSelectedPackage = items.some(plan => 
+    selectedPackageId === plan.package_id || plan.isSelected
+  );
+
   return (
     <div className="pricing-section">
       <h3 className="section-title">{title}</h3>
       <Row>
         {items.map((plan, idx) => (
           <Col key={idx} md={3} className="mb-4">
-            <Card className={`pricing-card ${plan.recommended ? "best" : ""} ${selectedPackageId === plan.package_id ? "selected" : ""}`} >
+            <Card className={`pricing-card ${plan.recommended ? "best" : ""} ${selectedPackageId === plan.package_id || plan.isSelected ? "selected" : ""}`}>
               {plan.recommended && <Badge className="best-badge">{t('pricing.recommended')}</Badge>}
               <Card.Body>
                 <Card.Title>{plan.package_name}</Card.Title>
@@ -43,21 +58,24 @@ const Section = ({ title, items, onSelectPackage, serviceId, selectedPackageId }
                     </>
                   )}
                 </div>
-                <hr className="pricingHr"/>
+                <hr className="pricingHr" />
                 <ul className="features-list">
                   {plan.features.map((feat, i) => (
                     <li key={i}>{feat.feature_name}</li>
                   ))}
-                </ul>
-                <Button 
-                  variant={plan.recommended ? "warning" : "outline-dark"} 
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onSelectPackage(plan.package_id, serviceId);
-                  }}
-                >
-                  {t('pricing.select')}
-                </Button>
+                </ul> 
+                 <Button
+                    variant={plan.recommended ? "warning" : "outline-dark"}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onSelectPackage(plan.package_id, serviceId);
+                    }}
+                    disabled={hasSelectedPackage && (selectedPackageId !== plan.package_id && !plan.isSelected)}
+                  >
+                    {selectedPackageId === plan.package_id || plan.isSelected 
+                      ? t('pricing.selected') 
+                      : t('pricing.select')}
+                  </Button>
               </Card.Body>
             </Card>
           </Col>
@@ -67,20 +85,34 @@ const Section = ({ title, items, onSelectPackage, serviceId, selectedPackageId }
   );
 };
 
-const PricingPlansPage = () => { 
-   const t = useTranslation();
-   const navigate = useNavigate();
+const PricingPlansPage = () => {
+  const t = useTranslation();
+  const navigate = useNavigate();
   const direction = t('direction');
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const [popupType, setPopupType] = useState("");
-   const [selectedPackages, setSelectedPackages] = useState({});
+  const [selectedPackages, setSelectedPackages] = useState({});
   const dispatch = useDispatch();
   const { data: pricingData, loading, error } = useSelector((state) => state.pricingPlans);
-  
+
   useEffect(() => {
-    dispatch(fetchPricingPlans({ lang: 'en', curr_code: 'USD' }));
+    dispatch(fetchPricingPlans({ lang: "en", curr_code: "uSD" }));
   }, [dispatch]);
+
+  //   useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const countryCode = await fetchUserCountry();
+  //       const curr_code = await getCurrencyFromCountry(countryCode);
+  //       dispatch(fetchPricingPlans({ lang, curr_code }));
+  //     } catch (error) {
+  //       console.error("Failed to fetch pricing plans:", error);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, [dispatch,lang]);
 
   useEffect(() => {
     if (error) {
@@ -90,30 +122,44 @@ const PricingPlansPage = () => {
     }
   }, [error]);
   const handleSelectPackage = (packageId, serviceId) => {
-  setSelectedPackages(prev => {
-    // If clicking the same package again, deselect it for this section
-    if (prev[serviceId] === packageId) {
-      const newState = {...prev};
-      delete newState[serviceId];
-      return newState;
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      setPopupMessage("Please login to select packages");
+      setPopupType("error");
+      setShowPopup(true);
+      setTimeout(() => navigate("/login"), 2000);
+      return;
     }
-    // Otherwise select this package (replacing any previous selection in this section)
-    return {
-      ...prev,
-      [serviceId]: packageId
-    };
-  });
-};
+
+    setSelectedPackages(prev => {
+      if (prev[serviceId] === packageId) {
+        const newState = { ...prev };
+        delete newState[serviceId];
+        return newState;
+      }
+      return {
+        ...prev,
+        [serviceId]: packageId
+      };
+    });
+  };
 
   const handleContinue = () => {
-    // Convert selected packages to an array of objects
-    const packagesList = Object.entries(selectedPackages).map(([serviceId, packageId]) => ({
-      serviceId,
-      packageId
-    }));
-    
-    console.log("Selected packages:", packagesList);
-    navigate("/confirmation");
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      setPopupMessage("Please login to continue");
+      setPopupType("error");
+      setShowPopup(true);
+      setTimeout(() => navigate("/login"), 2000);
+      return;
+    }
+
+    navigate("/confirmation", {
+      state: {
+        selectedPackages,
+        allPackages: transformedData
+      }
+    });
   };
 
   if (loading && !pricingData) {
@@ -126,26 +172,27 @@ const PricingPlansPage = () => {
 
   const transformData = (data) => {
     return data.map(service => ({
-      service_id:service.service_id,
-      serviceName: service.service_name, 
+      service_id: service.service_id,
+      serviceName: service.service_name,
       pkgs: service.pkgs
         .map(pkg => ({
           ...pkg,
-          recommended: pkg.package_name === "Business",
+          recommended: pkg.is_recommend, // Use is_recommend from API
           features: pkg.features || [],
           price: pkg.package_sale_price,
           oldPrice: pkg.package_price,
-          isCustom: pkg.package_name === "Business Elite" && pkg.package_sale_price === 0
+          isCustom: pkg.package_name === "Business Elite" && pkg.package_sale_price === 0,
+          isSelected: pkg.isSelected // Use isSelected from API
         }))
         .sort((a, b) => a.order - b.order)
     }));
   };
-  
+
   const closePopup = () => {
-        setShowPopup(false);
-        setPopupMessage("");
-        setPopupType("");
-      };
+    setShowPopup(false);
+    setPopupMessage("");
+    setPopupType("");
+  };
 
   const transformedData = transformData(pricingData);
   const activeServices = transformedData.filter(service => service.pkgs.length > 0);
@@ -154,40 +201,40 @@ const PricingPlansPage = () => {
   // Check if at least one package is selected in each section
   const isContinueDisabled = Object.keys(selectedPackages).length === 0;
 
-  const handleGetStarted = async (packageId,serviceId) => {
-      const user = JSON.parse(localStorage.getItem("user"));
-       setTimeout(() => navigate("/confirmation"), 2000);
-      // const requestData = [{
-      //   productId: serviceId,
-      //   client_id: user?.id || "",
-      //   id: 0,
-      //   package_id: packageId,
-      //   isSelected: true
-      // }];
+  const handleGetStarted = async (packageId, serviceId) => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    setTimeout(() => navigate("/confirmation"), 2000);
+    // const requestData = [{
+    //   productId: serviceId,
+    //   client_id: user?.id || "",
+    //   id: 0,
+    //   package_id: packageId,
+    //   isSelected: true
+    // }];
 
-      // try {
-      //   await dispatch(saveClientServices(requestData)).unwrap();
-      //   setPopupMessage("Service saved successfully!");
-      //   setPopupType("success");
-      //   setShowPopup(true);
-      //   // Navigate after showing success message
-      //   setTimeout(() => navigate("/confirmation"), 2000);
-      // } catch (error) {
-      //   setPopupMessage(error || "Failed to save service");
-      //   setPopupType("error");
-      //   setShowPopup(true);
-      // }
-    };
+    // try {
+    //   await dispatch(saveClientServices(requestData)).unwrap();
+    //   setPopupMessage("Service saved successfully!");
+    //   setPopupType("success");
+    //   setShowPopup(true);
+    //   // Navigate after showing success message
+    //   setTimeout(() => navigate("/confirmation"), 2000);
+    // } catch (error) {
+    //   setPopupMessage(error || "Failed to save service");
+    //   setPopupType("error");
+    //   setShowPopup(true);
+    // }
+  };
 
   return (
     <>
       <MainNavbar />
       {/* Success/Error Popup */}
       {showPopup && (
-        <PopUp 
-          msg={popupMessage} 
-          closeAlert={closePopup} 
-          type={popupType} 
+        <PopUp
+          msg={popupMessage}
+          closeAlert={closePopup}
+          type={popupType}
         />
       )}
       <div className="pricing-page" dir={direction}>
@@ -195,16 +242,16 @@ const PricingPlansPage = () => {
           <div className="text-center mt-5">
             <h2 className="pricing-header">{t('pricing.title')}</h2>
             <p className="pricing-desc">{t('pricing.description')}</p>
-            <hr className="pricingHr"/>
+            <hr className="pricingHr" />
             <h1 className="discount">{t('pricing.discount')}</h1>
             <p className="deal-text">{t('pricing.deal_text')}</p>
           </div>
 
           {/* Render sections dynamically based on API data */}
           {activeServices.map((service) => (
-            <Section 
+            <Section
               key={service.service_id}
-              title={service.serviceName} 
+              title={service.serviceName}
               items={service.pkgs}
               onSelectPackage={handleSelectPackage}
               serviceId={service.service_id}
@@ -213,7 +260,7 @@ const PricingPlansPage = () => {
           ))}
 
           <div className="continue-btn-container">
-            <button 
+            <button
               className="continue-btn"
               onClick={handleContinue}
               disabled={isContinueDisabled}
@@ -259,7 +306,7 @@ const PricingPlansPage = () => {
       <MainFooter />
     </>
   );
-}; 
+};
 
 
 export default PricingPlansPage;

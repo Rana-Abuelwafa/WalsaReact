@@ -270,6 +270,7 @@
     "recommended": "Recommended",
     "get_started": "Get Started",
     "select":"Select",
+    "selected":"Selected",
     "next":"Next"
   },
   "confirmation": {

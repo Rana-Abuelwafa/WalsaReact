@@ -8,6 +8,7 @@
       console.error("Failed to get country", error);
     }
   };
+  
   export const getCurrencyFromCountry = async (countryCode) => {
   const response = await fetch("https://restcountries.com/v3.1/name/"+countryCode+"?fields=currencies");
   let data = await response.json();

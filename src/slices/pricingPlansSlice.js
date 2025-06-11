@@ -22,13 +22,27 @@ const getAuthHeaders = () => {
 export const fetchPricingPlans = createAsyncThunk(
   "pricingPlans/fetchPricingPlans", // action type prefix
   async ({ lang, curr_code }, { rejectWithValue }) => {
+    let userId = null;
+    // Try to get user from localStorage
+    try {
+      const user = JSON.parse(localStorage.getItem("user"));
+      userId = user?.id || null;
+    } catch (err) {
+      userId = null; // fallback if parsing fails
+    }
+
+    const requestParams = {
+      lang,
+      curr_code,
+      client_id: userId,
+    };
     // Check authentication before making the request
     // if (checkAUTH()) {
     try {
       // Make POST request to get client brands
       const response = await axios.post(
         BROWSE_URL + "/GetPricingPackageWithService",
-        { lang, curr_code }
+        requestParams
       );
       // Find and return the brand matching the clientId
       return response.data;
@@ -53,7 +67,7 @@ export const saveClientServices = createAsyncThunk(
     if (checkAUTH()) {
       try {
         const response = await axios.post(
-          BASE_URL + "/SaveClientServices",
+          BASE_URL + "/MakeClientInvoiceForPackages",
           requestData,
           getAuthHeaders()
         );
