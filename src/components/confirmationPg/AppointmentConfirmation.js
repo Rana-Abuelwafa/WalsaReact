@@ -24,12 +24,10 @@ const handleSubmit = async () => {
   if (!agreed) return;
 
   try {
-    // Get the full package data from location state
     const { allPackages } = location.state || {};
     
-    // Create the request data by mapping selected packages
     const invoiceData = Object.entries(selectedPackages).map(([serviceId, packageId]) => {
-      // Find the full package details
+  
       const service = allPackages.find(s => s.service_id === parseInt(serviceId));
       const pkg = service?.pkgs.find(p => p.package_id === parseInt(packageId));
       

@@ -3,10 +3,13 @@
   background-color: #fff;
 
   &[dir="rtl"] {
+    text-align: right;
+
+    // Pricing cards
     .pricing-card {
       .card-body {
-        text-align: right;
-      }
+        text-align: right !important;
+
 
       .features-list li {
         padding-left: 0;
@@ -20,7 +23,7 @@
 
       .pricing-info {
         flex-direction: row-reverse;
-        
+
         .current-price {
           margin-right: 0.5rem;
           margin-left: 0;
@@ -28,12 +31,47 @@
       }
     }
 
+    &.selected::after {
+      right: auto !important;
+      left: 10px;
+    }
+  }
+
+    // Continue button container
+    .continue-btn-container {
+      justify-content: flex-end;
+      padding-left: 0;
+      padding-right: 15px;
+    }
+
+    // Payment methods section
     .payment-security-section {
       .payment-icons {
+        justify-content: flex-end;
+
         .pay-icon {
-          margin: 0 10px;
+          margin: 0 0 0 10px;
         }
       }
+
+      .secure-payment {
+        .secure-icon {
+          margin-left: 0.75rem;
+          margin-right: 0;
+        }
+      }
+    }
+
+    // Custom package section
+    .custom-package {
+      text-align: right;
+    }
+
+    // Best badge position
+    .best-badge {
+      left: auto;
+      right: 50%;
+      transform: translateX(50%);
     }
   }
 
@@ -45,7 +83,7 @@
     margin-bottom: 0.5rem;
   }
 
-  .pricing-desc{
+  .pricing-desc {
     font-size: 24px;
     color: #542D72;
   }
@@ -56,6 +94,7 @@
     border: none;
     margin: 1rem 0;
   }
+
   .discount {
     color: #ff6363;
     font-size: 60px;
@@ -90,10 +129,10 @@
       display: flex;
       flex-direction: column;
 
-       &.selected {
+      &.selected {
         border: 3px solid #542D72 !important;
         position: relative;
-        
+
         &::after {
           content: '✓';
           position: absolute;
@@ -118,18 +157,19 @@
         border-color: #542D72;
 
         &.selected {
-         border-color: #ffb300 !important;
-      
+          border-color: #ffb300 !important;
+
           &::after {
             background-color: #ffb300;
           }
         }
-        .card-title{
-          color:#fff !important
+
+        .card-title {
+          color: #fff !important
         }
 
         .plan-desc {
-          color:#fff !important
+          color: #fff !important
         }
 
         .old-price {
@@ -143,13 +183,13 @@
           border: none;
         }
 
-        .features-list li{
-          color:#fff !important;
-       
+        .features-list li {
+          color: #fff !important;
+
           &::before {
             color: #ffb300 !important;
           }
-         }
+        }
 
         .best-badge {
           position: absolute;
@@ -165,90 +205,93 @@
           z-index: 10;
           text-transform: uppercase;
         }
-  }
+      }
 
-  &:hover {
-    transform: translateY(-5px);
-  }
+      &:hover {
+        transform: translateY(-5px);
+      }
 
-  .card-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    text-align: left;
-    flex: 1;
+      .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        text-align: left;
+        flex: 1;
 
-    .card-title {
-      color:#542D72;
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
+        .card-title {
+          color: #542D72;
+          font-size: 1.25rem;
+          font-weight: 700;
+          margin-bottom: 0.5rem;
+        }
 
-    .card-subtitle {
-      color:#542D72;
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-    }
-    .plan-desc {
+        .card-subtitle {
+          color: #542D72;
+          font-size: 1.1rem;
+          margin-bottom: 1rem;
+        }
+
+        .plan-desc {
           font-size: 0.9rem;
           color: #542D72;
           margin-top: -0.5rem;
           margin-bottom: 0.75rem;
         }
 
-    .pricing-info {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 1rem;
+        .pricing-info {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 1rem;
 
-      .old-price {
-        text-decoration: line-through;
-        color: #00bc82;
-        font-weight:bold;
-      }
+          .old-price {
+            text-decoration: line-through;
+            color: #00bc82;
+            font-weight: bold;
+          }
 
-      .old-price.custom-price {
-        text-decoration: none;
-      }
-      .current-price {
-        color: #ff6363;
-        font-weight:bold;
-      }
-    }
-    .features-list {
-      list-style: none;
-      padding: 0;
-      margin-bottom: 1.5rem;
+          .old-price.custom-price {
+            text-decoration: none;
+          }
 
-      li {
-        color:#542D72;
-        font-size: 0.95rem;
-        margin: 0.5rem 0;
-        position: relative;
-        padding-left: 1.5rem;
+          .current-price {
+            color: #ff6363;
+            font-weight: bold;
+          }
+        }
 
-        &::before {
-          content: '✔';
-          position: absolute;
-          left: 0;
-          color: #707070;
+        .features-list {
+          list-style: none;
+          padding: 0;
+          margin-bottom: 1.5rem;
+
+          li {
+            color: #542D72;
+            font-size: 0.95rem;
+            margin: 0.5rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+
+            &::before {
+              content: '✔';
+              position: absolute;
+              left: 0;
+              color: #707070;
+            }
+          }
+        }
+
+        .btn {
+          background-color: #542D72;
+          color: #fff;
+          align-self: center;
+          margin-top: auto;
+          padding: 0.5rem 1.5rem;
+          border-radius: 25px;
+          font-weight: bold;
         }
       }
     }
-
-    .btn {
-      background-color: #542D72;
-      color:#fff;
-      align-self: center;
-      margin-top: auto;
-      padding: 0.5rem 1.5rem;
-      border-radius: 25px;
-      font-weight: bold;
-    }
-  }
-}
   }
 
   .payment-security-section {
@@ -267,7 +310,7 @@
 
       .pay-icon {
         height: 40px;
-        width:60px;
+        width: 60px;
         border: 1px solid #ccc;
         border-radius: 4px;
         margin: 0 10px;
@@ -303,12 +346,12 @@
   }
 
   .vertical-divider {
-  width: 3px;
-  background-color: #d4d4d4;
-  height: 100px;
+    width: 3px;
+    background-color: #d4d4d4;
+    height: 100px;
   }
 
-   /* Responsive Adjustments */
+  /* Responsive Adjustments */
   @media (max-width: 1200px) {
     .pricing-card {
       height: auto !important;
@@ -326,7 +369,8 @@
       line-height: 1.2;
     }
 
-    .pricing-desc, .deal-text {
+    .pricing-desc,
+    .deal-text {
       font-size: 1.2rem;
     }
 
@@ -363,7 +407,8 @@
         display: none !important;
       }
 
-      .payment-methods, .secure-payment {
+      .payment-methods,
+      .secure-payment {
         flex: 0 0 100%;
         max-width: 100%;
         margin-bottom: 1.5rem;

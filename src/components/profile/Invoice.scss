@@ -1,0 +1,90 @@
+.checkout-page {
+  width: 100%;
+  justify-content: flex-start;
+  background: #ffffff;
+  position: relative;
+  margin: 0 auto;
+  box-sizing: border-box;
+
+  [dir="rtl"] & {
+    justify-content: flex-start;
+  }
+
+  .checkout-card {
+    border: none;
+    background-color: #fff;
+  }
+  .service-title-row{
+   border-bottom: 1px solid #eee;
+    padding: 10px 0;
+    p{
+        font-size: 18px;
+        color: #000;
+        font-weight: 500;
+        text-align: left;
+    }
+  }
+  .service-item-row {
+    border-bottom: 1px solid #eee;
+    padding: 1rem 0;
+
+    .service-text{
+        font-size: 18px;
+        color: #542D72;
+        font-weight: 500;
+        text-align: left;
+    }
+
+    .remove-text {
+      a,
+      button {
+        color: #542D72;
+        text-decoration: underline;
+        font-weight: 500;
+        font-size: 18px;
+      }
+    }
+  }
+
+  .voucher-row {
+    .voucher-input {
+      border-radius: 10px;
+      padding: 0.5rem 1rem;
+      border: 1px solid #542D72;
+    }
+
+    .apply-btn {
+      background-color: #4b0076;
+      border-color: #4b0076;
+      border-radius: 10px;
+      padding: 0.4rem 1.5rem;
+      font-weight: 500;
+    }
+  }
+
+  .gift-voucher-text {
+    font-size: 0.9rem;
+    color: #542D72;
+  }
+
+  .price-details {
+    font-size: 14px;
+    color:#542D72;
+
+    div {
+      padding: 20px;
+      border-bottom: 1px solid #542D72;
+    }
+  }
+
+  .checkout-btn-container {
+    .checkout-btn {
+      background-color: #542D72;
+      border-color: #542D72;
+      border-radius: 10px;
+      padding: 0.6rem 2rem;
+      font-weight: 600;
+      color: #fff;
+    }
+  }
+}

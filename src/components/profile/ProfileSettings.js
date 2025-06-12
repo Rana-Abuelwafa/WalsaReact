@@ -60,6 +60,7 @@ const ProfileSettings = () => {
     fb_link: "",
     twitter_link: "",
     client_birthdayStr: "",
+    address:""
   });
   
   // Birthday components stored separately for easier select handling
@@ -410,6 +411,19 @@ const ProfileSettings = () => {
                     ))}
                   </Form.Select>
                 </div>
+              </div>
+
+               {/* Address field */}
+              <div className="input-group">
+                <Form.Label>{t("profile.address")}</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="address"
+                  value={formData.address}
+                  onChange={handleChange}
+                  placeholder={t("profile.enter_address")}
+                  className="custom-input"
+                />
               </div>
 
               {/* Payment methods section (placeholder) */}

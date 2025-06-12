@@ -5,6 +5,8 @@ import brandReducer from "../slices/brandSlice";
 import profileReducer from "../slices/profileSlice";
 import productReducer from '../slices/productSlice';
 import pricingPlansReducer from '../slices/pricingPlansSlice';
+import languageReducer from '../slices/languageSlice';
+import currencyReducer from '../slices/currencySlice';
 
 export const store = configureStore({
   reducer: {
@@ -13,7 +15,9 @@ export const store = configureStore({
     brand: brandReducer,
     profile: profileReducer,
     products: productReducer,
-    pricingPlans: pricingPlansReducer
+    pricingPlans: pricingPlansReducer,
+    language: languageReducer,
+    currency: currencyReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { Navbar, Nav, Row, Col, Container } from "react-bootstrap";
 import { GoSearch } from "react-icons/go";
@@ -7,6 +8,7 @@ import { useTranslation } from "react-multi-lang";
 import LanguageDropdown from "../Dropdowns/LanguageDropdown";
 import MenuDropdown from "../Dropdowns/MenuDropdown";
 import UserDropDown from "../Dropdowns/UserDropDown";
+import { setCurrency } from '../../slices/currencySlice';
 import {
   fetchUserCountry,
   getCurrencyFromCountry,
@@ -16,10 +18,10 @@ import "./mainNavbar.scss";
 const MainNavbar = () => {
   // State to hold the user's name from local storage
   const [MyName, setMyName] = useState("");
-  const [currency, setCurrency] = useState("");
+  const [currCode, setCurrCode] = useState("");
   // State to track profile completion (currently not used for logic)
   const [completeprofile, setcompleteProfile] = useState(0);
-
+  const dispatch = useDispatch();
   const navigate = useNavigate(); // Hook to navigate programmatically
   const t = useTranslation(); // Hook for translations
 
@@ -32,7 +34,8 @@ const MainNavbar = () => {
       //get default currency
       const countryCode = await fetchUserCountry();
       const currency = await getCurrencyFromCountry(countryCode);
-      setCurrency(currency);
+      setCurrCode(currency);
+      dispatch(setCurrency(currency)); // Dispatch to Redux
       console.log("Detected Currency:", currency);
     }
     getCurrency();
@@ -41,7 +44,7 @@ const MainNavbar = () => {
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [dispatch]);
 
   // Function to handle user logout
   const logOut = () => {
@@ -121,7 +124,7 @@ const MainNavbar = () => {
 
             {/* Only show extra menu dropdown if not mobile */}
             {/* {!isMobile && <MenuDropdown />} */}
-            <span>{currency}</span>
+            <span>{currCode}</span>
             {/* Logout icon if user is logged in */}
             {MyName ? <FiLogOut className="icon" onClick={logOut} /> : null}
           </div>

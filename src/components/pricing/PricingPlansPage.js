@@ -24,18 +24,13 @@ const Section = ({
   const t = useTranslation();
   const navigate = useNavigate();
 
-  // Check if any package in this section is selected
-  const hasSelectedPackage = items.some(plan => 
-    selectedPackageId === plan.package_id || plan.isSelected
-  );
-
   return (
     <div className="pricing-section">
       <h3 className="section-title">{title}</h3>
       <Row>
         {items.map((plan, idx) => (
           <Col key={idx} md={3} className="mb-4">
-            <Card className={`pricing-card ${plan.recommended ? "best" : ""} ${selectedPackageId === plan.package_id || plan.isSelected ? "selected" : ""}`}>
+            <Card className={`pricing-card ${plan.recommended ? "best" : ""} ${selectedPackageId === plan.package_id ? "selected" : ""}`}>
               {plan.recommended && <Badge className="best-badge">{t('pricing.recommended')}</Badge>}
               <Card.Body>
                 <Card.Title>{plan.package_name}</Card.Title>
@@ -70,11 +65,8 @@ const Section = ({
                       e.stopPropagation();
                       onSelectPackage(plan.package_id, serviceId);
                     }}
-                    disabled={hasSelectedPackage && (selectedPackageId !== plan.package_id && !plan.isSelected)}
                   >
-                    {selectedPackageId === plan.package_id || plan.isSelected 
-                      ? t('pricing.selected') 
-                      : t('pricing.select')}
+                  {t('pricing.select')}
                   </Button>
               </Card.Body>
             </Card>
@@ -96,23 +88,17 @@ const PricingPlansPage = () => {
   const dispatch = useDispatch();
   const { data: pricingData, loading, error } = useSelector((state) => state.pricingPlans);
 
+
+  // Get current language and currency from Redux or context
+  const currentLang = useSelector((state) => state.language.currentLang) || 'en';
+  const currency = useSelector((state) => state.currency.currentCurrency) || 'USD';
+
   useEffect(() => {
-    dispatch(fetchPricingPlans({ lang: "en", curr_code: "uSD" }));
-  }, [dispatch]);
+    if (currentLang && currency)
+    dispatch(fetchPricingPlans({ lang: currentLang, curr_code: currency }));
+  
+  }, [dispatch, currentLang, currency]);
 
-  //   useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const countryCode = await fetchUserCountry();
-  //       const curr_code = await getCurrencyFromCountry(countryCode);
-  //       dispatch(fetchPricingPlans({ lang, curr_code }));
-  //     } catch (error) {
-  //       console.error("Failed to fetch pricing plans:", error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, [dispatch,lang]);
 
   useEffect(() => {
     if (error) {
@@ -167,7 +153,7 @@ const PricingPlansPage = () => {
   }
 
   if (!pricingData) {
-    return null; // or return a loading/empty state
+    return null; 
   }
 
   const transformData = (data) => {
@@ -177,12 +163,12 @@ const PricingPlansPage = () => {
       pkgs: service.pkgs
         .map(pkg => ({
           ...pkg,
-          recommended: pkg.is_recommend, // Use is_recommend from API
+          recommended: pkg.is_recommend, 
           features: pkg.features || [],
           price: pkg.package_sale_price,
           oldPrice: pkg.package_price,
           isCustom: pkg.package_name === "Business Elite" && pkg.package_sale_price === 0,
-          isSelected: pkg.isSelected // Use isSelected from API
+          isSelected: pkg.isSelected 
         }))
         .sort((a, b) => a.order - b.order)
     }));
@@ -200,31 +186,6 @@ const PricingPlansPage = () => {
 
   // Check if at least one package is selected in each section
   const isContinueDisabled = Object.keys(selectedPackages).length === 0;
-
-  const handleGetStarted = async (packageId, serviceId) => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    setTimeout(() => navigate("/confirmation"), 2000);
-    // const requestData = [{
-    //   productId: serviceId,
-    //   client_id: user?.id || "",
-    //   id: 0,
-    //   package_id: packageId,
-    //   isSelected: true
-    // }];
-
-    // try {
-    //   await dispatch(saveClientServices(requestData)).unwrap();
-    //   setPopupMessage("Service saved successfully!");
-    //   setPopupType("success");
-    //   setShowPopup(true);
-    //   // Navigate after showing success message
-    //   setTimeout(() => navigate("/confirmation"), 2000);
-    // } catch (error) {
-    //   setPopupMessage(error || "Failed to save service");
-    //   setPopupType("error");
-    //   setShowPopup(true);
-    // }
-  };
 
   return (
     <>

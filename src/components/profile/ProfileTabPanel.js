@@ -4,6 +4,7 @@ import ProfileSettings from "./ProfileSettings";
 import Brand from "./Brand";
 import ChangePasswordForm from "./ChangePasswordForm";
 import Product from "./Product";
+import Invoice from "./Invoice";
 import ComingSoon from "./ComingSoon";
 
 // Tab icons - paths to image assets
@@ -65,7 +66,7 @@ const ProfileTabPanel = () => {
             {/* All other tabs show the ComingSoon placeholder component */}
             {activeTab === 'preview' && <ComingSoon />}
             {activeTab === 'booknote' && <ComingSoon />}
-            {activeTab === 'shopping' && <ComingSoon />}
+            {activeTab === 'shopping' && <Invoice />}
           </div>
         </div>
       </div>

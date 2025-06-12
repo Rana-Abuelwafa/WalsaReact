@@ -212,6 +212,8 @@
     "enter_phone": "أدخل رقم هاتفك",
     "nation": "الجنسية",
     "enter_nation": "أدخل جنسيتك",
+    "address": "العنوان",
+    "enter_address": "أدخل عنوانك",
     "gender": "الجنس",
     "select_gender": "اختر جنسك",
     "male": "ذكر",
@@ -279,5 +281,14 @@
     "agreetoterms": "نعم، أوافق على شروط الخدمة",
     "back": "رجوع",
     "continue": "استمرار"
+  },
+  "checkout": {
+    "remove": "إزالة",
+    "apply": "تطبيق",
+    "giftVoucher": "قسيمة هدية",
+    "subtotal": "الإجمالي الفرعي",
+    "discount": "الخصم",
+    "grandTotal": "الإجمالي الكلي",
+    "checkout": "الدفع"
   }
 }

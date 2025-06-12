@@ -214,6 +214,8 @@
     "enter_phone": "Enter your phone number",
     "nation": "Nation",
     "enter_nation": "Enter your nation",
+    "address": "Address",
+    "enter_address": "Enter your Address",
     "gender": "Gender",
     "select_gender": "Select your gender",
     "male": "Male",
@@ -281,5 +283,14 @@
     "agreetoterms":"Yes, I Agree To the terms of services",
     "back":"Back",
     "continue":"Continue"
+  },
+  "checkout": {
+    "remove": "Remove",
+    "apply": "Apply",
+    "giftVoucher": "Gift Voucher",
+    "subtotal": "Subtotal",
+    "discount": "Discount",
+    "grandTotal": "Grand total",
+    "checkout": "Checkout"
   }
 }
