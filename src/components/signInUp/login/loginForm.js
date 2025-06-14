@@ -9,7 +9,7 @@ import PopUp from "../../shared/popoup/PopUp";
 
 //normal login form
 
-function LoginForm() {
+function LoginForm(props) {
   const t = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -41,6 +41,8 @@ function LoginForm() {
     setShowAlert(false);
   };
   const signin = (event) => {
+    let { isAuthRedirect, redirectPath } = props;
+    console.log("isAuthRedirect ", isAuthRedirect);
     event.preventDefault();
     if (validate()) {
       formData["lang"] = localStorage.getItem("lang") || getLanguage();
@@ -50,7 +52,11 @@ function LoginForm() {
           //if user login successfully and his email is confirmed , so navigate to home, if not should verify email first
           setShowAlert(false);
           if (result.payload.emailConfirmed == true) {
-            navigate("/");
+            if (isAuthRedirect) {
+              navigate(redirectPath);
+            } else {
+              navigate("/");
+            }
           } else {
             navigate("/verifyEmail", { replace: true, state: { path: "/" } });
           }

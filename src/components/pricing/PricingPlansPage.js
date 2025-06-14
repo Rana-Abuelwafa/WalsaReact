@@ -1,26 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button, Badge } from "react-bootstrap";
-import MainNavbar from '../navbars/mainNavbar';
-import MainFooter from '../footer/mainFooter';
-import { useTranslation } from 'react-multi-lang';
+import MainNavbar from "../navbars/mainNavbar";
+import MainFooter from "../footer/mainFooter";
+import { useTranslation } from "react-multi-lang";
 import { useNavigate } from "react-router-dom";
 import "./PricingPlansPage.scss";
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchPricingPlans, saveClientServices } from '../../slices/pricingPlansSlice';
+import { useSelector, useDispatch } from "react-redux";
+import {
+  fetchPricingPlans,
+  saveClientServices,
+} from "../../slices/pricingPlansSlice";
 import {
   fetchUserCountry,
   getCurrencyFromCountry,
 } from "../../utils/currencyService";
-import LoadingPage from '../Loader/LoadingPage';
+import LoadingPage from "../Loader/LoadingPage";
 import PopUp from "../shared/popoup/PopUp";
 
-const Section = ({ 
-  title, 
-  items, 
-  onSelectPackage, 
-  serviceId, 
-  selectedPackageId
- }) => {
+const Section = ({
+  title,
+  items,
+  onSelectPackage,
+  serviceId,
+  selectedPackageId,
+}) => {
   const t = useTranslation();
   const navigate = useNavigate();
 
@@ -80,13 +83,17 @@ const Section = ({
 const PricingPlansPage = () => {
   const t = useTranslation();
   const navigate = useNavigate();
-  const direction = t('direction');
+  const direction = t("direction");
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const [popupType, setPopupType] = useState("");
   const [selectedPackages, setSelectedPackages] = useState({});
   const dispatch = useDispatch();
-  const { data: pricingData, loading, error } = useSelector((state) => state.pricingPlans);
+  const {
+    data: pricingData,
+    loading,
+    error,
+  } = useSelector((state) => state.pricingPlans);
 
 
   // Get current language and currency from Redux or context
@@ -113,11 +120,18 @@ const PricingPlansPage = () => {
       setPopupMessage("Please login to select packages");
       setPopupType("error");
       setShowPopup(true);
-      setTimeout(() => navigate("/login"), 2000);
+      setTimeout(
+        () =>
+          navigate("/login", {
+            replace: true,
+            state: { redirectPath: "/pricing", isAuthRedirect: true },
+          }),
+        2000
+      );
       return;
     }
 
-    setSelectedPackages(prev => {
+    setSelectedPackages((prev) => {
       if (prev[serviceId] === packageId) {
         const newState = { ...prev };
         delete newState[serviceId];
@@ -125,7 +139,7 @@ const PricingPlansPage = () => {
       }
       return {
         ...prev,
-        [serviceId]: packageId
+        [serviceId]: packageId,
       };
     });
   };
@@ -143,13 +157,17 @@ const PricingPlansPage = () => {
     navigate("/confirmation", {
       state: {
         selectedPackages,
-        allPackages: transformedData
-      }
+        allPackages: transformedData,
+      },
     });
   };
 
   if (loading && !pricingData) {
-    return <div className="pricing-page"><LoadingPage /></div>;
+    return (
+      <div className="pricing-page">
+        <LoadingPage />
+      </div>
+    );
   }
 
   if (!pricingData) {
@@ -157,11 +175,11 @@ const PricingPlansPage = () => {
   }
 
   const transformData = (data) => {
-    return data.map(service => ({
+    return data.map((service) => ({
       service_id: service.service_id,
       serviceName: service.service_name,
       pkgs: service.pkgs
-        .map(pkg => ({
+        .map((pkg) => ({
           ...pkg,
           recommended: pkg.is_recommend, 
           features: pkg.features || [],
@@ -170,7 +188,7 @@ const PricingPlansPage = () => {
           isCustom: pkg.package_name === "Business Elite" && pkg.package_sale_price === 0,
           isSelected: pkg.isSelected 
         }))
-        .sort((a, b) => a.order - b.order)
+        .sort((a, b) => a.order - b.order),
     }));
   };
 
@@ -181,8 +199,9 @@ const PricingPlansPage = () => {
   };
 
   const transformedData = transformData(pricingData);
-  const activeServices = transformedData.filter(service => service.pkgs.length > 0);
-
+  const activeServices = transformedData.filter(
+    (service) => service.pkgs.length > 0
+  );
 
   // Check if at least one package is selected in each section
   const isContinueDisabled = Object.keys(selectedPackages).length === 0;
@@ -192,20 +211,16 @@ const PricingPlansPage = () => {
       <MainNavbar />
       {/* Success/Error Popup */}
       {showPopup && (
-        <PopUp
-          msg={popupMessage}
-          closeAlert={closePopup}
-          type={popupType}
-        />
+        <PopUp msg={popupMessage} closeAlert={closePopup} type={popupType} />
       )}
       <div className="pricing-page" dir={direction}>
         <Container>
           <div className="text-center mt-5">
-            <h2 className="pricing-header">{t('pricing.title')}</h2>
-            <p className="pricing-desc">{t('pricing.description')}</p>
+            <h2 className="pricing-header">{t("pricing.title")}</h2>
+            <p className="pricing-desc">{t("pricing.description")}</p>
             <hr className="pricingHr" />
-            <h1 className="discount">{t('pricing.discount')}</h1>
-            <p className="deal-text">{t('pricing.deal_text')}</p>
+            <h1 className="discount">{t("pricing.discount")}</h1>
+            <p className="deal-text">{t("pricing.deal_text")}</p>
           </div>
 
           {/* Render sections dynamically based on API data */}
@@ -226,7 +241,7 @@ const PricingPlansPage = () => {
               onClick={handleContinue}
               disabled={isContinueDisabled}
             >
-              {t('pricing.next')}
+              {t("pricing.next")}
             </button>
           </div>
 
@@ -234,10 +249,20 @@ const PricingPlansPage = () => {
             <Container>
               <Row className="align-items-center text-center">
                 <Col md={5} className="payment-methods">
-                  <h6 className="section-label">{t('pricing.payment_methods')}</h6>
+                  <h6 className="section-label">
+                    {t("pricing.payment_methods")}
+                  </h6>
                   <div className="payment-icons mt-2">
-                    <img src="/images/paypal.png" alt="PayPal" className="pay-icon" />
-                    <img src="/images/visa.png" alt="Visa" className="pay-icon" />
+                    <img
+                      src="/images/paypal.png"
+                      alt="PayPal"
+                      className="pay-icon"
+                    />
+                    <img
+                      src="/images/visa.png"
+                      alt="Visa"
+                      className="pay-icon"
+                    />
                   </div>
                 </Col>
 
@@ -246,11 +271,25 @@ const PricingPlansPage = () => {
                 </Col>
 
                 <Col md={6} className="secure-payment mt-4 mt-md-0 text-center">
-                  <div className={`d-flex align-items-center justify-content-center ${direction === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <img src="/images/insurance.png" alt="SSL Secure" className={`secure-icon ${direction === 'rtl' ? 'ms-3' : 'me-3'}`} />
+                  <div
+                    className={`d-flex align-items-center justify-content-center ${
+                      direction === "rtl" ? "flex-row-reverse" : ""
+                    }`}
+                  >
+                    <img
+                      src="/images/insurance.png"
+                      alt="SSL Secure"
+                      className={`secure-icon ${
+                        direction === "rtl" ? "ms-3" : "me-3"
+                      }`}
+                    />
                     <div>
-                      <h6 className="section-label">{t('pricing.ssl_secure')}</h6>
-                      <p className="secure-text mb-0">{t('pricing.secure_text')}</p>
+                      <h6 className="section-label">
+                        {t("pricing.ssl_secure")}
+                      </h6>
+                      <p className="secure-text mb-0">
+                        {t("pricing.secure_text")}
+                      </p>
                     </div>
                   </div>
                 </Col>
@@ -259,8 +298,12 @@ const PricingPlansPage = () => {
           </div>
 
           <div className="custom-package text-center">
-            <p>{t('pricing.custom_package')}</p>
-            <img src="/images/customPricing.jpeg" alt="Custom Offer" className="custom-img" />
+            <p>{t("pricing.custom_package")}</p>
+            <img
+              src="/images/customPricing.jpeg"
+              alt="Custom Offer"
+              className="custom-img"
+            />
           </div>
         </Container>
       </div>
@@ -268,6 +311,5 @@ const PricingPlansPage = () => {
     </>
   );
 };
-
 
 export default PricingPlansPage;
