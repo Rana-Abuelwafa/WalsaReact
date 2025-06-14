@@ -283,12 +283,25 @@
     "continue": "Weiter"
   },
   "checkout": {
+    "service": "Dienstleistung",
+    "package": "Paket",
+    "details": "Einzelheiten",
+    "state": "Status",
+    "total": "Gesamt",
     "remove": "Entfernen",
+    "couponPlaceholder": "Ihr Gutschein",
     "apply": "Anwenden",
-    "giftVoucher": "Geschenkgutschein",
-    "subtotal": "Zwischensumme",
+    "couponValid": "Gültiger Gutschein:",
     "discount": "Rabatt",
-    "grandTotal": "Gesamtsumme",
-    "checkout": "Zur Kasse"
+    "subtotal": "Zwischensumme",
+    "grandTotal": "Endbetrag",
+    "giftVoucher": "Geschenkgutschein",
+    "checkout": "Kasse",
+    "couponRequired": "Bitte geben Sie einen Gutscheincode ein",
+    "couponAppliedSuccessfully": "Gutschein erfolgreich angewendet!",
+    "noInvoices": "Keine Rechnungen gefunden",
+    "currency":"Währung",
+    "invoice": "Rechnung",
+    "price": "Preis"
   }
 }

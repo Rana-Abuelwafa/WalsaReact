@@ -285,12 +285,25 @@
     "continue":"Continue"
   },
   "checkout": {
+    "service": "Service",
+    "package": "Package",
+    "details": "Details",
+    "state": "State",
+    "total": "Total",
     "remove": "Remove",
+    "couponPlaceholder": "Your Coupon",
     "apply": "Apply",
-    "giftVoucher": "Gift Voucher",
-    "subtotal": "Subtotal",
+    "couponValid": "Valid coupon:",
     "discount": "Discount",
-    "grandTotal": "Grand total",
-    "checkout": "Checkout"
+    "subtotal": "Subtotal",
+    "grandTotal": "Grand Total",
+    "giftVoucher": "Gift Voucher",
+    "checkout": "Checkout",
+    "couponRequired": "Please enter a coupon code",
+    "noInvoices": "No invoices found",
+    "currency": "Currency",
+    "invoice": "Invoice",
+    "price": "Price",
+    "couponAppliedSuccessfully": "Coupon applied successfully!"
   }
 }

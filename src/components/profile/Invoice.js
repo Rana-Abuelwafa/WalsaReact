@@ -1,115 +1,240 @@
-import React from "react";
-import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Tab, Tabs, Row, Col, Card, Button, Form } from "react-bootstrap";
 import { useTranslation } from 'react-multi-lang';
+import LoadingPage from '../Loader/LoadingPage';
+import PopUp from "../shared/popoup/PopUp";
+import { useDispatch, useSelector } from "react-redux";
+import { validateCoupon,
+        checkoutInvoice,
+        removeInvoice,
+        getInvoices,
+        clearInvoiceState } from "../../slices/invoiceSlice";
 import "./Invoice.scss";
 
 const Invoice = () => {
   const t = useTranslation();
- const direction = t('direction');
+  const direction = t('direction');
+  const dispatch = useDispatch();
+  const { loading, error, success, invoices, coupon } = useSelector((state) => state.invoice);
+  
+  const [couponCode, setCouponCode] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
+  const [popupVariant, setPopupVariant] = useState("success");
+  const [activeTab, setActiveTab] = useState(0);
 
-  const serviceItems = [
-    {
-      service:"web Application",  
-      package: "Business",
-      description: "Grow Your Brand",
-      price: "$00",
-    },
-    {
-      service:"Branding",  
-      package: "Core",
-      description: "Grow Your Brand",
-      price: "$00",
-    },
-    {
-      service:"Marketing",  
-      package: "Core",
-      description: "Grow Your Brand",
-      price: "$00",
+  useEffect(() => {
+    dispatch(getInvoices());
+    dispatch(clearInvoiceState());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (error && error.trim() !== "") {
+      setPopupMessage(error);
+      setPopupVariant("error");
+      setShowPopup(true);
+      dispatch(clearInvoiceState());
     }
-  ];
+    if (success && success.trim() !== "") {
+      setPopupMessage("success");
+      setShowPopup(true);
+       dispatch(clearInvoiceState());
+    }
+  }, [error, success, dispatch]);
+
+  const handleApplyCoupon = () => {
+    if (!couponCode.trim()) {
+      setPopupMessage(t("checkout.couponRequired"));
+      setShowPopup(true);
+      return;
+    }
+    dispatch(validateCoupon({ copoun: couponCode }))
+    .then((action) => {
+            if (validateCoupon.fulfilled.match(action)) {
+              setPopupMessage(t("checkout.couponAppliedSuccessfully"));
+              setShowPopup(true);
+            }
+          });
+  };
+
+  const handleCheckout = () => {
+    if (invoices.length === 0) return;
+    
+    const currentInvoice = invoices[activeTab];
+    dispatch(checkoutInvoice({ 
+    status: 2,
+    grand_total_price: currentInvoice.grand_total_price,
+    copoun_id: coupon?.valid ?coupon.id:0,
+    invoice_id: currentInvoice.invoice_id,
+    copoun_discount:coupon?.valid ?coupon.discount_value:0
+    }));
+    dispatch(getInvoices());
+    setActiveTab(0);
+  };
+
+  const handleRemovePackage = (invoiceId, packageId) => {
+    dispatch(removeInvoice({
+      active: true,
+      invoice_id: invoiceId,
+      package_id: packageId
+    }));
+    dispatch(getInvoices());
+    setActiveTab(0);
+  };
+
+  const closePopup = () => {
+    setShowPopup(false);
+    setPopupMessage("");
+    dispatch(clearInvoiceState());
+  };
 
   return (
     <div className="checkout-page" dir={direction}>
+      {loading && <LoadingPage />}
+      {showPopup && (
+        <PopUp 
+        msg={popupMessage} 
+        closeAlert={closePopup} 
+        />
+       )}
+      
+      
       <Card className="checkout-card p-3">
-        <Row className="align-items-center text-center text-md-start service-title-row">
-            <Col md={3}>
-             <p>Service</p>
-            </Col>
-            <Col md={2}>
-              <p>Package</p>
-            </Col>
-            <Col md={3} >
-              <p>Details</p>
-            </Col>
-            <Col md={2}>
-              <p>State</p>
-            </Col>
-            <Col md={2}>
-              <p>Total</p>
+        {invoices.length > 0 ? (
+          <>
+            <Tabs
+              activeKey={activeTab}
+              onSelect={(k) => setActiveTab(Number(k))}
+              className="mb-3"
+            >
+              {invoices.map((invoice, index) => (
+                <Tab 
+                  key={index}
+                  eventKey={index}
+                  title={`${t("checkout.invoice")} ${invoice.invoice_code_auto}`}
+                >
+                  <Row className="align-items-center text-center text-md-start service-title-row">
+                    <Col md={2}>
+                      <p>{t("checkout.service")}</p>
+                    </Col>
+                    <Col md={2}>
+                      <p>{t("checkout.package")}</p>
+                    </Col>
+                    <Col md={2}>
+                      <p>{t("checkout.details")}</p>
+                    </Col>
+                    <Col md={2}>
+                      <p>{t("checkout.price")}</p>
+                    </Col>
+                    <Col md={2}>
+                      <p>{t("checkout.currency")}</p>
+                    </Col>
+                    <Col md={2}>
+                      <p>{t("checkout.state")}</p>
+                    </Col>
+                  </Row>
+                  
+                  {invoice.pkgs.map((pkg, pkgIndex) => (
+                    <Row key={pkgIndex} className="align-items-center text-center text-md-start service-item-row">
+                      <Col md={2}>
+                        <p className="service-text">{pkg.service_name}</p>
+                      </Col>
+                      <Col md={2}>
+                        <p className="service-text">
+                          <strong>{pkg.package_name}</strong>
+                        </p>
+                      </Col>
+                      <Col md={2}>
+                        <p className="service-text">{pkg.package_desc}</p>
+                      </Col>
+                      <Col md={2}>
+                        <p className="service-text">
+                          <strong>{pkg.total_price}</strong>
+                        </p>
+                      </Col>
+                       <Col md={2}>
+                        <p className="service-text">{pkg.curr_code}</p>
+                      </Col>
+                       <Col md={2} className="remove-text">
+                        <Button 
+                          variant="link" 
+                          className="p-0"
+                          onClick={() => handleRemovePackage(invoice.invoice_id, pkg.package_id)}
+                        >
+                          {t("checkout.remove")}
+                        </Button>
+                      </Col>
+                    </Row>
+                  ))}
+
+                  <hr />
+                  <Row className="justify-content-between align-items-start voucher-price-wrapper">
+                    <Col md={5} className="voucher-column">
+                      <div className="voucher-row d-flex gap-2">
+                        <Form.Control 
+                          type="text" 
+                          placeholder={t("checkout.couponPlaceholder")} 
+                          className="voucher-input flex-grow-1" 
+                          value={couponCode}
+                          onChange={(e) => setCouponCode(e.target.value)}
+                        />
+                        <Button 
+                          className="apply-btn"
+                          onClick={handleApplyCoupon}
+                        >
+                          {t("checkout.apply")}
+                        </Button>
+                      </div>
+                        <div className="gift-voucher-text mt-2">
+                         {t("checkout.giftVoucher")}
+                        </div>
+                     
+                    </Col>
+
+                    <Col md={5} className="price-details-column">
+                      {invoice.pkgs.length > 0 && (
+                        <>
+                          <div className="price-details mt-3">
+                            <div className="d-flex justify-content-between mb-2">
+                              <span>{t("checkout.subtotal")}</span>
+                              <span>{invoice.curr_code} {invoice.total_price}</span>
+                            </div>
+                            <div className="d-flex justify-content-between mb-2">
+                              <span>{t("checkout.discount")}</span>
+                              <span>{invoice.discount}</span>
+                            </div>
+                            <div className="d-flex justify-content-between mb-2">
+                            <span>{t("checkout.giftVoucher")}</span>
+                            <span>{coupon?.valid?coupon.discount_value:0}</span>
+                            </div>
+                            <div className="d-flex justify-content-between total-row">
+                              <span>{t("checkout.grandTotal")}</span>
+                              <span>{invoice.curr_code} {invoice.grand_total_price}</span>
+                            </div>
+                          </div>
+                          <div className="checkout-btn-container text-end mt-4">
+                            <Button 
+                              className="checkout-btn"
+                              onClick={handleCheckout}
+                            >
+                              {t("checkout.checkout")}
+                            </Button>
+                          </div>
+                        </>
+                      )}
+                    </Col>
+                  </Row>
+                </Tab>
+              ))}
+            </Tabs>
+          </>
+        ) : (
+          <Row className="text-center py-4">
+            <Col>
+              <p>{t("checkout.noInvoices")}</p>
             </Col>
           </Row>
-        {serviceItems.map((item, index) => (
-          <Row key={index} className="align-items-center text-center text-md-start service-item-row">
-            <Col md={3}>
-             <p className="service-text">{item.service}</p>
-            </Col>
-            <Col md={2}>
-              <p className="service-text">
-                <strong>
-                    {item.package}
-                </strong>
-              </p>
-            </Col>
-            <Col md={3}>
-              <p className="service-text">{item.description}</p>
-            </Col>
-            <Col md={2} className="remove-text">
-              <Button variant="link" className="p-0">
-                {t("checkout.remove")}
-              </Button>
-            </Col>
-            <Col md={2}>
-              <p className="service-text"><strong>{item.price}</strong></p>
-            </Col>
-          </Row>
-        ))}
-
-        <hr />
-       <Row className="justify-content-between align-items-start voucher-price-wrapper">
-          <Col md={5} className="voucher-column">
-            <div className="voucher-row d-flex gap-2">
-              <Form.Control type="text" placeholder="Your Coupon" className="voucher-input flex-grow-1" />
-              <Button className="apply-btn">{t("checkout.apply")}</Button>
-            </div>
-            <div className="gift-voucher-text mt-2">
-              {t("checkout.giftVoucher")}
-            </div>
-          </Col>
-
-          <Col md={5} className="price-details-column">
-            <div className="price-details mt-3">
-              <div className="d-flex justify-content-between mb-2">
-                <span>{t("checkout.subtotal")}</span>
-                <span>$00</span>
-              </div>
-              <div className="d-flex justify-content-between mb-2">
-                <span>{t("checkout.discount")}</span>
-                <span>%60</span>
-              </div>
-              <div className="d-flex justify-content-between mb-2">
-                <span>{t("checkout.giftVoucher")}</span>
-                <span>%10</span>
-              </div>
-              <div className="d-flex justify-content-between total-row">
-                <span>{t("checkout.grandTotal")}</span>
-                <span>USD 23400</span>
-              </div>
-            </div>
-            <div className="checkout-btn-container text-end mt-4">
-              <Button className="checkout-btn">{t("checkout.checkout")}</Button>
-            </div>
-          </Col>
-        </Row>
+        )}
       </Card>
     </div>
   );

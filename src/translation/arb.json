@@ -283,12 +283,25 @@
     "continue": "استمرار"
   },
   "checkout": {
+    "service": "الخدمة",
+    "package": "الباقة",
+    "details": "التفاصيل",
+    "state": "الحالة",
+    "total": "الإجمالي",
     "remove": "إزالة",
+    "couponPlaceholder": "كوبون الخصم",
     "apply": "تطبيق",
+    "couponValid": "كوبون صالح:",
+    "discount": "خصم",
+    "subtotal": "المجموع الفرعي",
+    "grandTotal": "المجموع الكلي",
     "giftVoucher": "قسيمة هدية",
-    "subtotal": "الإجمالي الفرعي",
-    "discount": "الخصم",
-    "grandTotal": "الإجمالي الكلي",
-    "checkout": "الدفع"
+    "checkout": "الدفع",
+    "couponRequired": "الرجاء إدخال رمز الكوبون",
+    "couponAppliedSuccessfully": "تم تطبيق الكوبون بنجاح!",
+    "noInvoices": "لا توجد فواتير",
+    "currency": "العملة",
+    "invoice": "فاتورة",
+    "price": "السعر"
   }
 }

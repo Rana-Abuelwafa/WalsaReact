@@ -419,7 +419,7 @@ const ProfileSettings = () => {
                 <Form.Control
                   type="text"
                   name="address"
-                  value={formData.address}
+                  value={formData.address|| ""}
                   onChange={handleChange}
                   placeholder={t("profile.enter_address")}
                   className="custom-input"

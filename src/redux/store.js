@@ -7,6 +7,7 @@ import productReducer from '../slices/productSlice';
 import pricingPlansReducer from '../slices/pricingPlansSlice';
 import languageReducer from '../slices/languageSlice';
 import currencyReducer from '../slices/currencySlice';
+import invoiceReducer  from '../slices/invoiceSlice';
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
     pricingPlans: pricingPlansReducer,
     language: languageReducer,
     currency: currencyReducer,
+    invoice:invoiceReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
