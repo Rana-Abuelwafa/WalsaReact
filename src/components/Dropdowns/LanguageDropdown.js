@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Dropdown from "react-bootstrap/Dropdown"; 
+import Dropdown from "react-bootstrap/Dropdown";
+import { useDispatch } from 'react-redux';
+import { setLanguages } from '../../slices/languageSlice'; 
 import { CiGlobe } from "react-icons/ci"; 
 import {
   useTranslation,
@@ -9,6 +11,7 @@ import {
 import "./LanguageDropdown.scss"; 
 
 const LanguageDropdown = () => {
+  const dispatch = useDispatch();
   const t = useTranslation(); // Translation function (not directly used here but available for future use)
 
   // Get the saved language from localStorage or fallback to the default language
@@ -78,6 +81,7 @@ const LanguageDropdown = () => {
       setCurrentLang(lang); // Update state
       setLanguage(lang); // Update library's language
       localStorage.setItem("lang", lang); // Persist in localStorage
+      dispatch(setLanguages(lang)); // Dispatch to Redux
     }
   };
 

@@ -145,7 +145,7 @@ const ChangePasswordForm = () => {
               onClick={() => setShowOldPassword(!showOldPassword)}
               className="eye-button"
             >
-              {showOldPassword ? <FaEyeSlash /> : <FaEye />} // Toggle eye icon
+              {showOldPassword ? <FaEyeSlash /> : <FaEye />} 
             </InputGroup.Text>
             {/* Error message display */}
             <Form.Control.Feedback type="invalid">

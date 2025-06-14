@@ -212,6 +212,8 @@
     "enter_phone": "Geben Sie Ihre Telefonnummer ein",
     "nation": "Nation",
     "enter_nation": "Geben Sie Ihre Nation ein",
+    "address": "Adresse",
+    "enter_address": "Geben Sie Ihre Adresse ein",
     "gender": "Geschlecht",
     "select_gender": "Wählen Sie Ihr Geschlecht",
     "male": "Männlich",
@@ -268,6 +270,7 @@
     "recommended": "Empfohlen",
     "get_started": "Loslegen",
     "select":"Wählen",
+    "selected":"Wählen",
     "next":"Weiter"
   },
   "confirmation": {
@@ -278,5 +281,14 @@
     "agreetoterms": "Ja, ich stimme den Nutzungsbedingungen zu",
     "back": "Zurück",
     "continue": "Weiter"
+  },
+  "checkout": {
+    "remove": "Entfernen",
+    "apply": "Anwenden",
+    "giftVoucher": "Geschenkgutschein",
+    "subtotal": "Zwischensumme",
+    "discount": "Rabatt",
+    "grandTotal": "Gesamtsumme",
+    "checkout": "Zur Kasse"
   }
 }
