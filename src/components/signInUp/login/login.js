@@ -5,11 +5,15 @@ import LoginForm from "./loginForm";
 import { Link } from "react-router-dom";
 import MiniNavbar from "../../navbars/miniNavbar";
 import SignInUpShared from "../signInUpShared";
+import { useLocation } from "react-router-dom";
 // import { checkIsLogin } from "../../../helper/helperFN";
 import "../SignInUp.scss";
 
 function Login() {
+  const { state } = useLocation();
   const t = useTranslation();
+  let isAuthRedirect = state != null ? state.isAuthRedirect : false;
+  let redirectPath = state != null ? state.redirectPath : "";
 
   const currentLang = localStorage.getItem("lang") || getLanguage();
   return (
@@ -20,8 +24,15 @@ function Login() {
       <Row className="justify-content-md-center">
         <Col lg={5} md={12} sm={12} xs={12}>
           <div className="login_form">
-            <SignInUpShared login={true} />
-            <LoginForm />
+            <SignInUpShared
+              login={true}
+              isAuthRedirect={isAuthRedirect}
+              redirectPath={redirectPath}
+            />
+            <LoginForm
+              isAuthRedirect={isAuthRedirect}
+              redirectPath={redirectPath}
+            />
             <p className="form_option">
               {t("Login.DontHaveAccount")}
               <Link to="/register">{t("Login.CreateAccount")}</Link>

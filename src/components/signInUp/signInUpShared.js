@@ -21,7 +21,11 @@ function SignInUpShared(props) {
           <p>{t("Register.HeaderSubTitle")}</p>
         </>
       )}
-      <GoogleLoginButton login={props.login} />
+      <GoogleLoginButton
+        login={props.login}
+        isAuthRedirect={props.isAuthRedirect}
+        redirectPath={props.redirectPath}
+      />
 
       {/* <FacebookLoginButton /> */}
 
