@@ -33,8 +33,14 @@ const Section = ({
       <Row>
         {items.map((plan, idx) => (
           <Col key={idx} md={3} className="mb-4">
-            <Card className={`pricing-card ${plan.recommended ? "best" : ""} ${selectedPackageId === plan.package_id ? "selected" : ""}`}>
-              {plan.recommended && <Badge className="best-badge">{t('pricing.recommended')}</Badge>}
+            <Card
+              className={`pricing-card ${plan.recommended ? "best" : ""} ${
+                selectedPackageId === plan.package_id ? "selected" : ""
+              }`}
+            >
+              {plan.recommended && (
+                <Badge className="best-badge">{t("pricing.recommended")}</Badge>
+              )}
               <Card.Body>
                 <Card.Title>{plan.package_name}</Card.Title>
                 <p className="plan-desc">{plan.package_desc}</p>
@@ -61,16 +67,16 @@ const Section = ({
                   {plan.features.map((feat, i) => (
                     <li key={i}>{feat.feature_name}</li>
                   ))}
-                </ul> 
-                 <Button
-                    variant={plan.recommended ? "warning" : "outline-dark"}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onSelectPackage(plan.package_id, serviceId);
-                    }}
-                  >
-                  {t('pricing.select')}
-                  </Button>
+                </ul>
+                <Button
+                  variant={plan.recommended ? "warning" : "outline-dark"}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onSelectPackage(plan.package_id, serviceId);
+                  }}
+                >
+                  {t("pricing.select")}
+                </Button>
               </Card.Body>
             </Card>
           </Col>
@@ -95,17 +101,16 @@ const PricingPlansPage = () => {
     error,
   } = useSelector((state) => state.pricingPlans);
 
-
   // Get current language and currency from Redux or context
-  const currentLang = useSelector((state) => state.language.currentLang) || 'en';
-  const currency = useSelector((state) => state.currency.currentCurrency) || 'USD';
+  const currentLang =
+    useSelector((state) => state.language.currentLang) || "en";
+  const currency =
+    useSelector((state) => state.currency.currentCurrency) || "USD";
 
   useEffect(() => {
     if (currentLang && currency)
-    dispatch(fetchPricingPlans({ lang: currentLang, curr_code: currency }));
-  
+      dispatch(fetchPricingPlans({ lang: currentLang, curr_code: currency }));
   }, [dispatch, currentLang, currency]);
-
 
   useEffect(() => {
     if (error) {
@@ -171,7 +176,7 @@ const PricingPlansPage = () => {
   }
 
   if (!pricingData) {
-    return null; 
+    return null;
   }
 
   const transformData = (data) => {
@@ -181,12 +186,14 @@ const PricingPlansPage = () => {
       pkgs: service.pkgs
         .map((pkg) => ({
           ...pkg,
-          recommended: pkg.is_recommend, 
+          recommended: pkg.is_recommend,
           features: pkg.features || [],
           price: pkg.package_sale_price,
           oldPrice: pkg.package_price,
-          isCustom: pkg.package_name === "Business Elite" && pkg.package_sale_price === 0,
-          isSelected: pkg.isSelected 
+          isCustom:
+            pkg.package_name === "Business Elite" &&
+            pkg.package_sale_price === 0,
+          isSelected: pkg.isSelected,
         }))
         .sort((a, b) => a.order - b.order),
     }));
