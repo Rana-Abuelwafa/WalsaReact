@@ -302,6 +302,8 @@
     "noInvoices": "لا توجد فواتير",
     "currency": "العملة",
     "invoice": "فاتورة",
-    "price": "السعر"
+    "price": "السعر",
+    "packageRemovedSuccessfully":"تم ازاله الباقة بنجاح !",
+    "removePackageError":"هناك خطأ في ازاله الباقة !"
   }
 }

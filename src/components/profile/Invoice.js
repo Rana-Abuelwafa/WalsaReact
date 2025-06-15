@@ -27,6 +27,17 @@ const Invoice = () => {
   const [popupVariant, setPopupVariant] = useState("success");
   const [activeTab, setActiveTab] = useState(0);
 
+
+  useEffect(() => {
+  // Ensure activeTab is valid after invoices change
+  if (invoices.length > 0) {
+    if (activeTab >= invoices.length) {
+      setActiveTab(invoices.length - 1);
+    }
+  } else {
+    setActiveTab(0);
+  }
+}, [invoices]);
   useEffect(() => {
     dispatch(getInvoices());
     dispatch(clearInvoiceState());
@@ -77,18 +88,36 @@ const Invoice = () => {
     setActiveTab(0);
   };
 
-  const handleRemovePackage = (invoiceId, packageId, service_id) => {
-    dispatch(
+  const handleRemovePackage = async (invoiceId, packageId, service_id) => {
+try {
+     const currentTabBeforeRemoval = activeTab;
+    await dispatch(
       removeInvoice({
         active: true,
         invoice_id: invoiceId,
         service_id: service_id,
         package_id: packageId,
       })
-    );
-    dispatch(getInvoices());
-    setActiveTab(0);
-  };
+    ).unwrap();
+     await dispatch(getInvoices()).unwrap();
+    // Check if the tab the user was on still exists
+    if (invoices[currentTabBeforeRemoval]) {
+      setActiveTab(currentTabBeforeRemoval);
+    } else if (currentTabBeforeRemoval > 0) {
+      // If not, try the previous tab
+      setActiveTab(currentTabBeforeRemoval - 1);
+    } else {
+      // Default to first tab
+      setActiveTab(0);
+    }
+
+    setPopupMessage(t("checkout.packageRemovedSuccessfully"));
+    setShowPopup(true);
+  } catch (error) {
+    setPopupMessage(error.message || t("checkout.removePackageError"));
+    setShowPopup(true);
+  }
+};
 
   const closePopup = () => {
     setShowPopup(false);
