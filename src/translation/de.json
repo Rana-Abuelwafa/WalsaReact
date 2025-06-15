@@ -302,6 +302,8 @@
     "noInvoices": "Keine Rechnungen gefunden",
     "currency":"Währung",
     "invoice": "Rechnung",
-    "price": "Preis"
+    "price": "Preis",
+    "packageRemovedSuccessfully": "Paket erfolgreich entfernt!",
+    "removePackageError": "Fehler beim Entfernen des Pakets!"
   }
 }

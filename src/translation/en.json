@@ -304,6 +304,8 @@
     "currency": "Currency",
     "invoice": "Invoice",
     "price": "Price",
-    "couponAppliedSuccessfully": "Coupon applied successfully!"
+    "couponAppliedSuccessfully": "Coupon applied successfully!",
+    "packageRemovedSuccessfully":"package Removed Successfully!",
+    "removePackageError":"remove Package Error!"
   }
 }

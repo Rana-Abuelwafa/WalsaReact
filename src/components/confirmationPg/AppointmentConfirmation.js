@@ -8,17 +8,66 @@ import { saveClientServices } from "../../slices/pricingPlansSlice";
 import LoadingPage from '../Loader/LoadingPage';
 import PopUp from "../shared/popoup/PopUp";
 
+// Agreement text imports
+import agreementAr from '../../agreement/agreementAr.txt';
+import agreementEn from '../../agreement/agreementEn.txt';
+import agreementDe from '../../agreement/agreementDe.txt';
+
+// Add this new component above the main component
+const AgreementDisplay = ({ language }) => {
+  const [agreementText, setAgreementText] = useState("");
+
+  useEffect(() => {
+    const loadAgreementText = async () => {
+      try {
+        let text = "";
+        
+        // Fetch the appropriate agreement text based on language
+        switch(language) {
+          case 'ar':
+            text = await fetch(agreementAr).then(res => res.text());
+            break;
+          case 'de':
+            text = await fetch(agreementDe).then(res => res.text());
+            break;
+          default: // Default to English
+            text = await fetch(agreementEn).then(res => res.text());
+        }
+        
+        setAgreementText(text);
+      } catch (error) {
+        console.error("Error loading agreement text:", error);
+        setAgreementText("Agreement text not available");
+      }
+    };
+
+    loadAgreementText();
+  }, [language]);
+
+  return (
+    <div className="agreement-display mb-4">
+      <div className="agreement-content">
+        <pre className="agreement-text">{agreementText}</pre>
+      </div>
+    </div>
+  );
+};
+
 const AppointmentConfirmation = () => {
   const t = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
+  const direction = t("direction");
   const [agreed, setAgreed] = useState(false);
  const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const [popupType, setPopupType] = useState("");
   const { selectedPackages } = location.state || {};
 const { loading, error } = useSelector((state) => state.pricingPlans);
+
+const currentLang =
+    useSelector((state) => state.language.currentLang) || "en";
 
 const handleSubmit = async () => {
   if (!agreed) return;
@@ -88,7 +137,7 @@ if (loading) {
   }
 
   return (
-    <Container fluid className="confirmation-container text-center">
+    <Container fluid className="confirmation-container text-center dir={direction}">
         {/* Success/Error Popup */}
             {showPopup && (
               <PopUp 
@@ -102,6 +151,10 @@ if (loading) {
           <Card className="confirmation-card p-4">
             <Card.Body>
               <h5 className="mb-4">{t("confirmation.termsConditions")}</h5>
+
+               <div className="agreement-container mb-4">
+                  <AgreementDisplay language={currentLang} />
+                </div>
 
               <Form.Check
                 type="checkbox"
