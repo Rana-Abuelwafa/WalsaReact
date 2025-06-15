@@ -224,6 +224,10 @@ const Invoice = () => {
                               </span>
                             </div>
                             <div className="d-flex justify-content-between total-row">
+                              <span>{invoice.tax_code}</span>
+                              <span>{invoice.tax_amount}</span>
+                            </div>
+                            <div className="d-flex justify-content-between total-row">
                               <span>{t("checkout.grandTotal")}</span>
                               <span>
                                 {invoice.curr_code} {invoice.grand_total_price}
