@@ -10,6 +10,7 @@ import {
   removeInvoice,
   getInvoices,
   clearInvoiceState,
+  UpdateInvoicePrices,
 } from "../../slices/invoiceSlice";
 import "./Invoice.scss";
 
@@ -27,17 +28,16 @@ const Invoice = () => {
   const [popupVariant, setPopupVariant] = useState("success");
   const [activeTab, setActiveTab] = useState(0);
 
-
   useEffect(() => {
-  // Ensure activeTab is valid after invoices change
-  if (invoices.length > 0) {
-    if (activeTab >= invoices.length) {
-      setActiveTab(invoices.length - 1);
+    // Ensure activeTab is valid after invoices change
+    if (invoices.length > 0) {
+      if (activeTab >= invoices.length) {
+        setActiveTab(invoices.length - 1);
+      }
+    } else {
+      setActiveTab(0);
     }
-  } else {
-    setActiveTab(0);
-  }
-}, [invoices]);
+  }, [invoices]);
   useEffect(() => {
     dispatch(getInvoices());
     dispatch(clearInvoiceState());
@@ -57,20 +57,37 @@ const Invoice = () => {
     }
   }, [error, success, dispatch]);
 
-  const handleApplyCoupon = () => {
+  const handleApplyCoupon = async () => {
     if (!couponCode.trim()) {
       setPopupMessage(t("checkout.couponRequired"));
       setShowPopup(true);
       return;
     }
-    dispatch(validateCoupon({ copoun: couponCode })).then((action) => {
-      if (validateCoupon.fulfilled.match(action)) {
+    dispatch(validateCoupon({ copoun: couponCode })).then(async (action) => {
+      // if (validateCoupon.fulfilled.match(action)) {
+      if (
+        action.payload &&
+        action.payload[0] != null &&
+        action.payload[0].valid
+      ) {
+        var copounRes = action.payload[0];
         setPopupMessage(t("checkout.couponAppliedSuccessfully"));
         setShowPopup(true);
+        const currentInvoice = invoices[activeTab];
+        await dispatch(
+          UpdateInvoicePrices({
+            total_price: currentInvoice.total_price,
+            copoun_id: copounRes.id,
+            invoice_id: currentInvoice.invoice_id,
+            copoun_discount: copounRes.discount_value,
+            tax_id: currentInvoice.tax_id,
+            deduct_amount: 0,
+          })
+        ).unwrap();
+        await dispatch(getInvoices()).unwrap();
       }
     });
   };
-
   const handleCheckout = () => {
     if (invoices.length === 0) return;
 
@@ -78,53 +95,62 @@ const Invoice = () => {
     dispatch(
       checkoutInvoice({
         status: 2,
-        grand_total_price: currentInvoice.grand_total_price,
-        copoun_id: coupon?.valid ? coupon.id : 0,
+        // grand_total_price: currentInvoice.grand_total_price,
+        //copoun_id: coupon?.valid ? coupon.id : 0,
         invoice_id: currentInvoice.invoice_id,
-        copoun_discount: coupon?.valid ? coupon.discount_value : 0,
+        // copoun_discount: coupon?.valid ? coupon.discount_value : 0,
       })
     );
     dispatch(getInvoices());
     setActiveTab(0);
   };
 
-  const handleRemovePackage = async (invoiceId, packageId, service_id) => {
-try {
-     const currentTabBeforeRemoval = activeTab;
-    await dispatch(
-      removeInvoice({
-        active: true,
-        invoice_id: invoiceId,
-        service_id: service_id,
-        package_id: packageId,
-      })
-    ).unwrap();
-     await dispatch(getInvoices()).unwrap();
-    // Check if the tab the user was on still exists
-    if (invoices[currentTabBeforeRemoval]) {
-      setActiveTab(currentTabBeforeRemoval);
-    } else if (currentTabBeforeRemoval > 0) {
-      // If not, try the previous tab
-      setActiveTab(currentTabBeforeRemoval - 1);
-    } else {
-      // Default to first tab
-      setActiveTab(0);
-    }
+  const handleRemovePackage = async (invoiceId, total_price, pkg) => {
+    try {
+      const currentTabBeforeRemoval = activeTab;
+      await dispatch(
+        removeInvoice({
+          active: true,
+          invoice_id: invoiceId,
+          service_id: pkg.service_id,
+          package_id: pkg.package_id,
+        })
+      ).unwrap();
+      await dispatch(
+        UpdateInvoicePrices({
+          total_price: total_price,
+          copoun_id: coupon?.valid ? coupon.id : 0,
+          invoice_id: invoiceId,
+          copoun_discount: coupon?.valid ? coupon.discount_value : 0,
+          tax_id: pkg.tax_id,
+          deduct_amount: pkg.package_sale_price,
+        })
+      ).unwrap();
+      await dispatch(getInvoices()).unwrap();
+      // Check if the tab the user was on still exists
+      if (invoices[currentTabBeforeRemoval]) {
+        setActiveTab(currentTabBeforeRemoval);
+      } else if (currentTabBeforeRemoval > 0) {
+        // If not, try the previous tab
+        setActiveTab(currentTabBeforeRemoval - 1);
+      } else {
+        // Default to first tab
+        setActiveTab(0);
+      }
 
-    setPopupMessage(t("checkout.packageRemovedSuccessfully"));
-    setShowPopup(true);
-  } catch (error) {
-    setPopupMessage(error.message || t("checkout.removePackageError"));
-    setShowPopup(true);
-  }
-};
+      setPopupMessage(t("checkout.packageRemovedSuccessfully"));
+      setShowPopup(true);
+    } catch (error) {
+      setPopupMessage(error.message || t("checkout.removePackageError"));
+      setShowPopup(true);
+    }
+  };
 
   const closePopup = () => {
     setShowPopup(false);
     setPopupMessage("");
     dispatch(clearInvoiceState());
   };
-  console.log("invoices ", invoices);
   return (
     <div className="checkout-page" dir={direction}>
       {loading && <LoadingPage />}
@@ -185,7 +211,7 @@ try {
                       </Col>
                       <Col md={2}>
                         <p className="service-text">
-                          <strong>{pkg.total_price}</strong>
+                          <strong>{pkg.package_sale_price}</strong>
                         </p>
                       </Col>
                       <Col md={2}>
@@ -198,8 +224,8 @@ try {
                           onClick={() =>
                             handleRemovePackage(
                               invoice.invoice_id,
-                              pkg.package_id,
-                              pkg.service_id
+                              invoice.total_price,
+                              pkg
                             )
                           }
                         >

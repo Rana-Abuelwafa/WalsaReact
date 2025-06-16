@@ -39,7 +39,28 @@ export const validateCoupon = createAsyncThunk(
     }
   }
 );
-
+export const UpdateInvoicePrices = createAsyncThunk(
+  "invoice/checkout",
+  async (invoiceData, { rejectWithValue }) => {
+    if (checkAUTH()) {
+      try {
+        const response = await axios.post(
+          `${BASE_URL}/UpdateInvoicePrices`,
+          invoiceData,
+          getAuthHeaders()
+        );
+        return response.data;
+      } catch (err) {
+        return rejectWithValue(err.response.data);
+      }
+    } else {
+      // Redirect to login if not authenticated
+      history.push("/login");
+      window.location.reload();
+      return null;
+    }
+  }
+);
 export const checkoutInvoice = createAsyncThunk(
   "invoice/checkout",
   async (invoiceData, { rejectWithValue }) => {
