@@ -4,7 +4,8 @@
   align-items: center;
   min-height: 100vh;
   background-color: #ffffff;
-  padding: 2rem;
+  box-sizing: border-box;
+  width: 100%;
 
   &.rtl {
     direction: rtl;
@@ -16,64 +17,47 @@
     text-align: left;
   }
 
+  .confirmation-content-wrapper {
+    width: 100%;
+    max-width: 80%;
+    margin: 0 auto;
+  }
+
   .confirmation-card {
-    position: relative;
     background-color: #ffffff;
     border: none;
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
     text-align: center;
+    width: 100%;
     padding: 2rem;
-    overflow: hidden;
-
-    // Faint background watermark
-    &::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: url('/imgs/waslaa_a g.png') no-repeat center;
-      background-size: 60%;
-      opacity: 1.07;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-    }
-
-    * {
-      position: relative;
-      z-index: 1;
-    }
 
     h5 {
-      font-size: 32px;
+      font-size: 2.5rem;
       font-weight: bold;
       color: #542D72;
-      margin-bottom: 1rem;
+      margin-bottom: 2rem;
     }
 
     p {
-      font-size: 32px;
+      font-size: 1.2rem;
       font-weight: bold;
       color: #542D72;
       margin-bottom: 0.75rem;
     }
 
     .check-terms{
-      font-size: 21px;
+      font-size: 1.1rem;
       font-weight: bold;
       color: #542D72;
-      margin-bottom: 0.75rem;
-      padding:40px;
+      margin: 2rem 0;
+      padding: 0;
       .form-check-input {
         margin-left: 0;
         margin-right: 10px;
 
-        &:checked{
-        background-color:#3a1a4f;
+        &:checked {
+        background-color: #3a1a4f;
         border-color: #3a1a4f;
-        box-shadow: 0 0 0 .25rem rgb(158 168 182 / 25%);;
+        box-shadow: 0 0 0 .25rem rgb(158 168 182 / 25%);
           }
         }
  
@@ -82,15 +66,18 @@
 
     button {
       color:#542D72;
-      font-size: 24px;
+      font-size: 1.1rem;
       background-color:#fff;
       border:1px solid #542D72;
       border-radius: 50px;
-      padding: 0.5rem 1.5rem;
+       padding: 0.75rem 2rem;
+      min-width: 150px;
+      margin: 0 0.5rem;
+      transition: all 0.3s ease;
 
       &:hover{
-        color:#542D72;
-        background-color:#fff;
+        color: #fff;
+        background-color: #542D72;
       }
     }
   }
@@ -99,16 +86,17 @@
 .agreement-display {
   max-height: 400px;
   overflow-y: auto;
-  padding: 15px;
+  padding: 20px;
   background-color: #f9f9f9;
   border-radius: 8px;
   border: 1px solid #eee;
+  margin: 2rem 0;
   
   h6 {
     color: #542D72;
     font-weight: bold;
-    font-size: 24px;
-    margin-bottom: 15px;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
   }
   
   .agreement-content {
@@ -117,11 +105,11 @@
     .agreement-section {
       white-space: pre-wrap;
       font-family: inherit;
-      font-size: 16px;
-      line-height: 1.5;
+       font-size: 1rem;
+      line-height: 1.6;
       color: #333;
-      margin-bottom: 15px;
-      padding-bottom: 15px;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
       border-bottom: 1px dashed #ddd;
       
       &:last-child {

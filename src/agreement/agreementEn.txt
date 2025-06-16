@@ -1,63 +1,42 @@
 Website Design & Branding Agreement Policy
 
 1. Scope of Work
-The Designer agrees to provide the following services:
-
+   The Designer agrees to provide the following services:
     Custom website design and development
-
     Brand identity development (logo, color palette, typography)
-
     Responsive design for all devices
-
     [Additional services as needed]
 
 2. Payment Terms
-
     50% non-refundable deposit required to commence work
-
     30% payment upon design approval
-
     20% final payment before delivery of all files
-
     Late payments subject to 5% monthly interest
 
 3. Project Timeline
-
     Initial concepts delivered within 14 business days
-
     Project completion within 60 business days from approval
-
     Delays caused by Client may extend timeline
 
 4. Revisions
-
     Includes 3 rounds of revisions per deliverable
-
     Additional revisions billed at $95/hour
 
 5. Intellectual Property
-
     All final assets become Client property upon final payment
-
     Designer retains right to display work in portfolio
 
 6. Confidentiality
-
     Both parties agree to keep all project details confidential
-
     Designer may sign separate NDA if required
 
 7. Termination
-
     Either party may terminate with 14 days written notice
-
     Client responsible for payments for work completed
 
 8. Liability
-
     Designer not liable for consequential damages
-
     Maximum liability limited to project fee
 
 9. Governing Law
-This agreement shall be governed by the laws of [State/Country].
+   This agreement shall be governed by the laws of [State/Country].

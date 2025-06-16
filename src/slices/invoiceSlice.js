@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { checkAUTH } from "../helper/helperFN";
+import { createAuthError } from '../utils/authError';
 import { history } from "../index";
 import axios from "axios";
 
@@ -20,66 +21,65 @@ const getAuthHeaders = () => {
 export const validateCoupon = createAsyncThunk(
   "invoice/validateCoupon",
   async (couponData, { rejectWithValue }) => {
-    if (checkAUTH()) {
-      try {
-        const response = await axios.post(
-          `${BASE_URL}/ValidateClientCopoun`,
-          couponData,
-          getAuthHeaders()
-        );
-        return response.data;
-      } catch (err) {
-        return rejectWithValue(err.response.data);
+    if (!checkAUTH()) {
+      return rejectWithValue(createAuthError());
+    }
+
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/ValidateClientCopoun`,
+        couponData,
+        getAuthHeaders()
+      );
+      return response.data;
+    } catch (err) {
+      if (err.response?.status === 401) {
+        return rejectWithValue(createAuthError());
       }
-    } else {
-      // Redirect to login if not authenticated
-      history.push("/login");
-      window.location.reload();
-      return null;
+      return rejectWithValue(err.response.message);
+
     }
   }
 );
 export const UpdateInvoicePrices = createAsyncThunk(
   "invoice/checkout",
   async (invoiceData, { rejectWithValue }) => {
-    if (checkAUTH()) {
-      try {
-        const response = await axios.post(
-          `${BASE_URL}/UpdateInvoicePrices`,
-          invoiceData,
-          getAuthHeaders()
-        );
-        return response.data;
-      } catch (err) {
-        return rejectWithValue(err.response.data);
+    if (!checkAUTH()) {
+      return rejectWithValue(createAuthError());
+    }
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/UpdateInvoicePrices`,
+        invoiceData,
+        getAuthHeaders()
+      );
+      return response.data;
+    } catch (err) {
+      if (err.response?.status === 401) {
+        return rejectWithValue(createAuthError());
       }
-    } else {
-      // Redirect to login if not authenticated
-      history.push("/login");
-      window.location.reload();
-      return null;
+      return rejectWithValue(err.response.data);
     }
   }
 );
 export const checkoutInvoice = createAsyncThunk(
   "invoice/checkout",
   async (invoiceData, { rejectWithValue }) => {
-    if (checkAUTH()) {
-      try {
-        const response = await axios.post(
-          `${BASE_URL}/CheckoutInvoice`,
-          invoiceData,
-          getAuthHeaders()
-        );
-        return response.data;
-      } catch (err) {
-        return rejectWithValue(err.response.data);
+    if (!checkAUTH()) {
+      return rejectWithValue(createAuthError());
+    }
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/CheckoutInvoice`,
+        invoiceData,
+        getAuthHeaders()
+      );
+      return response.data;
+    } catch (err) {
+      if (err.response?.status === 401) {
+        return rejectWithValue(createAuthError());
       }
-    } else {
-      // Redirect to login if not authenticated
-      history.push("/login");
-      window.location.reload();
-      return null;
+      return rejectWithValue(err.response.data);
     }
   }
 );
@@ -87,52 +87,46 @@ export const checkoutInvoice = createAsyncThunk(
 export const removeInvoice = createAsyncThunk(
   "invoice/remove",
   async (invoiceData, { rejectWithValue }) => {
-    if (checkAUTH()) {
-      try {
-        const response = await axios.post(
-          `${BASE_URL}/RemoveInvoice`,
-          invoiceData,
-          getAuthHeaders()
-        );
-        return response.data;
-      } catch (err) {
-        return rejectWithValue(err.response.data);
-      }
-    } else {
-      // Redirect to login if not authenticated
-      history.push("/login");
-      window.location.reload();
-      return null;
+    if (!checkAUTH()) {
+      return rejectWithValue(createAuthError());
     }
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/RemoveInvoice`,
+        invoiceData,
+        getAuthHeaders()
+      );
+      return response.data;
+    } catch (err) {
+      if (err.response?.status === 401) {
+        return rejectWithValue(createAuthError());
+      }
+      return rejectWithValue(err.response.data);
+    }
+
   }
 );
 
 export const getInvoices = createAsyncThunk(
   "invoice/getAll",
   async (_, { rejectWithValue }) => {
-    if (checkAUTH()) {
-      try {
-        const response = await axios.post(
-          `${BASE_URL}/GetInvoicesByClient`,
-          {},
-          getAuthHeaders()
-        );
-        return response.data;
-      } catch (err) {
-        console.log("err ", err.status);
-        if (err.status != null && err.status == 401) {
-          history.push("/login");
-          window.location.reload();
-        }
-
-        return rejectWithValue(err.response.data);
-      }
-    } else {
-      // Redirect to login if not authenticated
-      history.push("/login");
-      window.location.reload();
-      return null;
+    if (!checkAUTH()) {
+      return rejectWithValue(createAuthError());
     }
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/GetInvoicesByClient`,
+        {},
+        getAuthHeaders()
+      );
+      return response.data;
+    } catch (err) {
+      if (err.response?.status === 401) {
+        return rejectWithValue(createAuthError());
+      }
+      return rejectWithValue(err.response.data);
+    }
+
   }
 );
 

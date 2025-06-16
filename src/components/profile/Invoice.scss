@@ -10,6 +10,19 @@
     justify-content: flex-start;
   }
 
+  .nav-tabs{
+   .nav-link{
+    color:#542D72;
+   }
+   &:hover{
+    border:none !important;
+   }
+   .nav-link.active{
+    border-bottom: 2px solid #542D72 !important;
+    border: none;
+   }
+  } 
+
   .checkout-card {
     border: none;
     background-color: #fff;

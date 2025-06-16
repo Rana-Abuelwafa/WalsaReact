@@ -8,6 +8,7 @@ import pricingPlansReducer from '../slices/pricingPlansSlice';
 import languageReducer from '../slices/languageSlice';
 import currencyReducer from '../slices/currencySlice';
 import invoiceReducer  from '../slices/invoiceSlice';
+import { authMiddleware } from '../middleware/authMiddleware';
 
 export const store = configureStore({
   reducer: {
@@ -22,9 +23,11 @@ export const store = configureStore({
     invoice:invoiceReducer
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false
-    })
+    getDefaultMiddleware().concat(authMiddleware),
+  // middleware: (getDefaultMiddleware) =>
+  //   getDefaultMiddleware({
+  //     serializableCheck: false
+  //   })
 });
 
 export default store;

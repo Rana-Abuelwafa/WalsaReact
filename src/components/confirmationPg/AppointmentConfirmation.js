@@ -119,10 +119,10 @@ if (loading) {
 
   if (!selectedPackages) {
     return (
-      <Container fluid className="confirmation-container text-center">
+      <Container className="confirmation-container text-center">
         <Row className="justify-content-center">
           <Col>
-            <Card className="confirmation-card p-4">
+            <Card className="confirmation-card">
               <Card.Body>
                 <h5 className="mb-4">No packages selected</h5>
                 <Button variant="primary" onClick={() => navigate("/pricing")}>
@@ -137,7 +137,7 @@ if (loading) {
   }
 
   return (
-    <Container fluid className="confirmation-container text-center dir={direction}">
+    <div className="confirmation-container dir={direction}">
         {/* Success/Error Popup */}
             {showPopup && (
               <PopUp 
@@ -146,9 +146,8 @@ if (loading) {
                 type={popupType} 
               />
             )}
-      <Row className="justify-content-center">
-        <Col>
-          <Card className="confirmation-card p-4">
+      <div className="confirmation-content-wrapper">
+          <Card className="confirmation-card">
             <Card.Body>
               <h5 className="mb-4">{t("confirmation.termsConditions")}</h5>
 
@@ -183,9 +182,8 @@ if (loading) {
               </div>
             </Card.Body>
           </Card>
-        </Col>
-      </Row>
-    </Container>
+        </div>
+    </div>
   );
 };
 
