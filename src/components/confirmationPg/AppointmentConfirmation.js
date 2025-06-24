@@ -104,7 +104,7 @@ const AppointmentConfirmation = () => {
             package_name: pkg?.package_name || "",
             productId: parseInt(serviceId),
             package_id: parseInt(packageId),
-            is_custom: pkg?.is_custom,
+            is_custom: pkg?.is_custom
           };
         }
       );

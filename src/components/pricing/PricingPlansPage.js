@@ -190,9 +190,7 @@ const PricingPlansPage = () => {
           features: pkg.features || [],
           price: pkg.package_sale_price,
           oldPrice: pkg.package_price,
-          isCustom:
-            pkg.package_name === "Business Elite" &&
-            pkg.package_sale_price === 0,
+          isCustom: pkg.is_custom,
           isSelected: pkg.isSelected,
         }))
         .sort((a, b) => a.order - b.order),
