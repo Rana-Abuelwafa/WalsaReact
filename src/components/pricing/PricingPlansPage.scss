@@ -68,10 +68,10 @@
     }
 
     // Best badge position
-    .best-badge {
-      left: auto;
-      right: 50%;
-      transform: translateX(50%);
+    .best-badge {   
+      left: auto !important;
+      right: 50% !important;
+      transform: translateX(50%) !important;
     }
   }
 
