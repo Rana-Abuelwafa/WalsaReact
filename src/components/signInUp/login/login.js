@@ -41,7 +41,7 @@ function Login() {
         </Col>
         <Col lg={7} md={12} sm={12} xs={12} className="d-none d-md-block">
           <div className="login_img_bg sign-img_bg ">
-            <img src="images/login_bg_img.png" alt="wasla_login_img" />
+            <img src="images/login_bg.png" alt="wasla_login_img" />
           </div>
         </Col>
       </Row>

@@ -15,8 +15,7 @@ function SignInUpShared(props) {
         <>
           <h2>
             {" "}
-            {t("Register.HeaderTitle")}
-            <span>{t("Register.Client")}</span>
+            {t("Register.HeaderTitle")} <span>{t("Register.Client")}</span>
           </h2>
           <p>{t("Register.HeaderSubTitle")}</p>
         </>
