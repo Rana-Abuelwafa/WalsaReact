@@ -19,7 +19,18 @@
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(180deg, #522C70, #00BC82, #2A1739);
 }
+/* Ensure popup appears above everything */
+#auth-popup-root {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+}
 
+/* Prevent body scrolling when popup is open */
+.body-no-scroll {
+  overflow: hidden;
+}
 // Global Styles
 body {
   background-color: #ffffff;

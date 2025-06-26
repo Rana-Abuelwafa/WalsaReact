@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { checkAUTH } from "../helper/helperFN";
+import { createAuthError } from "../utils/authError";
 import { history } from "../index";
 import axios from "axios";
 
@@ -36,8 +37,9 @@ const getAuthHeaders = () => {
 export const fetchProfile = createAsyncThunk(
   "profile/fetchProfile",
   async ({ accessToken, userId }, { rejectWithValue }) => {
-    if (checkAUTH()) {
-      // Check if user is authenticated
+     if (!checkAUTH()) {
+      return rejectWithValue(createAuthError());
+    }
       try {
         // Make API call to get client profiles
         const response = await axios.post(
@@ -55,16 +57,12 @@ export const fetchProfile = createAsyncThunk(
         }
         return {}; // Return empty object if no data
       } catch (error) {
-        // Return error message if request fails
-        return rejectWithValue(error.response?.data?.message || error.message);
+        if (error.response?.status === 401) {
+           return rejectWithValue(createAuthError());
+        }
+        return rejectWithValue(error.response?.data?.msg || error.msg);
       }
-    } else {
-      // Redirect to login if not authenticated
-      history.push("/login");
-      window.location.reload();
-      return null;
     }
-  }
 );
 
 // Async thunk to save profile data
@@ -85,7 +83,7 @@ export const saveProfile = createAsyncThunk(
           formData: formData,
         };
       } catch (error) {
-        return rejectWithValue(error.response?.data?.message || error.message);
+        return rejectWithValue(error.response?.data?.msg || error.message);
       }
     } else {
       history.push("/login");

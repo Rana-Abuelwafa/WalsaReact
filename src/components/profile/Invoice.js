@@ -30,7 +30,6 @@ const Invoice = () => {
   const [activeTab, setActiveTab] = useState(0);
 
   useEffect(() => {
-    // Ensure activeTab is valid after invoices change
     if (invoices.length > 0) {
       if (activeTab >= invoices.length) {
         setActiveTab(invoices.length - 1);
@@ -39,6 +38,7 @@ const Invoice = () => {
       setActiveTab(0);
     }
   }, [invoices]);
+
   useEffect(() => {
     dispatch(getInvoices());
     dispatch(clearInvoiceState());
@@ -52,54 +52,63 @@ const Invoice = () => {
       dispatch(clearInvoiceState());
     }
     if (success && success.trim() !== "") {
-      setPopupMessage("success");
+      setPopupMessage(success);
+      setPopupVariant("success");
       setShowPopup(true);
       dispatch(clearInvoiceState());
     }
   }, [error, success, dispatch]);
 
   const handleApplyCoupon = async () => {
+    const currentInvoice = invoices[activeTab];
     const couponCode = currentCouponCode; // Get the current tab's coupon code
     if (!couponCode.trim()) {
       setPopupMessage(t("checkout.couponRequired"));
+      setPopupVariant("error");
       setShowPopup(true);
       return;
     }
+    
+try {
+    const action = await dispatch(validateCoupon({ copoun: couponCode }));
+    const result = action.payload;
 
-    const currentInvoice = invoices[activeTab];
-
-    dispatch(validateCoupon({ copoun: couponCode })).then(async (action) => {
-      if (
-        action.payload &&
-        action.payload[0] != null &&
-        action.payload[0].valid
-      ) {
-        var copounRes = action.payload[0];
-
+      if (result?.valid) {
          // Update the applied coupons state for this invoice
         setCoupons(prev => ({
           ...prev,
-          [currentInvoice.invoice_id]: copounRes
+          [currentInvoice.invoice_id]: result.couponData
         }));
 
-        setPopupMessage(t("checkout.couponAppliedSuccessfully"));
+        setPopupMessage(result.msg || t("checkout.couponAppliedSuccessfully"));
+        setPopupVariant("success");
         setShowPopup(true);
-        const currentInvoice = invoices[activeTab];
 
+        // Update invoice prices with the coupon
         await dispatch(
           UpdateInvoicePrices({
             total_price: currentInvoice.total_price,
-            copoun_id: copounRes.id,
+            copoun_id: result.couponData.id,
             invoice_id: currentInvoice.invoice_id,
-            copoun_discount: copounRes.discount_value,
+            copoun_discount: result.couponData.discount_value,
             tax_id: currentInvoice.tax_id,
             deduct_amount: 0,
           })
         ).unwrap();
 
+        // Refresh invoices
         await dispatch(getInvoices()).unwrap();
+      } else {
+         // Coupon is not valid
+        setPopupMessage(result?.msg || t("checkout.invalidCoupon"));
+        setPopupVariant("error");
+        setShowPopup(true);
       }
-    });
+   } catch (error) {
+      setPopupMessage(error?.msg || t("checkout.couponValidationError"));
+      setPopupVariant("error");
+      setShowPopup(true);
+  }
   };
   const handleCheckout = async () => {
     if (invoices.length === 0) return;
@@ -146,9 +155,9 @@ const Invoice = () => {
       return newCodes;
     });
 
-    setPopupMessage(t("checkout.checkoutSuccess"));
-    setPopupVariant("success");
-    setShowPopup(true);
+    // setPopupMessage(t("checkout.checkoutSuccess"));
+    // setPopupVariant("success");
+    // setShowPopup(true);
   } catch (error) {
     setPopupMessage(error.message || t("checkout.checkoutError"));
     setPopupVariant("error");
@@ -193,8 +202,8 @@ const Invoice = () => {
         setActiveTab(0);
       }
 
-      setPopupMessage(t("checkout.packageRemovedSuccessfully"));
-      setShowPopup(true);
+      // setPopupMessage(t("checkout.packageRemovedSuccessfully"));
+      // setShowPopup(true);
     } catch (error) {
       setPopupMessage(error.message || t("checkout.removePackageError"));
       setShowPopup(true);
