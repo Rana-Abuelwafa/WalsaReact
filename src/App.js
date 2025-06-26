@@ -53,7 +53,9 @@ const Pricing = lazy(() =>
 );
 
 const Confirmation = lazy(() =>
-  import(/* webpackPrefetch: true */ "./components/confirmationPg/AppointmentConfirmation")
+  import(
+    /* webpackPrefetch: true */ "./components/confirmationPg/AppointmentConfirmation"
+  )
 );
 
 function App() {
@@ -83,17 +85,17 @@ function App() {
             <Route
               path="/login"
               element={
-                <UserCheck>
-                  <Login />
-                </UserCheck>
+                // <UserCheck>
+                <Login />
+                // </UserCheck>
               }
             />
             <Route
               path="/register"
               element={
-                <UserCheck>
-                  <Register />
-                </UserCheck>
+                // <UserCheck>
+                <Register />
+                // </UserCheck>
               }
             />
             <Route path="/verifyEmail" element={<OTPInput />} />

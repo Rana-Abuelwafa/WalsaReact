@@ -11,10 +11,12 @@ const getAuthHeaders = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const accessToken = user?.accessToken;
   const userId = user?.id;
+  let lang = localStorage.getItem("lang");
   return {
     headers: {
       Authorization: `Bearer ${accessToken}`,
       "Content-Type": "application/json",
+      "Accept-Language": lang,
     },
   };
 };

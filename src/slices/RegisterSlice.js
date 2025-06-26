@@ -13,13 +13,21 @@ const initialState = {
   WelcomeMsg: "",
   unAuth: false,
 };
+const NonAuthHeaders = () => {
+  let lang = localStorage.getItem("lang");
+  return {
+    "Accept-Language": lang,
+  };
+};
 const AuthHeaders = () => {
   let token = localStorage.getItem("token");
+  let lang = localStorage.getItem("lang");
   return {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Headers": "Access-Control-Allow-Origin",
     "Access-Control-Allow-Credentials": "true",
+    "Accept-Language": lang,
     Authorization: "Bearer " + token,
   };
 };
@@ -117,7 +125,9 @@ export const RegisterUser = createAsyncThunk(
   "RegisterUser",
   async (data, thunkAPI) => {
     var response = await axios
-      .post(BASE_URL_AUTH + data.path, data.payload)
+      .post(BASE_URL_AUTH + data.path, data.payload, {
+        headers: NonAuthHeaders(),
+      })
       .then((res) => {
         return res.data;
       })
@@ -133,7 +143,9 @@ export const LoginUser = createAsyncThunk(
   "LoginUser",
   async (data, thunkAPI) => {
     var response = await axios
-      .post(BASE_URL_AUTH + data.path, data.payload)
+      .post(BASE_URL_AUTH + data.path, data.payload, {
+        headers: NonAuthHeaders(),
+      })
       .then((res) => {
         return res.data;
       })

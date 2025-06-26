@@ -8,33 +8,42 @@ const BASE_URL = process.env.REACT_APP_API_URL;
 
 // Initial state for the profile slice
 const initialState = {
-  profileData: {},         // Stores user profile data
-  profileImage: null,     // Stores user profile image URL/path
-  loading: false,         // Loading state flag
-  fetchError: null,       // Error from fetching profile
-  saveError: null,        // Error from saving profile
-  saveSuccess: false,     // Success flag for saving profile
-  fetchImageError: null,  // Error from fetching image
+  profileData: {}, // Stores user profile data
+  profileImage: null, // Stores user profile image URL/path
+  loading: false, // Loading state flag
+  fetchError: null, // Error from fetching profile
+  saveError: null, // Error from saving profile
+  saveSuccess: false, // Success flag for saving profile
+  fetchImageError: null, // Error from fetching image
   uploadImageError: null, // Error from uploading image
   uploadImageSuccess: false, // Success flag for uploading image
 };
 
+const getAuthHeaders = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const accessToken = user?.accessToken;
+  const userId = user?.id;
+  let lang = localStorage.getItem("lang");
+  return {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+      "Accept-Language": lang,
+    },
+  };
+};
 // Async thunk to fetch user profile data
 export const fetchProfile = createAsyncThunk(
   "profile/fetchProfile",
   async ({ accessToken, userId }, { rejectWithValue }) => {
-    if (checkAUTH()) {  // Check if user is authenticated
+    if (checkAUTH()) {
+      // Check if user is authenticated
       try {
         // Make API call to get client profiles
         const response = await axios.post(
           BASE_URL + "/GetClientProfiles",
           {},
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-              "Content-Type": "application/json",
-            },
-          }
+          getAuthHeaders()
         );
 
         // Find the profile matching the current user ID
@@ -68,12 +77,7 @@ export const saveProfile = createAsyncThunk(
         const response = await axios.post(
           BASE_URL + "/saveMainProfile",
           formData,
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-              "Content-Type": "application/json",
-            },
-          }
+          getAuthHeaders()
         );
         // Return both API response and form data
         return {
@@ -101,12 +105,7 @@ export const fetchProfileImage = createAsyncThunk(
         const response = await axios.post(
           BASE_URL + "/GetProfileImage",
           {},
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-              "Content-Type": "application/json",
-            },
-          }
+          getAuthHeaders()
         );
         // Handle array response and extract first image URL
         if (
@@ -141,12 +140,7 @@ export const uploadProfileImage = createAsyncThunk(
         const response = await axios.post(
           BASE_URL + "/saveProfileImage",
           requestBody,
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-              "Content-Type": "multipart/form-data",
-            },
-          }
+          getAuthHeaders()
         );
 
         // Return both object URL for immediate display and API response

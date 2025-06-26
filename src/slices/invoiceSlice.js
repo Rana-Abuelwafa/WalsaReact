@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { checkAUTH } from "../helper/helperFN";
-import { createAuthError } from '../utils/authError';
+import { createAuthError } from "../utils/authError";
 import { history } from "../index";
 import axios from "axios";
 
@@ -10,10 +10,12 @@ const getAuthHeaders = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const accessToken = user?.accessToken;
   const userId = user?.id;
+  let lang = localStorage.getItem("lang");
   return {
     headers: {
       Authorization: `Bearer ${accessToken}`,
       "Content-Type": "application/json",
+      "Accept-Language": lang,
     },
   };
 };
@@ -37,7 +39,6 @@ export const validateCoupon = createAsyncThunk(
         return rejectWithValue(createAuthError());
       }
       return rejectWithValue(err.response.message);
-
     }
   }
 );
@@ -103,7 +104,6 @@ export const removeInvoice = createAsyncThunk(
       }
       return rejectWithValue(err.response.data);
     }
-
   }
 );
 
@@ -114,9 +114,10 @@ export const getInvoices = createAsyncThunk(
       return rejectWithValue(createAuthError());
     }
     try {
+      const formData = { active: true, status: 1 };
       const response = await axios.post(
         `${BASE_URL}/GetInvoicesByClient`,
-        {},
+        formData,
         getAuthHeaders()
       );
       return response.data;
@@ -126,7 +127,6 @@ export const getInvoices = createAsyncThunk(
       }
       return rejectWithValue(err.response.data);
     }
-
   }
 );
 
