@@ -29,6 +29,8 @@ const Invoice = () => {
   const [popupVariant, setPopupVariant] = useState("success");
   const [activeTab, setActiveTab] = useState(0);
 
+  const currentLang = useSelector((state) => state.language.currentLang) || "en";
+
   useEffect(() => {
     if (invoices.length > 0) {
       if (activeTab >= invoices.length) {
@@ -40,9 +42,14 @@ const Invoice = () => {
   }, [invoices]);
 
   useEffect(() => {
-    dispatch(getInvoices());
+    const getData = { 
+      active: true, 
+      status: 1 ,
+      lang_code: currentLang
+    };
+    dispatch(getInvoices(getData));
     dispatch(clearInvoiceState());
-  }, [dispatch]);
+  }, [dispatch,currentLang]);
 
   useEffect(() => {
     if (error && error.trim() !== "") {
@@ -96,8 +103,13 @@ try {
           })
         ).unwrap();
 
+        const getData = { 
+              active: true, 
+              status: 1 ,
+              lang_code: currentLang
+            };
         // Refresh invoices
-        await dispatch(getInvoices()).unwrap();
+        await dispatch(getInvoices(getData)).unwrap();
       } else {
          // Coupon is not valid
         setPopupMessage(result?.msg || t("checkout.invalidCoupon"));
@@ -124,9 +136,13 @@ try {
         // copoun_discount: coupon?.valid ? coupon.discount_value : 0,
     })
     ).unwrap();
-
+      const getData = { 
+                    active: true, 
+                    status: 1 ,
+                    lang_code: currentLang
+                  };
     // Refresh invoices after successful checkout
-     const updatedInvoices = await dispatch(getInvoices()).unwrap();
+     const updatedInvoices = await dispatch(getInvoices(getData)).unwrap();
 
     // Determine which tab to show after checkout
     if (updatedInvoices.length > 0) {
@@ -189,8 +205,12 @@ try {
           deduct_amount: pkg.package_sale_price,
         })
       ).unwrap();
-
-      await dispatch(getInvoices()).unwrap();
+        const getData = { 
+                            active: true, 
+                            status: 1 ,
+                            lang_code: currentLang
+                          };
+      await dispatch(getInvoices(getData)).unwrap();
       // Check if the tab the user was on still exists
       if (invoices[currentTabBeforeRemoval]) {
         setActiveTab(currentTabBeforeRemoval);

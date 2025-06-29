@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import PopupMsg from '../components/shared/PopupMsg';
 
 let popupRoot = null;
 let currentCallback = null;
+let root = null;
 
 export const showAuthPopup = (message, callback) => {
   if (!popupRoot) {
     popupRoot = document.createElement('div');
     popupRoot.id = 'auth-popup-root';
     document.body.appendChild(popupRoot);
+    root = createRoot(popupRoot);
   }
 
   currentCallback = callback;
@@ -23,7 +25,7 @@ export const showAuthPopup = (message, callback) => {
         currentCallback();
         currentCallback = null;
       }
-      ReactDOM.unmountComponentAtNode(popupRoot);
+      root.unmount();
     };
 
     return (
@@ -36,5 +38,5 @@ export const showAuthPopup = (message, callback) => {
     );
   };
 
-  ReactDOM.render(<PopupWrapper />, popupRoot);
+  root.render(<PopupWrapper />);
 };

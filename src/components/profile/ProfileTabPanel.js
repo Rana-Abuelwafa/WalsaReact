@@ -5,6 +5,7 @@ import Brand from "./Brand";
 import ChangePasswordForm from "./ChangePasswordForm";
 import Product from "./Product";
 import Invoice from "./Invoice";
+import InvoiceHistory from "./InvoiceHistory";
 import ComingSoon from "./ComingSoon";
 
 // Tab icons - paths to image assets
@@ -15,6 +16,7 @@ const productIcon = '/images/shopping_tab.png';
 const previewIcon = '/images/preview_tab.png';
 const booknoteIcon = '/images/pay_tab.png';
 const shoppingIcon = '/images/shopping_tab.png';
+const historyIcon = '/images/history-tab.png';
 
 const ProfileTabPanel = () => {
   // State to track which tab is currently active
@@ -26,10 +28,11 @@ const ProfileTabPanel = () => {
     { id: 'profile', icon: profileIcon },  // User profile settings
     { id: 'info', icon: infoIcon },        // Brand information
     { id: 'password', icon: passwordIcon }, // Password change form
-    { id: 'product', icon: productIcon },   // Product selection
+    // { id: 'product', icon: productIcon },   // Product selection
     { id: 'preview', icon: previewIcon },   // Preview (coming soon)
     { id: 'booknote', icon: booknoteIcon }, // Booknotes (coming soon)
-    { id: 'shopping', icon: shoppingIcon }  // Shopping (coming soon)
+    { id: 'shopping', icon: shoppingIcon },  // Shopping
+    { id: 'history', icon: historyIcon }  // Shopping  
   ];
 
   return (
@@ -62,11 +65,12 @@ const ProfileTabPanel = () => {
             {activeTab === 'profile' && <ProfileSettings />}
             {activeTab === 'info' && <Brand />}
             {activeTab === 'password' && <ChangePasswordForm />}
-            {activeTab === 'product' && <Product />}
+            {/* {activeTab === 'product' && <Product />} */}
             {/* All other tabs show the ComingSoon placeholder component */}
             {activeTab === 'preview' && <ComingSoon />}
             {activeTab === 'booknote' && <ComingSoon />}
             {activeTab === 'shopping' && <Invoice />}
+            {activeTab === 'history' && <InvoiceHistory />}
           </div>
         </div>
       </div>

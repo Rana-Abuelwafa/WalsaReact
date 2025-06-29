@@ -201,7 +201,9 @@
   },
   "general": {
     "loading": "Wird geladen...",
-    "saving": "Wird gespeichert..."
+    "saving": "Wird gespeichert...",
+    "save":"Save",
+    "update":"Update"
   },
   "profile": {
     "name": "Name",
@@ -305,5 +307,16 @@
     "price": "Preis",
     "packageRemovedSuccessfully": "Paket erfolgreich entfernt!",
     "removePackageError": "Fehler beim Entfernen des Pakets!"
+  },
+  "invoiceHistory": {
+    "searchPlaceholder": "Zoeken op factuurnummer...",
+    "invoiceCode": "Factuurnummer",
+    "price": "Prijs",
+    "currency": "Valuta",
+    "date": "Datum",
+    "actions": "Acties",
+    "preview": "Voorbeeld",
+    "download": "Downloaden",
+    "noResults": "Geen facturen gevonden die overeenkomen"
   }
 }

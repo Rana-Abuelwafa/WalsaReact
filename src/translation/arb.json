@@ -201,7 +201,9 @@
   },
   "general": {
     "loading": "جاري التحميل...",
-    "saving": "جاري الحفظ..."
+    "saving": "جاري الحفظ...",
+    "save":"حفظ",
+    "update":"تعديل"
   },
   "profile": {
     "name": "الاسم",
@@ -305,5 +307,16 @@
     "price": "السعر",
     "packageRemovedSuccessfully": "تم إزالة الباقة بنجاح!",
     "removePackageError": "هناك خطأ في إزالة الباقة!"
-  }
+  },
+  "invoiceHistory": {
+      "searchPlaceholder": "ابحث باستخدام كود الفاتورة...",
+      "invoiceCode": "كود الفاتورة",
+      "price": "السعر",
+      "currency": "العملة",
+      "date": "التاريخ",
+      "actions": "الإجراءات",
+      "preview": "معاينة",
+      "download": "تحميل",
+      "noResults": "لا توجد فواتير تطابق بحثك"
+    }
 }
