@@ -29,7 +29,8 @@ const Invoice = () => {
   const [popupVariant, setPopupVariant] = useState("success");
   const [activeTab, setActiveTab] = useState(0);
 
-  const currentLang = useSelector((state) => state.language.currentLang) || "en";
+  const currentLang =
+    useSelector((state) => state.language.currentLang) || "en";
 
   useEffect(() => {
     if (invoices.length > 0) {
@@ -42,14 +43,14 @@ const Invoice = () => {
   }, [invoices]);
 
   useEffect(() => {
-    const getData = { 
-      active: true, 
-      status: 1 ,
-      lang_code: currentLang
+    const getData = {
+      active: true,
+      status: 1,
+      lang_code: currentLang,
     };
     dispatch(getInvoices(getData));
     dispatch(clearInvoiceState());
-  }, [dispatch,currentLang]);
+  }, [dispatch, currentLang]);
 
   useEffect(() => {
     if (error && error.trim() !== "") {
@@ -75,16 +76,16 @@ const Invoice = () => {
       setShowPopup(true);
       return;
     }
-    
-try {
-    const action = await dispatch(validateCoupon({ copoun: couponCode }));
-    const result = action.payload;
+
+    try {
+      const action = await dispatch(validateCoupon({ copoun: couponCode }));
+      const result = action.payload;
 
       if (result?.valid) {
-         // Update the applied coupons state for this invoice
-        setCoupons(prev => ({
+        // Update the applied coupons state for this invoice
+        setCoupons((prev) => ({
           ...prev,
-          [currentInvoice.invoice_id]: result.couponData
+          [currentInvoice.invoice_id]: result.couponData,
         }));
 
         setPopupMessage(result.msg || t("checkout.couponAppliedSuccessfully"));
@@ -103,46 +104,46 @@ try {
           })
         ).unwrap();
 
-        const getData = { 
-              active: true, 
-              status: 1 ,
-              lang_code: currentLang
-            };
+        const getData = {
+          active: true,
+          status: 1,
+          lang_code: currentLang,
+        };
         // Refresh invoices
         await dispatch(getInvoices(getData)).unwrap();
       } else {
-         // Coupon is not valid
+        // Coupon is not valid
         setPopupMessage(result?.msg || t("checkout.invalidCoupon"));
         setPopupVariant("error");
         setShowPopup(true);
       }
-   } catch (error) {
+    } catch (error) {
       setPopupMessage(error?.msg || t("checkout.couponValidationError"));
       setPopupVariant("error");
       setShowPopup(true);
-  }
+    }
   };
   const handleCheckout = async () => {
     if (invoices.length === 0) return;
 
     try {
-    const currentInvoice = invoices[activeTab];
-    await dispatch(
-      checkoutInvoice({
-        status: 2,
-        // grand_total_price: currentInvoice.grand_total_price,
-        //copoun_id: coupon?.valid ? coupon.id : 0,
-        invoice_id: currentInvoice.invoice_id,
-        // copoun_discount: coupon?.valid ? coupon.discount_value : 0,
-    })
-    ).unwrap();
-      const getData = { 
-                    active: true, 
-                    status: 1 ,
-                    lang_code: currentLang
-                  };
-    // Refresh invoices after successful checkout
-     const updatedInvoices = await dispatch(getInvoices(getData)).unwrap();
+      const currentInvoice = invoices[activeTab];
+      await dispatch(
+        checkoutInvoice({
+          status: 2,
+          // grand_total_price: currentInvoice.grand_total_price,
+          //copoun_id: coupon?.valid ? coupon.id : 0,
+          invoice_id: currentInvoice.invoice_id,
+          // copoun_discount: coupon?.valid ? coupon.discount_value : 0,
+        })
+      ).unwrap();
+      const getData = {
+        active: true,
+        status: 1,
+        lang_code: currentLang,
+      };
+      // Refresh invoices after successful checkout
+      const updatedInvoices = await dispatch(getInvoices(getData)).unwrap();
 
       // Determine which tab to show after checkout
       if (updatedInvoices.length > 0) {
@@ -183,15 +184,15 @@ try {
     }
 
     // Clear any applied coupon for the checked out invoice
-    setCoupons(prev => {
-      const newCoupons = {...prev};
+    setCoupons((prev) => {
+      const newCoupons = { ...prev };
       delete newCoupons[currentInvoice.invoice_id];
       return newCoupons;
     });
 
     // Clear coupon code for the checked out invoice
-    setCouponCodes(prev => {
-      const newCodes = {...prev};
+    setCouponCodes((prev) => {
+      const newCodes = { ...prev };
       delete newCodes[currentInvoice.invoice_id];
       return newCodes;
     });
@@ -199,12 +200,14 @@ try {
     // setPopupMessage(t("checkout.checkoutSuccess"));
     // setPopupVariant("success");
     // setShowPopup(true);
-  } catch (error) {
-    setPopupMessage(error.message || t("checkout.checkoutError"));
-    setPopupVariant("error");
-    setShowPopup(true);
-  }
-};
+  };
+  //rana comment
+  //  catch (error) {
+  //   setPopupMessage(error.message || t("checkout.checkoutError"));
+  //   setPopupVariant("error");
+  //   setShowPopup(true);
+  // }
+  // };
 
   const handleRemovePackage = async (invoiceId, total_price, pkg) => {
     try {
@@ -232,11 +235,11 @@ try {
           deduct_amount: pkg.package_sale_price,
         })
       ).unwrap();
-        const getData = { 
-                            active: true, 
-                            status: 1 ,
-                            lang_code: currentLang
-                          };
+      const getData = {
+        active: true,
+        status: 1,
+        lang_code: currentLang,
+      };
       await dispatch(getInvoices(getData)).unwrap();
       // Check if the tab the user was on still exists
       if (invoices[currentTabBeforeRemoval]) {
