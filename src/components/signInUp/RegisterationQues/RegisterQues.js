@@ -65,7 +65,7 @@ function RegisterQues() {
     dispatch(saveQuesList(quesLst)).then((result) => {
       if (result.payload && result.payload.success) {
         setQuesLst([]);
-        const cls = { email: myEmail };
+        const cls = { email: myEmail, completeprofile: 1 };
         dispatch(CompleteMyProfile(cls));
         navigate("/Response", {
           replace: true,
