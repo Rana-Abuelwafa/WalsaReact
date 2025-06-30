@@ -109,12 +109,12 @@ export const removeInvoice = createAsyncThunk(
 
 export const getInvoices = createAsyncThunk(
   "invoice/getAll",
-  async (_, { rejectWithValue }) => {
+  async (formData, { rejectWithValue }) => {
     if (!checkAUTH()) {
       return rejectWithValue(createAuthError());
     }
     try {
-      const formData = { active: true, status: 1 };
+      //const formData = { active: true, status: 1 };
       const response = await axios.post(
         `${BASE_URL}/GetInvoicesByClient`,
         formData,

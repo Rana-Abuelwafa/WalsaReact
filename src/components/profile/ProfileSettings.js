@@ -13,39 +13,39 @@ import {
   clearFetchErrors,
 } from "../../slices/profileSlice";
 import PopUp from "../shared/popoup/PopUp";
-import LoadingPage from '../Loader/LoadingPage';
+import LoadingPage from "../Loader/LoadingPage";
 import "./ProfileSettings.scss";
 
 const ProfileSettings = () => {
   // Internationalization hook for translations
   const t = useTranslation();
-  
+
   // Get user data from localStorage
   const user = JSON.parse(localStorage.getItem("user"));
   const accessToken = user?.accessToken;
   const userId = user?.id;
-  
+
   // Refs and Redux setup
   const fileInputRef = useRef(null); // Reference for hidden file input
   const dispatch = useDispatch();
-  
+
   // Get state from Redux store
   const {
-    profileData,          // User profile data
-    profileImage,         // Profile image URL or blob
-    loading,             // Loading state
-    saveSuccess,         // Profile save success flag
-    saveError,           // Profile save error
-    fetchError,          // Profile fetch error
-    uploadImageSuccess,  // Image upload success flag
-    uploadImageError,    // Image upload error
-    fetchImageError      // Image fetch error
+    profileData, // User profile data
+    profileImage, // Profile image URL or blob
+    loading, // Loading state
+    saveSuccess, // Profile save success flag
+    saveError, // Profile save error
+    fetchError, // Profile fetch error
+    uploadImageSuccess, // Image upload success flag
+    uploadImageError, // Image upload error
+    fetchImageError, // Image fetch error
   } = useSelector((state) => state.profile);
 
   // Local state for UI
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
-  
+
   // Form data state - initialized with user data from localStorage
   const [formData, setFormData] = useState({
     profile_id: 0,
@@ -60,9 +60,9 @@ const ProfileSettings = () => {
     fb_link: "",
     twitter_link: "",
     client_birthdayStr: "",
-    address:""
+    address: "",
   });
-  
+
   // Birthday components stored separately for easier select handling
   const [birthdayComponents, setBirthdayComponents] = useState({
     year: "",
@@ -84,9 +84,12 @@ const ProfileSettings = () => {
         }));
 
         // Parse birthday string if it exists and is different from current
-        if (profileData.client_birthdayStr && 
-            profileData.client_birthdayStr !== `${birthdayComponents.year}-${birthdayComponents.month}-${birthdayComponents.day}`) {
-          const parts = profileData.client_birthdayStr.split('-');
+        if (
+          profileData.client_birthdayStr &&
+          profileData.client_birthdayStr !==
+            `${birthdayComponents.year}-${birthdayComponents.month}-${birthdayComponents.day}`
+        ) {
+          const parts = profileData.client_birthdayStr.split("-");
           setBirthdayComponents({
             year: parts[0] || "",
             month: parts[1] || "",
@@ -130,7 +133,7 @@ const ProfileSettings = () => {
     dispatch,
     t,
   ]);
-  
+
   // Handle fetch errors (logged to console but not shown to user)
   useEffect(() => {
     if (fetchError || fetchImageError) {
@@ -142,6 +145,7 @@ const ProfileSettings = () => {
   // Handle profile image upload
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
+    console.log("file ", file);
     if (!file) return;
 
     // Validate file type
@@ -160,7 +164,9 @@ const ProfileSettings = () => {
 
     try {
       // Dispatch upload action and wait for completion
-      await dispatch(uploadProfileImage({ accessToken, imageFile: file })).unwrap();
+      await dispatch(
+        uploadProfileImage({ accessToken, imageFile: file })
+      ).unwrap();
       // Refresh the image from server after successful upload
       dispatch(fetchProfileImage(accessToken));
     } catch (error) {
@@ -225,14 +231,21 @@ const ProfileSettings = () => {
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(saveProfile({ 
-      accessToken, 
-      formData: {
-        ...formData,
-        // Ensure birthday components are properly formatted
-        client_birthdayStr: `${birthdayComponents.year}-${birthdayComponents.month.padStart(2, '0')}-${birthdayComponents.day.padStart(2, '0')}`
-      } 
-    }));
+    dispatch(
+      saveProfile({
+        accessToken,
+        formData: {
+          ...formData,
+          // Ensure birthday components are properly formatted
+          client_birthdayStr: `${
+            birthdayComponents.year
+          }-${birthdayComponents.month.padStart(
+            2,
+            "0"
+          )}-${birthdayComponents.day.padStart(2, "0")}`,
+        },
+      })
+    );
   };
 
   // Close popup and clear message
@@ -243,15 +256,17 @@ const ProfileSettings = () => {
 
   // Show loading spinner if data is being fetched and profileData isn't loaded yet
   if (loading && !profileData) {
-    return <div className="profile-settings"><LoadingPage /></div>;
+    return (
+      <div className="profile-settings">
+        <LoadingPage />
+      </div>
+    );
   }
   return (
     <div className="profile-settings" dir={t("direction")}>
       {/* Popup for showing success/error messages */}
-      {showPopup && (
-        <PopUp msg={popupMessage} closeAlert={closePopup} />
-      )}
-      
+      {showPopup && <PopUp msg={popupMessage} closeAlert={closePopup} />}
+
       {/* Main form container */}
       <div className="form-container">
         <Form onSubmit={handleSubmit}>
@@ -265,15 +280,15 @@ const ProfileSettings = () => {
                   <img
                     src={
                       profileImage?.url || // Newly uploaded images (local blob)
-                      profileImage ||     // Fetched images (server URL)
-                      defaultProfileImg   // Fallback
+                      profileImage || // Fetched images (server URL)
+                      defaultProfileImg // Fallback
                     }
                     alt="Profile"
                     className="avatar-image"
                     onError={(e) => {
-                        e.target.onerror = null; // Prevent infinite loop if default image fails
-                        e.target.src = defaultProfileImg;
-                      }}
+                      e.target.onerror = null; // Prevent infinite loop if default image fails
+                      e.target.src = defaultProfileImg;
+                    }}
                   />
                   {/* Hidden file input for image upload */}
                   <input
@@ -413,13 +428,13 @@ const ProfileSettings = () => {
                 </div>
               </div>
 
-               {/* Address field */}
+              {/* Address field */}
               <div className="input-group">
                 <Form.Label>{t("profile.address")}</Form.Label>
                 <Form.Control
                   type="text"
                   name="address"
-                  value={formData.address|| ""}
+                  value={formData.address || ""}
                   onChange={handleChange}
                   placeholder={t("profile.enter_address")}
                   className="custom-input"

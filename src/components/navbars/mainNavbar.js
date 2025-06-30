@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Navbar, Nav, Row, Col, Container } from "react-bootstrap";
 import { GoSearch } from "react-icons/go";
@@ -8,7 +8,7 @@ import { useTranslation } from "react-multi-lang";
 import LanguageDropdown from "../Dropdowns/LanguageDropdown";
 import MenuDropdown from "../Dropdowns/MenuDropdown";
 import UserDropDown from "../Dropdowns/UserDropDown";
-import { setCurrency } from '../../slices/currencySlice';
+import { setCurrency } from "../../slices/currencySlice";
 import {
   fetchUserCountry,
   getCurrencyFromCountry,

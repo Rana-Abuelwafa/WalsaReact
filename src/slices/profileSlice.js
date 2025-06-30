@@ -132,6 +132,7 @@ export const fetchProfileImage = createAsyncThunk(
 export const uploadProfileImage = createAsyncThunk(
   "profile/uploadProfileImage",
   async ({ accessToken, imageFile }, { rejectWithValue }) => {
+    console.log("imageFile ", imageFile);
     if (checkAUTH()) {
       try {
         const requestBody = { img: imageFile };
@@ -140,7 +141,12 @@ export const uploadProfileImage = createAsyncThunk(
         const response = await axios.post(
           BASE_URL + "/saveProfileImage",
           requestBody,
-          getAuthHeaders()
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              "Content-Type": "multipart/form-data",
+            },
+          }
         );
 
         // Return both object URL for immediate display and API response

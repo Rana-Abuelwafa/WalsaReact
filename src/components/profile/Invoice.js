@@ -28,7 +28,8 @@ const Invoice = () => {
   const [popupMessage, setPopupMessage] = useState("");
   const [popupVariant, setPopupVariant] = useState("success");
   const [activeTab, setActiveTab] = useState(0);
-
+  const currency =
+    useSelector((state) => state.currency.currentCurrency) || "USD";
   useEffect(() => {
     // Ensure activeTab is valid after invoices change
     if (invoices.length > 0) {
@@ -40,7 +41,14 @@ const Invoice = () => {
     }
   }, [invoices]);
   useEffect(() => {
-    dispatch(getInvoices());
+    let lang = localStorage.getItem("lang");
+    const formData = {
+      active: true,
+      status: 1,
+      curr_code: currency,
+      lang_code: lang,
+    };
+    dispatch(getInvoices(formData));
     dispatch(clearInvoiceState());
   }, [dispatch]);
 
@@ -76,10 +84,10 @@ const Invoice = () => {
       ) {
         var copounRes = action.payload[0];
 
-         // Update the applied coupons state for this invoice
-        setCoupons(prev => ({
+        // Update the applied coupons state for this invoice
+        setCoupons((prev) => ({
           ...prev,
-          [currentInvoice.invoice_id]: copounRes
+          [currentInvoice.invoice_id]: copounRes,
         }));
 
         setPopupMessage(t("checkout.couponAppliedSuccessfully"));
@@ -105,56 +113,58 @@ const Invoice = () => {
     if (invoices.length === 0) return;
 
     try {
-    const currentInvoice = invoices[activeTab];
-    await dispatch(
-      checkoutInvoice({
-        status: 2,
-        // grand_total_price: currentInvoice.grand_total_price,
-        //copoun_id: coupon?.valid ? coupon.id : 0,
-        invoice_id: currentInvoice.invoice_id,
-        // copoun_discount: coupon?.valid ? coupon.discount_value : 0,
-    })
-    ).unwrap();
+      const currentInvoice = invoices[activeTab];
+      await dispatch(
+        checkoutInvoice({
+          status: 2,
+          // grand_total_price: currentInvoice.grand_total_price,
+          //copoun_id: coupon?.valid ? coupon.id : 0,
+          invoice_id: currentInvoice.invoice_id,
+          // copoun_discount: coupon?.valid ? coupon.discount_value : 0,
+        })
+      ).unwrap();
 
-    // Refresh invoices after successful checkout
-     const updatedInvoices = await dispatch(getInvoices()).unwrap();
+      // Refresh invoices after successful checkout
+      const updatedInvoices = await dispatch(getInvoices()).unwrap();
 
-    // Determine which tab to show after checkout
-    if (updatedInvoices.length > 0) {
-      // If the current tab still exists (unlikely after checkout), stay on it
-      // Otherwise go to the first tab
-      const newActiveTab = updatedInvoices.some(
-        inv => inv.invoice_id === currentInvoice.invoice_id
-      ) ? activeTab : 0;
-      setActiveTab(newActiveTab);
-    } else {
-      // No invoices left after checkout
-      setActiveTab(0);
+      // Determine which tab to show after checkout
+      if (updatedInvoices.length > 0) {
+        // If the current tab still exists (unlikely after checkout), stay on it
+        // Otherwise go to the first tab
+        const newActiveTab = updatedInvoices.some(
+          (inv) => inv.invoice_id === currentInvoice.invoice_id
+        )
+          ? activeTab
+          : 0;
+        setActiveTab(newActiveTab);
+      } else {
+        // No invoices left after checkout
+        setActiveTab(0);
+      }
+
+      // Clear any applied coupon for the checked out invoice
+      setCoupons((prev) => {
+        const newCoupons = { ...prev };
+        delete newCoupons[currentInvoice.invoice_id];
+        return newCoupons;
+      });
+
+      // Clear coupon code for the checked out invoice
+      setCouponCodes((prev) => {
+        const newCodes = { ...prev };
+        delete newCodes[currentInvoice.invoice_id];
+        return newCodes;
+      });
+
+      setPopupMessage(t("checkout.checkoutSuccess"));
+      setPopupVariant("success");
+      setShowPopup(true);
+    } catch (error) {
+      setPopupMessage(error.message || t("checkout.checkoutError"));
+      setPopupVariant("error");
+      setShowPopup(true);
     }
-
-    // Clear any applied coupon for the checked out invoice
-    setCoupons(prev => {
-      const newCoupons = {...prev};
-      delete newCoupons[currentInvoice.invoice_id];
-      return newCoupons;
-    });
-
-    // Clear coupon code for the checked out invoice
-    setCouponCodes(prev => {
-      const newCodes = {...prev};
-      delete newCodes[currentInvoice.invoice_id];
-      return newCodes;
-    });
-
-    setPopupMessage(t("checkout.checkoutSuccess"));
-    setPopupVariant("success");
-    setShowPopup(true);
-  } catch (error) {
-    setPopupMessage(error.message || t("checkout.checkoutError"));
-    setPopupVariant("error");
-    setShowPopup(true);
-  }
-};
+  };
 
   const handleRemovePackage = async (invoiceId, total_price, pkg) => {
     try {
@@ -175,7 +185,9 @@ const Invoice = () => {
           total_price: total_price,
           copoun_id: invoiceCoupon.valid ? invoiceCoupon.id : 0,
           invoice_id: invoiceId,
-          copoun_discount: invoiceCoupon.valid ? invoiceCoupon.discount_value : 0,
+          copoun_discount: invoiceCoupon.valid
+            ? invoiceCoupon.discount_value
+            : 0,
           tax_id: pkg.tax_id,
           deduct_amount: pkg.package_sale_price,
         })
@@ -207,7 +219,7 @@ const Invoice = () => {
     dispatch(clearInvoiceState());
   };
 
-   // In the render method, get the current invoice's coupon
+  // In the render method, get the current invoice's coupon
   const currentInvoice = invoices[activeTab] || {};
   const currentCouponCode = couponCodes[currentInvoice.invoice_id] || "";
   const currentCoupon = coupons[currentInvoice.invoice_id] || {};
@@ -306,10 +318,12 @@ const Invoice = () => {
                           placeholder={t("checkout.couponPlaceholder")}
                           className="voucher-input flex-grow-1"
                           value={currentCouponCode}
-                          onChange={(e) => setCouponCodes(prev => ({
-                            ...prev,
-                            [currentInvoice.invoice_id]: e.target.value
-                          }))}
+                          onChange={(e) =>
+                            setCouponCodes((prev) => ({
+                              ...prev,
+                              [currentInvoice.invoice_id]: e.target.value,
+                            }))
+                          }
                         />
                         <Button
                           className="apply-btn"
@@ -340,7 +354,9 @@ const Invoice = () => {
                             <div className="d-flex justify-content-between mb-2">
                               <span>{t("checkout.giftVoucher")}</span>
                               <span>
-                                {currentCoupon.valid ? currentCoupon.discount_value : 0}
+                                {currentCoupon.valid
+                                  ? currentCoupon.discount_value
+                                  : 0}
                               </span>
                             </div>
                             <div className="d-flex justify-content-between total-row">
