@@ -37,9 +37,8 @@ const getAuthHeaders = () => {
 export const fetchProfile = createAsyncThunk(
   "profile/fetchProfile",
   async ({ accessToken, userId }, { rejectWithValue }) => {
-     if (!checkAUTH()) {
-      return rejectWithValue(createAuthError());
-    }
+     if (checkAUTH()) {
+
       try {
         // Make API call to get client profiles
         const response = await axios.post(
@@ -62,6 +61,11 @@ export const fetchProfile = createAsyncThunk(
         }
         return rejectWithValue(error.response?.data?.msg || error.msg);
       }
+      } else {
+      history.push("/login");
+      window.location.reload();
+      return null;
+    }
     }
 );
 

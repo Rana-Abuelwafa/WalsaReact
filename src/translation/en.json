@@ -319,6 +319,15 @@
     "actions": "Actions",
     "preview": "Preview",
     "download": "Download",
-    "noResults": "No invoices match your search"
+    "noResults": "No invoices match your search",
+    "backToInvoices": "Back to Invoices",
+    "invoice": "Invoice",
+    "summary": "Summary",
+    "status": "Status",
+    "paid": "Paid",
+    "pending": "Pending",
+    "total": "Total",
+    "salePrice": "Sale Price",
+    "thankYou": "Thank you for your business!"
   }
 }

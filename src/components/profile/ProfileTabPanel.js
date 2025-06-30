@@ -6,6 +6,7 @@ import ChangePasswordForm from "./ChangePasswordForm";
 import Product from "./Product";
 import Invoice from "./Invoice";
 import InvoiceHistory from "./InvoiceHistory";
+import InvoicePreview from "./InvoicePreview";
 import ComingSoon from "./ComingSoon";
 
 // Tab icons - paths to image assets
@@ -22,6 +23,7 @@ const ProfileTabPanel = () => {
   // State to track which tab is currently active
   // Defaults to 'profile' tab on initial render
   const [activeTab, setActiveTab] = useState('profile');
+  const [previewInvoice, setPreviewInvoice] = useState(null);
 
   // Array defining all available tabs and their properties
   const tabs = [
@@ -32,7 +34,8 @@ const ProfileTabPanel = () => {
     { id: 'preview', icon: previewIcon },   // Preview (coming soon)
     { id: 'booknote', icon: booknoteIcon }, // Booknotes (coming soon)
     { id: 'shopping', icon: shoppingIcon },  // Shopping
-    { id: 'history', icon: historyIcon }  // Shopping  
+    { id: 'history', icon: historyIcon },  // Shopping  
+    { id: 'invoicePreview', hidden: true }
   ];
 
   return (
@@ -44,16 +47,16 @@ const ProfileTabPanel = () => {
           {/* Scrollable area for tabs (in case there are many) */}
           <div className="tabs-scroll">
             {/* Map through each tab definition to create tab buttons */}
-            {tabs.map((tab) => (
-              <button
-                key={tab.id} // Unique key for React list rendering
-                className={`tab ${activeTab === tab.id ? 'active' : ''}`} // Apply 'active' class if tab is selected
-                onClick={() => setActiveTab(tab.id)} // Set this tab as active when clicked
-                aria-label={tab.id} // Accessibility label
-              >
-                {/* Tab icon - using img tag with the path from tab definition */}
-                <img src={tab.icon} alt={tab.id} className="tab-icon" />
-              </button>
+            {tabs.map((tab) => !tab.hidden && (
+                <button
+                  key={tab.id} // Unique key for React list rendering
+                  className={`tab ${activeTab === tab.id ? 'active' : ''}`} // Apply 'active' class if tab is selected
+                  onClick={() => setActiveTab(tab.id)} // Set this tab as active when clicked
+                  aria-label={tab.id} // Accessibility label
+                >
+                  {/* Tab icon - using img tag with the path from tab definition */}
+                  {tab.icon && <img src={tab.icon} alt={tab.id} className="tab-icon" />}
+                </button>
             ))}
           </div>
         </div>
@@ -70,7 +73,19 @@ const ProfileTabPanel = () => {
             {activeTab === 'preview' && <ComingSoon />}
             {activeTab === 'booknote' && <ComingSoon />}
             {activeTab === 'shopping' && <Invoice />}
-            {activeTab === 'history' && <InvoiceHistory />}
+            {/* {activeTab === 'history' && <InvoiceHistory />} */}
+            {activeTab === 'history' && (
+              <InvoiceHistory 
+                setActiveTab={setActiveTab} 
+                setPreviewInvoice={setPreviewInvoice} 
+              />
+            )}
+            {activeTab === 'invoicePreview' && previewInvoice && (
+              <InvoicePreview 
+                invoice={previewInvoice} 
+                setActiveTab={setActiveTab} 
+              />
+            )}
           </div>
         </div>
       </div>
