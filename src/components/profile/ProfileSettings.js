@@ -12,6 +12,7 @@ import {
   resetProfileStatus,
   clearFetchErrors,
 } from "../../slices/profileSlice";
+import { CompleteMyProfile } from "../../slices/RegisterSlice";
 import PopUp from "../shared/popoup/PopUp";
 import LoadingPage from "../Loader/LoadingPage";
 import "./ProfileSettings.scss";
@@ -245,7 +246,27 @@ const ProfileSettings = () => {
           )}-${birthdayComponents.day.padStart(2, "0")}`,
         },
       })
-    );
+    ).then((result) => {
+      if (result.payload && result.payload.success) {
+        const cls = { email: formData.client_email, completeprofile: 2 };
+        dispatch(CompleteMyProfile(cls));
+      }
+    });
+    // dispatch(
+    //   saveProfile({
+    //     accessToken,
+    //     formData: {
+    //       ...formData,
+    //       // Ensure birthday components are properly formatted
+    //       client_birthdayStr: `${
+    //         birthdayComponents.year
+    //       }-${birthdayComponents.month.padStart(
+    //         2,
+    //         "0"
+    //       )}-${birthdayComponents.day.padStart(2, "0")}`,
+    //     },
+    //   })
+    // );
   };
 
   // Close popup and clear message
@@ -346,6 +367,7 @@ const ProfileSettings = () => {
                   onChange={handleChange}
                   placeholder={t("profile.enter_phone")}
                   className="custom-input"
+                  required
                 />
               </div>
 
@@ -438,6 +460,7 @@ const ProfileSettings = () => {
                   onChange={handleChange}
                   placeholder={t("profile.enter_address")}
                   className="custom-input"
+                  required
                 />
               </div>
 
