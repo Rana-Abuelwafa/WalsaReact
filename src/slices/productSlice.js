@@ -11,7 +11,6 @@ const BASE_URL = process.env.REACT_APP_API_URL;
 const getAuthHeaders = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const accessToken = user?.accessToken;
-  const userId = user?.id;
   let lang = localStorage.getItem("lang");
   return {
     headers: {

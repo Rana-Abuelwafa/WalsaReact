@@ -24,7 +24,7 @@ const Brand = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const [popupType, setPopupType] = useState("");
-    const [popupIcon, setPopupIcon] = useState(null);
+  const [popupIcon, setPopupIcon] = useState(null);
   
   // Form state management
   const [formData, setFormData] = useState({

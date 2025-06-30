@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { saveClientServices } from "../../slices/pricingPlansSlice";
 import LoadingPage from "../Loader/LoadingPage";
 import PopUp from "../shared/popoup/PopUp";
+import { FaCheck, FaTimesCircle } from "react-icons/fa";
 
 // Agreement text imports
 import agreementAr from "../../agreement/agreementAr.txt";
@@ -71,6 +72,7 @@ const AppointmentConfirmation = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const [popupType, setPopupType] = useState("");
+  const [popupIcon, setPopupIcon] = useState(null);
   const { selectedPackages } = location.state || {};
   const { loading, error } = useSelector((state) => state.pricingPlans);
 
@@ -110,12 +112,14 @@ const AppointmentConfirmation = () => {
       );
 
       await dispatch(saveClientServices(invoiceData)).unwrap();
-      setPopupMessage("Invoice saved successfully!");
+      setPopupMessage("");
       setPopupType("success");
       setShowPopup(true);
+      setPopupIcon(<FaCheck className="success-icon" size={30} />);
       setTimeout(() => navigate("/pricing"), 2000);
     } catch (error) {
-      setPopupMessage(error || "Failed to save Invoice");
+      setPopupMessage(error || t("product.save_error"));
+      setPopupIcon(<FaTimesCircle className="error-icon" size={24} />);
       setPopupType("error");
       setShowPopup(true);
     }
@@ -125,6 +129,7 @@ const AppointmentConfirmation = () => {
     setShowPopup(false);
     setPopupMessage("");
     setPopupType("");
+    setPopupIcon(null);
   };
 
   if (loading) {
@@ -154,7 +159,7 @@ const AppointmentConfirmation = () => {
     <div className="confirmation-container dir={direction}">
       {/* Success/Error Popup */}
       {showPopup && (
-        <PopUp msg={popupMessage} closeAlert={closePopup} type={popupType} />
+        <PopUp msg={popupMessage} closeAlert={closePopup} type={popupType}  icon={popupIcon}/>
       )}
       <div className="confirmation-content-wrapper">
         <Card className="confirmation-card">

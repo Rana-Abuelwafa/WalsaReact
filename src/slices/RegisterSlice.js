@@ -45,7 +45,7 @@ export const GetQuestionsData = createAsyncThunk(
           return res.data;
         })
         .catch((error) => {
-          if (error.response.status == 401) {
+          if (error.response.status === 401) {
             history.push("/login");
             window.location.reload();
           } else {
@@ -73,7 +73,7 @@ export const saveQuesList = createAsyncThunk(
           return res.data;
         })
         .catch((error) => {
-          if (error.response.status == 401) {
+          if (error.response.status === 401) {
             history.push("/login");
             window.location.reload();
           } else {
@@ -167,7 +167,7 @@ const registerSlice = createSlice({
 
     //start register
     builder.addCase(RegisterUser.fulfilled, (state, action) => {
-      if (action.payload.status != null && action.payload.status != 200) {
+      if (action.payload.status !== null && action.payload.status !== 200) {
         state.User = null;
         state.loading = false;
         state.errors = JSON.stringify(action.payload.errors);
@@ -176,7 +176,7 @@ const registerSlice = createSlice({
         state.loading = false;
         localStorage.setItem("token", action.payload.accessToken);
         localStorage.setItem("user", JSON.stringify(action.payload));
-        state.errors = action.payload != null ? action.payload.msg : "";
+        state.errors = action.payload !== null ? action.payload.msg : "";
       }
     });
     builder.addCase(RegisterUser.rejected, (state, { payload }) => {
@@ -191,7 +191,7 @@ const registerSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(LoginUser.fulfilled, (state, action) => {
-      if (action.payload.status != null && action.payload.status != 200) {
+      if (action.payload.status !== null && action.payload.status !== 200) {
         state.User = null;
         state.loading = false;
         state.errors = JSON.stringify(action.payload.errors);
@@ -215,7 +215,7 @@ const registerSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(ConfirmOTP.fulfilled, (state, action) => {
-      if (action.payload.status != null && action.payload.status != 200) {
+      if (action.payload.status !== null && action.payload.status !== 200) {
         state.User = null;
         state.loading = false;
         state.errors = JSON.stringify(action.payload.errors);
@@ -238,7 +238,7 @@ const registerSlice = createSlice({
       state.User = null;
     });
     builder.addCase(CompleteMyProfile.fulfilled, (state, action) => {
-      if (action.payload.status != null && action.payload.status != 200) {
+      if (action.payload.status !== null && action.payload.status !== 200) {
         state.User = null;
         state.loading = false;
         state.errors = JSON.stringify(action.payload.errors);
@@ -247,7 +247,7 @@ const registerSlice = createSlice({
         state.loading = false;
         localStorage.setItem("token", action.payload.accessToken);
         localStorage.setItem("user", JSON.stringify(action.payload));
-        state.errors = action.payload != null ? action.payload.msg : "";
+        state.errors = action.payload !== null ? action.payload.msg : "";
       }
     });
     builder.addCase(CompleteMyProfile.rejected, (state, action) => {

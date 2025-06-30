@@ -3,8 +3,10 @@ import { Row, Col, Card, Button, Form } from "react-bootstrap";
 import { useTranslation } from "react-multi-lang";
 import LoadingPage from "../Loader/LoadingPage";
 import PopUp from "../shared/popoup/PopUp";
+import { FaCheck, FaTimesCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { getInvoices, clearInvoiceState } from "../../slices/invoiceSlice";
+import { fetchProfile } from "../../slices/profileSlice";
 import downloadInvoice from "../../utils/downloadInvoice";
 import "./InvoiceHistory.scss";
 
@@ -12,13 +14,15 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
     const t = useTranslation();
     const direction = t("direction");
     const dispatch = useDispatch();
-    const { loading, error, success, invoices, coupon } = useSelector(
+    const { loading, error, success, message, invoices } = useSelector(
         (state) => state.invoice
     );
+    const { profileData } = useSelector((state) => state.profile);
 
     const [showPopup, setShowPopup] = useState(false);
     const [popupMessage, setPopupMessage] = useState("");
-    const [popupVariant, setPopupVariant] = useState("success");
+    const [popupType, setPopupType] = useState("");
+    const [popupIcon, setPopupIcon] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
 
     const currentLang = useSelector((state) => state.language.currentLang) || "en";
@@ -31,26 +35,24 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
         };
         dispatch(getInvoices(getData));
         dispatch(clearInvoiceState());
+        dispatch(fetchProfile());
     }, [dispatch, currentLang]);
 
     useEffect(() => {
-        if (error && error.trim() !== "") {
-            setPopupMessage(error);
-            setPopupVariant("error");
+        if (error && message) {
+            setPopupMessage(message);
+            setPopupType("error");
+            setPopupIcon(<FaTimesCircle className="error-icon" size={24} />);
             setShowPopup(true);
             dispatch(clearInvoiceState());
         }
-        if (success && success.trim() !== "") {
-            setPopupMessage(success);
-            setPopupVariant("success");
-            setShowPopup(true);
-            dispatch(clearInvoiceState());
-        }
-    }, [error, success, dispatch]);
+    }, [error, message, dispatch]);
 
     const closePopup = () => {
         setShowPopup(false);
         setPopupMessage("");
+        setPopupType("");
+        setPopupIcon(null);
         dispatch(clearInvoiceState());
     };
 
@@ -59,6 +61,39 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
         setActiveTab('invoicePreview');
     };
 
+     const handleDownload = async (invoice) => {
+        try {
+            // Ensure we have the latest profile data
+            await dispatch(fetchProfile()).unwrap();
+            
+            downloadInvoice({
+                user: profileData?.full_name || invoice.client_name || '',
+                contact: profileData?.phone_number || invoice.contact_info || '',
+                address: profileData?.address || invoice.user_address || '',
+                InvoiceNo: invoice.invoice_code || '',
+                Date: invoice.invoice_date || new Date().toLocaleDateString(),
+                SubTtotal: invoice.total_price || '0',
+                Discount: invoice.discount || '0',
+                Total: invoice.grand_total_price || '0',
+                services: invoice.pkgs || []
+            });
+        } catch (error) {
+            console.error("Failed to fetch profile:", error);
+            // Fallback to invoice data if profile fetch fails
+            downloadInvoice({
+                user: invoice.client_name || '',
+                contact: invoice.contact_info || '',
+                address: invoice.user_address || '',
+                InvoiceNo: invoice.invoice_code || '',
+                Date: invoice.invoice_date || new Date().toLocaleDateString(),
+                SubTtotal: invoice.total_price || '0',
+                Discount: invoice.discount || '0',
+                Total: invoice.grand_total_price || '0',
+                services: invoice.pkgs || []
+            });
+        }
+    };  
+    
     const filteredInvoices = invoices.filter(invoice =>
         invoice.invoice_code.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -67,7 +102,14 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
     return (
         <div className="history-page" dir={direction}>
             {loading && <LoadingPage />}
-            {showPopup && <PopUp msg={popupMessage} closeAlert={closePopup} />}
+            {showPopup && (
+                <PopUp 
+                    msg={popupMessage} 
+                    closeAlert={closePopup} 
+                    type={popupType}
+                    icon={popupIcon}
+                />
+            )}
 
             <Card className="history-card p-3">
                 {/* Search Bar */}
@@ -118,7 +160,7 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
                                     <p className="service-text">{invoice.curr_code}</p>
                                 </Col>
                                 <Col md={2}>
-                                    <p className="service-text">25 May 2025</p>
+                                    <p className="service-text">{invoice.invoice_date}</p>
                                 </Col>
                                 <Col md={3} className="state-btns">
                                     <Button
@@ -131,18 +173,8 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
                                     <Button
                                         variant="link"
                                         className="p-3"
-                                         onClick={() => downloadInvoice({
-                                            user: invoice.user_name || '',
-                                            contact: invoice.contact_info || '',
-                                            address: invoice.user_address || '',
-                                            InvoiceNo: invoice.invoice_code || '',
-                                            Date: invoice.date || new Date().toLocaleDateString(),
-                                            SubTtotal: invoice.total_price || '0',
-                                            Discount: invoice.discount || '0',
-                                            Total: invoice.grand_total_price || '0',
-                                            services: invoice.pkgs || []
-                                        })}
-                                    >
+                                         onClick={() => handleDownload(invoice)}
+                                         >
                                         {t("invoiceHistory.download")}
                                     </Button>
                                 </Col>

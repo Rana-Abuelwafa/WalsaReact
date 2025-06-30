@@ -1,29 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { checkAUTH } from "../helper/helperFN";
 import { createAuthError } from "../utils/authError";
-import { history } from "../index";
 import axios from "axios";
 
 // Base API URL from environment variables
 const BASE_URL = process.env.REACT_APP_API_URL;
 
-// Initial state for the profile slice
-const initialState = {
-  profileData: {}, // Stores user profile data
-  profileImage: null, // Stores user profile image URL/path
-  loading: false, // Loading state flag
-  fetchError: null, // Error from fetching profile
-  saveError: null, // Error from saving profile
-  saveSuccess: false, // Success flag for saving profile
-  fetchImageError: null, // Error from fetching image
-  uploadImageError: null, // Error from uploading image
-  uploadImageSuccess: false, // Success flag for uploading image
-};
-
 const getAuthHeaders = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const accessToken = user?.accessToken;
-  const userId = user?.id;
   let lang = localStorage.getItem("lang");
   return {
     headers: {
@@ -33,11 +18,28 @@ const getAuthHeaders = () => {
     },
   };
 };
+
+// Helper to extract error message from different response formats
+const getErrorMessage = (error) => {
+  if (error.response?.data?.errors) {
+    return error.response.data.errors;
+  }
+  if (error.response?.data?.msg) {
+    return error.response.data.msg;
+  }
+  if (error.message) {
+    return error.message;
+  }
+  return "An error occurred";
+};
+
 // Async thunk to fetch user profile data
 export const fetchProfile = createAsyncThunk(
   "profile/fetchProfile",
-  async ({ accessToken, userId }, { rejectWithValue }) => {
-     if (checkAUTH()) {
+  async (_, { rejectWithValue }) => {
+    if (!checkAUTH()) {
+      return rejectWithValue(createAuthError());
+    }
 
       try {
         // Make API call to get client profiles
@@ -47,33 +49,23 @@ export const fetchProfile = createAsyncThunk(
           getAuthHeaders()
         );
 
-        // Find the profile matching the current user ID
-        if (response.data && Array.isArray(response.data)) {
-          const userProfile = response.data.find(
-            (profile) => profile.client_id === userId
-          );
-          return userProfile || {}; // Return found profile or empty object
-        }
-        return {}; // Return empty object if no data
+        return response.data?.[0] || {}; 
       } catch (error) {
         if (error.response?.status === 401) {
            return rejectWithValue(createAuthError());
         }
-        return rejectWithValue(error.response?.data?.msg || error.msg);
+        return rejectWithValue(getErrorMessage(error));
       }
-      } else {
-      history.push("/login");
-      window.location.reload();
-      return null;
-    }
     }
 );
 
 // Async thunk to save profile data
 export const saveProfile = createAsyncThunk(
   "profile/saveProfile",
-  async ({ accessToken, formData }, { rejectWithValue }) => {
-    if (checkAUTH()) {
+  async (formData, { rejectWithValue }) => {
+    if (!checkAUTH()) {
+      return rejectWithValue(createAuthError());
+    }
       try {
         // Make API call to save profile
         const response = await axios.post(
@@ -83,25 +75,26 @@ export const saveProfile = createAsyncThunk(
         );
         // Return both API response and form data
         return {
-          response: response.data,
+          success: response.data.success,
           formData: formData,
+          message: response.data.errors
         };
       } catch (error) {
-        return rejectWithValue(error.response?.data?.msg || error.message);
+        if (error.response?.status === 401) {
+           return rejectWithValue(createAuthError());
+        }
+        return rejectWithValue(getErrorMessage(error));
       }
-    } else {
-      history.push("/login");
-      window.location.reload();
-      return null;
-    }
   }
 );
 
 // Async thunk to fetch profile image
 export const fetchProfileImage = createAsyncThunk(
   "profile/fetchProfileImage",
-  async (accessToken, { rejectWithValue }) => {
-    if (checkAUTH()) {
+  async (_, { rejectWithValue }) => {
+    if (!checkAUTH()) {
+      return rejectWithValue(createAuthError());
+    }
       try {
         // Make API call to get profile image
         const response = await axios.post(
@@ -109,34 +102,27 @@ export const fetchProfileImage = createAsyncThunk(
           {},
           getAuthHeaders()
         );
-        // Handle array response and extract first image URL
-        if (
-          response.data &&
-          Array.isArray(response.data) &&
-          response.data.length > 0
-        ) {
-          console.log(response.data[0].img_path);
-          return response.data[0].img_path || null;
-        }
-        return null;
+      
+        return response.data?.[0]?.img_path || null;
       } catch (error) {
-        return rejectWithValue(error.response?.data?.message || error.message);
+        if (error.response?.status === 401) {
+           return rejectWithValue(createAuthError());
+        }
+        return rejectWithValue(getErrorMessage(error));
       }
-    } else {
-      history.push("/login");
-      window.location.reload();
-      return null;
-    }
   }
 );
 
 // Async thunk to upload profile image
 export const uploadProfileImage = createAsyncThunk(
   "profile/uploadProfileImage",
-  async ({ accessToken, imageFile }, { rejectWithValue }) => {
-    console.log("imageFile ", imageFile);
-    if (checkAUTH()) {
+  async (imageFile, { rejectWithValue }) => {
+    if (!checkAUTH()) {
+      return rejectWithValue(createAuthError());
+    }
       try {
+        const user = JSON.parse(localStorage.getItem("user"));
+        const accessToken = user?.accessToken;
         const requestBody = { img: imageFile };
 
         // Make API call to upload image with multipart/form-data
@@ -153,36 +139,36 @@ export const uploadProfileImage = createAsyncThunk(
 
         // Return both object URL for immediate display and API response
         return {
+          success: response.data.success,
           url: URL.createObjectURL(imageFile),
-          apiResponse: response.data,
+          message: response.data.errors
         };
       } catch (error) {
-        return rejectWithValue(error.response?.data?.message || error.message);
+        if (error.response?.status === 401) {
+           return rejectWithValue(createAuthError());
+        }
+        return rejectWithValue(getErrorMessage(error));
       }
-    } else {
-      history.push("/login");
-      window.location.reload();
-      return null;
-    }
   }
 );
 
 // Create profile slice with reducers and extra reducers for async actions
 const profileSlice = createSlice({
   name: "profile",
-  initialState,
+  initialState: {
+    profileData: {},
+    profileImage: null,
+    loading: false,
+    error: null,
+    success: null,
+    message: null, // For API response messages
+  },
   reducers: {
     // Action to reset success/error states
     resetProfileStatus: (state) => {
-      state.saveSuccess = false;
-      state.saveError = null;
-      state.uploadImageSuccess = false;
-      state.uploadImageError = null;
-    },
-    // Action to clear fetch errors
-    clearFetchErrors: (state) => {
-      state.fetchError = null;
-      state.fetchImageError = null;
+      state.error = null;
+      state.success = null;
+      state.message = null;
     },
   },
   extraReducers: (builder) => {
@@ -190,7 +176,9 @@ const profileSlice = createSlice({
       // Fetch Profile cases
       .addCase(fetchProfile.pending, (state) => {
         state.loading = true;
-        state.fetchError = null;
+          state.error = null;
+          state.success = null;
+          state.message = null;
       })
       .addCase(fetchProfile.fulfilled, (state, action) => {
         state.loading = false;
@@ -198,34 +186,38 @@ const profileSlice = createSlice({
       })
       .addCase(fetchProfile.rejected, (state, action) => {
         state.loading = false;
-        state.fetchError = action.payload;
+        state.error = true;
+        state.message = action.payload;
       })
 
       // Save Profile cases
       .addCase(saveProfile.pending, (state) => {
         state.loading = true;
-        state.saveError = null;
-        state.saveSuccess = false;
+          state.error = null;
+          state.success = null;
+          state.message = null;
       })
       .addCase(saveProfile.fulfilled, (state, action) => {
-        state.loading = false;
-        state.saveSuccess = true;
-        // Update profile data with new data and ID from response
+         state.loading = false;
+        state.success = action.payload.success;
+        state.message = action.payload.message;
         state.profileData = {
           ...action.payload.formData,
-          profile_id:
-            action.payload.response.idout || action.payload.formData.profile_id,
+          profile_id: action.payload.formData.profile_id || 0,
         };
       })
       .addCase(saveProfile.rejected, (state, action) => {
         state.loading = false;
-        state.saveError = action.payload;
+        state.error = true;
+        state.message = action.payload;
       })
 
       // Fetch Profile Image cases
       .addCase(fetchProfileImage.pending, (state) => {
         state.loading = true;
-        state.fetchImageError = null;
+          state.error = null;
+          state.success = null;
+          state.message = null;
       })
       .addCase(fetchProfileImage.fulfilled, (state, action) => {
         state.loading = false;
@@ -233,27 +225,33 @@ const profileSlice = createSlice({
       })
       .addCase(fetchProfileImage.rejected, (state, action) => {
         state.loading = false;
-        state.fetchImageError = action.payload;
+        state.error = true;
+        state.message = action.payload;
       })
 
       // Upload Profile Image cases
       .addCase(uploadProfileImage.pending, (state) => {
         state.loading = true;
-        state.uploadImageError = null;
-        state.uploadImageSuccess = false;
+          state.error = null;
+          state.success = null;
+          state.message = null;
       })
       .addCase(uploadProfileImage.fulfilled, (state, action) => {
         state.loading = false;
-        state.uploadImageSuccess = true;
-        state.profileImage = action.payload;
+        state.success = action.payload.success;
+        state.message = action.payload.message;
+        if (action.payload.success) {
+          state.profileImage = action.payload.url;
+        }
       })
       .addCase(uploadProfileImage.rejected, (state, action) => {
         state.loading = false;
-        state.uploadImageError = action.payload;
+        state.error = true;
+        state.message = action.payload;
       });
   },
 });
 
 // Export actions and reducer
-export const { resetProfileStatus, clearFetchErrors } = profileSlice.actions;
+export const { resetProfileStatus } = profileSlice.actions;
 export default profileSlice.reducer;

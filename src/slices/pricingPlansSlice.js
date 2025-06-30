@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { checkAUTH } from "../helper/helperFN";
-import { history } from "../index";
+import { createAuthError } from "../utils/authError";
 import axios from "axios";
 
 // Base URL for API calls from environment variables
@@ -10,7 +10,6 @@ const BASE_URL = process.env.REACT_APP_API_URL;
 const getAuthHeaders = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const accessToken = user?.accessToken;
-  const userId = user?.id;
   let lang = localStorage.getItem("lang");
   return {
     headers: {
@@ -38,8 +37,7 @@ export const fetchPricingPlans = createAsyncThunk(
       curr_code,
       client_id: userId,
     };
-    // Check authentication before making the request
-    // if (checkAUTH()) {
+    
     try {
       // Make POST request to get client brands
       const response = await axios.post(
@@ -52,13 +50,6 @@ export const fetchPricingPlans = createAsyncThunk(
       // Return error message if request fails
       return rejectWithValue(error.response?.data?.message || error.message);
     }
-    // }
-    // else {
-    //     // Redirect to login if not authenticated
-    //     history.push("/login");
-    //     window.location.reload();
-    //     return null;
-    // }
   }
 );
 
@@ -66,7 +57,10 @@ export const fetchPricingPlans = createAsyncThunk(
 export const saveClientServices = createAsyncThunk(
   "pricingPlans/saveClientServices",
   async (requestData, { rejectWithValue }) => {
-    if (checkAUTH()) {
+      if (!checkAUTH()) {
+            return rejectWithValue(createAuthError());
+        }
+
       try {
         const response = await axios.post(
           BASE_URL + "/MakeClientInvoiceForPackages",
@@ -75,13 +69,11 @@ export const saveClientServices = createAsyncThunk(
         );
         return response.data;
       } catch (error) {
+        if (error.response?.status === 401) {
+            return rejectWithValue(createAuthError());
+          }
         return rejectWithValue(error.response?.data?.message || error.message);
       }
-    } else {
-      history.push("/login");
-      window.location.reload();
-      return null;
-    }
   }
 );
 

@@ -1,14 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { checkAUTH } from "../helper/helperFN";
-import { history } from "../index";
+import { createAuthError } from "../utils/authError";
 import axios from "axios";
 
 // Base URL for authentication API calls
 const BASE_URL_AUTH = process.env.REACT_APP_AUTH_API_URL;
+
 const getAuthHeaders = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const accessToken = user?.accessToken;
-  const userId = user?.id;
   let lang = localStorage.getItem("lang");
   return {
     headers: {
@@ -18,6 +18,7 @@ const getAuthHeaders = () => {
     },
   };
 };
+
 // Async thunk for changing password
 export const changePassword = createAsyncThunk(
   "auth/changePassword", // action type prefix
@@ -26,7 +27,10 @@ export const changePassword = createAsyncThunk(
     { rejectWithValue }
   ) => {
     // Check if user is authenticated
-    if (checkAUTH()) {
+    if (!checkAUTH()) {
+          return rejectWithValue(createAuthError());
+        }
+
       try {
         // Make POST request to change password endpoint
         const response = await axios.post(
@@ -39,20 +43,32 @@ export const changePassword = createAsyncThunk(
           },
           getAuthHeaders()
         );
+
+        if (response.data.isSuccessed === false) {
+          
+          return rejectWithValue(response.data.msg);
+        }
         return response.data; // Return response data on success
       } catch (error) {
-        // Return error message if request fails
+        
+        if (error.response?.status === 401) {
+            return rejectWithValue(createAuthError());
+          }
+
+        if (error.response?.status === 400) {
+                return rejectWithValue(
+                  error.response.data?.msg || 
+                  error.message || 
+                  "Invalid request. Please check your input."
+                );
+              }
+      
         return rejectWithValue(
           error.response?.data?.msg ||
-            "Failed to change password. Please try again."
+          error.message ||
+          "Failed to change password. Please try again."
         );
       }
-    } else {
-      // Redirect to login if not authenticated
-      history.push("/login");
-      window.location.reload();
-      return null;
-    }
   }
 );
 
@@ -64,12 +80,14 @@ const authSlice = createSlice({
     loading: false, // Loading state
     error: null, // Error message
     success: null, // Success message
+    message: null,
   },
   reducers: {
     // Reducer to clear error/success messages
     clearMessages: (state) => {
       state.error = null;
       state.success = null;
+      state.message = null;
     },
   },
   // Handle async thunk actions
@@ -80,16 +98,20 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = null;
         state.success = null;
+        state.message = null;
       })
       // Password change successful
       .addCase(changePassword.fulfilled, (state, action) => {
         state.loading = false;
-        state.success = "Password changed successfully!";
+         state.success = true;
+        state.message = action.payload.msg;
       })
       // Password change failed
       .addCase(changePassword.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to change password";
+        state.success = false;
+        state.error = true;
+        state.message = action?.payload;
       });
   },
 });

@@ -3,6 +3,7 @@ import { Tab, Tabs, Row, Col, Card, Button, Form } from "react-bootstrap";
 import { useTranslation } from "react-multi-lang";
 import LoadingPage from "../Loader/LoadingPage";
 import PopUp from "../shared/popoup/PopUp";
+import { FaCheck, FaTimesCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import {
   validateCoupon,
@@ -18,7 +19,8 @@ const Invoice = () => {
   const t = useTranslation();
   const direction = t("direction");
   const dispatch = useDispatch();
-  const { loading, error, success, invoices, coupon } = useSelector(
+
+  const { loading, error, success, message, invoices, coupon } = useSelector(
     (state) => state.invoice
   );
 
@@ -26,7 +28,8 @@ const Invoice = () => {
   const [coupons, setCoupons] = useState({}); // Track applied coupons per invoice
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
-  const [popupVariant, setPopupVariant] = useState("success");
+  const [popupType, setPopupType] = useState("");
+  const [popupIcon, setPopupIcon] = useState(null);
   const [activeTab, setActiveTab] = useState(0);
 
   const currentLang = useSelector((state) => state.language.currentLang) || "en";
@@ -52,52 +55,36 @@ const Invoice = () => {
   }, [dispatch, currentLang]);
 
   useEffect(() => {
-    if (error && error.trim() !== "") {
-      setPopupMessage(error);
-      setPopupVariant("error");
+  if (success !== null && message) {
+      setPopupMessage(message); // Use only the API message
+      setPopupType(success ? "success" : "error");
+      setPopupIcon(success ? <FaCheck className="success-icon" size={30} /> : <FaTimesCircle className="error-icon" size={24} />);
       setShowPopup(true);
-      dispatch(clearInvoiceState());
-    }
-    if (success && success.trim() !== "") {
-      setPopupMessage(success);
-      setPopupVariant("success");
-      setShowPopup(true);
-      dispatch(clearInvoiceState());
-    }
-  }, [error, success, dispatch]);
+  }
+}, [success, message]);
 
   const handleApplyCoupon = async () => {
     const currentInvoice = invoices[activeTab];
     const couponCode = currentCouponCode; // Get the current tab's coupon code
+
     if (!couponCode.trim()) {
       setPopupMessage(t("checkout.couponRequired"));
-      setPopupVariant("error");
+      setPopupType("error");
       setShowPopup(true);
+      setPopupIcon(<FaTimesCircle className="error-icon" size={24} />);
       return;
     }
 
     try {
-      const action = await dispatch(validateCoupon({ copoun: couponCode }));
-      const result = action.payload;
-
-      if (result?.valid) {
-        // Update the applied coupons state for this invoice
-        setCoupons(prev => ({
-          ...prev,
-          [currentInvoice.invoice_id]: result.couponData
-        }));
-
-        setPopupMessage(result.msg || t("checkout.couponAppliedSuccessfully"));
-        setPopupVariant("success");
-        setShowPopup(true);
+        await dispatch(validateCoupon({ copoun: couponCode })).unwrap();
 
         // Update invoice prices with the coupon
         await dispatch(
           UpdateInvoicePrices({
             total_price: currentInvoice.total_price,
-            copoun_id: result.couponData.id,
+            copoun_id: coupon?.id || 0,
             invoice_id: currentInvoice.invoice_id,
-            copoun_discount: result.couponData.discount_value,
+            copoun_discount: coupon?.discount_value || 0,
             tax_id: currentInvoice.tax_id,
             deduct_amount: 0,
           })
@@ -110,16 +97,9 @@ const Invoice = () => {
         };
         // Refresh invoices
         await dispatch(getInvoices(getData)).unwrap();
-      } else {
-        // Coupon is not valid
-        setPopupMessage(result?.msg || t("checkout.invalidCoupon"));
-        setPopupVariant("error");
-        setShowPopup(true);
-      }
+     
     } catch (error) {
-      setPopupMessage(error?.msg || t("checkout.couponValidationError"));
-      setPopupVariant("error");
-      setShowPopup(true);
+      console.error("Coupon validation error:", error);
     }
   };
   const handleCheckout = async () => {
@@ -130,12 +110,10 @@ const Invoice = () => {
       await dispatch(
         checkoutInvoice({
           status: 2,
-          // grand_total_price: currentInvoice.grand_total_price,
-          //copoun_id: coupon?.valid ? coupon.id : 0,
-          invoice_id: currentInvoice.invoice_id,
-          // copoun_discount: coupon?.valid ? coupon.discount_value : 0,
+          invoice_id: currentInvoice.invoice_id
         })
       ).unwrap();
+
       const getData = {
         active: true,
         status: 1 ,
@@ -171,13 +149,9 @@ const Invoice = () => {
         return newCodes;
       });
 
-    // setPopupMessage(t("checkout.checkoutSuccess"));
-    // setPopupVariant("success");
-    // setShowPopup(true);
+ 
   } catch (error) {
-    setPopupMessage(error.message || t("checkout.checkoutError"));
-    setPopupVariant("error");
-    setShowPopup(true);
+     console.error("Checkout error:", error);
   }
   };
 
@@ -225,14 +199,15 @@ const Invoice = () => {
       // setPopupMessage(t("checkout.packageRemovedSuccessfully"));
       // setShowPopup(true);
     } catch (error) {
-      setPopupMessage(error.message || t("checkout.removePackageError"));
-      setShowPopup(true);
+       console.error("Remove package error:", error);
     }
   };
 
   const closePopup = () => {
     setShowPopup(false);
     setPopupMessage("");
+    setPopupType("");
+    setPopupIcon(null);
     dispatch(clearInvoiceState());
   };
 
@@ -244,7 +219,14 @@ const Invoice = () => {
   return (
     <div className="checkout-page" dir={direction}>
       {loading && <LoadingPage />}
-      {showPopup && <PopUp msg={popupMessage} closeAlert={closePopup} />}
+      {showPopup && (
+        <PopUp
+         msg={popupMessage} 
+         closeAlert={closePopup}
+         type={popupType} 
+         icon={popupIcon}
+          />
+        )}
 
       <Card className="checkout-card p-3">
         {invoices.length > 0 ? (

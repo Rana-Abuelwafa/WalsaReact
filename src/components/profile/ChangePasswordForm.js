@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { changePassword, clearMessages } from "../../slices/authSlice";
 import PopUp from "../shared/popoup/PopUp";
+import { FaCheck, FaTimesCircle } from "react-icons/fa";
 import LoadingPage from '../Loader/LoadingPage';
 import { useTranslation } from "react-multi-lang";
 import "./ChangePasswordForm.scss";
@@ -18,7 +19,8 @@ const ChangePasswordForm = () => {
   const navigate = useNavigate();
   
   // Get auth state from Redux store
-  const { user, loading, error, success } = useSelector((state) => state.auth);
+  const { loading, error, success,message } = useSelector((state) => state.auth);
+   const user = JSON.parse(localStorage.getItem("user"));
   const userId = user?.id;
   const accessToken = user?.accessToken;
 
@@ -36,17 +38,22 @@ const ChangePasswordForm = () => {
   const [formErrors, setFormErrors] = useState({});
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
-
+  const [popupIcon, setPopupIcon] = useState(null);
+  const [popupType, setPopupType] = useState("");
   // Effect to handle success/error messages
   useEffect(() => {
     if (success) {
-      setPopupMessage(t("changePassword.successMessage"));
+      setPopupMessage(message);
+      setPopupType("success");
       setShowPopup(true);
+      setPopupIcon(<FaCheck className="success-icon" size={24} />);
     } else if (error) {
-      setPopupMessage(error);
+      setPopupType("error");
+      setPopupMessage(message);
+      setPopupIcon(<FaTimesCircle className="error-icon" size={24} />);
       setShowPopup(true);
     }
-  }, [success, error, t]);
+  }, [success, error, message]);
 
   // Form validation function
   const validateForm = () => {
@@ -89,6 +96,7 @@ const ChangePasswordForm = () => {
     // Check if user ID exists
     if (!userId) {
       setPopupMessage(t("changePassword.errors.userIdNotFound"));
+      setPopupIcon(<FaTimesCircle className="error-icon" size={24} />);
       setShowPopup(true);
       return;
     }
@@ -108,6 +116,10 @@ const ChangePasswordForm = () => {
   // Popup close handler with success behavior
   const handlePopupClose = () => {
     setShowPopup(false);
+    setPopupMessage("");
+    setPopupType("");
+    setPopupIcon(null);
+    
     if (success) {
       // On successful password change, logout and redirect to login
       localStorage.removeItem("user");
@@ -220,6 +232,8 @@ const ChangePasswordForm = () => {
         <PopUp
           msg={popupMessage}
           closeAlert={handlePopupClose}
+          type={popupType} 
+          icon={popupIcon}
         />
       )}
     </div>

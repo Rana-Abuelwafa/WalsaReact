@@ -10,11 +10,11 @@ import {
   fetchProfileImage,
   uploadProfileImage,
   resetProfileStatus,
-  clearFetchErrors,
 } from "../../slices/profileSlice";
 import { CompleteMyProfile } from "../../slices/RegisterSlice";
 import PopUp from "../shared/popoup/PopUp";
 import LoadingPage from "../Loader/LoadingPage";
+import { FaCheck, FaTimesCircle } from "react-icons/fa";
 import "./ProfileSettings.scss";
 
 const ProfileSettings = () => {
@@ -32,20 +32,19 @@ const ProfileSettings = () => {
 
   // Get state from Redux store
   const {
-    profileData, // User profile data
-    profileImage, // Profile image URL or blob
-    loading, // Loading state
-    saveSuccess, // Profile save success flag
-    saveError, // Profile save error
-    fetchError, // Profile fetch error
-    uploadImageSuccess, // Image upload success flag
-    uploadImageError, // Image upload error
-    fetchImageError, // Image fetch error
+    profileData,
+    profileImage,
+    loading,
+    error,
+    success,
+    message
   } = useSelector((state) => state.profile);
 
   // Local state for UI
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
+  const [popupType, setPopupType] = useState("");
+    const [popupIcon, setPopupIcon] = useState(null);
 
   // Form data state - initialized with user data from localStorage
   const [formData, setFormData] = useState({
@@ -79,9 +78,7 @@ const ProfileSettings = () => {
         setFormData((prev) => ({
           ...prev,
           ...profileData,
-          client_name:
-            profileData.client_name ||
-            `${user?.firstName || ""} ${user?.lastName || ""}`.trim(),
+          client_name: profileData.client_name || `${user?.firstName || ""} ${user?.lastName || ""}`.trim(),
         }));
 
         // Parse birthday string if it exists and is different from current
@@ -103,55 +100,41 @@ const ProfileSettings = () => {
 
   // Fetch profile data and image when component mounts
   useEffect(() => {
-    if (accessToken && userId) {
-      dispatch(fetchProfile({ accessToken, userId }));
-      dispatch(fetchProfileImage(accessToken));
+    if (accessToken) {
+      dispatch(fetchProfile());
+      dispatch(fetchProfileImage());
     }
-  }, [accessToken, userId, dispatch]);
+  }, [accessToken, dispatch]);
 
   // Handle success/error messages from various operations
   useEffect(() => {
-    if (saveSuccess) {
-      setPopupMessage(t("profile.saved_success"));
-      setShowPopup(true);
-      dispatch(resetProfileStatus());
-    } else if (uploadImageSuccess) {
-      setPopupMessage(t("profile.image_upload_success"));
-      setShowPopup(true);
-      dispatch(resetProfileStatus());
+    if (success !== null) {
+      if (success) {
+        // Show only icon for successful saves
+        setPopupMessage(""); // Empty message
+        setPopupType("success");
+        setPopupIcon(<FaCheck className="success-icon" size={30} />);
+        setShowPopup(true);
+        dispatch(resetProfileStatus());
+      } else if (error && message) {
+        // Show full error message for failures
+        setPopupMessage(message);
+        setPopupType("error");
+        setPopupIcon(<FaTimesCircle className="error-icon" size={24} />);
+        setShowPopup(true);
+      }
     }
-    // Show error messages for any failed operation
-    else if (saveError || uploadImageError) {
-      setPopupMessage(saveError || uploadImageError);
-      setShowPopup(true);
-      dispatch(resetProfileStatus());
-    }
-  }, [
-    saveSuccess,
-    saveError,
-    uploadImageSuccess,
-    uploadImageError,
-    dispatch,
-    t,
-  ]);
-
-  // Handle fetch errors (logged to console but not shown to user)
-  useEffect(() => {
-    if (fetchError || fetchImageError) {
-      console.error("Fetch error:", fetchError || fetchImageError);
-      dispatch(clearFetchErrors());
-    }
-  }, [fetchError, fetchImageError, dispatch]);
+  }, [success, error, message, dispatch]);
 
   // Handle profile image upload
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
-    console.log("file ", file);
     if (!file) return;
 
     // Validate file type
     if (!file.type.match("image.*")) {
       setPopupMessage(t("profile.select_image_file"));
+      setPopupType("error");
       setShowPopup(true);
       return;
     }
@@ -159,17 +142,16 @@ const ProfileSettings = () => {
     // Validate file size (2MB limit)
     if (file.size > 2 * 1024 * 1024) {
       setPopupMessage(t("profile.image_size_limit"));
+      setPopupType("error");
       setShowPopup(true);
       return;
     }
 
     try {
       // Dispatch upload action and wait for completion
-      await dispatch(
-        uploadProfileImage({ accessToken, imageFile: file })
-      ).unwrap();
+      await dispatch(uploadProfileImage(file)).unwrap();
       // Refresh the image from server after successful upload
-      dispatch(fetchProfileImage(accessToken));
+      dispatch(fetchProfileImage());
     } catch (error) {
       console.error("Image upload failed:", error);
     }
@@ -232,10 +214,7 @@ const ProfileSettings = () => {
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(
-      saveProfile({
-        accessToken,
-        formData: {
+    const updatedFormData = {
           ...formData,
           // Ensure birthday components are properly formatted
           client_birthdayStr: `${
@@ -244,35 +223,25 @@ const ProfileSettings = () => {
             2,
             "0"
           )}-${birthdayComponents.day.padStart(2, "0")}`,
-        },
-      })
-    ).then((result) => {
-      if (result.payload && result.payload.success) {
+        };
+
+    dispatch(saveProfile(updatedFormData)).then((result) => {
+      if (result.payload?.success) {
         const cls = { email: formData.client_email, completeprofile: 2 };
         dispatch(CompleteMyProfile(cls));
       }
     });
-    // dispatch(
-    //   saveProfile({
-    //     accessToken,
-    //     formData: {
-    //       ...formData,
-    //       // Ensure birthday components are properly formatted
-    //       client_birthdayStr: `${
-    //         birthdayComponents.year
-    //       }-${birthdayComponents.month.padStart(
-    //         2,
-    //         "0"
-    //       )}-${birthdayComponents.day.padStart(2, "0")}`,
-    //     },
-    //   })
-    // );
   };
 
   // Close popup and clear message
   const closePopup = () => {
     setShowPopup(false);
     setPopupMessage("");
+    setPopupType("");
+    setPopupIcon(null);
+    if (success) {
+      dispatch(resetProfileStatus());
+    }
   };
 
   // Show loading spinner if data is being fetched and profileData isn't loaded yet
@@ -283,10 +252,18 @@ const ProfileSettings = () => {
       </div>
     );
   }
+
   return (
     <div className="profile-settings" dir={t("direction")}>
       {/* Popup for showing success/error messages */}
-      {showPopup && <PopUp msg={popupMessage} closeAlert={closePopup} />}
+      {showPopup &&  ( 
+        <PopUp 
+        msg={popupMessage} 
+        closeAlert={closePopup}
+        type={popupType}
+        icon={popupIcon}
+         />
+        )}
 
       {/* Main form container */}
       <div className="form-container">

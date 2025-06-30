@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { checkAUTH } from "../helper/helperFN";
-import { history } from "../index";
+import { createAuthError } from "../utils/authError";
 import axios from "axios";
 
 // Base URL for API calls from environment variables
@@ -22,7 +22,10 @@ export const fetchBrand = createAsyncThunk(
   "brand/fetchBrand", // action type prefix
   async (_, { rejectWithValue }) => {
     // Check authentication before making the request
-    if (checkAUTH()) {
+     if (!checkAUTH()) {
+          return rejectWithValue(createAuthError());
+        }
+
       try {
         // Make POST request to get client brands
         const response = await axios.post(
@@ -36,15 +39,12 @@ export const fetchBrand = createAsyncThunk(
         // Return the brand data (could be single object or first item in array)
         return Array.isArray(response.data) ? response.data[0] || null : response.data || null;
       } catch (error) {
+        if (error.response?.status === 401) {
+            return rejectWithValue(createAuthError());
+          }
         // Return error message if request fails
         return rejectWithValue(error.response?.data?.errors || error.message);
       }
-    } else {
-      // Redirect to login if not authenticated
-      history.push("/login");
-      window.location.reload();
-      return null;
-    }
   }
 );
 
@@ -52,7 +52,10 @@ export const fetchBrand = createAsyncThunk(
 export const saveBrand = createAsyncThunk(
   "brand/saveBrand", // action type prefix
   async ({ formData }, { rejectWithValue }) => {
-    if (checkAUTH()) {
+     if (!checkAUTH()) {
+          return rejectWithValue(createAuthError());
+        }
+
       try {
         // Prepare payload ensuring ID is never undefined
         const payload = {
@@ -74,14 +77,11 @@ export const saveBrand = createAsyncThunk(
           id: response.data.idOut || formData.id || 0,
         };
       } catch (error) {
+        if (error.response?.status === 401) {
+            return rejectWithValue(createAuthError());
+          }
         return rejectWithValue(error.response?.data?.errors || error.message);
       }
-    } else {
-      // Redirect to login if not authenticated
-      history.push("/login");
-      window.location.reload();
-      return null;
-    }
   }
 );
 
