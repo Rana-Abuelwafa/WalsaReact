@@ -23,7 +23,7 @@ const InvoicePreview = ({ invoice, setActiveTab }) => {
                         />
                     </Button>
 
-                    <span className="invoice-title">{t("invoiceHistory.invoice")} : #{invoice.invoice_code}</span>
+                    <span className="invoice-title">{t("checkout.invoice")} : #{invoice.invoice_code}</span>
                 </div>
 
                 <div className="invoice-preview">

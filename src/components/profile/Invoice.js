@@ -29,8 +29,7 @@ const Invoice = () => {
   const [popupVariant, setPopupVariant] = useState("success");
   const [activeTab, setActiveTab] = useState(0);
 
-  const currentLang =
-    useSelector((state) => state.language.currentLang) || "en";
+  const currentLang = useSelector((state) => state.language.currentLang) || "en";
 
   useEffect(() => {
     if (invoices.length > 0) {
@@ -45,8 +44,8 @@ const Invoice = () => {
   useEffect(() => {
     const getData = {
       active: true,
-      status: 1,
-      lang_code: currentLang,
+      status: 1 ,
+      lang_code: currentLang
     };
     dispatch(getInvoices(getData));
     dispatch(clearInvoiceState());
@@ -83,9 +82,9 @@ const Invoice = () => {
 
       if (result?.valid) {
         // Update the applied coupons state for this invoice
-        setCoupons((prev) => ({
+        setCoupons(prev => ({
           ...prev,
-          [currentInvoice.invoice_id]: result.couponData,
+          [currentInvoice.invoice_id]: result.couponData
         }));
 
         setPopupMessage(result.msg || t("checkout.couponAppliedSuccessfully"));
@@ -106,8 +105,8 @@ const Invoice = () => {
 
         const getData = {
           active: true,
-          status: 1,
-          lang_code: currentLang,
+          status: 1 ,
+          lang_code: currentLang
         };
         // Refresh invoices
         await dispatch(getInvoices(getData)).unwrap();
@@ -139,8 +138,8 @@ const Invoice = () => {
       ).unwrap();
       const getData = {
         active: true,
-        status: 1,
-        lang_code: currentLang,
+        status: 1 ,
+        lang_code: currentLang
       };
       // Refresh invoices after successful checkout
       const updatedInvoices = await dispatch(getInvoices(getData)).unwrap();
@@ -150,10 +149,8 @@ const Invoice = () => {
         // If the current tab still exists (unlikely after checkout), stay on it
         // Otherwise go to the first tab
         const newActiveTab = updatedInvoices.some(
-          (inv) => inv.invoice_id === currentInvoice.invoice_id
-        )
-          ? activeTab
-          : 0;
+          inv => inv.invoice_id === currentInvoice.invoice_id
+        ) ? activeTab : 0;
         setActiveTab(newActiveTab);
       } else {
         // No invoices left after checkout
@@ -161,53 +158,28 @@ const Invoice = () => {
       }
 
       // Clear any applied coupon for the checked out invoice
-      setCoupons((prev) => {
+      setCoupons(prev => {
         const newCoupons = { ...prev };
         delete newCoupons[currentInvoice.invoice_id];
         return newCoupons;
       });
 
       // Clear coupon code for the checked out invoice
-      setCouponCodes((prev) => {
+      setCouponCodes(prev => {
         const newCodes = { ...prev };
         delete newCodes[currentInvoice.invoice_id];
         return newCodes;
       });
 
-      setPopupMessage(t("checkout.checkoutSuccess"));
-      setPopupVariant("success");
-      setShowPopup(true);
-    } catch (error) {
-      setPopupMessage(error.message || t("checkout.checkoutError"));
-      setPopupVariant("error");
-      setShowPopup(true);
-    }
-
-    // Clear any applied coupon for the checked out invoice
-    setCoupons((prev) => {
-      const newCoupons = { ...prev };
-      delete newCoupons[currentInvoice.invoice_id];
-      return newCoupons;
-    });
-
-    // Clear coupon code for the checked out invoice
-    setCouponCodes((prev) => {
-      const newCodes = { ...prev };
-      delete newCodes[currentInvoice.invoice_id];
-      return newCodes;
-    });
-
     // setPopupMessage(t("checkout.checkoutSuccess"));
     // setPopupVariant("success");
     // setShowPopup(true);
+  } catch (error) {
+    setPopupMessage(error.message || t("checkout.checkoutError"));
+    setPopupVariant("error");
+    setShowPopup(true);
+  }
   };
-  //rana comment
-  //  catch (error) {
-  //   setPopupMessage(error.message || t("checkout.checkoutError"));
-  //   setPopupVariant("error");
-  //   setShowPopup(true);
-  // }
-  // };
 
   const handleRemovePackage = async (invoiceId, total_price, pkg) => {
     try {
@@ -228,17 +200,15 @@ const Invoice = () => {
           total_price: total_price,
           copoun_id: invoiceCoupon.valid ? invoiceCoupon.id : 0,
           invoice_id: invoiceId,
-          copoun_discount: invoiceCoupon.valid
-            ? invoiceCoupon.discount_value
-            : 0,
+          copoun_discount: invoiceCoupon.valid ? invoiceCoupon.discount_value : 0,
           tax_id: pkg.tax_id,
           deduct_amount: pkg.package_sale_price,
         })
       ).unwrap();
       const getData = {
         active: true,
-        status: 1,
-        lang_code: currentLang,
+        status: 1 ,
+        lang_code: currentLang
       };
       await dispatch(getInvoices(getData)).unwrap();
       // Check if the tab the user was on still exists
@@ -366,11 +336,10 @@ const Invoice = () => {
                           className="voucher-input flex-grow-1"
                           value={currentCouponCode}
                           onChange={(e) =>
-                            setCouponCodes((prev) => ({
+                            setCouponCodes(prev => ({
                               ...prev,
-                              [currentInvoice.invoice_id]: e.target.value,
-                            }))
-                          }
+                              [currentInvoice.invoice_id]: e.target.value
+                            }))}
                         />
                         <Button
                           className="apply-btn"
@@ -401,9 +370,7 @@ const Invoice = () => {
                             <div className="d-flex justify-content-between mb-2">
                               <span>{t("checkout.giftVoucher")}</span>
                               <span>
-                                {currentCoupon.valid
-                                  ? currentCoupon.discount_value
-                                  : 0}
+                                {currentCoupon.valid ? currentCoupon.discount_value : 0}
                               </span>
                             </div>
                             <div className="d-flex justify-content-between total-row">
