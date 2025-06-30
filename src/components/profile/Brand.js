@@ -5,26 +5,26 @@ import { useTranslation } from "react-multi-lang";
 import { fetchBrand, saveBrand, resetBrandState } from "../../slices/brandSlice";
 import LoadingPage from '../Loader/LoadingPage';
 import PopUp from "../shared/popoup/PopUp";
+import { FaCheck, FaTimesCircle } from "react-icons/fa";
 import "./Brand.scss";
 
 const Brand = () => {
   // Translation hook for multilingual support
   const t = useTranslation();
-  
+  // Redux hooks
+  const dispatch = useDispatch();
+    // Get brand data from Redux store
+  const { data: brand, loading, error, saveSuccess } = useSelector((state) => state.brand);
   // Get user data from localStorage
   const user = JSON.parse(localStorage.getItem("user"));
   const accessToken = user?.accessToken;
   const clientId = user?.id;
   
-  // Redux hooks
-  const dispatch = useDispatch();
-  // Get brand data from Redux store
-  const { data: brand, loading, error, saveSuccess } = useSelector((state) => state.brand);
-  
   // State for popup management
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const [popupType, setPopupType] = useState("");
+    const [popupIcon, setPopupIcon] = useState(null);
   
   // Form state management
   const [formData, setFormData] = useState({
@@ -55,29 +55,32 @@ const Brand = () => {
         brand_desc: ""
       });
     }
-  }, [brand, clientId]);
+  }, [brand]);
 
   // Effect to fetch brand data when component mounts
   useEffect(() => {
-    if (clientId && accessToken) {
-      dispatch(fetchBrand({ clientId, accessToken }));
+    if (accessToken) {
+      dispatch(fetchBrand());
     }
     // Cleanup function to reset brand state when component unmounts
     return () => {
       dispatch(resetBrandState());
     };
-  }, [clientId, accessToken, dispatch]);
+  }, [accessToken, dispatch]);
 
   // Effect to handle success/error messages
   useEffect(() => {
     if (saveSuccess) {
-      setPopupMessage("Brand information saved successfully!");
-      setPopupType("success");
-      setShowPopup(true);
+      //  setPopupMessage(t("brand.successMessage"));
+       setPopupMessage("");
+       setPopupIcon(<FaCheck className="success-icon" size={30} />);
+       setPopupType("success");
+       setShowPopup(true);
       // Reset success state after 3 seconds
       setTimeout(() => dispatch(resetBrandState()), 3000);
     } else if (error) {
       setPopupMessage(error);
+      setPopupIcon(<FaTimesCircle className="error-icon" size={24} />);
       setPopupType("error");
       setShowPopup(true);
     }
@@ -100,7 +103,7 @@ const Brand = () => {
       ...formData,
       id: formData.id || 0
     };
-    dispatch(saveBrand({ formData: payload, accessToken }));
+    dispatch(saveBrand({ formData: payload}));
   };
   
   // Close popup and reset related states
@@ -108,6 +111,7 @@ const Brand = () => {
     setShowPopup(false);
     setPopupMessage("");
     setPopupType("");
+    setPopupIcon(null);
     dispatch(resetBrandState());
   };
   
@@ -124,6 +128,7 @@ const Brand = () => {
           msg={popupMessage} 
           closeAlert={closePopup} 
           type={popupType} 
+          icon={popupIcon}
         />
       )}
       
@@ -187,7 +192,7 @@ const Brand = () => {
               className="save-btn" 
               disabled={loading} // Disable during save operation
             >
-              {loading ? "Saving..." : (brand ? "Update" : "Save")}
+              {loading ? t("general.saving") : (brand ? t("general.update") : t("general.save"))}
             </Button>
           </div>
         </Form>

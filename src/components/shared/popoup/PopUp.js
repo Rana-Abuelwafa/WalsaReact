@@ -12,6 +12,9 @@ function PopUp(props) {
   return (
     <div className="popupBack">
       <div className="popup" onClose={closePOPUP}>
+        <div className="popup-header">
+          {props.icon}
+        </div>
         <p>{props.msg}</p>
         <Button className="close" onClick={closePOPUP}>
           {t("PopUp.Close")}

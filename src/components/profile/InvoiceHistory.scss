@@ -1,0 +1,275 @@
+.history-page {
+  width: 100%;
+  justify-content: flex-start;
+  background: #ffffff;
+  position: relative;
+  margin: 0 auto;
+  box-sizing: border-box;
+
+  [dir="rtl"] & {
+    justify-content: flex-start;
+  }
+
+  .history-card {
+    border: none;
+    background-color: #fff;
+  }
+
+  // Search input
+  .search-input {
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 1rem;
+  }
+
+
+  .service-title-row,
+  .service-item-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #eee;
+
+    > [class*="col-"] {
+      padding: 0.5rem;
+    }
+  }
+
+  // Title row
+  .service-title-row {
+    p {
+      font-size: 16px;
+      color: #000;
+      font-weight: 500;
+      margin: 0;
+      text-align: left;
+    }
+  }
+
+  .service-item-row {
+    .service-text {
+      font-size: 18px;
+      color: #542D72;
+      font-weight: 500;
+      margin: 0;
+      text-align: left;
+    }
+
+    .state-btns {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+
+      a,
+      button {
+        text-decoration: none;
+        background-color: #542D72;
+        border-radius: 50px;
+        font-weight: 500;
+        font-size: 14px;
+        color: #fff;
+        padding: 0.5rem 1rem !important;
+        border: none;
+        white-space: nowrap;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: #3a1d4d;
+        }
+      }
+    }
+  }
+
+
+.back-image {
+    width: 22px;
+    height: auto;
+}
+.invoice-title {
+    font-size: 16px;
+    color: #C9C9C9;
+    margin-left: 0.5rem;
+}
+ .invoice-preview {
+    padding: 20px;
+
+  .section-title {
+    margin: 1rem 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #542D72;
+    text-transform: uppercase;
+   }
+
+    .pricing-card {
+        overflow-y: auto;
+        max-height: 300px;
+        height: auto;
+        width: 400px;
+        border: 2px solid #eee;
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+
+      &.selected {
+        border: 3px solid #542D72 !important;
+        position: relative;
+
+        &::after {
+          content: '✓';
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          width: 30px;
+          height: 30px;
+          background-color: #542D72;
+          color: white;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: bold;
+          font-size: 18px;
+        }
+      }
+
+      .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        text-align: start;
+        flex: 1;
+
+        .card-title {
+          color: #542D72;
+          font-size: 1.15rem;
+          font-weight: 700;
+          margin-bottom: 0.5rem;
+        }
+
+        .card-subtitle {
+          color: #542D72;
+          font-size: 1.1rem;
+          margin-bottom: 1rem;
+        }
+
+        .plan-desc {
+          font-size: 0.9rem;
+          color: #542D72;
+          margin-bottom: 0.75rem;
+        }
+
+        .pricing-info {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 1rem;
+          margin-bottom: 0.5rem;
+
+          .old-price {
+            text-decoration: line-through;
+            color: #00bc82;
+            font-weight: bold;
+          }
+
+          .old-price.custom-price {
+            text-decoration: none;
+          }
+
+          .current-price {
+            color: #ff6363;
+            font-weight: bold;
+          }
+        }
+
+        .features-list {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+
+          li {
+            color: #542D72;
+            font-size: 0.95rem;
+            margin: 0.5rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+
+            &::before {
+              content: '✔';
+              position: absolute;
+              left: 0;
+              color: #707070;
+            }
+          }
+        }
+       }
+    }
+  }
+
+   @media (max-width: 992px) {
+    .service-title-row,
+    .service-item-row {
+      > [class*="col-"] {
+        flex: 0 0 50%;
+        max-width: 50%;
+      }
+
+      .state-btns {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-top: 0.5rem;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .history-card {
+      padding: 1rem;
+    }
+
+    .invoice-preview {
+      .pricing-card {
+        max-height: none;
+      }
+    }
+
+    .service-title-row,
+    .service-item-row {
+      > [class*="col-"] {
+        flex: 0 0 100%;
+        max-width: 100%;
+        text-align: center !important;
+      }
+
+      .service-text,
+      p {
+        text-align: center !important;
+      }
+
+      .state-btns {
+        justify-content: center;
+      }
+    }
+  }
+
+  @media (max-width: 576px) {
+    .search-input {
+      font-size: 14px;
+    }
+
+    .service-title-row p,
+    .service-item-row .service-text {
+      font-size: 14px;
+    }
+
+    .state-btns a,
+    .state-btns button {
+      font-size: 12px;
+      padding: 0.25rem 0.75rem !important;
+    }
+  }
+}

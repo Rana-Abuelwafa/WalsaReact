@@ -8,7 +8,6 @@ const BASE_URL = process.env.REACT_APP_API_URL;
 const getAuthHeaders = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const accessToken = user?.accessToken;
-  const userId = user?.id;
   let lang = localStorage.getItem("lang");
   return {
     headers: {
@@ -21,7 +20,7 @@ const getAuthHeaders = () => {
 // Async thunk to fetch brand data
 export const fetchBrand = createAsyncThunk(
   "brand/fetchBrand", // action type prefix
-  async ({ clientId, accessToken }, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     // Check authentication before making the request
     if (checkAUTH()) {
       try {
@@ -31,13 +30,14 @@ export const fetchBrand = createAsyncThunk(
           {}, // empty request body
           getAuthHeaders()
         );
-        // Find and return the brand matching the clientId
-        return (
-          response.data?.find((brand) => brand.client_Id === clientId) || null
-        );
+        if (response.data.success === false) {
+          return rejectWithValue(response.data.errors || "Failed to fetch brand");
+        }
+        // Return the brand data (could be single object or first item in array)
+        return Array.isArray(response.data) ? response.data[0] || null : response.data || null;
       } catch (error) {
         // Return error message if request fails
-        return rejectWithValue(error.response?.data?.message || error.message);
+        return rejectWithValue(error.response?.data?.errors || error.message);
       }
     } else {
       // Redirect to login if not authenticated
@@ -51,7 +51,7 @@ export const fetchBrand = createAsyncThunk(
 // Async thunk to save brand data
 export const saveBrand = createAsyncThunk(
   "brand/saveBrand", // action type prefix
-  async ({ formData, accessToken }, { rejectWithValue }) => {
+  async ({ formData }, { rejectWithValue }) => {
     if (checkAUTH()) {
       try {
         // Prepare payload ensuring ID is never undefined
@@ -65,13 +65,16 @@ export const saveBrand = createAsyncThunk(
           payload,
           getAuthHeaders()
         );
-        // Return response data with proper ID handling
+
+        if (response.data.success === false) {
+          return rejectWithValue(response.data.errors || "Operation failed");
+        }
         return {
-          ...response.data,
-          id: response.data.idout || formData.id || 0,
+          ...formData,
+          id: response.data.idOut || formData.id || 0,
         };
       } catch (error) {
-        return rejectWithValue(error.response?.data?.message || error.message);
+        return rejectWithValue(error.response?.data?.errors || error.message);
       }
     } else {
       // Redirect to login if not authenticated
@@ -134,13 +137,14 @@ const brandSlice = createSlice({
         state.data = {
           ...state.data,
           ...action.payload,
-          id: action.payload.idout || state.data?.id || 0,
+          id: action.payload.id || state.data?.id || 0,
         };
         state.saveSuccess = true; // set success flag
       })
       .addCase(saveBrand.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+        state.saveSuccess = false;
       });
   },
 });

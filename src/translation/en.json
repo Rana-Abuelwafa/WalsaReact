@@ -176,7 +176,7 @@
     "aboutPlaceholder": "Write a small summary of your business identity",
     "saveButton": "Save",
     "updateButton": "Update",
-    "successMessage": "Brand information saved successfully!",
+    "successMessage": "Brand saved successfully!",
     "errorMessage": "Error saving brand information. Please try again."
   },
   "about": {
@@ -203,7 +203,9 @@
   },
   "general": {
     "loading": "Loading...",
-    "saving": "Saving..."
+    "saving": "Saving...",
+    "save":"Save",
+    "update":"Update"
   },
   "profile": {
     "name": "Name",
@@ -307,5 +309,25 @@
     "couponAppliedSuccessfully": "Coupon applied successfully!",
     "packageRemovedSuccessfully":"package Removed Successfully!",
     "removePackageError":"remove Package Error!"
+  },
+  "invoiceHistory":{
+    "searchPlaceholder": "Search by invoice code...",
+    "invoiceCode": "Invoice Code",
+    "price": "Price",
+    "currency": "Currency",
+    "date": "Date",
+    "actions": "Actions",
+    "preview": "Preview",
+    "download": "Download",
+    "noResults": "No invoices match your search",
+    "backToInvoices": "Back to Invoices",
+    "invoice": "Invoice",
+    "summary": "Summary",
+    "status": "Status",
+    "paid": "Paid",
+    "pending": "Pending",
+    "total": "Total",
+    "salePrice": "Sale Price",
+    "thankYou": "Thank you for your business!"
   }
 }

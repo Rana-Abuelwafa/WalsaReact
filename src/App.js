@@ -2,6 +2,8 @@
 import React, { lazy, Suspense, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoadingPage from "./components/Loader/LoadingPage";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   fetchUserCountry,
   getCurrencyFromCountry,
@@ -80,6 +82,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Suspense fallback={<LoadingPage />}>
+          <ToastContainer />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route

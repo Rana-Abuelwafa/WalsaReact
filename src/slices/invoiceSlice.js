@@ -33,15 +33,24 @@ export const validateCoupon = createAsyncThunk(
         couponData,
         getAuthHeaders()
       );
-      return response.data;
+
+      return {
+        valid: response.data.valid,
+        msg: response.data.msg,
+        couponData: response.data.valid ? response.data : null,
+      };
     } catch (err) {
       if (err.response?.status === 401) {
         return rejectWithValue(createAuthError());
       }
-      return rejectWithValue(err.response.message);
+      return rejectWithValue({
+        valid: false,
+        msg: err.response?.data?.msg || "Failed to validate coupon",
+      });
     }
   }
 );
+
 export const UpdateInvoicePrices = createAsyncThunk(
   "invoice/checkout",
   async (invoiceData, { rejectWithValue }) => {
@@ -109,15 +118,14 @@ export const removeInvoice = createAsyncThunk(
 
 export const getInvoices = createAsyncThunk(
   "invoice/getAll",
-  async (formData, { rejectWithValue }) => {
+  async (getData, { rejectWithValue }) => {
     if (!checkAUTH()) {
       return rejectWithValue(createAuthError());
     }
     try {
-      //const formData = { active: true, status: 1 };
       const response = await axios.post(
         `${BASE_URL}/GetInvoicesByClient`,
-        formData,
+        getData,
         getAuthHeaders()
       );
       return response.data;
@@ -150,15 +158,21 @@ const invoiceSlice = createSlice({
       .addCase(validateCoupon.pending, (state) => {
         state.loading = true;
         state.error = null;
+        state.success = null;
+        state.coupon = null;
       })
       .addCase(validateCoupon.fulfilled, (state, action) => {
         state.loading = false;
-        state.coupon = action.payload[0];
-        state.success = "Coupon applied successfully";
+        if (action.payload.valid) {
+          state.coupon = action.payload.couponData;
+          state.success = action.payload.msg;
+        } else {
+          state.error = action.payload.msg;
+        }
       })
       .addCase(validateCoupon.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to validate coupon";
+        state.error = action.payload?.msg || action.payload;
       })
       .addCase(checkoutInvoice.pending, (state) => {
         state.loading = true;
@@ -167,11 +181,15 @@ const invoiceSlice = createSlice({
       .addCase(checkoutInvoice.fulfilled, (state, action) => {
         state.loading = false;
         state.invoices = [];
-        state.success = "Checkout completed successfully";
+        if (action.payload.success) {
+          state.success = action.payload.msg;
+        } else {
+          state.error = action.payload.msg;
+        }
       })
       .addCase(checkoutInvoice.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Checkout failed";
+        state.error = action.payload.msg;
       })
       .addCase(removeInvoice.pending, (state) => {
         state.loading = true;
@@ -182,11 +200,15 @@ const invoiceSlice = createSlice({
         state.invoices = state.invoices.filter(
           (invoice) => invoice.id !== action.payload.invoice_id
         );
-        state.success = "Invoice removed successfully";
+        if (action.payload.success) {
+          state.success = action.payload.msg;
+        } else {
+          state.error = action.payload.msg;
+        }
       })
       .addCase(removeInvoice.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to remove invoice";
+        state.error = action.payload.msg;
       })
       .addCase(getInvoices.pending, (state) => {
         state.loading = true;
@@ -198,7 +220,7 @@ const invoiceSlice = createSlice({
       })
       .addCase(getInvoices.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to fetch invoices";
+        state.error = action.payload.msg;
       });
   },
 });
