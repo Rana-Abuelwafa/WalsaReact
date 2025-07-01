@@ -40,8 +40,6 @@ const GoogleLoginButton = (props) => {
           let data = { payload: formData, path: "/LoginGmail" };
           dispatch(LoginUser(data)).then((result) => {
             let { isAuthRedirect, redirectPath } = props;
-            // console.log("isAuthRedirect ", isAuthRedirect);
-            // console.log("redirectPath ", redirectPath);
             if (result.payload && result.payload.isSuccessed) {
               setShowAlert(false);
               //if user login successfully and his email is confirmed navigate to home and whole app , if no sholud verify mail first by OTP

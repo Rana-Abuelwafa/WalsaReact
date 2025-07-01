@@ -31,20 +31,14 @@ const ProfileSettings = () => {
   const dispatch = useDispatch();
 
   // Get state from Redux store
-  const {
-    profileData,
-    profileImage,
-    loading,
-    error,
-    success,
-    message
-  } = useSelector((state) => state.profile);
+  const { profileData, profileImage, loading, error, success, message } =
+    useSelector((state) => state.profile);
 
   // Local state for UI
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const [popupType, setPopupType] = useState("");
-    const [popupIcon, setPopupIcon] = useState(null);
+  const [popupIcon, setPopupIcon] = useState(null);
 
   // Form data state - initialized with user data from localStorage
   const [formData, setFormData] = useState({
@@ -78,7 +72,9 @@ const ProfileSettings = () => {
         setFormData((prev) => ({
           ...prev,
           ...profileData,
-          client_name: profileData.client_name || `${user?.firstName || ""} ${user?.lastName || ""}`.trim(),
+          client_name:
+            profileData.client_name ||
+            `${user?.firstName || ""} ${user?.lastName || ""}`.trim(),
         }));
 
         // Parse birthday string if it exists and is different from current
@@ -215,15 +211,15 @@ const ProfileSettings = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const updatedFormData = {
-          ...formData,
-          // Ensure birthday components are properly formatted
-          client_birthdayStr: `${
-            birthdayComponents.year
-          }-${birthdayComponents.month.padStart(
-            2,
-            "0"
-          )}-${birthdayComponents.day.padStart(2, "0")}`,
-        };
+      ...formData,
+      // Ensure birthday components are properly formatted
+      client_birthdayStr: `${
+        birthdayComponents.year
+      }-${birthdayComponents.month.padStart(
+        2,
+        "0"
+      )}-${birthdayComponents.day.padStart(2, "0")}`,
+    };
 
     dispatch(saveProfile(updatedFormData)).then((result) => {
       if (result.payload?.success) {
@@ -256,14 +252,14 @@ const ProfileSettings = () => {
   return (
     <div className="profile-settings" dir={t("direction")}>
       {/* Popup for showing success/error messages */}
-      {showPopup &&  ( 
-        <PopUp 
-        msg={popupMessage} 
-        closeAlert={closePopup}
-        type={popupType}
-        icon={popupIcon}
-         />
-        )}
+      {showPopup && (
+        <PopUp
+          msg={popupMessage}
+          closeAlert={closePopup}
+          type={popupType}
+          icon={popupIcon}
+        />
+      )}
 
       {/* Main form container */}
       <div className="form-container">
