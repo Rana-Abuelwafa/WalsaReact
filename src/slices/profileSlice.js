@@ -21,6 +21,9 @@ const getAuthHeaders = () => {
 
 // Helper to extract error message from different response formats
 const getErrorMessage = (error) => {
+  if (error.response?.data?.success === false) {
+    return error.response.data.errors || "Operation failed";
+  }
   if (error.response?.data?.errors) {
     return error.response.data.errors;
   }
@@ -73,6 +76,11 @@ export const saveProfile = createAsyncThunk(
           formData,
           getAuthHeaders()
         );
+
+        if (response.data.success == false) {
+          return rejectWithValue(response.data.errors || "Operation failed");
+        }
+
         // Return both API response and form data
         return {
           success: response.data.success,
@@ -80,7 +88,7 @@ export const saveProfile = createAsyncThunk(
           message: response.data.errors
         };
       } catch (error) {
-        if (error.response?.status === 401) {
+        if (error.response?.status == 401) {
            return rejectWithValue(createAuthError());
         }
         return rejectWithValue(getErrorMessage(error));
@@ -198,7 +206,7 @@ const profileSlice = createSlice({
           state.message = null;
       })
       .addCase(saveProfile.fulfilled, (state, action) => {
-         state.loading = false;
+        state.loading = false;
         state.success = action.payload.success;
         state.message = action.payload.message;
         state.profileData = {
@@ -208,6 +216,7 @@ const profileSlice = createSlice({
       })
       .addCase(saveProfile.rejected, (state, action) => {
         state.loading = false;
+        state.success = false;
         state.error = true;
         state.message = action.payload;
       })
@@ -226,6 +235,7 @@ const profileSlice = createSlice({
       .addCase(fetchProfileImage.rejected, (state, action) => {
         state.loading = false;
         state.error = true;
+        state.success = false;
         state.message = action.payload;
       })
 
@@ -247,6 +257,7 @@ const profileSlice = createSlice({
       .addCase(uploadProfileImage.rejected, (state, action) => {
         state.loading = false;
         state.error = true;
+        state.success = false;
         state.message = action.payload;
       });
   },

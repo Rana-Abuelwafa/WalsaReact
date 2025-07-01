@@ -20,6 +20,10 @@ const getAuthHeaders = () => {
 
 // Helper function to extract error message from different response formats
 const getErrorMessage = (error) => {
+  
+  if (error.response?.data?.success === false) {
+    return error.response.data.errors || "Operation failed";
+  }
   if (error.response?.data?.errors) {
     return error.response.data.errors;
   }
@@ -193,7 +197,7 @@ const invoiceSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    
+
     builder
       // Validate Coupon
       .addCase(validateCoupon.pending, (state) => {
@@ -272,12 +276,13 @@ const invoiceSlice = createSlice({
         state.loading = false;
         state.success = true;
         state.invoices = action.payload;
+        state.message = null;
       })
       .addCase(getInvoices.rejected, (state, action) => {
         state.loading = false;
         state.success = false;
         state.error = true;
-        state.message = action.payload?.msg || action.payload;
+        state.message = null;
       })
       
       // Update Invoice Prices

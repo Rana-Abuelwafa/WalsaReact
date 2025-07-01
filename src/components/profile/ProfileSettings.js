@@ -53,7 +53,7 @@ const ProfileSettings = () => {
     pay_code: "",
     fb_link: "",
     twitter_link: "",
-    client_birthdayStr: "",
+    client_birthdayStr: null,
     address: "",
   });
 
@@ -114,10 +114,11 @@ const ProfileSettings = () => {
         dispatch(resetProfileStatus());
       } else if (error && message) {
         // Show full error message for failures
+        setShowPopup(true);
         setPopupMessage(message);
         setPopupType("error");
         setPopupIcon(<FaTimesCircle className="error-icon" size={24} />);
-        setShowPopup(true);
+        
       }
     }
   }, [success, error, message, dispatch]);
@@ -131,6 +132,7 @@ const ProfileSettings = () => {
     if (!file.type.match("image.*")) {
       setPopupMessage(t("profile.select_image_file"));
       setPopupType("error");
+      setPopupIcon(<FaTimesCircle className="error-icon" size={24} />);
       setShowPopup(true);
       return;
     }
@@ -354,6 +356,7 @@ const ProfileSettings = () => {
                   onChange={handleChange}
                   placeholder={t("profile.enter_nation")}
                   className="custom-input"
+                  required
                 />
               </div>
             </div>
@@ -368,6 +371,7 @@ const ProfileSettings = () => {
                   value={formData.gender}
                   onChange={handleChange}
                   className="custom-input custom-toggle"
+                  required
                 >
                   <option value="">{t("profile.select_gender")}</option>
                   <option value="Male">{t("profile.male")}</option>
@@ -384,6 +388,7 @@ const ProfileSettings = () => {
                     value={birthdayComponents.month}
                     onChange={handleBirthdayChange}
                     className="custom-input custom-toggle"
+                    required
                   >
                     <option value="">{t("profile.month")}</option>
                     {Array.from({ length: 12 }, (_, i) => (
@@ -399,6 +404,7 @@ const ProfileSettings = () => {
                     value={birthdayComponents.day}
                     onChange={handleBirthdayChange}
                     className="custom-input custom-toggle"
+                    required
                   >
                     <option value="">{t("profile.day")}</option>
                     {Array.from({ length: 31 }, (_, i) => (
@@ -412,6 +418,7 @@ const ProfileSettings = () => {
                     value={birthdayComponents.year}
                     onChange={handleBirthdayChange}
                     className="custom-input custom-toggle"
+                    required
                   >
                     <option value="">{t("profile.year")}</option>
                     {Array.from({ length: 100 }, (_, i) => (
@@ -469,6 +476,7 @@ const ProfileSettings = () => {
                   value={formData.lang}
                   onChange={handleChange}
                   className="custom-input custom-toggle"
+                  required
                 >
                   <option value="">{t("profile.select_language")}</option>
                   <option value="English">{t("profile.english")}</option>

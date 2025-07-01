@@ -317,6 +317,7 @@
     "actions": "Acties",
     "preview": "Voorbeeld",
     "download": "Downloaden",
+     "noInvoices": "Keine Rechnungen gefunden",
     "noResults": "Geen facturen gevonden die overeenkomen"
   }
 }
