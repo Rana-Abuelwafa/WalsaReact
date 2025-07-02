@@ -238,7 +238,7 @@ const registerSlice = createSlice({
       state.User = null;
     });
     builder.addCase(CompleteMyProfile.fulfilled, (state, action) => {
-      if (action.payload.status !== null && action.payload.status !== 200) {
+      if (action.payload.status != null && action.payload.status != 200) {
         state.User = null;
         state.loading = false;
         state.errors = JSON.stringify(action.payload.errors);

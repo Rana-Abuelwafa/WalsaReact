@@ -56,21 +56,21 @@ const Invoice = () => {
   }, [dispatch, currentLang]);
 
   useEffect(() => {
-    console.log(success,message)
-  if (success !== null) {
-    if (success && message === "Checkout successful") {
-      setPopupMessage(""); // Empty message for successful checkout
-      setPopupType("success");
-      setPopupIcon(<FaCheck className="success-icon" size={30} />);
-      setShowPopup(true);
-    }else if (!success && message && !message.includes("GetInvoices")) {
-      setPopupMessage(message);
-      setPopupType("error");
-      setPopupIcon(<FaTimesCircle className="error-icon" size={24} />);
-      setShowPopup(true);
-    } 
-  }
-}, [success, message]);
+    console.log(success, message);
+    if (success !== null) {
+      if (success && message === "Checkout successful") {
+        setPopupMessage(""); // Empty message for successful checkout
+        setPopupType("success");
+        setPopupIcon(<FaCheck className="success-icon" size={30} />);
+        setShowPopup(true);
+      } else if (!success && message && !message.includes("GetInvoices")) {
+        setPopupMessage(message);
+        setPopupType("error");
+        setPopupIcon(<FaTimesCircle className="error-icon" size={24} />);
+        setShowPopup(true);
+      }
+    }
+  }, [success, message]);
 
   const handleApplyCoupon = async () => {
     const currentInvoice = invoices[activeTab];
@@ -119,6 +119,8 @@ const Invoice = () => {
         checkoutInvoice({
           status: 2,
           invoice_id: currentInvoice.invoice_id,
+          invoice_code: currentInvoice.invoice_code,
+          lang: currentLang,
         })
       ).unwrap();
 

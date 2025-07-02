@@ -192,6 +192,7 @@ const PricingPlansPage = () => {
           oldPrice: pkg.package_price,
           isCustom: pkg.is_custom,
           isSelected: pkg.isSelected,
+          service_package_id: pkg.service_package_id,
         }))
         .sort((a, b) => a.order - b.order),
     }));

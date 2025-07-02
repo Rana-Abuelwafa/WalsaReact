@@ -106,7 +106,8 @@ const AppointmentConfirmation = () => {
             package_name: pkg?.package_name || "",
             productId: parseInt(serviceId),
             package_id: parseInt(packageId),
-            is_custom: pkg?.is_custom
+            is_custom: pkg?.is_custom,
+            service_package_id: pkg.service_package_id,
           };
         }
       );
@@ -159,7 +160,12 @@ const AppointmentConfirmation = () => {
     <div className="confirmation-container dir={direction}">
       {/* Success/Error Popup */}
       {showPopup && (
-        <PopUp msg={popupMessage} closeAlert={closePopup} type={popupType}  icon={popupIcon}/>
+        <PopUp
+          msg={popupMessage}
+          closeAlert={closePopup}
+          type={popupType}
+          icon={popupIcon}
+        />
       )}
       <div className="confirmation-content-wrapper">
         <Card className="confirmation-card">
