@@ -45,7 +45,7 @@ export const GetQuestionsData = createAsyncThunk(
           return res.data;
         })
         .catch((error) => {
-          if (error.response.status === 401) {
+          if (error.response.status == 401) {
             history.push("/login");
             window.location.reload();
           } else {
@@ -73,7 +73,7 @@ export const saveQuesList = createAsyncThunk(
           return res.data;
         })
         .catch((error) => {
-          if (error.response.status === 401) {
+          if (error.response.status == 401) {
             history.push("/login");
             window.location.reload();
           } else {
