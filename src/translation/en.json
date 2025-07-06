@@ -205,7 +205,9 @@
     "loading": "Loading...",
     "saving": "Saving...",
     "save":"Save",
-    "update":"Update"
+    "update":"Update",
+    "CompleteProfileErr":"You did not Answer to Registeration's Questions , You should Complete these steps to can continu",
+    "MailConfirmedErr":"You did not Confirm Your Mail"
   },
   "profile": {
     "name": "Name",

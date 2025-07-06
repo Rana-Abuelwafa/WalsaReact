@@ -2,8 +2,8 @@
 import React, { lazy, Suspense, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoadingPage from "./components/Loader/LoadingPage";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   fetchUserCountry,
   getCurrencyFromCountry,
@@ -59,6 +59,9 @@ const Confirmation = lazy(() =>
     /* webpackPrefetch: true */ "./components/confirmationPg/AppointmentConfirmation"
   )
 );
+const Validuser = lazy(() =>
+  import(/* webpackPrefetch: true */ "./components/ErrorHandler/Validuser")
+);
 
 function App() {
   useEffect(() => {
@@ -110,7 +113,14 @@ function App() {
             <Route path="/RegisterQues" element={<RegisterQues />} />
             <Route path="/contactUs" element={<ContactUs />} />
             <Route path="/AboutUs" element={<AboutPage />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route
+              path="/profile"
+              element={
+                <Validuser>
+                  <Profile />
+                </Validuser>
+              }
+            />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/confirmation" element={<Confirmation />} />
           </Routes>

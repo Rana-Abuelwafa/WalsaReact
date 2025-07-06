@@ -203,7 +203,9 @@
     "loading": "Wird geladen...",
     "saving": "Wird gespeichert...",
     "save":"Save",
-    "update":"Update"
+    "update":"Update",
+    "CompleteProfileErr":"Sie haben die Registrierungsfragen nicht beantwortet. Sie sollten diese Schritte ausführen, um fortfahren zu können",
+    "MailConfirmedErr":"Sie haben Ihre E-Mail nicht bestätigt"
   },
   "profile": {
     "name": "Name",
