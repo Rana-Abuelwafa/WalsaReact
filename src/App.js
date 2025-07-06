@@ -121,8 +121,22 @@ function App() {
                 </Validuser>
               }
             />
-            <Route path="/pricing" element={<Pricing />} />
-            <Route path="/confirmation" element={<Confirmation />} />
+            <Route
+              path="/pricing"
+              element={
+                <Validuser>
+                  <Pricing />
+                </Validuser>
+              }
+            />
+            <Route
+              path="/confirmation"
+              element={
+                <Validuser>
+                  <Confirmation />
+                </Validuser>
+              }
+            />
           </Routes>
         </Suspense>
       </BrowserRouter>

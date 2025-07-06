@@ -35,6 +35,11 @@ function Validuser(props) {
           //     replace: true,
           //     state: { path: "/" },
           //   });
+        } else {
+          setMailConfirmed(true);
+          setMsg("");
+          setIsError(false);
+          setIsAnswerQues(true);
         }
       }
     }
@@ -56,8 +61,9 @@ function Validuser(props) {
           }
           closeAlert={() => setIsError(false)}
         />
-      ) : null}
-      {props.children}
+      ) : (
+        props.children
+      )}
     </>
   );
 }
