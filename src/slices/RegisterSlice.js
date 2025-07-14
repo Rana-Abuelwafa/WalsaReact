@@ -167,7 +167,7 @@ const registerSlice = createSlice({
 
     //start register
     builder.addCase(RegisterUser.fulfilled, (state, action) => {
-      if (action.payload.status !== null && action.payload.status !== 200) {
+      if (action.payload.status != null && action.payload.status != 200) {
         state.User = null;
         state.loading = false;
         state.errors = JSON.stringify(action.payload.errors);
@@ -215,7 +215,7 @@ const registerSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(ConfirmOTP.fulfilled, (state, action) => {
-      if (action.payload.status !== null && action.payload.status !== 200) {
+      if (action.payload.status != null && action.payload.status != 200) {
         state.User = null;
         state.loading = false;
         state.errors = JSON.stringify(action.payload.errors);

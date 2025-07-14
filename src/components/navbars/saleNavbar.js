@@ -7,10 +7,10 @@ import "./saleNavbar.scss";
 const SaleNavbar = () => {
   // Navigation hook for programmatic routing
   const navigate = useNavigate();
-  
+
   // Translation hook for multilingual support
   const t = useTranslation();
-  
+
   // State to track if the screen is mobile size (width < 768px)
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
@@ -19,26 +19,28 @@ const SaleNavbar = () => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   // State for the target date (100 days from March 1, 2025)
   const [targetDate] = useState(() => {
     const date = new Date("2025-03-01T00:00:00");
-    date.setDate(date.getDate() + 100); // Add 100 days to the initial date
+    date.setDate(date.getDate() + 200); // Add 100 days to the initial date
     return date;
   });
 
   // Function to calculate remaining time until target date
   const calculateTimeLeft = () => {
     const difference = targetDate - new Date();
-    return difference > 0 ? {
-      days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-      hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-      minutes: Math.floor((difference / 1000 / 60) % 60),
-      seconds: Math.floor((difference / 1000) % 60),
-    } : { days: 0, hours: 0, minutes: 0, seconds: 0 }; // Return zeros if sale has ended
+    return difference > 0
+      ? {
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((difference / 1000 / 60) % 60),
+          seconds: Math.floor((difference / 1000) % 60),
+        }
+      : { days: 0, hours: 0, minutes: 0, seconds: 0 }; // Return zeros if sale has ended
   };
 
   // State to store and update remaining time
@@ -61,10 +63,13 @@ const SaleNavbar = () => {
           <Col md={4} className="sale-text-col">
             <span className="sale-text">
               {t("SaleNavbar.saleText")} {/* Translated text */}
-              <span className="highlight">{t("SaleNavbar.saleEndsIn")}</span> {/* Highlighted text */}
+              <span className="highlight">
+                {t("SaleNavbar.saleEndsIn")}
+              </span>{" "}
+              {/* Highlighted text */}
             </span>
           </Col>
-          
+
           {/* Second column: Countdown timer */}
           <Col md={4} className="countdown-col">
             <div className="countdown-timer">
@@ -79,11 +84,11 @@ const SaleNavbar = () => {
               </div>
             </div>
           </Col>
-          
+
           {/* Third column: Action button */}
           <Col md={4} className="button-col">
-            <Button 
-              className="check-button" 
+            <Button
+              className="check-button"
               onClick={() => navigate("/login")} // Navigate to login page on click
             >
               {t("SaleNavbar.checkItOut")} {/* Translated button text */}

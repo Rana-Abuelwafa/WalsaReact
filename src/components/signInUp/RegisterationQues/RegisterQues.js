@@ -69,7 +69,7 @@ function RegisterQues() {
         dispatch(CompleteMyProfile(cls));
         navigate("/Response", {
           replace: true,
-          state: { msg: result.payload.WelcomeMsg },
+          state: { msg: result.payload.welcomeMsg },
         });
         //navigate("/Response");
       } else {

@@ -20,7 +20,7 @@ function OTPInput(props) {
 
   const sendOtpCode = () => {
     const data = { Email: myEmail, otp: otp };
-    let path = state.path;
+    let path = state?.path || "/";
     dispatch(ConfirmOTP(data)).then((result) => {
       if (result.payload && result.payload.isSuccessed) {
         setShowAlert(false);
@@ -44,6 +44,7 @@ function OTPInput(props) {
     }
     return () => {};
   }, []);
+  console.log("User ", User);
   return (
     <section className="VerifySection">
       <div className="verify_content centerContainer">

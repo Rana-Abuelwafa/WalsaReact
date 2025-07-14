@@ -227,7 +227,7 @@ const Invoice = () => {
   const currentInvoice = invoices[activeTab] || {};
   const currentCouponCode = couponCodes[currentInvoice.invoice_id] || "";
   const currentCoupon = coupons[currentInvoice.invoice_id] || {};
-
+  console.log("currentCoupon ", currentCoupon);
   return (
     <div className="checkout-page" dir={direction}>
       {loading && <LoadingPage />}
@@ -335,10 +335,16 @@ const Invoice = () => {
                               [currentInvoice.invoice_id]: e.target.value,
                             }))
                           }
+                          disabled={
+                            invoice.copoun_id != null && invoice.copoun_id > 0
+                          }
                         />
                         <Button
                           className="apply-btn"
                           onClick={handleApplyCoupon}
+                          disabled={
+                            invoice.copoun_id != null && invoice.copoun_id > 0
+                          }
                         >
                           {t("checkout.apply")}
                         </Button>
@@ -367,6 +373,9 @@ const Invoice = () => {
                               <span>
                                 {currentCoupon.valid
                                   ? currentCoupon.discount_value
+                                  : invoice.copoun_id != null &&
+                                    invoice.copoun_id > 0
+                                  ? "50%"
                                   : 0}
                               </span>
                             </div>

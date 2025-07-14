@@ -58,7 +58,7 @@ const MainNavbar = () => {
     const userLocal = localStorage.getItem("user");
     if (userLocal) {
       const user = JSON.parse(userLocal);
-      if (user) {
+      if (user != null && user.firstName != null) {
         setMyName(`${user.firstName} ${user.lastName}`);
       }
     }

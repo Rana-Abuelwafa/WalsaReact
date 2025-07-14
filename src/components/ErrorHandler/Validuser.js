@@ -17,17 +17,9 @@ function Validuser(props) {
     if (userLocal) {
       const user = JSON.parse(userLocal);
       if (user) {
-        console.log("user ", user.completeprofile);
-        //check if user answer to questions or not
-        if (user.completeprofile != null && user.completeprofile == 0) {
-          setIsAnswerQues(false);
-
-          setMsg(t("general.CompleteProfileErr"));
-          setIsError(true);
-          // navigate("/RegisterQues");
-        }
+        console.log("user ", user);
         //check if user confirm its mail or not (otp checked)
-        else if (user.emailConfirmed != null && user.emailConfirmed == false) {
+        if (user.emailConfirmed != null && user.emailConfirmed == false) {
           setMailConfirmed(false);
           setMsg(t("general.MailConfirmedErr"));
           setIsError(true);
@@ -35,6 +27,14 @@ function Validuser(props) {
           //     replace: true,
           //     state: { path: "/" },
           //   });
+        }
+        //check if user answer to questions or not
+        else if (user.completeprofile != null && user.completeprofile == 0) {
+          setIsAnswerQues(false);
+
+          setMsg(t("general.CompleteProfileErr"));
+          setIsError(true);
+          // navigate("/RegisterQues");
         } else {
           setMailConfirmed(true);
           setMsg("");
@@ -56,7 +56,7 @@ function Validuser(props) {
             answerQues == false
               ? "/RegisterQues"
               : mailConfirmed == false
-              ? "/verifyEmail"
+              ? "/login"
               : "/login"
           }
           closeAlert={() => setIsError(false)}

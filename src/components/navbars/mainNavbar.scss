@@ -36,6 +36,7 @@
       margin-left: 23px;
     }
     .nav-items {
+      
       margin-right: 0 !important;
       margin-left: auto !important; // Push to left side in RTL
     }
@@ -48,6 +49,7 @@
       margin-right: 0;
       margin-left: 15px;
       text-align: center;
+
     }
 
     .user-name-col {
@@ -84,7 +86,7 @@
   margin-right: 15px !important;
   padding: 0.5rem 1rem !important;
   transition: color 0.3s ease;
-
+      text-transform: uppercase;
   &:hover {
     color: #b181d6;
   }

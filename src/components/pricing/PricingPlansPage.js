@@ -47,6 +47,12 @@ const Section = ({
                 <div className="pricing-info">
                   {plan.isCustom ? (
                     <span className="old-price custom-price">Custom</span>
+                  ) : plan.oldPrice == plan.price ? (
+                    plan.price > 0 && (
+                      <span className="current-price ms-2">
+                        {plan.price} {plan.curr_code}
+                      </span>
+                    )
                   ) : (
                     <>
                       {plan.oldPrice > 0 && (

@@ -124,9 +124,9 @@ function App() {
             <Route
               path="/pricing"
               element={
-                <Validuser>
-                  <Pricing />
-                </Validuser>
+                // <Validuser>
+                <Pricing />
+                // </Validuser>
               }
             />
             <Route
