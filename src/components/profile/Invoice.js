@@ -56,7 +56,7 @@ const Invoice = () => {
   }, [dispatch, currentLang]);
 
   useEffect(() => {
-    console.log(success, message);
+    // console.log(success, message);
     if (success !== null) {
       if (success && message === "Checkout successful") {
         setPopupMessage(""); // Empty message for successful checkout
@@ -85,15 +85,18 @@ const Invoice = () => {
     }
 
     try {
-      await dispatch(validateCoupon({ copoun: couponCode })).unwrap();
+      const validationResult = await dispatch(validateCoupon({ copoun: couponCode })).unwrap();
+      // console.log(validationResult)
+      if (validationResult.valid) {
 
       // Update invoice prices with the coupon
+      // console.log(validationResult)
       await dispatch(
         UpdateInvoicePrices({
           total_price: currentInvoice.total_price,
-          copoun_id: coupon?.id || 0,
+          copoun_id: validationResult.couponData.id,
           invoice_id: currentInvoice.invoice_id,
-          copoun_discount: coupon?.discount_value || 0,
+          copoun_discount: validationResult.couponData.discount_value,
           tax_id: currentInvoice.tax_id,
           deduct_amount: 0,
         })
@@ -106,8 +109,21 @@ const Invoice = () => {
       };
       // Refresh invoices
       await dispatch(getInvoices(getData)).unwrap();
+      
+      setCoupons(prev => ({
+        ...prev,
+        [currentInvoice.invoice_id]: validationResult.couponData
+      }));
+    }
     } catch (error) {
       console.error("Coupon validation error:", error);
+      // Clear any previous coupon if validation fails
+      setCoupons(prev => {
+      const newCoupons = {...prev};
+      delete newCoupons[currentInvoice.invoice_id];
+      return newCoupons;
+    }); // Store the validated coupon in local state
+
     }
   };
   const handleCheckout = async () => {
@@ -227,7 +243,7 @@ const Invoice = () => {
   const currentInvoice = invoices[activeTab] || {};
   const currentCouponCode = couponCodes[currentInvoice.invoice_id] || "";
   const currentCoupon = coupons[currentInvoice.invoice_id] || {};
-  console.log("currentCoupon ", currentCoupon);
+  // console.log("currentCoupon ", currentCoupon);
   return (
     <div className="checkout-page" dir={direction}>
       {loading && <LoadingPage />}
@@ -327,6 +343,7 @@ const Invoice = () => {
                           type="text"
                           placeholder={t("checkout.couponPlaceholder")}
                           className="voucher-input flex-grow-1"
+                          // value={currentCouponCode}
                           value={
                             invoice.copoun_id != null && invoice.copoun_id > 0
                               ? invoice.copoun
