@@ -252,9 +252,8 @@ const Invoice = () => {
                 <Tab
                   key={index}
                   eventKey={index}
-                  title={`${t("checkout.invoice")} ${
-                    invoice.invoice_code_auto
-                  }`}
+                  title={invoice.invoice_code}
+                  // title={`${t("checkout.invoice")} ${invoice.invoice_code}`}
                   className="invoice-tab"
                 >
                   <Row className="align-items-center text-center text-md-start service-title-row">
@@ -328,7 +327,11 @@ const Invoice = () => {
                           type="text"
                           placeholder={t("checkout.couponPlaceholder")}
                           className="voucher-input flex-grow-1"
-                          value={currentCouponCode}
+                          value={
+                            invoice.copoun_id != null && invoice.copoun_id > 0
+                              ? invoice.copoun
+                              : currentCouponCode
+                          }
                           onChange={(e) =>
                             setCouponCodes((prev) => ({
                               ...prev,
@@ -371,11 +374,11 @@ const Invoice = () => {
                             <div className="d-flex justify-content-between mb-2">
                               <span>{t("checkout.giftVoucher")}</span>
                               <span>
-                                {currentCoupon.valid
+                                {currentCoupon != null && currentCoupon.valid
                                   ? currentCoupon.discount_value
                                   : invoice.copoun_id != null &&
                                     invoice.copoun_id > 0
-                                  ? "50%"
+                                  ? invoice.copoun_discount + "%"
                                   : 0}
                               </span>
                             </div>
