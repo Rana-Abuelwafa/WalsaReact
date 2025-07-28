@@ -42,11 +42,11 @@ function OTPInput(props) {
         setMyEmail(user.email);
       }
     }
-    return () => {};
+    return () => { };
   }, []);
   console.log("User ", User);
   return (
-    <section className="VerifySection">
+    <section className="VerifySection" dir={t("direction")}>
       <div className="verify_content centerContainer">
         <div>
           <p>
@@ -54,6 +54,15 @@ function OTPInput(props) {
             <strong className="marked">{myEmail}</strong>{" "}
             {t("Login.CodeVerifyTitle2")}
           </p>
+
+          <div className="spam-alert">
+            <p>⚠️ <strong>{t("Login.spamAlert.title")}</strong></p>
+            <ul>
+              <li>{t("Login.spamAlert.check")} <strong>{t("Login.spamAlert.spam")}</strong> {t("Login.spamAlert.or")} <strong>{t("Login.spamAlert.junk")}</strong> {t("Login.spamAlert.folder")}</li>
+              <li>{t("Login.spamAlert.addToContacts")}</li>
+              <li>{t("Login.spamAlert.waitAndRefresh")}</li>
+            </ul>
+          </div>
         </div>
         <div>
           <OtpInput

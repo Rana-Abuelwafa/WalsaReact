@@ -5,7 +5,7 @@ const Chat = () => {
     return (
         // Anchor tag linking to WhatsApp chat with a specific phone number
         <a
-            href="https://wa.me/01011111111"   // Replace with your actual WhatsApp number
+            href="https://wa.me/201011111111"   // Replace with your actual WhatsApp number
             className="whatsapp-button"
             target="_blank"
             rel="noopener noreferrer"

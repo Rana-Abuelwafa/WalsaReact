@@ -18,7 +18,17 @@
     "CodeVerifyTitle2": "Um Ihre E-Mail zu bestätigen",
     "SendCode": "Code senden",
     "AlreadyLogin": "waarmee u al inlogt ",
-    "LogOut": "Uitloggens"
+    "LogOut": "Uitloggens",
+    "spamAlert": {
+      "title": "E-Mail nicht gefunden?",
+      "check": "Überprüfen Sie Ihren",
+      "spam": "Spam",
+      "or": "oder",
+      "junk": "Junk",
+      "folder": "Ordner",
+      "addToContacts": "Fügen Sie unsere E-Mail-Adresse zu Ihren Kontakten/Whitelist hinzu",
+      "waitAndRefresh": "Warten Sie einige Minuten und aktualisieren Sie Ihren Posteingang"
+    }
   },
   "Register": {
     "HeaderTitle": "Bleiben Sie in Kontakt mit Ihren",
@@ -45,6 +55,16 @@
   "PopUp": {
     "Header": "Fehlermeldung",
     "Close": "Schließen"
+  },
+  "sendMail": {
+    "sendMsg": "Senden Sie uns eine Nachricht",
+    "successMsg": "Nachricht erfolgreich gesendet!",
+    "subject": "Betreff",
+    "enterSubject": "Betreff eingeben",
+    "message": "Nachricht",
+    "enterMsg": "Geben Sie Ihre Nachricht ein",
+    "send": "Senden",
+    "sending...": "Wird gesendet..."
   },
   "Navbar": {
     "home": "STARTSEITE",
@@ -202,10 +222,10 @@
   "general": {
     "loading": "Wird geladen...",
     "saving": "Wird gespeichert...",
-    "save":"Save",
-    "update":"Update",
-    "CompleteProfileErr":"Sie haben die Registrierungsfragen nicht beantwortet. Sie sollten diese Schritte ausführen, um fortfahren zu können",
-    "MailConfirmedErr":"Sie haben Ihre E-Mail nicht bestätigt"
+    "save": "Save",
+    "update": "Update",
+    "CompleteProfileErr": "Sie haben die Registrierungsfragen nicht beantwortet. Sie sollten diese Schritte ausführen, um fortfahren zu können",
+    "MailConfirmedErr": "Sie haben Ihre E-Mail nicht bestätigt"
   },
   "profile": {
     "name": "Name",
@@ -273,9 +293,9 @@
     "custom_package": "Sie möchten ein spezielles Paket für",
     "recommended": "Empfohlen",
     "get_started": "Loslegen",
-    "select":"Wählen",
-    "selected":"Wählen",
-    "next":"Weiter"
+    "select": "Wählen",
+    "selected": "Wählen",
+    "next": "Weiter"
   },
   "confirmation": {
     "termsConditions": "Allgemeine Geschäftsbedingungen",
@@ -304,7 +324,7 @@
     "couponRequired": "Bitte geben Sie einen Gutscheincode ein",
     "couponAppliedSuccessfully": "Gutschein erfolgreich angewendet!",
     "noInvoices": "Keine Rechnungen gefunden",
-    "currency":"Währung",
+    "currency": "Währung",
     "invoice": "Rechnung",
     "price": "Preis",
     "packageRemovedSuccessfully": "Paket erfolgreich entfernt!",
@@ -319,11 +339,11 @@
     "actions": "Acties",
     "preview": "Voorbeeld",
     "download": "Downloaden",
-     "noInvoices": "Keine Rechnungen gefunden",
+    "noInvoices": "Keine Rechnungen gefunden",
     "noResults": "Geen facturen gevonden die overeenkomen"
   },
-  "NotFound":{
-    "Title":"OOPS..! Seite nicht gefunden",
-    "SubTitle":"Die von Ihnen gesuchte Seite existiert nicht."
+  "NotFound": {
+    "Title": "OOPS..! Seite nicht gefunden",
+    "SubTitle": "Die von Ihnen gesuchte Seite existiert nicht."
   }
 }

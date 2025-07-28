@@ -1,8 +1,8 @@
-import React from "react";
+import React , { useState } from "react";
 import MainNavbar from "../navbars/mainNavbar";
 import MainFooter from "../footer/mainFooter";
 import { Container, Row, Col, Button, Card } from "react-bootstrap";
-
+import ContactModal from "../shared/SendMailModal/SendMailModal";
 import {
   FaEnvelope,
   FaComments,
@@ -13,13 +13,15 @@ import {
 } from "react-icons/fa";
 import { useTranslation } from "react-multi-lang";
 import SocialLinks from "../shared/SocialLink/SocialLinks";
+import Chat from "../chatIcon/chat";
 import "./ContactUs.scss";
 
 const ContactUs = () => {
   const t = useTranslation();
-
+  const [showModal, setShowModal] = useState(false);
   return (
     <>
+       <ContactModal show={showModal} handleClose={() => setShowModal(false)} />
       {/* Main navigation at the top */}
       <MainNavbar />
 
@@ -76,7 +78,15 @@ const ContactUs = () => {
                       ))}
                   </Card.Text>
                   <div className="mt-auto text-center">
-                    <Button className="btn">{t("contact.chatBtn")}</Button>
+                    <a
+                      href="https://wa.me/201011111111"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn"
+                    >
+                      {t("contact.chatBtn")}
+                    </a>
+                    {/* <Button className="btn"></Button> */}
                   </div>
                 </Card.Body>
               </Card>
@@ -101,7 +111,7 @@ const ContactUs = () => {
                       ))}
                   </Card.Text>
                   <div className="mt-auto text-center">
-                    <Button className="btn">{t("contact.emailBtn")}</Button>
+                    <Button onClick={() => setShowModal(true)} className="btn">{t("contact.emailBtn")}</Button>
                   </div>
                 </Card.Body>
               </Card>
@@ -126,7 +136,7 @@ const ContactUs = () => {
                       ))}
                   </Card.Text>
                   <div className="mt-auto text-center">
-                    <Button className="btn">{t("contact.helpBtn")}</Button>
+                    <Button onClick={() => setShowModal(true)} className="btn">{t("contact.helpBtn")}</Button>
                   </div>
                 </Card.Body>
               </Card>
@@ -137,6 +147,7 @@ const ContactUs = () => {
 
       {/* Footer at the bottom */}
       <MainFooter />
+      <Chat /> {/* Floating chat icon for quick support */}
     </>
   );
 };

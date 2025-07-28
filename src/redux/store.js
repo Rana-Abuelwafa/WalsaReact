@@ -8,6 +8,7 @@ import pricingPlansReducer from '../slices/pricingPlansSlice';
 import languageReducer from '../slices/languageSlice';
 import currencyReducer from '../slices/currencySlice';
 import invoiceReducer  from '../slices/invoiceSlice';
+import contactReducer from '../slices/contactSlice';
 import { authMiddleware } from '../middleware/authMiddleware';
 
 export const store = configureStore({
@@ -20,7 +21,8 @@ export const store = configureStore({
     pricingPlans: pricingPlansReducer,
     language: languageReducer,
     currency: currencyReducer,
-    invoice:invoiceReducer
+    invoice:invoiceReducer,
+    contact: contactReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(authMiddleware),

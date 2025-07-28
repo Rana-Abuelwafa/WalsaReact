@@ -4,6 +4,7 @@ import MainNavbar from "../navbars/mainNavbar";
 import MainFooter from "../footer/mainFooter";
 import { useTranslation } from "react-multi-lang";
 import { useNavigate } from "react-router-dom";
+import Chat from "../chatIcon/chat";
 import "./PricingPlansPage.scss";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -320,6 +321,7 @@ const PricingPlansPage = () => {
         </Container>
       </div>
       <MainFooter />
+      <Chat />
     </>
   );
 };

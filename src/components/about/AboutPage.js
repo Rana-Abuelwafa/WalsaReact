@@ -5,6 +5,7 @@ import SaleNavbar from "../navbars/saleNavbar";
 import MainFooter from "../footer/mainFooter";
 import { useTranslation } from "react-multi-lang";
 import { useNavigate } from "react-router-dom";
+import Chat from "../chatIcon/chat";
 import "./AboutPage.scss";
 
 const AboutPage = () => {
@@ -173,6 +174,7 @@ const AboutPage = () => {
 
       {/* Footer */}
       <MainFooter />
+      <Chat /> {/* Floating chat icon for quick support */}
     </>
   );
 };

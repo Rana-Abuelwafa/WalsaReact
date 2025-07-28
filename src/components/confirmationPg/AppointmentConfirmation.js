@@ -157,7 +157,7 @@ const AppointmentConfirmation = () => {
   }
 
   return (
-    <div className="confirmation-container dir={direction}">
+    <div className="confirmation-container" dir={direction}>
       {/* Success/Error Popup */}
       {showPopup && (
         <PopUp

@@ -89,7 +89,8 @@ const SaleNavbar = () => {
           <Col md={4} className="button-col">
             <Button
               className="check-button"
-              onClick={() => navigate("/login")} // Navigate to login page on click
+              // onClick={() => navigate("/login")} // Navigate to login page on click
+              onClick={() => navigate("/pricing")}
             >
               {t("SaleNavbar.checkItOut")} {/* Translated button text */}
             </Button>

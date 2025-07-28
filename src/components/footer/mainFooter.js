@@ -128,7 +128,10 @@ const MainFooter = () => {
 
             {/* Footer slogan or hashtag */}
             <h5 className="mt-4">{t("Footer.ourNew")}</h5>
-            <p className="small-text link-us">#Link_it_with_waslaa</p>
+             <Link to="/contactUs" onClick={scrollToTop}>
+              <p className="small-text link-us">#Link_it_with_waslaa</p>
+             </Link> 
+             
           </Col>
         </Row>
       </Container>

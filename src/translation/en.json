@@ -18,7 +18,17 @@
     "CodeVerifyTitle2": "To Verify your mail",
     "SendCode": "Send Code",
     "AlreadyLogin": "you already login with ",
-    "LogOut": "LogOut"
+    "LogOut": "LogOut",
+    "spamAlert": {
+      "title": "Can't find our email?",
+      "check": "Check your",
+      "spam": "spam",
+      "or":  "or",
+      "junk":"junk",
+      "folder":"folder",
+      "addToContacts":"Add our email address to your contacts/whitelist",
+      "waitAndRefresh":"Wait a few minutes and refresh your inbox" 
+    }
   },
   "Register": {
     "HeaderTitle": "Stay in touch with your",
@@ -45,6 +55,16 @@
   "PopUp": {
     "Header": "Error Message",
     "Close": "Close"
+  },
+  "sendMail":{
+    "sendMsg":"Send Us a Message",
+    "successMsg":"Message sent successfully!",
+    "subject":"Subject",
+    "enterSubject":"Enter subject",
+    "message":"Message",
+    "enterMsg":"Enter your message",
+    "send":"Send",
+    "sending...":"Sending..."
   },
   "Navbar": {
     "home": "HOME",

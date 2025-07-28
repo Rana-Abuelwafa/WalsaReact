@@ -1,45 +1,68 @@
-import React, { useState } from "react";
-import { Modal, Button, Form } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Modal, Button, Form, Alert } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { sendContactMail, resetContactState } from "../../../slices/contactSlice";
+import { useTranslation } from "react-multi-lang";
+
 function SendMailModal({ show, handleClose }) {
+  const dispatch = useDispatch();
+  const t = useTranslation();
+  const { loading, error, success } = useSelector((state) => state.contact);
   const [formData, setFormData] = useState({
     subject: "",
     message: "",
-    mail: "",
   });
+
+  useEffect(() => {
+    if (success) {
+      // Reset form and close modal after successful submission
+      setFormData({ subject: "", message: "" });
+      const timer = setTimeout(() => {
+        handleClose();
+        dispatch(resetContactState());
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [success, handleClose, dispatch]);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    handleClose();
+    dispatch(sendContactMail(formData));
+    // handleClose();
   };
+
   return (
     <Modal show={show} onHide={handleClose} centered className="contact-modal">
       <Modal.Header closeButton>
-        <Modal.Title>Send Us a Message</Modal.Title>
+        <Modal.Title>{t("sendMail.sendMsg")}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        {error && <Alert variant="danger">{error}</Alert>}
+        {success && <Alert variant="success">{t("sendMail.successMsg")}</Alert>}
+
         <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="formName">
-            <Form.Label>Your Name</Form.Label>
+          <Form.Group controlId="formSubject" className="mb-3">
+            <Form.Label>{t("sendMail.subject")}</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter your name"
-              name="name"
-              value={formData.name}
+              placeholder={t("sendMail.enterSubject")}
+              name="subject"
+              value={formData.subject}
               onChange={handleChange}
               required
             />
           </Form.Group>
 
-          <Form.Group controlId="formMessage" className="mt-3">
-            <Form.Label>Message</Form.Label>
+          <Form.Group controlId="formMessage" className="mb-3">
+            <Form.Label>{t("sendMail.message")}</Form.Label>
             <Form.Control
               as="textarea"
               rows={4}
-              placeholder="Enter your message"
+              placeholder={t("sendMail.enterMsg")}
               name="message"
               value={formData.message}
               onChange={handleChange}
@@ -47,8 +70,13 @@ function SendMailModal({ show, handleClose }) {
             />
           </Form.Group>
 
-          <Button variant="success" type="submit" className="mt-4 w-100">
-            Send
+          <Button
+            variant="success"
+            type="submit"
+            className="w-100"
+            disabled={loading}
+          >
+             {t("sendMail.send")}
           </Button>
         </Form>
       </Modal.Body>
