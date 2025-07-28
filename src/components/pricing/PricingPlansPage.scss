@@ -10,32 +10,31 @@
       .card-body {
         text-align: right !important;
 
+        .features-list li {
+          padding-left: 0;
+          padding-right: 1.5rem;
 
-      .features-list li {
-        padding-left: 0;
-        padding-right: 1.5rem;
+          &::before {
+            left: auto;
+            right: 0;
+          }
+        }
 
-        &::before {
-          left: auto;
-          right: 0;
+        .pricing-info {
+          flex-direction: row-reverse;
+
+          .current-price {
+            margin-right: 0.5rem;
+            margin-left: 0;
+          }
         }
       }
 
-      .pricing-info {
-        flex-direction: row-reverse;
-
-        .current-price {
-          margin-right: 0.5rem;
-          margin-left: 0;
-        }
+      &.selected::after {
+        right: auto !important;
+        left: 10px;
       }
     }
-
-    &.selected::after {
-      right: auto !important;
-      left: 10px;
-    }
-  }
 
     // Continue button container
     .continue-btn-container {
@@ -68,7 +67,7 @@
     }
 
     // Best badge position
-    .best-badge {   
+    .best-badge {
       left: auto !important;
       right: 50% !important;
       transform: translateX(50%) !important;
@@ -79,13 +78,13 @@
     line-height: 80px;
     font-size: 50px;
     font-weight: bold;
-    color: #542D72;
+    color: #542d72;
     margin-bottom: 0.5rem;
   }
 
   .pricing-desc {
     font-size: 24px;
-    color: #542D72;
+    color: #542d72;
   }
 
   .pricingHr {
@@ -104,7 +103,7 @@
 
   .deal-text {
     font-size: 24px;
-    color: #542D72;
+    color: #542d72;
     font-weight: bold;
     margin-bottom: 2rem;
   }
@@ -115,7 +114,7 @@
     line-height: 80px;
     font-size: 40px;
     font-weight: bold;
-    color: #542D72;
+    color: #542d72;
     text-transform: uppercase;
   }
 
@@ -128,19 +127,20 @@
       height: 600px;
       display: flex;
       flex-direction: column;
+      margin-bottom: 30px;
 
       &.selected {
-        border: 3px solid #542D72 !important;
+        border: 3px solid #542d72 !important;
         position: relative;
 
         &::after {
-          content: '✓';
+          content: "✓";
           position: absolute;
           top: 10px;
           right: 10px;
           width: 30px;
           height: 30px;
-          background-color: #542D72;
+          background-color: #542d72;
           color: white;
           border-radius: 50%;
           display: flex;
@@ -152,9 +152,9 @@
       }
 
       &.best {
-        background-color: #542D72;
+        background-color: #542d72;
         color: #fff !important;
-        border-color: #542D72;
+        border-color: #542d72;
 
         &.selected {
           border-color: #ffb300 !important;
@@ -165,11 +165,11 @@
         }
 
         .card-title {
-          color: #fff !important
+          color: #fff !important;
         }
 
         .plan-desc {
-          color: #fff !important
+          color: #fff !important;
         }
 
         .old-price {
@@ -219,21 +219,21 @@
         flex: 1;
 
         .card-title {
-          color: #542D72;
+          color: #542d72;
           font-size: 1.25rem;
           font-weight: 700;
           margin-bottom: 0.5rem;
         }
 
         .card-subtitle {
-          color: #542D72;
+          color: #542d72;
           font-size: 1.1rem;
           margin-bottom: 1rem;
         }
 
         .plan-desc {
           font-size: 0.9rem;
-          color: #542D72;
+          color: #542d72;
           margin-top: -0.5rem;
           margin-bottom: 0.75rem;
         }
@@ -266,14 +266,14 @@
           margin-bottom: 1.5rem;
 
           li {
-            color: #542D72;
+            color: #542d72;
             font-size: 0.95rem;
             margin: 0.5rem 0;
             position: relative;
             padding-left: 1.5rem;
 
             &::before {
-              content: '✔';
+              content: "✔";
               position: absolute;
               left: 0;
               color: #707070;
@@ -282,7 +282,7 @@
         }
 
         .btn {
-          background-color: #542D72;
+          background-color: #542d72;
           color: #fff;
           align-self: center;
           margin-top: auto;
@@ -301,13 +301,12 @@
     .section-label {
       font-size: 1.25rem;
       font-weight: bold;
-      color: #542D72;
+      color: #542d72;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
 
     .payment-icons {
-
       .pay-icon {
         height: 40px;
         width: 60px;
@@ -335,7 +334,7 @@
     p {
       font-weight: 700;
       font-size: 40px;
-      color: #542D72;
+      color: #542d72;
     }
 
     .custom-img {
@@ -417,8 +416,6 @@
   }
 }
 
-
-
 .continue-btn-container {
   display: flex;
   justify-content: flex-end;
@@ -426,7 +423,7 @@
   padding-right: 15px;
 
   .continue-btn {
-    background-color: #542D72;
+    background-color: #542d72;
     color: white;
     padding: 0.75rem 2rem;
     border-radius: 25px;

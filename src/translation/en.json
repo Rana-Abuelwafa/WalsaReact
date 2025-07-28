@@ -323,5 +323,9 @@
     "download": "Download",
     "noInvoices": "No invoices found",
     "noResults": "No invoices match your search"
+  },
+  "NotFound":{
+    "Title":"OOPS..! Page Not Found",
+    "SubTitle":"The page you were looking for doesn't exist."
   }
 }

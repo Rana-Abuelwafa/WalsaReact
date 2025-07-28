@@ -1,9 +1,18 @@
 import React from "react";
-import MainNavbar from '../navbars/mainNavbar';
-import MainFooter from '../footer/mainFooter';
+import MainNavbar from "../navbars/mainNavbar";
+import MainFooter from "../footer/mainFooter";
 import { Container, Row, Col, Button, Card } from "react-bootstrap";
-import { FaEnvelope, FaComments, FaQuestionCircle, FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
+
+import {
+  FaEnvelope,
+  FaComments,
+  FaQuestionCircle,
+  FaFacebookF,
+  FaTwitter,
+  FaInstagram,
+} from "react-icons/fa";
 import { useTranslation } from "react-multi-lang";
+import SocialLinks from "../shared/SocialLink/SocialLinks";
 import "./ContactUs.scss";
 
 const ContactUs = () => {
@@ -11,7 +20,6 @@ const ContactUs = () => {
 
   return (
     <>
-
       {/* Main navigation at the top */}
       <MainNavbar />
 
@@ -24,16 +32,21 @@ const ContactUs = () => {
               <p>{t("contact.subtitle")}</p>
 
               {/* Social media icons */}
-              <div className="social-icons">
+              <SocialLinks />
+              {/* <div className="social-icons">
                 <a href="/" className="icon" aria-label="Facebook"><FaFacebookF /></a>
                 <a href="/" className="icon" aria-label="Instagram"><FaInstagram /></a>
                 <a href="/" className="icon" aria-label="Twitter"><FaTwitter /></a>
                 <a href="mailto:contact@example.com" className="icon" aria-label="Email"><FaEnvelope /></a>
-              </div>
+              </div> */}
             </Col>
 
             {/* Illustration image */}
-            <Col lg={5} md={12} className="order-lg-2 order-md-2 order-1 text-center">
+            <Col
+              lg={5}
+              md={12}
+              className="order-lg-2 order-md-2 order-1 text-center"
+            >
               <img
                 src="/images/mail.png"
                 alt="Contact Illustration"
@@ -44,20 +57,23 @@ const ContactUs = () => {
 
           {/* Contact option cards (Chat, Email, Help) */}
           <Row className="contact-cards">
-
             {/* Chat Card */}
             <Col lg={4} md={6} className="mb-4">
               <Card className="contact-card h-100">
                 <Card.Body className="d-flex flex-column">
                   <FaComments className="icon mb-3" />
-                  <Card.Title><h5>{t("contact.chatTitle")}</h5></Card.Title>
+                  <Card.Title>
+                    <h5>{t("contact.chatTitle")}</h5>
+                  </Card.Title>
                   <Card.Text>
-                    {t("contact.chatDesc").split("\n").map((line, index) => (
-                      <React.Fragment key={index}>
-                        {line}
-                        <br />
-                      </React.Fragment>
-                    ))}
+                    {t("contact.chatDesc")
+                      .split("\n")
+                      .map((line, index) => (
+                        <React.Fragment key={index}>
+                          {line}
+                          <br />
+                        </React.Fragment>
+                      ))}
                   </Card.Text>
                   <div className="mt-auto text-center">
                     <Button className="btn">{t("contact.chatBtn")}</Button>
@@ -71,14 +87,18 @@ const ContactUs = () => {
               <Card className="contact-card h-100">
                 <Card.Body className="d-flex flex-column">
                   <FaEnvelope className="icon mb-3" />
-                  <Card.Title><h5>{t("contact.emailTitle")}</h5></Card.Title>
+                  <Card.Title>
+                    <h5>{t("contact.emailTitle")}</h5>
+                  </Card.Title>
                   <Card.Text>
-                    {t("contact.emailDesc").split("\n").map((line, index) => (
-                      <React.Fragment key={index}>
-                        {line}
-                        <br />
-                      </React.Fragment>
-                    ))}
+                    {t("contact.emailDesc")
+                      .split("\n")
+                      .map((line, index) => (
+                        <React.Fragment key={index}>
+                          {line}
+                          <br />
+                        </React.Fragment>
+                      ))}
                   </Card.Text>
                   <div className="mt-auto text-center">
                     <Button className="btn">{t("contact.emailBtn")}</Button>
@@ -92,14 +112,18 @@ const ContactUs = () => {
               <Card className="contact-card h-100">
                 <Card.Body className="d-flex flex-column">
                   <FaQuestionCircle className="icon mb-3" />
-                  <Card.Title><h5>{t("contact.helpTitle")}</h5></Card.Title>
+                  <Card.Title>
+                    <h5>{t("contact.helpTitle")}</h5>
+                  </Card.Title>
                   <Card.Text>
-                    {t("contact.helpDesc").split("\n").map((line, index) => (
-                      <React.Fragment key={index}>
-                        {line}
-                        <br />
-                      </React.Fragment>
-                    ))}
+                    {t("contact.helpDesc")
+                      .split("\n")
+                      .map((line, index) => (
+                        <React.Fragment key={index}>
+                          {line}
+                          <br />
+                        </React.Fragment>
+                      ))}
                   </Card.Text>
                   <div className="mt-auto text-center">
                     <Button className="btn">{t("contact.helpBtn")}</Button>

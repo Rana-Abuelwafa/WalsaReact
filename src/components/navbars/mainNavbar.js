@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { Navbar, Nav, Row, Col, Container } from "react-bootstrap";
 import { GoSearch } from "react-icons/go";
 import { FiUser, FiLogOut } from "react-icons/fi";
@@ -85,23 +85,23 @@ const MainNavbar = () => {
             }`}
           >
             {/* Home link */}
-            <Nav.Link href="/" className="nav-item">
+            <NavLink to="/" className="nav-item nav-link" end>
               {t("Navbar.home")}
-            </Nav.Link>
+            </NavLink>
 
-            <Nav.Link href="/pricing" className="nav-item">
+            <NavLink to="/pricing" className="nav-item nav-link">
               {t("Navbar.pricing")}
-            </Nav.Link>
+            </NavLink>
 
             {/* Contact Us link */}
-            <Nav.Link href="/contactUs" className="nav-item">
+            <NavLink to="/contactUs" className="nav-item nav-link">
               {t("Navbar.contact")}
-            </Nav.Link>
+            </NavLink>
 
             {/* About Us link */}
-            <Nav.Link href="/AboutUs" className="nav-item">
+            <NavLink to="/AboutUs" className="nav-item nav-link">
               {t("Navbar.about")}
-            </Nav.Link>
+            </NavLink>
 
             {/* Additional links can be enabled later */}
             {/* 

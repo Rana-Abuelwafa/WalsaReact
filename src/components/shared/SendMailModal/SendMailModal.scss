@@ -1,0 +1,48 @@
+.contact-modal {
+  .modal-content {
+    border: 2px solid #542d72;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  .modal-header {
+    background-color: #542d72;
+    color: white;
+    border-bottom: none;
+
+    .btn-close {
+      filter: invert(1);
+    }
+  }
+
+  .modal-title {
+    font-weight: bold;
+  }
+
+  .modal-body {
+    padding: 2rem;
+
+    label {
+      color: #542d72;
+      font-weight: 500;
+    }
+
+    input,
+    textarea {
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 0.5rem;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #00bc82;
+      border: none;
+      font-weight: bold;
+
+      &:hover {
+        background-color: darken(#00bc82, 10%);
+      }
+    }
+  }
+}

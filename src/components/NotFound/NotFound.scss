@@ -1,0 +1,24 @@
+.NotFound {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #542d72, #00bc82);
+  color: white;
+  text-align: center;
+  padding: 2rem;
+
+  .content {
+    max-width: 700px;
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 20px;
+      margin-bottom: 2rem;
+    }
+  }
+}

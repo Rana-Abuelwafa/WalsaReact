@@ -26,7 +26,7 @@
     }
 
     p {
-      color: #816F8F;
+      color: #816f8f;
       font-size: 21px;
       line-height: 35px;
 
@@ -50,6 +50,7 @@
         color: #ffffff;
         font-size: 18px;
         transition: color 0.3s;
+        padding: 0 !important;
 
         &:hover {
           color: #ffffff;
@@ -76,7 +77,7 @@
       text-align: start;
       border-radius: 24px;
       border: 1px solid transparent;
-      background-color: #F7F7F7;
+      background-color: #f7f7f7;
       padding: 20px;
       margin: 10px;
       height: 100%;
@@ -88,14 +89,14 @@
       }
 
       h5 {
-        color: #542D72;
+        color: #542d72;
         font-weight: bold;
         margin-bottom: 1rem;
       }
 
       p {
         font-size: 14px;
-        color: #542D72;
+        color: #542d72;
         line-height: 30px;
         margin-bottom: 1.5rem;
       }
@@ -157,7 +158,8 @@
   }
 
   .contact-cards {
-    .col-lg-4, .col-md-6 {
+    .col-lg-4,
+    .col-md-6 {
       flex: 0 0 100%;
       max-width: 100%;
     }
@@ -169,7 +171,7 @@
     h2 {
       font-size: 1.8rem !important;
     }
-    
+
     p {
       font-size: 0.9rem !important;
     }

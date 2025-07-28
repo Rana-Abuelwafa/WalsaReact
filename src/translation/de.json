@@ -321,5 +321,9 @@
     "download": "Downloaden",
      "noInvoices": "Keine Rechnungen gefunden",
     "noResults": "Geen facturen gevonden die overeenkomen"
+  },
+  "NotFound":{
+    "Title":"OOPS..! Seite nicht gefunden",
+    "SubTitle":"Die von Ihnen gesuchte Seite existiert nicht."
   }
 }

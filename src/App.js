@@ -62,7 +62,9 @@ const Confirmation = lazy(() =>
 const Validuser = lazy(() =>
   import(/* webpackPrefetch: true */ "./components/ErrorHandler/Validuser")
 );
-
+const NotFound = lazy(() =>
+  import(/* webpackPrefetch: true */ "./components/NotFound/NotFound")
+);
 function App() {
   useEffect(() => {
     // Programmatic preloading for likely next pages
@@ -137,6 +139,8 @@ function App() {
                 </Validuser>
               }
             />
+            <Route path="/NotFound" element={<NotFound />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
       </BrowserRouter>

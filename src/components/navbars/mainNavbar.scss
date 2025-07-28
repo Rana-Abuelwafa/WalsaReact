@@ -36,7 +36,6 @@
       margin-left: 23px;
     }
     .nav-items {
-      
       margin-right: 0 !important;
       margin-left: auto !important; // Push to left side in RTL
     }
@@ -49,7 +48,6 @@
       margin-right: 0;
       margin-left: 15px;
       text-align: center;
-
     }
 
     .user-name-col {
@@ -73,7 +71,10 @@
 }
 
 // Nav items
-
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link.show {
+  color: variables.$dark-green-color !important;
+}
 .nav-items,
 .nav-icons {
   padding-top: 8px;
@@ -86,7 +87,7 @@
   margin-right: 15px !important;
   padding: 0.5rem 1rem !important;
   transition: color 0.3s ease;
-      text-transform: uppercase;
+  text-transform: uppercase;
   &:hover {
     color: #b181d6;
   }
@@ -229,7 +230,6 @@
       color: #542d72;
       transition: color 0.3s ease;
       vertical-align: bottom;
-      
     }
   }
   .dropdown-item,
