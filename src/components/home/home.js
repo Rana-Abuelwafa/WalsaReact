@@ -175,7 +175,7 @@ const Home = () => {
 
           {/* Three Steps Cards */}
           <Row className="my-4">
-            <Col md={4}>
+            <Col md={4} xs={12}>
               <Card className="p-4 border-0">
                 <img
                   src="/images/submit-request.png"
@@ -195,7 +195,7 @@ const Home = () => {
                 </p>
               </Card>
             </Col>
-            <Col md={4}>
+            <Col md={4} xs={12}>
               <Card className="p-4 border-0">
                 <img
                   src="/images/designers-work.png"
@@ -215,7 +215,7 @@ const Home = () => {
                 </p>
               </Card>
             </Col>
-            <Col md={4}>
+            <Col md={4} xs={12}>
               <Card className="p-4 border-0">
                 <img
                   src="/images/receive-design.png"

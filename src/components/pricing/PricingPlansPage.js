@@ -292,9 +292,10 @@ const PricingPlansPage = () => {
                     <img
                       src="/images/insurance.png"
                       alt="SSL Secure"
-                      className={`secure-icon ${
-                        direction === "rtl" ? "ms-3" : "me-3"
-                      }`}
+                      className="secure-icon me-3"
+                      // className={`secure-icon ${
+                      //   direction === "rtl" ? "ms-3" : "me-3"
+                      // }`}
                     />
                     <div>
                       <h6 className="section-label">
