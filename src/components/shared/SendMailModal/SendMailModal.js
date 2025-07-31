@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Form, Alert } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { sendContactMail, resetContactState } from "../../../slices/contactSlice";
+import {
+  sendContactMail,
+  resetContactState,
+} from "../../../slices/contactSlice";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-multi-lang";
 
 function SendMailModal({ show, handleClose }) {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const t = useTranslation();
   const { loading, error, success } = useSelector((state) => state.contact);
@@ -12,6 +17,16 @@ function SendMailModal({ show, handleClose }) {
     subject: "",
     message: "",
   });
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      handleClose();
+      setTimeout(() => navigate("/login"), 2000);
+    }
+
+    return () => {};
+  }, []);
 
   useEffect(() => {
     if (success) {
@@ -76,7 +91,7 @@ function SendMailModal({ show, handleClose }) {
             className="w-100"
             disabled={loading}
           >
-             {t("sendMail.send")}
+            {t("sendMail.send")}
           </Button>
         </Form>
       </Modal.Body>

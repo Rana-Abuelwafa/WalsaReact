@@ -15,7 +15,12 @@ function SocialLinks() {
   const [showModal, setShowModal] = useState(false);
   return (
     <>
-      <ContactModal show={showModal} handleClose={() => setShowModal(false)} />
+      {showModal ? (
+        <ContactModal
+          show={showModal}
+          handleClose={() => setShowModal(false)}
+        />
+      ) : null}
       <div className="social-icons">
         <div>
           <Link

@@ -1,4 +1,4 @@
-import React , { useState } from "react";
+import React, { useState } from "react";
 import MainNavbar from "../navbars/mainNavbar";
 import MainFooter from "../footer/mainFooter";
 import { Container, Row, Col, Button, Card } from "react-bootstrap";
@@ -21,10 +21,14 @@ const ContactUs = () => {
   const [showModal, setShowModal] = useState(false);
   return (
     <>
-       <ContactModal show={showModal} handleClose={() => setShowModal(false)} />
+      {showModal ? (
+        <ContactModal
+          show={showModal}
+          handleClose={() => setShowModal(false)}
+        />
+      ) : null}
       {/* Main navigation at the top */}
       <MainNavbar />
-
       {/* Header section with text and image */}
       <div className="contact-us-section">
         <Container fluid className="content-section">
@@ -111,7 +115,9 @@ const ContactUs = () => {
                       ))}
                   </Card.Text>
                   <div className="mt-auto text-center">
-                    <Button onClick={() => setShowModal(true)} className="btn">{t("contact.emailBtn")}</Button>
+                    <Button onClick={() => setShowModal(true)} className="btn">
+                      {t("contact.emailBtn")}
+                    </Button>
                   </div>
                 </Card.Body>
               </Card>
@@ -136,7 +142,9 @@ const ContactUs = () => {
                       ))}
                   </Card.Text>
                   <div className="mt-auto text-center">
-                    <Button onClick={() => setShowModal(true)} className="btn">{t("contact.helpBtn")}</Button>
+                    <Button onClick={() => setShowModal(true)} className="btn">
+                      {t("contact.helpBtn")}
+                    </Button>
                   </div>
                 </Card.Body>
               </Card>
@@ -144,7 +152,6 @@ const ContactUs = () => {
           </Row>
         </Container>
       </div>
-
       {/* Footer at the bottom */}
       <MainFooter />
       <Chat /> {/* Floating chat icon for quick support */}
