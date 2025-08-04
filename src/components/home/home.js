@@ -45,7 +45,7 @@ const Home = () => {
                     </React.Fragment>
                   ))}
               </p>
-              <Button className="cta-button" onClick={() => navigate("/login")}>
+              <Button className="cta-button" onClick={() => navigate("/pricing")}>
                 {t("Home.getStarted")}
               </Button>
             </Col>

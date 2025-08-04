@@ -1,11 +1,5 @@
 import React, { useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaTwitter,
-  FaEnvelope,
-} from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-multi-lang";
 import SocialLinks from "../shared/SocialLink/SocialLinks";
@@ -109,7 +103,10 @@ const MainFooter = () => {
                 <li className="small-text">{t("Footer.company.contact")}</li>
               </Link>
 
-              <li className="small-text">{t("Footer.company.privacy")}</li>
+             <Link to="/privicyPolicy" onClick={scrollToTop}>
+                <li className="small-text">{t("Footer.company.privacy")}</li>
+             </Link>
+              
             </ul>
           </Col>
 
@@ -118,7 +115,7 @@ const MainFooter = () => {
             <h5>{t("Footer.support.title")}</h5>
             <ul>
               {/* Navigates to Contact Us page and scrolls to top */}
-              <Link to="/contactUs" onClick={scrollToTop}>
+              <Link to="/helpCenter" onClick={scrollToTop}>
                 <li className="small-text">{t("Footer.support.helpCenter")}</li>
               </Link>
               <Link to="/contactUs" onClick={scrollToTop}>

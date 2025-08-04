@@ -46,6 +46,13 @@ const ContactUs = lazy(() =>
 const AboutPage = lazy(() =>
   import(/* webpackPrefetch: true */ "./components/about/AboutPage")
 );
+const HelpCenterPage = lazy(() =>
+  import(/* webpackPrefetch: true */ "./components/HelpCenter/HelpCenterPage")
+);
+const PrivacyPolicyPage = lazy(() =>
+  import(/* webpackPrefetch: true */ "./components/PrivacyPolicy/PrivacyPolicyPage")
+);
+
 const Profile = lazy(() =>
   import(/* webpackPrefetch: true */ "./components/profile/Profile")
 );
@@ -115,6 +122,8 @@ function App() {
             <Route path="/RegisterQues" element={<RegisterQues />} />
             <Route path="/contactUs" element={<ContactUs />} />
             <Route path="/AboutUs" element={<AboutPage />} />
+            <Route path="/helpCenter" element={<HelpCenterPage />} />
+             <Route path="/privicyPolicy" element={<PrivacyPolicyPage />} />
             <Route
               path="/profile"
               element={

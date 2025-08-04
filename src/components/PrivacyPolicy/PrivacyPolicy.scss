@@ -1,0 +1,143 @@
+/* app/privacy-policy/privacy-policy.module.scss */
+
+// SCSS Variables
+$waslaa-purple-default: #542D72;
+$text-color: #333;
+$heading-color: #222;
+$section-title-color: #444;
+$border-color: #eee;
+
+.privacyPolicyContainer {
+  margin-top: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 1rem;
+  background-color: #fff;
+  min-height: calc(100vh - 140px);
+  color: $waslaa-purple-default;
+  font-family: Arial, sans-serif;
+
+  @media (min-width: 768px) {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+}
+
+.contentWrapper {
+  width: 100%;
+  max-width: 70rem;
+  padding: 1.5rem;
+  background-color: #fff;
+  border-radius: 0.5rem;
+}
+
+.headerSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+}
+
+.textContainer {
+  flex: 1;
+  margin-bottom: 1.5rem;
+
+  @media (min-width: 768px) {
+    margin-right: 2rem;
+    margin-bottom: 0;
+    
+    [dir="rtl"] & {
+      margin-right: 0;
+      margin-left: 2rem;
+    }
+  }
+}
+
+.mainTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: $waslaa-purple-default;
+  margin-bottom: 1rem;
+  text-align: center;
+
+  @media (min-width: 768px) {
+    text-align: left;
+    
+    [dir="rtl"] & {
+      text-align: right;
+    }
+  }
+
+  // Fallback RTL support
+  [dir="rtl"] & {
+    text-align: right;
+  }
+}
+
+.introText {
+  font-size: 21px;
+  line-height: 1.6;
+  text-align: center;
+
+  @media (min-width: 768px) {
+    text-align: left;
+    
+    [dir="rtl"] & {
+      text-align: right;
+    }
+  }
+
+  // Fallback RTL support
+  [dir="rtl"] & {
+    text-align: right;
+  }
+}
+
+.illustration {
+  width: 100%;
+  max-width: 20rem;
+  height: auto;
+  object-fit: contain;
+}
+
+.policySections {
+  margin-top: 2rem;
+}
+
+.policySection {
+  margin-bottom: 1.5rem;
+
+  h2 {
+    font-size: 21px;
+    color: $waslaa-purple-default;
+    margin-bottom: 40px;
+    
+    [dir="rtl"] & {
+      text-align: right;
+    }
+  }
+
+  p {
+    font-size: 21px;
+    line-height: 40px;
+    margin-bottom: 0.5rem;
+    
+    [dir="rtl"] & {
+      text-align: right;
+    }
+  }
+}

@@ -1,0 +1,205 @@
+// SCSS Variables
+$waslaa-purple-default: #542D72;
+$waslaa-purple-light: #F8F7FA;
+$waslaa-purple-dark: #542D72;
+$search-text: #816F8F;
+$waslaa-red: #EF4444;
+$waslaa-yellow: #FBBF24;
+$text-gray-800: #2D3748; 
+$border-gray-200: #EDF2F7; 
+
+.helpCenterContainer {
+  margin-top: 100px;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+  background-color: #fff;
+  min-height: calc(100vh - 120px);
+ 
+@media (min-width: 576px) { // sm breakpoint
+    margin-top: 120px;
+    padding: 1.5rem;
+  }
+
+  @media (min-width: 768px) { // md breakpoint
+    margin-top: 140px;
+    padding: 2rem 1.5rem;
+  }
+
+   @media (min-width: 992px) { // lg breakpoint
+    margin-top: 140px;
+    padding: 2rem 3rem;
+  }
+
+  @media (min-width: 1200px) { // xl breakpoint
+    padding: 2rem 6rem;
+  }
+}
+
+.heroSection {
+  width: 100%;
+  max-width: 1200px;
+  text-align: center;
+  margin-bottom: 3rem;
+
+   @media (min-width: 768px) {
+    margin-bottom: 4rem;
+  }
+
+  @media (min-width: 992px) {
+    margin-bottom: 6rem;
+  }
+}
+
+.heroTitle {
+  font-size: 1.5rem; // Smaller for mobile
+  line-height: 1.75rem;
+  font-weight: 700;
+  color: $waslaa-purple-default;
+  margin-bottom: 1.5rem; // Reduced for mobile
+  padding: 0 1rem; // Prevent text from touching edges
+
+  @media (min-width: 576px) {
+    font-size: 1.75rem;
+    line-height: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 2rem;
+    line-height: 2.25rem;
+    margin-bottom: 2.5rem;
+  }
+
+  @media (min-width: 992px) {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    margin-bottom: 3rem;
+  }
+}
+
+.searchInputWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 800px; // Prevent search from becoming too wide
+  margin: 0 auto; // Center the search
+  padding: 0 1rem; // Padding for mobile
+
+  @media (min-width: 576px) {
+    padding: 0;
+  }
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.75rem 1.25rem; 
+  border-radius: 0.5rem; 
+  border: 1px solid $border-gray-200;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  background-color: #fff;
+  font-size: 0.9rem;
+
+  &:focus {
+    outline: none;
+    border-color: $waslaa-purple-default; 
+    box-shadow: 0 0 0 0.25rem rgba($waslaa-purple-default, 0.25); 
+  }
+
+  &::placeholder {
+    color: $search-text;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+
+   @media (min-width: 768px) {
+    font-size: 1rem;
+  }
+}
+
+.categoriesSection {
+  width: 100%;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem; // Smaller gap for mobile
+  margin-bottom: 2rem; // Reduced for mobile
+  padding: 0 1rem; // Padding for mobile
+
+  @media (min-width: 576px) {
+    gap: 1.25rem;
+    padding: 0;
+  }
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 992px) {
+    margin-bottom: 3rem;
+  }
+}
+
+.categoryCard {
+  background-color: $waslaa-purple-light;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border: none;
+
+  &:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px); // Add slight lift effect
+  }
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+ padding: 1.5rem; // Reduced for mobile
+
+  @media (min-width: 768px) {
+    padding: 2rem;
+  }
+}
+
+.cardImage {
+  height: 4rem; // Smaller for mobile
+  width: 4rem;
+  margin-bottom: 1rem; // Reduced for mobile
+
+  @media (min-width: 576px) {
+    height: 5rem;
+    width: 5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    height: 6rem;
+    width: 6rem;
+    margin-bottom: 2rem;
+  }
+}
+
+.cardText {
+ font-size: 1.1rem; // Smaller for mobile
+  line-height: 1.5rem;
+  font-weight: bold;
+  color: $waslaa-purple-dark;
+  text-align: center;
+  word-break: break-word; // Prevent text overflow
+
+  @media (min-width: 576px) {
+    font-size: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 1.5rem;
+    line-height: 1.75rem;
+  }
+}
