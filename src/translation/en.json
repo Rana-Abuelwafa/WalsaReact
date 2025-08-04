@@ -23,11 +23,11 @@
       "title": "Can't find our email?",
       "check": "Check your",
       "spam": "spam",
-      "or":  "or",
-      "junk":"junk",
-      "folder":"folder",
-      "addToContacts":"Add our email address to your contacts/whitelist",
-      "waitAndRefresh":"Wait a few minutes and refresh your inbox" 
+      "or": "or",
+      "junk": "junk",
+      "folder": "folder",
+      "addToContacts": "Add our email address to your contacts/whitelist",
+      "waitAndRefresh": "Wait a few minutes and refresh your inbox"
     }
   },
   "Register": {
@@ -56,15 +56,15 @@
     "Header": "Error Message",
     "Close": "Close"
   },
-  "sendMail":{
-    "sendMsg":"Send Us a Message",
-    "successMsg":"Message sent successfully!",
-    "subject":"Subject",
-    "enterSubject":"Enter subject",
-    "message":"Message",
-    "enterMsg":"Enter your message",
-    "send":"Send",
-    "sending...":"Sending..."
+  "sendMail": {
+    "sendMsg": "Send Us a Message",
+    "successMsg": "Message sent successfully!",
+    "subject": "Subject",
+    "enterSubject": "Enter subject",
+    "message": "Message",
+    "enterMsg": "Enter your message",
+    "send": "Send",
+    "sending...": "Sending..."
   },
   "Navbar": {
     "home": "HOME",
@@ -85,7 +85,6 @@
     "seconds": "Secs",
     "checkItOut": "Check it out"
   },
-
   "Home": {
     "heroTitle1": "Make your",
     "heroTitle2": "Brand",
@@ -135,7 +134,6 @@
     "adsCampaign": "ADS CAMPAIGN",
     "websiteDesign": "WEBSITE DESIGN"
   },
-
   "Footer": {
     "description": "Waslaa aims to make your brand successful \nthrough the access of your customers to \nyour brand with ease.",
     "company": {
@@ -224,10 +222,10 @@
   "general": {
     "loading": "Loading...",
     "saving": "Saving...",
-    "save":"Save",
-    "update":"Update",
-    "CompleteProfileErr":"You did not Answer to Registeration's Questions , You should Complete these steps to can continu",
-    "MailConfirmedErr":"You did not Confirm Your Mail"
+    "save": "Save",
+    "update": "Update",
+    "CompleteProfileErr": "You did not Answer to Registeration's Questions , You should Complete these steps to can continu",
+    "MailConfirmedErr": "You did not Confirm Your Mail"
   },
   "profile": {
     "name": "Name",
@@ -295,18 +293,18 @@
     "custom_package": "You want to custom a special package for",
     "recommended": "Recommended",
     "get_started": "Get Started",
-    "select":"Select",
-    "selected":"Selected",
-    "next":"Next"
+    "select": "Select",
+    "selected": "Selected",
+    "next": "Next"
   },
   "confirmation": {
     "termsConditions": "Terms & Conditions",
     "appointmentConfirmed": "The appointment has been confirmed and",
     "detailsSent": "the remaining details have been sent to your personal email.",
     "thankYou": "Thank you for choosing our services.",
-    "agreetoterms":"Yes, I Agree To the terms of services",
-    "back":"Back",
-    "continue":"Continue"
+    "agreetoterms": "Yes, I Agree To the terms of services",
+    "back": "Back",
+    "continue": "Continue"
   },
   "checkout": {
     "service": "Service",
@@ -329,10 +327,10 @@
     "invoice": "Invoice",
     "price": "Price",
     "couponAppliedSuccessfully": "Coupon applied successfully!",
-    "packageRemovedSuccessfully":"package Removed Successfully!",
-    "removePackageError":"remove Package Error!"
+    "packageRemovedSuccessfully": "package Removed Successfully!",
+    "removePackageError": "remove Package Error!"
   },
-  "invoiceHistory":{
+  "invoiceHistory": {
     "searchPlaceholder": "Search by invoice code...",
     "invoiceCode": "Invoice Code",
     "price": "Price",
@@ -344,8 +342,73 @@
     "noInvoices": "No invoices found",
     "noResults": "No invoices match your search"
   },
-  "NotFound":{
-    "Title":"OOPS..! Page Not Found",
-    "SubTitle":"The page you were looking for doesn't exist."
+  "NotFound": {
+    "Title": "OOPS..! Page Not Found",
+    "SubTitle": "The page you were looking for doesn't exist."
+  },
+  "helpCenter": {
+    "welcomeToHelp": "Welcome to Waslaa, How can we help you?",
+    "searchPlacholder": "Search for answer"
+  },
+  "privacyPolicy": {
+    "privacyPolicy": "Privacy Policy",
+    "intro": "Welcome to Waslaa. We are committed to protecting your privacy and ensuring the confidentiality and security of any information you provide while using our website.",
+    "sections": {
+      "section1":{
+        "title": "Information We Collect",
+        "content":{
+          "1":"Identifying Information: Name, email address, phone number when you contact us or fill out forms.",
+          "2":"Usage Data: Pages you visit, time spent on the site, device and browser type.",
+          "3":"Voluntary Information: Any additional data you provide when requesting a service or interacting with us."
+        }
+      },
+      "section2":{
+        "title": "How We Use the Information",
+        "content": {
+          "1":"To enhance your experience on our website.",
+          "2":"To respond to your inquiries and deliver the requested services.",
+          "3":"To send updates or offers related to our services, if you agree to receive them."
+        }
+      },
+      "section3": {
+        "title": "Data Sharing",
+        "content": {
+          "1":"We do not sell or share your data with third parties for marketing purposes.",
+          "2":"We may share your data with trusted service providers who help us operate the website or deliver services—provided they adhere to our privacy policy."
+        }
+      },
+      "section4":  {
+        "title": "Cookies",
+        "content": {
+          "1":"We use cookies to analyze user performance and improve user experience.",
+          "2":"You can disable cookies at any time via your browser settings."
+        }
+      },
+      "section5":{
+        "title": "Data Security",
+        "content": {
+          "1":"We implement appropriate technical and organizational measures to protect your data from unauthorized access, alteration, disclosure, or destruction."
+        }
+      },
+      "section6":{
+        "title": "Your Rights",
+        "content": {
+          "1":"You have the right to request access to your personal data, correct it, or delete it.",
+          "2":"You can contact us at [your email here] to exercise these rights."
+        }
+      },
+      "section7":{
+        "title": "External Links",
+        "content": {
+          "1":"Our website may contain links to other websites. We are not responsible for the content or privacy practices of those sites."
+        }
+      },
+      "section8": {
+        "title": "Policy Changes",
+        "content": {
+          "1":"We may update this policy from time to time. Any changes will be posted on this page."
+        }
+      }
+    }
   }
 }

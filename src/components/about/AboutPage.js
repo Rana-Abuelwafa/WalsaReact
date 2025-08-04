@@ -16,7 +16,7 @@ const AboutPage = () => {
     <>
       {/* Top navigation bars */}
       <MainNavbar />
-      <SaleNavbar />
+      {/* <SaleNavbar /> */}
 
       {/* Main about page wrapper */}
       <div className="about-page" dir={t("direction")}>

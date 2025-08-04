@@ -14,10 +14,12 @@ import {
 import { useTranslation } from "react-multi-lang";
 import SocialLinks from "../shared/SocialLink/SocialLinks";
 import Chat from "../chatIcon/chat";
+import { useNavigate} from "react-router-dom";
 import "./ContactUs.scss";
 
 const ContactUs = () => {
   const t = useTranslation();
+  const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   return (
     <>
@@ -142,7 +144,7 @@ const ContactUs = () => {
                       ))}
                   </Card.Text>
                   <div className="mt-auto text-center">
-                    <Button onClick={() => setShowModal(true)} className="btn">
+                    <Button onClick={() => navigate("/helpCenter")} className="btn">
                       {t("contact.helpBtn")}
                     </Button>
                   </div>
