@@ -124,7 +124,7 @@
       border-radius: 15px;
       transition: transform 0.3s ease;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
-      height: 600px;
+      height: 650px;
       display: flex;
       flex-direction: column;
       margin-bottom: 30px;
@@ -195,6 +195,7 @@
           position: absolute;
           top: -40px;
           left: 50%;
+          width:150px;
           transform: translateX(-50%);
           background-color: #ffb300 !important;
           color: #fff;
@@ -354,7 +355,7 @@
   @media (max-width: 1200px) {
     .pricing-card {
       height: auto !important;
-      min-height: 600px;
+      min-height: 650px;
     }
   }
 

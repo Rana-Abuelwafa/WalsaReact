@@ -72,6 +72,10 @@ const Validuser = lazy(() =>
 const NotFound = lazy(() =>
   import(/* webpackPrefetch: true */ "./components/NotFound/NotFound")
 );
+
+const NoResults = lazy(() =>
+  import(/* webpackPrefetch: true */ "./components/NoResults/NoResults")
+);
 function App() {
   useEffect(() => {
     // Programmatic preloading for likely next pages
@@ -149,6 +153,7 @@ function App() {
               }
             />
             <Route path="/NotFound" element={<NotFound />} />
+            <Route path="/NoResults" element={<NoResults />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

@@ -1,24 +1,54 @@
-.NotFound {
-  height: 100vh;
+@import "../../styles/variables";
+
+.pageContainer {
+  margin-top:100px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #542d72, #00bc82);
-  color: white;
+  min-height: calc(100vh - 140px); 
+  background-color: #fff;
+  padding: 2rem 1rem; 
   text-align: center;
-  padding: 2rem;
+}
 
-  .content {
-    max-width: 700px;
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 35rem; 
+}
 
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 20px;
-    }
+.mainTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: $purple-color;
+  margin-bottom: 2rem;
+}
 
-    p {
-      font-size: 20px;
-      margin-bottom: 2rem;
-    }
+.illustration {
+  width: 100%;
+  max-width: 28rem; 
+  height: auto;
+  margin-bottom: 2rem;
+  object-fit: contain;
+}
+
+.goBackButton {
+  background-color: $purple-color;
+  border-color: $purple-color;
+  color: #fff;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 50px; 
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+
+  &:hover,
+  &:focus {
+    border-radius: 50px; 
+    background-color: darken($purple-color, 10%);
+    border-color: darken($purple-color, 10%);
+    color: #fff;
   }
 }

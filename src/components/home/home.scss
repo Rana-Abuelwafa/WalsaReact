@@ -19,6 +19,7 @@
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(180deg, #522c70, #00bc82, #2a1739);
 }
+
 /* Ensure popup appears above everything */
 #auth-popup-root {
   position: fixed;
@@ -31,9 +32,11 @@
 .body-no-scroll {
   overflow: hidden;
 }
+
 // Global Styles
 body {
   background-color: #ffffff;
+
   &[dir="ltr"] {
     font-family: "Roboto", sans-serif;
   }
@@ -68,11 +71,13 @@ body {
   @media (max-width: 768px) {
     margin-top: 150px;
   }
+
   .row {
     &[dir="rtl"] {
       flex-direction: row-reverse;
     }
   }
+
   // RTL specific styles
   &[dir="rtl"] {
     text-align: right;
@@ -111,6 +116,7 @@ body {
 
 // Additional RTL text alignment
 [dir="rtl"] {
+
   .hero-heading,
   .hero-text,
   .service-title,
@@ -135,8 +141,10 @@ body {
     // No flip for buttons
     transform: none !important;
   }
+
   // Force center alignment on mobile for RTL
   @media (max-width: 768px) {
+
     .hero-heading,
     .hero-text,
     .service-title,
@@ -147,6 +155,7 @@ body {
     }
   }
 }
+
 .hero-heading {
   line-height: 80px;
   font-size: 50px;
@@ -338,6 +347,7 @@ body {
   max-width: 60%;
   height: auto;
   transition: transform 0.3s ease;
+
   @media (max-width: 768px) {
     max-width: 100%;
     margin-bottom: 20px;
@@ -349,6 +359,7 @@ body {
   max-width: 70%;
   height: auto;
   transition: transform 0.3s ease;
+
   @media (max-width: 768px) {
     margin-top: 20px;
     max-width: 100%;
@@ -375,6 +386,7 @@ body {
   max-width: 90%;
   height: auto;
   transition: transform 0.3s ease;
+
   [dir="rtl"] & {
     margin-left: 0;
     margin-right: 10px;
@@ -385,7 +397,7 @@ body {
 .hero-container {
   position: relative;
   width: 100%;
-  height: 700px;
+  height: 600px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -408,6 +420,7 @@ body {
     background-size: contain;
     background-position: center;
   }
+
   @media (max-width: 576px) {
     height: 300px;
     background-size: contain;
@@ -451,10 +464,12 @@ body {
     margin-left: 130px;
     width: 90%;
     text-align: center;
+
     h2 {
       line-height: 35px;
       font-size: 18px;
     }
+
     [dir="rtl"] & {
       margin-right: 130px;
     }
@@ -508,7 +523,7 @@ body {
   padding: 10px;
   margin: 120px 0;
 
-  > * {
+  >* {
     text-align: center;
     justify-content: center;
   }
@@ -546,17 +561,18 @@ body {
     border-radius: 24px;
     background-color: #f7f7f7;
     margin-bottom: 20px;
-    // min-height: 350px;
-    // height: 350px;
-    // @media (max-width: 767px) {
-    //   height: auto;
-    //   min-height: auto;
-    // }
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 
     h5 {
       color: #542d72;
       line-height: 60px;
       font-weight: bold;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
 
       @media (max-width: 768px) {
         line-height: 40px;
@@ -567,6 +583,10 @@ body {
       font-size: 14px;
       color: #542d72;
       line-height: 30px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
 
       [dir="rtl"] & {
         text-align: right;
@@ -624,6 +644,7 @@ body {
 // Market Section specific adjustments
 .market-section {
   padding: 10px;
+
   .service-item {
     &[dir="rtl"] {
       flex-direction: row-reverse;
@@ -637,6 +658,7 @@ body {
 
 // Responsive text alignment fixes
 @media (max-width: 768px) {
+
   .text-left,
   .text-right,
   .text-start,

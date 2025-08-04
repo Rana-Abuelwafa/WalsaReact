@@ -1,243 +1,260 @@
 .about-page {
+  margin-top: 160px;
+  background-color: #fff;
+  color: #333;
+  text-align: start;
+
+  @media (min-width: 768px) {
     margin-top: 160px;
-    background-color: #fff;
-    color: #333;
-    text-align: start;  
-    @media (min-width: 768px) {
-        margin-top: 160px;
-    }
-    .about-section {
-      .about-logo { 
-        padding: 50px 0;
-        max-width: 100%;
-        
-        @media (min-width: 768px) {
-            padding: 100px 150px;
-        }
-        }
-      .about-header {
-        line-height: 1.2;
-        font-size: 2.5rem;
-        font-weight: bold;
-        color: #542D72;
-        margin-bottom: 1rem;
-            
-            @media (min-width: 768px) {
-                font-size: 50px;
-                line-height: 80px;
-            }
-       }
-  
-      .about-description{
-        font-size: 1.25rem;
-        color: #542D72;
-        line-height: 1.6;
-        
-        @media (min-width: 768px) {
-            font-size: 30px;
-            line-height: 55px;
-            padding: 20px 40px 0 0;
-        }
-      }
-      .illustration {
-        max-width: 100%;
-        height: auto;
-    }
-    }
-  
-    .values-section {
-      background-color: #ffffff;
-      margin: 60px 0;
-        padding: 0 15px;
-        
-        @media (min-width: 768px) {
-            margin: 120px;
-        }
-  
-      .values-header{
-        font-size: 2rem;
-        font-weight: bold;
-        color: #542D72;
-        line-height: 1.2;
-        margin-bottom: 2rem;
-        
-        @media (min-width: 768px) {
-            font-size: 35px;
-            line-height: 100px;
-            margin-bottom: 60px;
-        }
-      }
-  
-        .value-card {
-            border-radius: 24px;
-            background-color: #F7F7F7;
-            h5 {
-              color: #542D72;
-              line-height: 60px;
-              font-weight: bold;
-        
-              @media (max-width: 768px) {
-                line-height: 40px;
-              }
-            }
-        
-            p {
-              font-size: 14px;
-              color: #542D72;
-              line-height: 30px;
-              
-              [dir="rtl"] & {
-                text-align: right;
-              }
-            }
-          }
-        
-          .steps-img-small {
-            width: 56px;
-            height: auto;
-            margin: auto;
-            transition: transform 0.3s ease;
-          }
-    
-    }
-  
   }
 
-  // Hero Container
-.hero-container {
-    position: relative;
-    width: 100%;
-    height: 700px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 70% 100%;
-    background-image: url(/imgs/wasla-bg.png);
-    
-    [dir="rtl"] & {
-      background-image: url(/imgs/wasla-bg-rtl.png);
+  .about-section {
+    .about-logo {
+      padding: 50px 0;
+      max-width: 100%;
+
+      @media (min-width: 768px) {
+        padding: 100px 150px;
+      }
     }
-    
-    @media (max-width: 992px) {
-      height: 500px;
-      background-size: 90% 100%;
+
+    .about-header {
+      line-height: 1.2;
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #542D72;
+      margin-bottom: 1rem;
+
+      @media (min-width: 768px) {
+        font-size: 50px;
+        line-height: 80px;
+      }
     }
-  
-    @media (max-width: 768px) {
-        height: 300px;
-        background-size: contain;;
-        background-position: center;
+
+    .about-description {
+      font-size: 1.25rem;
+      color: #542D72;
+      line-height: 1.6;
+
+      @media (min-width: 768px) {
+        font-size: 30px;
+        line-height: 55px;
+        padding: 20px 40px 0 0;
+      }
     }
-    @media (max-width: 576px){
-        height: 300px;
-        background-size: contain;
-        background-position: center;
+
+    .illustration {
+      max-width: 100%;
+      height: auto;
     }
   }
-  
-  .hero-content {
-    position: absolute;
-    margin-left: 280px;
-    margin-bottom: 50px;
-    width: 60%;
-    text-align: center;
-    color: white;
-    font-size: 1.5rem;
-    font-weight: bold;
-    z-index: 1;
-  
-    h2 {
-      line-height: 60px;
-      font-size: 36px;
+
+  .values-section {
+    background-color: #ffffff;
+    margin: 60px 0;
+    padding: 0 15px;
+
+    @media (min-width: 768px) {
+      margin: 120px;
     }
-  
+
+    .values-header {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #542D72;
+      line-height: 1.2;
+      margin-bottom: 2rem;
+
+      @media (min-width: 768px) {
+        font-size: 35px;
+        line-height: 100px;
+        margin-bottom: 60px;
+      }
+    }
+
+    .value-card {
+      border-radius: 24px;
+      background-color: #F7F7F7;
+      height: 100%;
+
+      h5 {
+        color: #542D72;
+        line-height: 60px;
+        font-weight: bold;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        @media (max-width: 768px) {
+          line-height: 40px;
+        }
+      }
+
+      p {
+        font-size: 14px;
+        color: #542D72;
+        line-height: 30px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        [dir="rtl"] & {
+          text-align: right;
+        }
+      }
+    }
+
+    .steps-img-small {
+      width: 56px;
+      height: auto;
+      margin: auto;
+      transition: transform 0.3s ease;
+    }
+
+  }
+
+}
+
+// Hero Container
+.hero-container {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 70% 100%;
+  background-image: url(/imgs/wasla-bg.png);
+
+  [dir="rtl"] & {
+    background-image: url(/imgs/wasla-bg-rtl.png);
+  }
+
+  @media (max-width: 992px) {
+    height: 500px;
+    background-size: 90% 100%;
+  }
+
+  @media (max-width: 768px) {
+    height: 300px;
+    background-size: contain;
+    ;
+    background-position: center;
+  }
+
+  @media (max-width: 576px) {
+    height: 300px;
+    background-size: contain;
+    background-position: center;
+  }
+}
+
+.hero-content {
+  position: absolute;
+  margin-left: 280px;
+  margin-bottom: 50px;
+  width: 60%;
+  text-align: center;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  z-index: 1;
+
+  h2 {
+    line-height: 60px;
+    font-size: 36px;
+  }
+
+  [dir="rtl"] & {
+    margin-left: 0;
+    margin-right: 330px;
+    text-align: center;
+  }
+
+  @media (max-width: 992px) {
+    margin-left: 180px;
+    width: 70%;
+
     [dir="rtl"] & {
       margin-left: 0;
-      margin-right: 330px;
-      text-align: center;
-    }
-  
-    @media (max-width: 992px) {
-      margin-left: 180px;
-      width: 70%;
-      
-      [dir="rtl"] & {
-        margin-left: 0;
-        margin-right: 180px;
-      }
-    }
-  
-    @media (max-width: 768px) {
-      margin-left: 130px;
-      width: 90%;
-      text-align: center;
-      h2 {
-        line-height: 35px;
-        font-size: 18px;
-      }
-      [dir="rtl"] & {
-        margin-right: 130px;
-      }
+      margin-right: 180px;
     }
   }
-  
-  .hero-button {
-    position: absolute;
-    bottom: 20%;
-    left: 24%;
-    background: #5b2c79;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 28px;
-    border-radius: 35px;
-    cursor: pointer;
-    z-index: 2;
-    transition: background 0.3s ease-in-out;
-  
-    &:hover {
-      background: #3a1d52;
-    }
-  
-    [dir="rtl"] & {
-      left: auto;
-      right: 24%;
-    }
-  
-    @media (max-width: 992px) {
-      font-size: 24px;
-    }
-  
-    @media (max-width: 768px) {
-      font-size: 18px;
-      left: auto;
-      right: 43%;
-      transform: translateX(-50%);
-      
-      [dir="rtl"] & {
-        right: auto;
-        left: 68%;
-        font-size: 18px;
-        transform: translateX(-50%);
-      }
-    }
-  }
-  
 
-  // RTL specific styles
-[dir="rtl"] {
-    .about-page {
-        text-align: right;
-        
-        .about-section {
-            .about-description {
-                @media (min-width: 768px) {
-                    padding: 20px 0 0 40px;
-                }
-            }
-        }
+  @media (max-width: 768px) {
+    margin-left: 130px;
+    width: 90%;
+    text-align: center;
+
+    h2 {
+      line-height: 35px;
+      font-size: 18px;
     }
+
+    [dir="rtl"] & {
+      margin-right: 130px;
+    }
+  }
 }
-  
+
+.hero-button {
+  position: absolute;
+  bottom: 20%;
+  left: 24%;
+  background: #5b2c79;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 28px;
+  border-radius: 35px;
+  cursor: pointer;
+  z-index: 2;
+  transition: background 0.3s ease-in-out;
+
+  &:hover {
+    background: #3a1d52;
+  }
+
+  [dir="rtl"] & {
+    left: auto;
+    right: 24%;
+  }
+
+  @media (max-width: 992px) {
+    font-size: 24px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 18px;
+    left: auto;
+    right: 43%;
+    transform: translateX(-50%);
+
+    [dir="rtl"] & {
+      right: auto;
+      left: 68%;
+      font-size: 18px;
+      transform: translateX(-50%);
+    }
+  }
+}
+
+
+// RTL specific styles
+[dir="rtl"] {
+  .about-page {
+    text-align: right;
+
+    .about-section {
+      .about-description {
+        @media (min-width: 768px) {
+          padding: 20px 0 0 40px;
+        }
+      }
+    }
+  }
+}

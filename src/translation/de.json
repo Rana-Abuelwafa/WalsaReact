@@ -119,7 +119,7 @@
     "collaborative_team_text": "Ein Design- und Marketingteam arbeitet zusammen, um Ihre Marke zum Erfolg zu führen.",
     "budget_flexible": "Flexibles Budget",
     "budget_flexible_text": "Planen Sie entsprechend Ihres Budgets und der benötigten Dienstleistungen.",
-    "wasla_mission": "Waslaa zielt darauf ab, Ihre Marke erfolgreich zu machen, indem Ihre Kunden einfach auf Ihre Marke zugreifen können."
+    "wasla_mission": "Waslaa zielt darauf ab,\nIhre Marke erfolgreich zu machen,\nindem Ihre Kunden einfach auf \nIhre Marke zugreifen können."
   },
   "OfferPopup": {
     "imageAlt": "Angebot",
@@ -216,7 +216,7 @@
     "celebrate_title": "Gemeinsam feiern",
     "celebrate_alt": "Feiersymbol",
     "celebrate_desc": "Wir schätzen eine Teammentalität, um sicherzustellen, dass unsere Erfolge auch Gruppenerfolge sind.",
-    "cta_title": "Sehen Sie, wie großartiges Design entsteht. Erleben Sie Waslaa in Aktion!",
+    "cta_title": "Sehen Sie, \nwie großartiges Design entsteht.\nErleben Sie Waslaa in Aktion!",
     "cta_button": "Loslegen"
   },
   "general": {
@@ -343,8 +343,12 @@
     "noResults": "Geen facturen gevonden die overeenkomen"
   },
   "NotFound": {
-    "Title": "OOPS..! Seite nicht gefunden",
-    "SubTitle": "Die von Ihnen gesuchte Seite existiert nicht."
+    "title": "Etwas ist schiefgelaufen!",
+    "backBtn": "ZURÜCK"
+  },
+  "NoResults": {
+    "title": "Hoppla!... keine Ergebnisse gefunden",
+    "subTitle": "Bitte versuchen Sie eine andere Suche"
   },
   "helpCenter": {
     "welcomeToHelp": "Willkommen bei Waslaa, wie können wir Ihnen helfen?",
@@ -354,59 +358,59 @@
     "privacyPolicy": "Datenschutzrichtlinie",
     "intro": "Willkommen bei Waslaa. Wir verpflichten uns, Ihre Privatsphäre zu schützen und die Vertraulichkeit und Sicherheit aller Informationen zu gewährleisten, die Sie bei der Nutzung unserer Website bereitstellen.",
     "sections": {
-      "section1":{
+      "section1": {
         "title": "Von uns gesammelte Informationen",
         "content": {
-          "1":"Identifizierende Informationen: Name, E-Mail-Adresse, Telefonnummer, wenn Sie uns kontaktieren oder Formulare ausfüllen.",
-          "2":"Nutzungsdaten: Besuchte Seiten, Verweildauer auf der Website, Gerät und Browsertyp.",
-          "3":"Freiwillige Informationen: Alle zusätzlichen Daten, die Sie bei der Anforderung eines Dienstes oder der Interaktion mit uns bereitstellen."
-          }
+          "1": "Identifizierende Informationen: Name, E-Mail-Adresse, Telefonnummer, wenn Sie uns kontaktieren oder Formulare ausfüllen.",
+          "2": "Nutzungsdaten: Besuchte Seiten, Verweildauer auf der Website, Gerät und Browsertyp.",
+          "3": "Freiwillige Informationen: Alle zusätzlichen Daten, die Sie bei der Anforderung eines Dienstes oder der Interaktion mit uns bereitstellen."
+        }
       },
-      "section2":{
+      "section2": {
         "title": "Wie wir die Informationen verwenden",
         "content": {
-          "1":"Um Ihre Erfahrung auf unserer Website zu verbessern.",
-          "2":"Um auf Ihre Anfragen zu antworten und die angeforderten Dienste zu liefern.",
-          "3":"Um Updates oder Angebote zu unseren Diensten zu senden, wenn Sie dem Empfang zustimmen."
+          "1": "Um Ihre Erfahrung auf unserer Website zu verbessern.",
+          "2": "Um auf Ihre Anfragen zu antworten und die angeforderten Dienste zu liefern.",
+          "3": "Um Updates oder Angebote zu unseren Diensten zu senden, wenn Sie dem Empfang zustimmen."
         }
       },
-      "section3":{
+      "section3": {
         "title": "Datenweitergabe",
         "content": {
-          "1":"Wir verkaufen oder teilen Ihre Daten nicht zu Marketingzwecken an Dritte.",
-          "2":"Wir können Ihre Daten mit vertrauenswürdigen Dienstleistern teilen, die uns beim Betrieb der Website oder der Bereitstellung von Diensten helfen – vorausgesetzt, sie halten sich an unsere Datenschutzrichtlinie."
+          "1": "Wir verkaufen oder teilen Ihre Daten nicht zu Marketingzwecken an Dritte.",
+          "2": "Wir können Ihre Daten mit vertrauenswürdigen Dienstleistern teilen, die uns beim Betrieb der Website oder der Bereitstellung von Diensten helfen – vorausgesetzt, sie halten sich an unsere Datenschutzrichtlinie."
         }
       },
-      "section4":{
+      "section4": {
         "title": "Cookies",
         "content": {
-          "1":"Wir verwenden Cookies, um die Benutzerleistung zu analysieren und die Benutzererfahrung zu verbessern.",
-          "2":"Sie können Cookies jederzeit über Ihre Browsereinstellungen deaktivieren."
+          "1": "Wir verwenden Cookies, um die Benutzerleistung zu analysieren und die Benutzererfahrung zu verbessern.",
+          "2": "Sie können Cookies jederzeit über Ihre Browsereinstellungen deaktivieren."
         }
       },
-      "section5":{
+      "section5": {
         "title": "Datensicherheit",
         "content": {
-          "1":"Wir implementieren geeignete technische und organisatorische Maßnahmen, um Ihre Daten vor unbefugtem Zugriff, Änderung, Offenlegung oder Zerstörung zu schützen."
+          "1": "Wir implementieren geeignete technische und organisatorische Maßnahmen, um Ihre Daten vor unbefugtem Zugriff, Änderung, Offenlegung oder Zerstörung zu schützen."
         }
       },
-      "section6":{
-         "title": "Ihre Rechte",
+      "section6": {
+        "title": "Ihre Rechte",
         "content": {
-          "1":"Sie haben das Recht, Zugang zu Ihren persönlichen Daten zu verlangen, diese zu korrigieren oder zu löschen.",
-          "2":"Sie können uns unter {Ihre E-Mail-Adresse hier} kontaktieren, um diese Rechte auszuüben."
+          "1": "Sie haben das Recht, Zugang zu Ihren persönlichen Daten zu verlangen, diese zu korrigieren oder zu löschen.",
+          "2": "Sie können uns unter {Ihre E-Mail-Adresse hier} kontaktieren, um diese Rechte auszuüben."
         }
       },
-      "section7":{
+      "section7": {
         "title": "Externe Links",
         "content": {
-          "1":"Unsere Website kann Links zu anderen Websites enthalten. Wir sind nicht verantwortlich für den Inhalt oder die Datenschutzpraktiken dieser Websites."
+          "1": "Unsere Website kann Links zu anderen Websites enthalten. Wir sind nicht verantwortlich für den Inhalt oder die Datenschutzpraktiken dieser Websites."
         }
       },
-      "section8":{
+      "section8": {
         "title": "Richtlinienänderungen",
         "content": {
-          "1":"Wir können diese Richtlinie von Zeit zu Zeit aktualisieren. Alle Änderungen werden auf dieser Seite veröffentlicht."
+          "1": "Wir können diese Richtlinie von Zeit zu Zeit aktualisieren. Alle Änderungen werden auf dieser Seite veröffentlicht."
         }
       }
     }

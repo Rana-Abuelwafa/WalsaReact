@@ -343,8 +343,12 @@
     "noResults": "No invoices match your search"
   },
   "NotFound": {
-    "Title": "OOPS..! Page Not Found",
-    "SubTitle": "The page you were looking for doesn't exist."
+    "title": "Something gone wrong!",
+    "backBtn": "GO BACK"
+  },
+  "NoResults":{
+    "title":"Ups!... no results found",
+    "subTitle":"Please try another search"
   },
   "helpCenter": {
     "welcomeToHelp": "Welcome to Waslaa, How can we help you?",

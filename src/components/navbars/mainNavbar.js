@@ -117,7 +117,7 @@ const MainNavbar = () => {
             <UserDropDown MyName={MyName} completeprofile={completeprofile} />
 
             {/* Search icon */}
-            <GoSearch className="icon" />
+            <GoSearch className="icon" onClick={() => navigate("/NoResults")} />
 
             {/* Language switcher dropdown */}
             <LanguageDropdown />
