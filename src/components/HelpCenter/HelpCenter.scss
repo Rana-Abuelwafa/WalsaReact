@@ -1,12 +1,4 @@
-// SCSS Variables
-$waslaa-purple-default: #542D72;
-$waslaa-purple-light: #F8F7FA;
-$waslaa-purple-dark: #542D72;
-$search-text: #816F8F;
-$waslaa-red: #EF4444;
-$waslaa-yellow: #FBBF24;
-$text-gray-800: #2D3748; 
-$border-gray-200: #EDF2F7; 
+@import "../../styles/variables";
 
 .helpCenterContainer {
   margin-top: 100px;
@@ -57,7 +49,7 @@ $border-gray-200: #EDF2F7;
   font-size: 1.5rem; // Smaller for mobile
   line-height: 1.75rem;
   font-weight: 700;
-  color: $waslaa-purple-default;
+  color: $purple-color;
   margin-bottom: 1.5rem; // Reduced for mobile
   padding: 0 1rem; // Prevent text from touching edges
 
@@ -103,8 +95,8 @@ $border-gray-200: #EDF2F7;
 
   &:focus {
     outline: none;
-    border-color: $waslaa-purple-default; 
-    box-shadow: 0 0 0 0.25rem rgba($waslaa-purple-default, 0.25); 
+    border-color: $purple-color; 
+    box-shadow: 0 0 0 0.25rem rgba($purple-color, 0.25); 
   }
 
   &::placeholder {
@@ -143,7 +135,7 @@ $border-gray-200: #EDF2F7;
 }
 
 .categoryCard {
-  background-color: $waslaa-purple-light;
+  background-color: $card-bg-light;
   border-radius: 0.75rem;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   cursor: pointer;
@@ -190,7 +182,7 @@ $border-gray-200: #EDF2F7;
  font-size: 1.1rem; // Smaller for mobile
   line-height: 1.5rem;
   font-weight: bold;
-  color: $waslaa-purple-dark;
+  color: $purple-color;
   text-align: center;
   word-break: break-word; // Prevent text overflow
 

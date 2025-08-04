@@ -1,11 +1,4 @@
-/* app/privacy-policy/privacy-policy.module.scss */
-
-// SCSS Variables
-$waslaa-purple-default: #542D72;
-$text-color: #333;
-$heading-color: #222;
-$section-title-color: #444;
-$border-color: #eee;
+@import "../../styles/variables";
 
 .privacyPolicyContainer {
   margin-top: 120px;
@@ -15,7 +8,7 @@ $border-color: #eee;
   padding: 3rem 1rem;
   background-color: #fff;
   min-height: calc(100vh - 140px);
-  color: $waslaa-purple-default;
+  color: $purple-color;
   font-family: Arial, sans-serif;
 
   @media (min-width: 768px) {
@@ -70,7 +63,7 @@ $border-color: #eee;
 .mainTitle {
   font-size: 2.5rem;
   font-weight: 700;
-  color: $waslaa-purple-default;
+  color: $purple-color;
   margin-bottom: 1rem;
   text-align: center;
 
@@ -123,7 +116,7 @@ $border-color: #eee;
 
   h2 {
     font-size: 21px;
-    color: $waslaa-purple-default;
+    color: $purple-color;
     margin-bottom: 40px;
     
     [dir="rtl"] & {

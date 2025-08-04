@@ -11,7 +11,7 @@ const PrivacyPolicyPage = () => {
       <MainNavbar />
       {/* <SaleNavbar /> */}
 
-      {/* Main about page wrapper */}
+      {/* Main privacy page wrapper */}
       <PrivacyPolicy />
 
       {/* Footer */}
