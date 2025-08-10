@@ -49,6 +49,11 @@ const AboutPage = lazy(() =>
 const HelpCenterPage = lazy(() =>
   import(/* webpackPrefetch: true */ "./components/HelpCenter/HelpCenterPage")
 );
+ 
+const HelpCenterTabsPage = lazy(() =>
+  import(/* webpackPrefetch: true */ "./components/HelpCenter/HelpCenterTabsPage")
+);
+
 const PrivacyPolicyPage = lazy(() =>
   import(/* webpackPrefetch: true */ "./components/PrivacyPolicy/PrivacyPolicyPage")
 );
@@ -76,6 +81,8 @@ const NotFound = lazy(() =>
 const NoResults = lazy(() =>
   import(/* webpackPrefetch: true */ "./components/NoResults/NoResults")
 );
+
+
 function App() {
   useEffect(() => {
     // Programmatic preloading for likely next pages
@@ -127,7 +134,8 @@ function App() {
             <Route path="/contactUs" element={<ContactUs />} />
             <Route path="/AboutUs" element={<AboutPage />} />
             <Route path="/helpCenter" element={<HelpCenterPage />} />
-             <Route path="/privicyPolicy" element={<PrivacyPolicyPage />} />
+            <Route path="/helpCenter/:tabId" element={<HelpCenterTabsPage />} />
+            <Route path="/privicyPolicy" element={<PrivacyPolicyPage />} />
             <Route
               path="/profile"
               element={

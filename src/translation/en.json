@@ -346,71 +346,117 @@
     "title": "Something gone wrong!",
     "backBtn": "GO BACK"
   },
-  "NoResults":{
-    "title":"Ups!... no results found",
-    "subTitle":"Please try another search"
+  "NoResults": {
+    "title": "Ups!... no results found",
+    "subTitle": "Please try another search"
   },
   "helpCenter": {
-    "welcomeToHelp": "Welcome to Waslaa, How can we help you?",
-    "searchPlacholder": "Search for answer"
+    "welcome_title": "Welcome to Waslaa, How can we help you?",
+    "search_placeholder": "Search for answer",
+    "account": "Account",
+    "account_desc":"This Articles help you on how to start using the platform.",
+    "plans": "Plans",
+    "plans_desc":"Pricing plans for packages available for websites and Branding.",
+    "website": "Website",
+    "website_desc":"This Article will help you step by step instructions to get started with Waslaa.",
+    "brand_identity": "Brand Identity",
+    "brand_desc":"Great results can only be achieved through excellent designers team.",
+    "marketing": "Marketing",
+    "marketing_desc":"We win as a team and make sure that our successes do not go unnoticed.",
+    "general": "General",
+    "general_desc":"This Articles will help you in the domain settings How to connect external domain, purchase domain.",
+    "help_items": {
+      "account_step1": "Step one : register your own email.",
+      "account_step2": "Step two : Answer Registration Questions.",
+      "account_step3": "Step three : go to the profile page.",
+      "account_step4": "Step four : fill in the data to facilitate the collection of information about your required service.",
+      "account_Congrates": "Congratulations, you have become one of the Wasla family.",
+      "plans_step1": "Step one : go to the price page.",
+      "plans_step2": "Step two : Choose The Packages for your need (you can select More than one).",
+      "plans_step3": "Step three : Accept Terms & Conditions.",
+      "plans_step4": "Step four : go to the profile page.",
+      "plans_step5": "Step five : got to the basket, Your invoices will appear with packages details.",
+      "plans_mail": "You will definitely get an Email Contain Packages Invoice.",
+      "website_step1": "Step one : go to the price page.",
+      "website_step2": "Step two : choose the right website package for your needs.",
+      "website_step3": "Step three : Accept Terms & Conditions.",
+      "website_step4": "Step four : go to the profile page.",
+      "website_step5": "Step five : got to the basket, Your invoices will appear with package details.",
+      "website_mail": "You will definitely get an Email Contain Package Invoice.",
+      "brand_identity_step1": "Step one : go to the price page.",
+      "brand_identity_step2": "Step two : choose the right Brand Identity package for your needs.",
+      "brand_identity_step3": "Step three : Accept Terms & Conditions.",
+      "brand_identity_step4": "Step four : go to the profile page.",
+      "brand_identity_step5": "Step five : got to the basket, Your invoices will appear with package details.",
+      "brand_identity_mail": "You will definitely get an Email Contain Package Invoice.",
+      "marketing_step1": "First Step one : go to the price page.",
+      "marketing_step2": "Step two : choose the right marketing package for your needs.",
+      "marketing_step3": "Step three : Accept Terms & Conditions.",
+      "marketing_step4": "Step four : go to the profile page.",
+      "marketing_step5": "Step five : got to the basket, Your invoices will appear with package details.",
+      "marketing_mail": "You will definitely get an Email Contain Package Invoice.",
+      "general_description": "You can contact us on WhatsApp or email if you don't find the answer to your question.",
+      "chat_button": "Chat with us",
+      "email_button": "Send us an email"
+    }
   },
   "privacyPolicy": {
     "privacyPolicy": "Privacy Policy",
     "intro": "Welcome to Waslaa. We are committed to protecting your privacy and ensuring the confidentiality and security of any information you provide while using our website.",
     "sections": {
-      "section1":{
+      "section1": {
         "title": "Information We Collect",
-        "content":{
-          "1":"Identifying Information: Name, email address, phone number when you contact us or fill out forms.",
-          "2":"Usage Data: Pages you visit, time spent on the site, device and browser type.",
-          "3":"Voluntary Information: Any additional data you provide when requesting a service or interacting with us."
+        "content": {
+          "1": "Identifying Information: Name, email address, phone number when you contact us or fill out forms.",
+          "2": "Usage Data: Pages you visit, time spent on the site, device and browser type.",
+          "3": "Voluntary Information: Any additional data you provide when requesting a service or interacting with us."
         }
       },
-      "section2":{
+      "section2": {
         "title": "How We Use the Information",
         "content": {
-          "1":"To enhance your experience on our website.",
-          "2":"To respond to your inquiries and deliver the requested services.",
-          "3":"To send updates or offers related to our services, if you agree to receive them."
+          "1": "To enhance your experience on our website.",
+          "2": "To respond to your inquiries and deliver the requested services.",
+          "3": "To send updates or offers related to our services, if you agree to receive them."
         }
       },
       "section3": {
         "title": "Data Sharing",
         "content": {
-          "1":"We do not sell or share your data with third parties for marketing purposes.",
-          "2":"We may share your data with trusted service providers who help us operate the website or deliver services—provided they adhere to our privacy policy."
+          "1": "We do not sell or share your data with third parties for marketing purposes.",
+          "2": "We may share your data with trusted service providers who help us operate the website or deliver services—provided they adhere to our privacy policy."
         }
       },
-      "section4":  {
+      "section4": {
         "title": "Cookies",
         "content": {
-          "1":"We use cookies to analyze user performance and improve user experience.",
-          "2":"You can disable cookies at any time via your browser settings."
+          "1": "We use cookies to analyze user performance and improve user experience.",
+          "2": "You can disable cookies at any time via your browser settings."
         }
       },
-      "section5":{
+      "section5": {
         "title": "Data Security",
         "content": {
-          "1":"We implement appropriate technical and organizational measures to protect your data from unauthorized access, alteration, disclosure, or destruction."
+          "1": "We implement appropriate technical and organizational measures to protect your data from unauthorized access, alteration, disclosure, or destruction."
         }
       },
-      "section6":{
+      "section6": {
         "title": "Your Rights",
         "content": {
-          "1":"You have the right to request access to your personal data, correct it, or delete it.",
-          "2":"You can contact us at [your email here] to exercise these rights."
+          "1": "You have the right to request access to your personal data, correct it, or delete it.",
+          "2": "You can contact us at [your email here] to exercise these rights."
         }
       },
-      "section7":{
+      "section7": {
         "title": "External Links",
         "content": {
-          "1":"Our website may contain links to other websites. We are not responsible for the content or privacy practices of those sites."
+          "1": "Our website may contain links to other websites. We are not responsible for the content or privacy practices of those sites."
         }
       },
       "section8": {
         "title": "Policy Changes",
         "content": {
-          "1":"We may update this policy from time to time. Any changes will be posted on this page."
+          "1": "We may update this policy from time to time. Any changes will be posted on this page."
         }
       }
     }

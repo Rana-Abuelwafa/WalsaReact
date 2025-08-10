@@ -68,6 +68,7 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
       await dispatch(fetchProfile()).unwrap();
 
       downloadInvoice({
+        forceLang:currentLang,
         user: profileData?.full_name || invoice.client_name || "",
         contact: profileData?.phone_number || invoice.contact_info || "",
         address: profileData?.address || invoice.user_address || "",
@@ -82,6 +83,7 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
       console.error("Failed to fetch profile:", error);
       // Fallback to invoice data if profile fetch fails
       downloadInvoice({
+        forceLang:currentLang,
         user: invoice.client_name || "",
         contact: invoice.contact_info || "",
         address: invoice.user_address || "",

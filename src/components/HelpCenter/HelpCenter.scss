@@ -195,3 +195,22 @@
     line-height: 1.75rem;
   }
 }
+
+
+.cardDesc{
+  font-size: 1rem; // Smaller for mobile
+  line-height: 1.5rem;
+  max-width:360px;
+  color: $purple-color;
+  text-align: center;
+  word-break: break-word; // Prevent text overflow
+
+  @media (min-width: 576px) {
+    font-size: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 1.1rem;
+    line-height: 1.75rem;
+  }
+}
