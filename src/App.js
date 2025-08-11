@@ -82,7 +82,9 @@ const NoResults = lazy(() =>
   import(/* webpackPrefetch: true */ "./components/NoResults/NoResults")
 );
 
-
+const SearchResults = lazy(() =>
+  import(/* webpackPrefetch: true */ "./components/SearchResults/SearchResultsPage")
+);
 function App() {
   useEffect(() => {
     // Programmatic preloading for likely next pages
@@ -162,6 +164,7 @@ function App() {
             />
             <Route path="/NotFound" element={<NotFound />} />
             <Route path="/NoResults" element={<NoResults />} />
+            <Route path="/searchResults" element={<SearchResults />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

@@ -1,0 +1,325 @@
+@import "../../styles/variables";
+.search-results-page {
+  margin-top: 160px;
+  background-color: #fff;
+
+  &[dir="rtl"] {
+    text-align: right;
+
+    // Search results cards
+    .pricing-card {
+      .card-body {
+        text-align: right !important;
+
+        .features-list li {
+          padding-left: 0;
+          padding-right: 1.5rem;
+
+          &::before {
+            left: auto;
+            right: 0;
+          }
+        }
+
+        .pricing-info {
+          flex-direction: row-reverse;
+
+          .current-price {
+            margin-right: 0.5rem;
+            margin-left: 0;
+          }
+        }
+      }
+
+      &.selected::after {
+        right: auto !important;
+        left: 10px;
+      }
+    }
+
+    // Continue button container
+    .continue-btn-container {
+      justify-content: flex-end;
+      padding-left: 0;
+      padding-right: 15px;
+    }
+
+    // Best badge position
+    .best-badge {
+      left: auto !important;
+      right: 50% !important;
+      transform: translateX(50%) !important;
+    }
+  }
+
+  .search-header {
+    line-height: 1.5rem;
+    font-size: 2.1em;
+    font-weight: bold;
+    color: $purple-color;
+    margin-bottom: 0.5rem;
+    .searchTerm{
+      color:$dark-green-color;
+    }
+  }
+
+  .pricingHr {
+    height: 3px;
+    background-color: #d4d4d4;
+    border: none;
+    margin: 1rem 0;
+  }
+
+  .section-title {
+    text-align: center;
+    margin: 3rem 0;
+    line-height: 80px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #542d72;
+    text-transform: uppercase;
+  }
+
+  .pricing-section {
+    .pricing-card {
+      border: 2px solid #eee;
+      border-radius: 15px;
+      transition: transform 0.3s ease;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+      height: 650px;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 30px;
+
+      &.selected {
+        border: 3px solid #542d72 !important;
+        position: relative;
+
+        &::after {
+          content: "✓";
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          width: 30px;
+          height: 30px;
+          background-color: #542d72;
+          color: white;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: bold;
+          font-size: 18px;
+        }
+      }
+
+      &.best {
+        background-color: #542d72;
+        color: #fff !important;
+        border-color: #542d72;
+
+        &.selected {
+          border-color: #ffb300 !important;
+
+          &::after {
+            background-color: #ffb300;
+          }
+        }
+
+        .card-title {
+          color: #fff !important;
+        }
+
+        .plan-desc {
+          color: #fff !important;
+        }
+
+        .old-price {
+          color: #ffb300 !important;
+        }
+
+        .btn {
+          background-color: #ffb300 !important;
+          color: #000 !important;
+          font-weight: bold;
+          border: none;
+        }
+
+        .features-list li {
+          color: #fff !important;
+
+          &::before {
+            color: #ffb300 !important;
+          }
+        }
+
+        .best-badge {
+          position: absolute;
+          top: -40px;
+          left: 50%;
+          width:150px;
+          transform: translateX(-50%);
+          background-color: #ffb300 !important;
+          color: #fff;
+          font-weight: bold;
+          font-size: 14px;
+          padding: 0.3rem 0.85rem;
+          border-radius: 50px;
+          z-index: 10;
+          text-transform: uppercase;
+        }
+      }
+
+      &:hover {
+        transform: translateY(-5px);
+      }
+
+      .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        text-align: left;
+        flex: 1;
+
+        .card-title {
+          color: #542d72;
+          font-size: 1.25rem;
+          font-weight: 700;
+          margin-bottom: 0.5rem;
+        }
+
+        .card-subtitle {
+          color: #542d72;
+          font-size: 1.1rem;
+          margin-bottom: 1rem;
+        }
+
+        .plan-desc {
+          font-size: 0.9rem;
+          color: #542d72;
+          margin-top: -0.5rem;
+          margin-bottom: 0.75rem;
+        }
+
+        .pricing-info {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 1rem;
+
+          .old-price {
+            text-decoration: line-through;
+            color: #00bc82;
+            font-weight: bold;
+          }
+
+          .old-price.custom-price {
+            text-decoration: none;
+          }
+
+          .current-price {
+            color: #ff6363;
+            font-weight: bold;
+          }
+        }
+
+        .features-list {
+          list-style: none;
+          padding: 0;
+          margin-bottom: 1.5rem;
+
+          li {
+            color: #542d72;
+            font-size: 0.95rem;
+            margin: 0.5rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+
+            &::before {
+              content: "✔";
+              position: absolute;
+              left: 0;
+              color: #707070;
+            }
+          }
+        }
+
+        .btn {
+          background-color: #542d72;
+          color: #fff;
+          align-self: center;
+          margin-top: auto;
+          padding: 0.5rem 1.5rem;
+          border-radius: 25px;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 1200px) {
+    .pricing-card {
+      height: auto !important;
+      min-height: 650px;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .section-title {
+      font-size: 2rem;
+    }
+
+    .search-header {
+      font-size: 2.5rem;
+      line-height: 1.2;
+    }
+
+    .col-md-3 {
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    margin-top: 120px;
+
+    .col-md-3 {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .search-header {
+      font-size: 2rem;
+    }
+  }
+}
+
+.continue-btn-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2rem;
+  padding-right: 15px;
+
+  .continue-btn {
+    background-color: #542d72;
+    color: white;
+    padding: 0.75rem 2rem;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    border: none;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #3a1a4f;
+    }
+
+    &:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+  }
+}

@@ -1,5 +1,5 @@
 // Base styles
-@use "../../styles/variables" as variables;
+@import "../../styles/variables";
 .navbar-custom {
   background: white;
   height: auto;
@@ -73,7 +73,7 @@
 // Nav items
 .navbar-nav .nav-link.active,
 .navbar-nav .nav-link.show {
-  color: variables.$dark-green-color !important;
+  color: $dark-green-color !important;
 }
 .nav-items,
 .nav-icons {
@@ -213,7 +213,7 @@
   .userDropDownBtn {
     background-color: transparent !important;
     border: 0 !important;
-    color: variables.$purple-color !important;
+    color: $purple-color !important;
     font-size: 20px;
     padding: 0 !important;
     &:hover,
@@ -233,14 +233,59 @@
   }
   .dropdown-item,
   a {
-    color: variables.$purple-color !important;
+    color: $purple-color !important;
     text-decoration: none;
     &:hover,
     &:active,
     &:focus {
-      color: variables.$dark-green-color !important;
+      color: $dark-green-color !important;
       background-color: transparent !important;
       border: 0 !important;
     }
   }
+}
+.search-form {
+  margin-right: 5px;
+  
+  .search-input {
+    border-radius: 6px !important;
+    padding: 5px 15px;
+    transition: all 0.3s ease;
+    width: 200px !important;
+    box-shadow: 0 2px 8px rgba(#a58bcf, 0.15);
+    
+    &:focus {
+      // Focus state with stronger shadow and outline
+      // border-color: #a58bcf;
+      box-shadow: 0 0 0 3px rgba(#a58bcf, 0.2), 
+                  0 4px 12px rgba(#a58bcf, 0.25);
+      outline: none;
+    }
+    
+    &:hover {
+      // Hover state
+      box-shadow: 0 4px 12px rgba(#a58bcf, 0.2);
+    }
+
+          // RTL support
+      [dir="rtl"] & {
+        text-align: right;
+      }
+  }
+  
+  .clear-search-icon {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    margin-left: -40px;
+    z-index: 10;
+    
+    &:hover {
+      color: $purple-color;
+    }
+  }
+}
+
+.icon.active {
+  color: $dark-green-color;
 }

@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, NavLink } from "react-router-dom";
-import { Navbar, Nav, Row, Col, Container } from "react-bootstrap";
+import { Navbar, Nav, Row, Col, Container, Form, InputGroup } from "react-bootstrap";
 import { GoSearch } from "react-icons/go";
-import { FiUser, FiLogOut } from "react-icons/fi";
+import { FiUser, FiLogOut, FiX } from "react-icons/fi";
 import { useTranslation } from "react-multi-lang";
 import LanguageDropdown from "../Dropdowns/LanguageDropdown";
 import MenuDropdown from "../Dropdowns/MenuDropdown";
 import UserDropDown from "../Dropdowns/UserDropDown";
 import { setCurrency } from "../../slices/currencySlice";
+import { fetchSearchResults, setSearchTerm, clearSearch } from "../../slices/searchSlice";
 import {
   fetchUserCountry,
   getCurrencyFromCountry,
@@ -21,12 +22,21 @@ const MainNavbar = () => {
   const [currCode, setCurrCode] = useState("");
   // State to track profile completion (currently not used for logic)
   const [completeprofile, setcompleteProfile] = useState(0);
+
   const dispatch = useDispatch();
   const navigate = useNavigate(); // Hook to navigate programmatically
   const t = useTranslation(); // Hook for translations
 
   // State to determine if the current screen size is mobile
   const [isMobile, setIsMobile] = useState(window.innerWidth < 992);
+  const [showSearchInput, setShowSearchInput] = useState(false);
+  const [localSearchTerm, setLocalSearchTerm] = useState("");
+  const searchInputRef = useRef(null);
+    
+    const currentLang = useSelector((state) => state.language.currentLang) || "en";
+    const currency = useSelector((state) => state.currency.currentCurrency) || "USD";
+    const { searchTerm, results } = useSelector((state) => state.search);
+  
 
   // Effect to update 'isMobile' when the window is resized
   useEffect(() => {
@@ -39,12 +49,19 @@ const MainNavbar = () => {
       console.log("Detected Currency:", currency);
     }
     getCurrency();
+
     const handleResize = () => {
       setIsMobile(window.innerWidth < 992);
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [dispatch]);
+
+    useEffect(() => {
+      if (showSearchInput && searchInputRef.current) {
+        searchInputRef.current.focus();
+      }
+    }, [showSearchInput]);
 
   // Function to handle user logout
   const logOut = () => {
@@ -64,13 +81,45 @@ const MainNavbar = () => {
     }
   }, []);
 
+const handleSearchClick = () => {
+    setShowSearchInput(!showSearchInput);
+    if (!showSearchInput) {
+      dispatch(clearSearch());
+      setLocalSearchTerm("");
+    }
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (localSearchTerm.trim()) {
+      dispatch(setSearchTerm(localSearchTerm));
+      dispatch(fetchSearchResults({ 
+        lang: currentLang, 
+        searchTerm: localSearchTerm, 
+        curr_code: currency 
+      })).then((action) => {
+        if (action.payload && action.payload.length > 0) {
+          navigate("/searchResults");
+        } else {
+          navigate("/NoResults");
+        }
+      });
+    }
+  };
+
+  const clearSearchInput = () => {
+    setLocalSearchTerm("");
+    dispatch(clearSearch());
+    setShowSearchInput(false);
+  };
+
   return (
     // Bootstrap Navbar with custom styling, fixed at the top
     <Navbar fixed="top" expand="lg" className="navbar-custom">
       <Container fluid>
         {/* Brand logo linking to the homepage */}
         <Navbar.Brand href="/" className="brand d-flex align-items-center">
-          <img src="logo/wasla logo.png" alt="Logo" className="logo" />
+          <img src="/logo/wasla logo.png" alt="Logo" className="logo" />
         </Navbar.Brand>
 
         {/* Toggle button for mobile view */}
@@ -113,11 +162,36 @@ const MainNavbar = () => {
 
           {/* Right-aligned icons and dropdowns */}
           <div className="d-flex align-items-center nav-icons">
+             
+            
             {/* Dropdown with user info */}
             <UserDropDown MyName={MyName} completeprofile={completeprofile} />
 
             {/* Search icon */}
-            <GoSearch className="icon" onClick={() => navigate("/NoResults")} />
+            {showSearchInput && (
+                          <Form onSubmit={handleSearchSubmit} className="search-form">
+                            <InputGroup>
+                              <Form.Control
+                                type="text"
+                                placeholder={t("Navbar.search")}
+                                value={localSearchTerm}
+                                onChange={(e) => setLocalSearchTerm(e.target.value)}
+                                ref={searchInputRef}
+                                className="search-input"
+                              />
+                              <InputGroup.Text 
+                                className="clear-search-icon" 
+                                onClick={clearSearchInput}
+                              >
+                                <FiX />
+                              </InputGroup.Text>
+                            </InputGroup>
+                          </Form>
+                        )}
+           <GoSearch 
+              className={`icon ${showSearchInput ? "active" : ""}`} 
+              onClick={handleSearchClick} 
+            />
 
             {/* Language switcher dropdown */}
             <LanguageDropdown />

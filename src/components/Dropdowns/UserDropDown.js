@@ -6,7 +6,7 @@ import { useTranslation } from "react-multi-lang";
 
 function UserDropDown(props) {
   const t = useTranslation(); // Access the translation function
-
+  console.log(props.MyName)
   return (
     // Bootstrap Dropdown component, closes automatically when an item is clicked
     <Dropdown className="d-inline userDropDown" autoClose="inside">

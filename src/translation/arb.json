@@ -74,7 +74,11 @@
     "about": "معلومات عنا",
     "contact": "اتصل بنا",
     "MyProfile": "الملف الشخصي",
-    "MyQuestions": "الأسئلة"
+    "MyQuestions": "الأسئلة",
+    "search": "بحث..."
+  },
+  "search": {
+    "results_for": "نتائج البحث عن"
   },
   "SaleNavbar": {
     "saleText": "عرضنا الضخم",

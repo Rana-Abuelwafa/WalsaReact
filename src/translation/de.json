@@ -74,7 +74,11 @@
     "contact": "Kontakt",
     "about": "Über uns",
     "MyProfile": "Mein Profil",
-    "MyQuestions": "Meine Fragen"
+    "MyQuestions": "Meine Fragen",
+    "search": "Suchen..."
+  },
+  "search": {
+    "results_for": "Suchergebnisse für"
   },
   "SaleNavbar": {
     "saleText": "Unser riesiger",
