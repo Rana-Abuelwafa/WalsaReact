@@ -3,7 +3,7 @@ import { Row, Col, Card, Button, Form } from "react-bootstrap";
 import { useTranslation } from "react-multi-lang";
 import LoadingPage from "../Loader/LoadingPage";
 import PopUp from "../shared/popoup/PopUp";
-import { FaCheck, FaTimesCircle } from "react-icons/fa";
+import { FaClock, FaShoppingCart, FaMoneyBillWave, FaTimesCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { getInvoices, clearInvoiceState } from "../../slices/invoiceSlice";
 import { fetchProfile } from "../../slices/profileSlice";
@@ -31,7 +31,7 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
   useEffect(() => {
     const getData = {
       active: true,
-      status: 2,
+      status: -1,
       lang_code: currentLang,
     };
     dispatch(getInvoices(getData));
@@ -101,6 +101,32 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
     invoice.invoice_code.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const getStatusIcon = (status) => {
+      switch (status) {
+        case 1: // pending
+          return <FaClock className="status-icon pending" />;
+        case 2: // checkout
+          return <FaShoppingCart className="status-icon checkout" />;
+        case 3: // paid
+          return <FaMoneyBillWave className="status-icon paid" />;
+        default:
+          return <FaClock className="status-icon pending" />;
+      }
+    };
+  
+    const getStatusText = (status) => {
+      switch (status) {
+        case 1:
+          return t("invoiceHistory.statusPending");
+        case 2:
+          return t("invoiceHistory.statusCheckout");
+        case 3:
+          return t("invoiceHistory.statusPaid");
+        default:
+          return t("invoiceHistory.statusPending");
+      }
+    };
+
   return (
     <div className="history-page" dir={direction}>
       {loading && <LoadingPage />}
@@ -130,7 +156,7 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
         {filteredInvoices.length > 0 ? (
           <>
             <Row className="align-items-center text-center text-md-start service-title-row">
-              <Col md={3}>
+              <Col md={2}>
                 <p>{t("invoiceHistory.invoiceCode")}</p>
               </Col>
               <Col md={2}>
@@ -142,7 +168,10 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
               <Col md={2}>
                 <p>{t("invoiceHistory.date")}</p>
               </Col>
-              <Col md={3}>
+              <Col md={2}>
+                <p>{t("invoiceHistory.status")}</p>
+              </Col>
+              <Col md={2}>
                 <p>{t("invoiceHistory.actions")}</p>
               </Col>
             </Row>
@@ -152,7 +181,7 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
                 key={index}
                 className="align-items-center text-center text-md-start service-item-row"
               >
-                <Col md={3}>
+                <Col md={2}>
                   <p className="service-text">{invoice.invoice_code}</p>
                 </Col>
                 <Col md={2}>
@@ -161,10 +190,18 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
                 <Col md={2}>
                   <p className="service-text">{invoice.curr_code}</p>
                 </Col>
-                <Col md={2}>
+                  <Col md={2}>
                   <p className="service-text">{invoice.invoice_date}</p>
                 </Col>
-                <Col md={3} className="state-btns">
+                <Col md={2}>
+                    <div className="status-container">
+                      {getStatusIcon(invoice.status)}
+                      <span className={`status-text status-${invoice.status}`}>
+                        {getStatusText(invoice.status)}
+                      </span>
+                    </div>
+                  </Col>
+                <Col md={2} className="state-btns">
                   <Button
                     variant="link"
                     className="p-3"

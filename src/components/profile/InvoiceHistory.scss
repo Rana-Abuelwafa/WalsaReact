@@ -47,7 +47,7 @@
       color: #000;
       font-weight: 500;
       margin: 0;
-      text-align: left;
+      text-align: center;
     }
   }
 
@@ -57,12 +57,12 @@
       color: #542D72;
       font-weight: 500;
       margin: 0;
-      text-align: left;
+      text-align: center;
     }
 
     .state-btns {
         display: flex;
-        justify-content: flex-end;
+        justify-content: center;
         flex-wrap: wrap;
         gap: 0.5rem;
 
@@ -74,6 +74,8 @@
         font-weight: 500;
         font-size: 14px;
         color: #fff;
+        max-width:100px;
+        width:100%;
         padding: 0.5rem 1rem !important;
         border: none;
         white-space: nowrap;
@@ -271,6 +273,46 @@
     .state-btns button {
       font-size: 12px;
       padding: 0.25rem 0.75rem !important;
+    }
+  }
+}
+
+.status-container {
+  display: flex;
+  align-items: center;
+  justify-content:center;
+  gap: 0.5rem;
+  
+  .status-icon {
+    font-size: 1.2rem;
+    
+    &.pending {
+      color: #FFA500; // Orange for pending
+    }
+    
+    &.checkout {
+      color: #542D72; // Purple for checkout (matches your theme)
+    }
+    
+    &.paid {
+      color: #00bc82; // Green for paid
+    }
+  }
+  
+  .status-text {
+    font-weight: 500;
+    font-size: 1.1em;
+    
+    &.status-1 { // pending
+      color: #FFA500;
+    }
+    
+    &.status-2 { // checkout
+      color: #542D72;
+    }
+    
+    &.status-3 { // paid
+      color: #00bc82;
     }
   }
 }
