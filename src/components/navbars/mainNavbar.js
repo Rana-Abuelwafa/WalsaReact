@@ -32,11 +32,11 @@ const MainNavbar = () => {
   const [showSearchInput, setShowSearchInput] = useState(false);
   const [localSearchTerm, setLocalSearchTerm] = useState("");
   const searchInputRef = useRef(null);
-    
-    const currentLang = useSelector((state) => state.language.currentLang) || "en";
-    const currency = useSelector((state) => state.currency.currentCurrency) || "USD";
-    const { searchTerm, results } = useSelector((state) => state.search);
-  
+
+  const currentLang = useSelector((state) => state.language.currentLang) || "en";
+  const currency = useSelector((state) => state.currency.currentCurrency) || "USD";
+  const { searchTerm, results } = useSelector((state) => state.search);
+
 
   // Effect to update 'isMobile' when the window is resized
   useEffect(() => {
@@ -57,11 +57,11 @@ const MainNavbar = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, [dispatch]);
 
-    useEffect(() => {
-      if (showSearchInput && searchInputRef.current) {
-        searchInputRef.current.focus();
-      }
-    }, [showSearchInput]);
+  useEffect(() => {
+    if (showSearchInput && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, [showSearchInput]);
 
   // Function to handle user logout
   const logOut = () => {
@@ -81,7 +81,7 @@ const MainNavbar = () => {
     }
   }, []);
 
-const handleSearchClick = () => {
+  const handleSearchClick = () => {
     setShowSearchInput(!showSearchInput);
     if (!showSearchInput) {
       dispatch(clearSearch());
@@ -89,23 +89,26 @@ const handleSearchClick = () => {
     }
   };
 
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    if (localSearchTerm.trim()) {
-      dispatch(setSearchTerm(localSearchTerm));
-      dispatch(fetchSearchResults({ 
-        lang: currentLang, 
-        searchTerm: localSearchTerm, 
-        curr_code: currency 
-      })).then((action) => {
-        if (action.payload && action.payload.length > 0) {
-          navigate("/searchResults");
-        } else {
-          navigate("/NoResults");
-        }
-      });
+const handleSearchSubmit = (e) => {
+  e.preventDefault();
+  if (!localSearchTerm.trim()) {
+    return; // Don't proceed if search term is empty
+  }
+  
+  dispatch(setSearchTerm(localSearchTerm));
+  dispatch(fetchSearchResults({
+    lang: currentLang,
+    searchTerm: localSearchTerm,
+    curr_code: currency
+  })).then((action) => {
+    if (action.payload && action.payload.length > 0) {
+      navigate("/searchResults");
+    } else {
+      navigate("/NoResults");
     }
-  };
+  });
+};
+
 
   const clearSearchInput = () => {
     setLocalSearchTerm("");
@@ -129,9 +132,8 @@ const handleSearchClick = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           {/* Navigation links, direction-aware alignment */}
           <Nav
-            className={`nav-items ${
-              document.documentElement.dir === "rtl" ? "ms-auto" : "me-auto"
-            }`}
+            className={`nav-items ${document.documentElement.dir === "rtl" ? "ms-auto" : "me-auto"
+              }`}
           >
             {/* Home link */}
             <NavLink to="/" className="nav-item nav-link" end>
@@ -162,37 +164,38 @@ const handleSearchClick = () => {
 
           {/* Right-aligned icons and dropdowns */}
           <div className="d-flex align-items-center nav-icons">
-             
-            
+
+
             {/* Dropdown with user info */}
             <UserDropDown MyName={MyName} completeprofile={completeprofile} />
 
             {/* Search icon */}
-            {showSearchInput && (
-                          <Form onSubmit={handleSearchSubmit} className="search-form">
-                            <InputGroup>
-                              <Form.Control
-                                type="text"
-                                placeholder={t("Navbar.search")}
-                                value={localSearchTerm}
-                                onChange={(e) => setLocalSearchTerm(e.target.value)}
-                                ref={searchInputRef}
-                                className="search-input"
-                              />
-                              <InputGroup.Text 
-                                className="clear-search-icon" 
-                                onClick={clearSearchInput}
-                              >
-                                <FiX />
-                              </InputGroup.Text>
-                            </InputGroup>
-                          </Form>
-                        )}
-           <GoSearch 
-              className={`icon ${showSearchInput ? "active" : ""}`} 
-              onClick={handleSearchClick} 
-            />
-
+            <div className="search-container">
+              <GoSearch
+                className={`icon ${showSearchInput ? "active" : ""}`}
+                onClick={handleSearchClick}
+              />
+              {showSearchInput && (
+                <Form onSubmit={handleSearchSubmit} className="search-form">
+                  <InputGroup>
+                    <Form.Control
+                      type="text"
+                      placeholder={t("Navbar.search")}
+                      value={localSearchTerm}
+                      onChange={(e) => setLocalSearchTerm(e.target.value)}
+                      ref={searchInputRef}
+                      className="search-input"
+                    />
+                    <InputGroup.Text
+                      className="clear-search-icon"
+                      onClick={clearSearchInput}
+                    >
+                      <FiX />
+                    </InputGroup.Text>
+                  </InputGroup>
+                </Form>
+              )}
+            </div>
             {/* Language switcher dropdown */}
             <LanguageDropdown />
 

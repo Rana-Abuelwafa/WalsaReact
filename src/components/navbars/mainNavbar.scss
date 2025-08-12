@@ -1,5 +1,6 @@
 // Base styles
 @import "../../styles/variables";
+
 .navbar-custom {
   background: white;
   height: auto;
@@ -22,6 +23,7 @@
   .navbar-toggler {
     border: none;
     padding: 0.5rem;
+
     &:focus {
       box-shadow: none;
     }
@@ -35,6 +37,7 @@
       margin-right: 12px;
       margin-left: 23px;
     }
+
     .nav-items {
       margin-right: 0 !important;
       margin-left: auto !important; // Push to left side in RTL
@@ -44,6 +47,7 @@
       margin-right: auto !important;
       margin-left: 0 !important;
     }
+
     .nav-item {
       margin-right: 0;
       margin-left: 15px;
@@ -75,10 +79,12 @@
 .navbar-nav .nav-link.show {
   color: $dark-green-color !important;
 }
+
 .nav-items,
 .nav-icons {
   padding-top: 8px;
 }
+
 .nav-item {
   font-weight: 400 !important;
   font-size: 16px !important;
@@ -87,6 +93,7 @@
   padding: 0.5rem 1rem !important;
   transition: color 0.3s ease;
   text-transform: uppercase;
+
   &:hover {
     color: #b181d6;
   }
@@ -94,6 +101,7 @@
 
 // Icons
 .nav-icons {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 15px;
@@ -192,6 +200,7 @@
     .userName {
       max-width: 80px;
     }
+
     .nav-icons {
       .icon {
         margin: 0;
@@ -216,14 +225,17 @@
     color: $purple-color !important;
     font-size: 20px;
     padding: 0 !important;
+
     &:hover,
     &:focus {
       background-color: transparent !important;
       border: 0 !important;
     }
+
     &::after {
       display: none !important;
     }
+
     .icon {
       font-size: 32px;
       color: #542d72;
@@ -231,10 +243,12 @@
       vertical-align: bottom;
     }
   }
+
   .dropdown-item,
   a {
     color: $purple-color !important;
     text-decoration: none;
+
     &:hover,
     &:active,
     &:focus {
@@ -244,49 +258,128 @@
     }
   }
 }
-.search-form {
-  margin-right: 5px;
-  
-  .search-input {
-    border-radius: 6px !important;
-    padding: 5px 15px;
-    transition: all 0.3s ease;
-    width: 100%;
-    max-width: 200px !important;
-    box-shadow: 0 2px 8px rgba(#a58bcf, 0.15);
-    
-    &:focus {
-      // Focus state with stronger shadow and outline
-      // border-color: #a58bcf;
-      box-shadow: 0 0 0 3px rgba(#a58bcf, 0.2), 
-                  0 4px 12px rgba(#a58bcf, 0.25);
-      outline: none;
-    }
-    
-    &:hover {
-      // Hover state
-      box-shadow: 0 4px 12px rgba(#a58bcf, 0.2);
-    }
 
-          // RTL support
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+  .search-form {
+    position: absolute;
+    top: 100%; // Position below the navbar
+    right: 0; // Align with the right side of the navbar
+    margin-top: 5px; // Small gap from navbar
+    z-index: 1000; // Ensure it appears above other elements
+    background: white; // Match navbar background
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); // Add shadow for depth
+    animation: fadeIn 0.2s ease-out;
+
+    
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+
+    .search-input {
+      border-radius: 6px !important;
+      padding: 5px 15px;
+      transition: all 0.3s ease;
+      width: 100%;
+      min-width: 250px !important; // Set a minimum width
+      border-color:#a58bcf !important;
+      box-shadow: 0 2px 8px rgba(#a58bcf, 0.15) !important;
+
+      &:focus {
+        border-color:#a58bcf !important;
+        box-shadow: 0 0 0 3px rgba(#a58bcf, 0.2),
+          0 4px 12px rgba(#a58bcf, 0.25) !important;
+        outline: none;
+      }
+
+      &:hover {
+        border-color:#a58bcf !important;
+        box-shadow: 0 4px 12px rgba(#a58bcf, 0.2) !important;
+      }
+
       [dir="rtl"] & {
         text-align: right;
       }
+    }
+
+    .clear-search-icon {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      margin-left: -40px !important;
+      z-index: 10;
+
+      &:hover {
+        color: $purple-color;
+      }
+    }
   }
-  
-  .clear-search-icon {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    margin-left: -40px;
-    z-index: 10;
-    
-    &:hover {
-      color: $purple-color;
+
+  @media (max-width: 992px) {
+  .search-form {
+    position: static; // On mobile, let it flow normally
+    width: 100%;
+    margin-top: 10px;
+    animation: none;
+
+    .search-input {
+      min-width: 100%; // Full width on mobile
     }
   }
 }
 
-.icon.active {
-  color: $dark-green-color;
-}
+// .search-form {
+//   margin-right: 5px;
+
+//   .search-input {
+//     border-radius: 6px !important;
+//     padding: 5px 15px;
+//     transition: all 0.3s ease;
+//     width: 100%;
+//     max-width: 200px !important;
+//     box-shadow: 0 2px 8px rgba(#a58bcf, 0.15);
+
+//     &:focus {
+//       // Focus state with stronger shadow and outline
+//       // border-color: #a58bcf;
+//       box-shadow: 0 0 0 3px rgba(#a58bcf, 0.2), 
+//                   0 4px 12px rgba(#a58bcf, 0.25);
+//       outline: none;
+//     }
+
+//     &:hover {
+//       // Hover state
+//       box-shadow: 0 4px 12px rgba(#a58bcf, 0.2);
+//     }
+
+//           // RTL support
+//       [dir="rtl"] & {
+//         text-align: right;
+//       }
+//   }
+
+//   .clear-search-icon {
+//     background: transparent;
+//     border: none;
+//     cursor: pointer;
+//     margin-left: -40px;
+//     z-index: 10;
+
+//     &:hover {
+//       color: $purple-color;
+//     }
+//   }
+// }
+
+// .icon.active {
+//   color: $dark-green-color;
+// }
