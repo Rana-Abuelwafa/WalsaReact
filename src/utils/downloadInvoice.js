@@ -1,8 +1,8 @@
-import { jsPDF } from 'jspdf';
-import html2canvas from 'html2canvas';
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
 
 const downloadInvoice = async (invoiceData) => {
-  const lang = invoiceData.forceLang || localStorage.getItem('lang') || 'en';
+  const lang = invoiceData.forceLang || localStorage.getItem("lang") || "en";
   // console.log("nnnnnnn",lang);
   const templateFile = `invoices/template_${lang}.html`;
 
@@ -24,11 +24,11 @@ const downloadInvoice = async (invoiceData) => {
       .replace(/{{services}}/g, generateServicesHtml(invoiceData.services));
 
     // Create temporary div to render HTML
-    const tempDiv = document.createElement('div');
+    const tempDiv = document.createElement("div");
     tempDiv.innerHTML = template;
-    tempDiv.style.position = 'absolute';
-    tempDiv.style.left = '-9999px';
-    tempDiv.style.width = '210mm'; // Match A4 width
+    tempDiv.style.position = "absolute";
+    tempDiv.style.left = "-9999px";
+    tempDiv.style.width = "210mm"; // Match A4 width
     document.body.appendChild(tempDiv);
 
     // Convert to canvas
@@ -37,13 +37,13 @@ const downloadInvoice = async (invoiceData) => {
       useCORS: true,
       allowTaint: true,
       scrollX: 0,
-      scrollY: 0
+      scrollY: 0,
     });
 
-    const imgData = canvas.toDataURL('image/png');
+    const imgData = canvas.toDataURL("image/png");
 
     // PDF dimensions
-    const pdf = new jsPDF('p', 'mm', 'a4');
+    const pdf = new jsPDF("p", "mm", "a4");
     const pageWidth = 210;
     const pageHeight = 297;
     const imgHeight = (canvas.height * pageWidth) / canvas.width;
@@ -52,14 +52,14 @@ const downloadInvoice = async (invoiceData) => {
     let position = 0;
 
     // Add first page
-    pdf.addImage(imgData, 'PNG', 0, position, pageWidth, imgHeight);
+    pdf.addImage(imgData, "PNG", 0, position, pageWidth, imgHeight);
     heightLeft -= pageHeight;
 
     // Add extra pages if needed
     while (heightLeft > 0) {
       position = heightLeft - imgHeight;
       pdf.addPage();
-      pdf.addImage(imgData, 'PNG', 0, position, pageWidth, imgHeight);
+      pdf.addImage(imgData, "PNG", 0, position, pageWidth, imgHeight);
       heightLeft -= pageHeight;
     }
 
@@ -67,21 +67,27 @@ const downloadInvoice = async (invoiceData) => {
 
     document.body.removeChild(tempDiv);
   } catch (error) {
-    console.error('Error generating PDF:', error);
-    if (lang !== 'en' && !invoiceData.forceLang) {
-      downloadInvoice({ ...invoiceData, forceLang: 'en' });
+    console.error("Error generating PDF:", error);
+    if (lang !== "en" && !invoiceData.forceLang) {
+      downloadInvoice({ ...invoiceData, forceLang: "en" });
     }
   }
 };
 
 const generateServicesHtml = (services) => {
-  return services.map((service, i) => `
+  return services
+    .map(
+      (service, i) => `
     <tr style="border-bottom:1px solid #ccc">
       <td style="padding:10px 0;">${i + 1}</td>
-      <td style="padding:10px 0;">${service.package_name} - ${service.service_name}</td>
+      <td style="padding:10px 0;">${service.package_name} - ${
+        service.service_name
+      }</td>
       <td style="padding:10px 0;">${service.package_sale_price}</td>
     </tr>
-  `).join('');
+  `
+    )
+    .join("");
 };
 
 export default downloadInvoice;
