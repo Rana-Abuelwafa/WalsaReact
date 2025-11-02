@@ -1,11 +1,13 @@
+@import "../../styles//variables";
 .sale-navbar {
   margin-top: 90px;
   padding: 10px 50px !important;
-  background: white;
+  // background: white;
+  background-color: $purple-color;
   height: auto;
   min-height: 80px;
   z-index: 1000 !important;
-  border-bottom: 1px solid #eee;
+  //border-bottom: 1px solid #eee;
 
   // .container-fluid {
   //   padding: 0;
@@ -13,7 +15,8 @@
 }
 
 .sale-text {
-  background: linear-gradient(90deg, #2a1739, #00bc82);
+  // background: linear-gradient(90deg, #2a1739, #00bc82);
+  background: linear-gradient(-90deg, #fff, #ffca4e);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: 26px;
@@ -23,7 +26,8 @@
 }
 
 .countdown-timer {
-  color: #542d72;
+  // color: #542d72;
+  color: #fff;
   font-weight: bold;
   font-family: "Roboto";
   font-size: 26px;
@@ -33,7 +37,12 @@
 
 .countdown-labels {
   margin-top: -18px;
-
+  [dir="rtl"] & {
+    margin-right: 18px !important;
+  }
+  [dir="ltr"] & {
+    margin-left: 18px !important;
+  }
   span {
     color: #cfc4d8;
     font-weight: 300;
@@ -46,18 +55,21 @@
 }
 
 .check-button {
-  background: transparent !important;
-  border: 1px solid #b181d6 !important;
+  background: white !important;
+  //  border: 1px solid #b181d6 !important;
+  border: 1px solid #fff !important;
   font-size: 18px !important;
   font-weight: bold !important;
   padding: 10px 42px !important;
   border-radius: 50px !important;
-  color: #542d72 !important;
+  // color: #542d72 !important;
+  color: $purple-color !important;
   float: right;
   transition: all 0.3s ease;
 
   &:hover {
-    background: rgba(177, 129, 214, 0.1) !important;
+    background: transparent;
+    // background: rgba(177, 129, 214, 0.1) !important;
   }
 }
 
@@ -106,7 +118,7 @@
 @media (max-width: 768px) {
   .sale-navbar {
     min-height: auto;
-    padding: 10px !important;
+    padding: 20px 10px !important;
     margin-top: 80px !important;
 
     .row > div {

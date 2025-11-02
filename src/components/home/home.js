@@ -9,6 +9,7 @@ import Chat from "../chatIcon/chat";
 import OfferPopup from "../OfferPopup/OfferPopup";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./home.scss";
+import AdvSection from "./Advertising/AdvSection";
 
 const Home = () => {
   const navigate = useNavigate(); // React Router hook to navigate between pages
@@ -19,23 +20,26 @@ const Home = () => {
       <OfferPopup /> {/* Displays a promotional popup */}
       <MainNavbar /> {/* Main navigation bar */}
       <SaleNavbar /> {/* Secondary navbar showing current sales or offers */}
+      <AdvSection /> {/* advrtising section */}
       <Container fluid className="content-section">
         {/* ===================== Hero Section ===================== */}
         <section className="hero-section" dir={t("dir")}>
           <Row className="align-items-center">
             {/* Hero Text Content */}
             <Col
-              lg={6}
+              lg={5}
+              xs={12}
               className={`order-lg-1 order-2 text-lg-${
                 t("dir") === "rtl" ? "end" : "start"
               }`}
             >
               <h1 className="hero-heading">
-                {t("Home.heroTitle1")} {t("Home.heroTitle2")} <br />
+                {t("Home.heroTitle1")} <br />
+                {t("Home.heroTitle2")}{" "}
                 <span className="highlight">{t("Home.heroHighlight")}</span>
               </h1>
               {/* Hero description with new lines handled */}
-              <p className="service-description">
+              <p className="service-description hero_desc">
                 {t("Home.heroDescription")
                   .split("\n")
                   .map((line, index) => (
@@ -45,16 +49,21 @@ const Home = () => {
                     </React.Fragment>
                   ))}
               </p>
-              <Button className="cta-button" onClick={() => navigate("/pricing")}>
+              <Button
+                className="cta-button"
+                onClick={() => navigate("/pricing")}
+              >
                 {t("Home.getStarted")}
               </Button>
             </Col>
 
             {/* Hero Image */}
-            <Col lg={6} className="order-lg-2 order-1 text-center">
+            <Col lg={7} xs={12} className="order-lg-2 order-1 text-center">
               <img
-                src="images/webs3.png"
+                // src="images/webs3.png"
+                src="images/home/home_01_img.png"
                 alt={t("Home.heroImageAlt")}
+                loading="lazy"
                 className="img-fluid illustration no-flip"
               />
             </Col>
@@ -81,9 +90,11 @@ const Home = () => {
             {/* Image */}
             <Col md={6} className="order-md-2 order-1 text-center">
               <img
-                src="images/confused.png"
+                // src="images/confused.png"
+                src="images/home/home_02_img.png"
                 alt="Brand Identity"
                 className="img-fluid illustration"
+                loading="lazy"
               />
             </Col>
           </Row>
@@ -110,9 +121,11 @@ const Home = () => {
             {/* Website design image */}
             <Col md={7} className="text-left order-md-2 order-1">
               <img
-                src="images/web-design.png"
+                //src="images/web-design.png"
+                src="images/home/home_03_img.png"
                 alt="Website Design"
                 className="img-fluid service-img"
+                loading="lazy"
               />
             </Col>
           </Row>
@@ -134,9 +147,11 @@ const Home = () => {
             </Col>
             <Col md={6} className="order-md-2 order-1 text-center">
               <img
-                src="images/design-award2.png"
+                // src="images/design-award2.png"
+                src="images/home/home_04_img.png"
                 alt="Website Design"
                 className="img-fluid service-img2"
+                loading="lazy"
               />
             </Col>
           </Row>
@@ -160,9 +175,11 @@ const Home = () => {
             </Col>
             <Col md={5} className="order-md-2 order-1 text-left">
               <img
-                src="images/social-media.png"
+                // src="images/social-media.png"
+                src="images/home/home_05_img.png"
                 alt="Business Marketing"
                 className="img-fluid identity-img"
+                loading="lazy"
               />
             </Col>
           </Row>
@@ -181,6 +198,7 @@ const Home = () => {
                   src="/images/submit-request.png"
                   alt="Submit Request"
                   className="steps-img-small mb-3"
+                  loading="lazy"
                 />
                 <h5>{t("Home.submit_request")}</h5>
                 <p className="text-center">
@@ -200,7 +218,8 @@ const Home = () => {
                 <img
                   src="/images/designers-work.png"
                   alt="Designers Work"
-                  className="steps-img mb-3"
+                  className="steps-img-small mb-3"
+                  loading="lazy"
                 />
                 <h5>{t("Home.designers_work")}</h5>
                 <p className="text-center">
@@ -220,7 +239,8 @@ const Home = () => {
                 <img
                   src="/images/receive-design.png"
                   alt="Receive Design"
-                  className="steps-img mb-3"
+                  className="steps-img-small mb-3"
+                  loading="lazy"
                 />
                 <h5>{t("Home.receive_design")}</h5>
                 <p className="text-center">
@@ -234,7 +254,7 @@ const Home = () => {
                     ))}
                 </p>
               </Card>
-            </Col>
+            </Col>{" "}
           </Row>
 
           {/* CTA Button */}

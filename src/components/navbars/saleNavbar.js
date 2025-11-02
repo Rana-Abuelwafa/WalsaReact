@@ -25,8 +25,8 @@ const SaleNavbar = () => {
 
   // State for the target date (100 days from March 1, 2025)
   const [targetDate] = useState(() => {
-    const date = new Date("2025-03-01T00:00:00");
-    date.setDate(date.getDate() + 200); // Add 100 days to the initial date
+    const date = new Date("2025-12-01T00:00:00");
+    //date.setDate(date.getDate() + 200); // Add 100 days to the initial date
     return date;
   });
 

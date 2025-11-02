@@ -1,0 +1,69 @@
+@import "../../../styles/variables";
+.adv-section {
+  position: relative;
+  width: 100%;
+  height: 700px; // full screen
+  background-size: 90%;
+  background-position: center;
+  background-repeat: no-repeat;
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  margin-top: 160px;
+  //   overflow: hidden;
+
+  // optional gradient overlay
+  //   &::after {
+  //     content: "";
+  //     position: absolute;
+  //     inset: 0;
+  //     background: rgba(0, 0, 0, 0.1); // adjust if needed
+  //   }
+
+  .countdown-box {
+    position: absolute;
+    bottom: 20%;
+    left: 10%;
+    display: flex;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid $yellow-color-dark;
+    border-radius: 12px;
+    padding: 12px 20px;
+    z-index: 2;
+
+    .time-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 50px;
+
+      .number {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: $yellow-color-dark;
+        line-height: 1.2;
+      }
+
+      .label {
+        font-size: 0.8rem;
+        color: #333;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    height: 400px;
+
+    .countdown-box {
+      bottom: 15px;
+      right: 15px;
+      //   padding: 10px 14px;
+      //   gap: 8px;
+
+      .time-item .number {
+        font-size: 1.1rem;
+      }
+    }
+  }
+}

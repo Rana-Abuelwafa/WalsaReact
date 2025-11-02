@@ -6,8 +6,8 @@
   height: auto;
   min-height: 90px;
   padding: 10px 50px !important;
-  border-bottom: 2px solid #ddd;
-  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.1);
+  //border-bottom: 2px solid #ddd;
+  // box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 
   .container-fluid {
@@ -265,66 +265,68 @@
   align-items: center;
 }
 
-  .search-form {
-    position: absolute;
-    top: 100%; // Position below the navbar
-    right: 0; // Align with the right side of the navbar
-    margin-top: 5px; // Small gap from navbar
-    z-index: 1000; // Ensure it appears above other elements
-    background: white; // Match navbar background
-    padding: 10px;
-    border-radius: 6px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); // Add shadow for depth
-    animation: fadeIn 0.2s ease-out;
-
-    
+.search-form {
+  position: absolute;
+  top: 100%; // Position below the navbar
+  right: 0; // Align with the right side of the navbar
+  margin-top: 5px; // Small gap from navbar
+  z-index: 1000; // Ensure it appears above other elements
+  background: white; // Match navbar background
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); // Add shadow for depth
+  animation: fadeIn 0.2s ease-out;
 
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-
-    .search-input {
-      border-radius: 6px !important;
-      padding: 5px 15px;
-      transition: all 0.3s ease;
-      width: 100%;
-      min-width: 250px !important; // Set a minimum width
-      border-color:#a58bcf !important;
-      box-shadow: 0 2px 8px rgba(#a58bcf, 0.15) !important;
-
-      &:focus {
-        border-color:#a58bcf !important;
-        box-shadow: 0 0 0 3px rgba(#a58bcf, 0.2),
-          0 4px 12px rgba(#a58bcf, 0.25) !important;
-        outline: none;
-      }
-
-      &:hover {
-        border-color:#a58bcf !important;
-        box-shadow: 0 4px 12px rgba(#a58bcf, 0.2) !important;
-      }
-
-      [dir="rtl"] & {
-        text-align: right;
-      }
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
     }
-
-    .clear-search-icon {
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      margin-left: -40px !important;
-      z-index: 10;
-
-      &:hover {
-        color: $purple-color;
-      }
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 
-  @media (max-width: 992px) {
+  .search-input {
+    border-radius: 6px !important;
+    padding: 5px 15px;
+    transition: all 0.3s ease;
+    width: 100%;
+    min-width: 250px !important; // Set a minimum width
+    border-color: #a58bcf !important;
+    box-shadow: 0 2px 8px rgba(#a58bcf, 0.15) !important;
+
+    &:focus {
+      border-color: #a58bcf !important;
+      box-shadow: 0 0 0 3px rgba(#a58bcf, 0.2), 0 4px 12px rgba(#a58bcf, 0.25) !important;
+      outline: none;
+    }
+
+    &:hover {
+      border-color: #a58bcf !important;
+      box-shadow: 0 4px 12px rgba(#a58bcf, 0.2) !important;
+    }
+
+    [dir="rtl"] & {
+      text-align: right;
+    }
+  }
+
+  .clear-search-icon {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    margin-left: -40px !important;
+    z-index: 10;
+
+    &:hover {
+      color: $purple-color;
+    }
+  }
+}
+
+@media (max-width: 992px) {
   .search-form {
     position: static; // On mobile, let it flow normally
     width: 100%;
@@ -351,7 +353,7 @@
 //     &:focus {
 //       // Focus state with stronger shadow and outline
 //       // border-color: #a58bcf;
-//       box-shadow: 0 0 0 3px rgba(#a58bcf, 0.2), 
+//       box-shadow: 0 0 0 3px rgba(#a58bcf, 0.2),
 //                   0 4px 12px rgba(#a58bcf, 0.25);
 //       outline: none;
 //     }
