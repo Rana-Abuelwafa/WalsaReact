@@ -44,22 +44,22 @@ export const fetchProfile = createAsyncThunk(
       return rejectWithValue(createAuthError());
     }
 
-      try {
-        // Make API call to get client profiles
-        const response = await axios.post(
-          BASE_URL + "/GetClientProfiles",
-          {},
-          getAuthHeaders()
-        );
+    try {
+      // Make API call to get client profiles
+      const response = await axios.post(
+        BASE_URL + "/GetClientProfiles",
+        {},
+        getAuthHeaders()
+      );
 
-        return response.data?.[0] || {}; 
-      } catch (error) {
-        if (error.response?.status === 401) {
-           return rejectWithValue(createAuthError());
-        }
-        return rejectWithValue(getErrorMessage(error));
+      return response.data?.[0] || {};
+    } catch (error) {
+      if (error.response?.status === 401) {
+        return rejectWithValue(createAuthError());
       }
+      return rejectWithValue(getErrorMessage(error));
     }
+  }
 );
 
 // Async thunk to save profile data
@@ -69,30 +69,30 @@ export const saveProfile = createAsyncThunk(
     if (!checkAUTH()) {
       return rejectWithValue(createAuthError());
     }
-      try {
-        // Make API call to save profile
-        const response = await axios.post(
-          BASE_URL + "/saveMainProfile",
-          formData,
-          getAuthHeaders()
-        );
+    try {
+      // Make API call to save profile
+      const response = await axios.post(
+        BASE_URL + "/saveMainProfile",
+        formData,
+        getAuthHeaders()
+      );
 
-        if (response.data.success == false) {
-          return rejectWithValue(response.data.errors || "Operation failed");
-        }
-
-        // Return both API response and form data
-        return {
-          success: response.data.success,
-          formData: formData,
-          message: response.data.errors
-        };
-      } catch (error) {
-        if (error.response?.status == 401) {
-           return rejectWithValue(createAuthError());
-        }
-        return rejectWithValue(getErrorMessage(error));
+      if (response.data.success == false) {
+        return rejectWithValue(response.data.errors || "Operation failed");
       }
+
+      // Return both API response and form data
+      return {
+        success: response.data.success,
+        formData: formData,
+        message: response.data.errors,
+      };
+    } catch (error) {
+      if (error.response?.status == 401) {
+        return rejectWithValue(createAuthError());
+      }
+      return rejectWithValue(getErrorMessage(error));
+    }
   }
 );
 
@@ -103,21 +103,21 @@ export const fetchProfileImage = createAsyncThunk(
     if (!checkAUTH()) {
       return rejectWithValue(createAuthError());
     }
-      try {
-        // Make API call to get profile image
-        const response = await axios.post(
-          BASE_URL + "/GetProfileImage",
-          {},
-          getAuthHeaders()
-        );
-      
-        return response.data?.[0]?.img_path || null;
-      } catch (error) {
-        if (error.response?.status === 401) {
-           return rejectWithValue(createAuthError());
-        }
-        return rejectWithValue(getErrorMessage(error));
+    try {
+      // Make API call to get profile image
+      const response = await axios.post(
+        BASE_URL + "/GetProfileImage",
+        {},
+        getAuthHeaders()
+      );
+
+      return response.data?.[0]?.img_path || null;
+    } catch (error) {
+      if (error.response?.status === 401) {
+        return rejectWithValue(createAuthError());
       }
+      return rejectWithValue(getErrorMessage(error));
+    }
   }
 );
 
@@ -128,35 +128,35 @@ export const uploadProfileImage = createAsyncThunk(
     if (!checkAUTH()) {
       return rejectWithValue(createAuthError());
     }
-      try {
-        const user = JSON.parse(localStorage.getItem("user"));
-        const accessToken = user?.accessToken;
-        const requestBody = { img: imageFile };
+    try {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const accessToken = user?.accessToken;
+      const requestBody = { img: imageFile };
 
-        // Make API call to upload image with multipart/form-data
-        const response = await axios.post(
-          BASE_URL + "/saveProfileImage",
-          requestBody,
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
-
-        // Return both object URL for immediate display and API response
-        return {
-          success: response.data.success,
-          url: URL.createObjectURL(imageFile),
-          message: response.data.errors
-        };
-      } catch (error) {
-        if (error.response?.status === 401) {
-           return rejectWithValue(createAuthError());
+      // Make API call to upload image with multipart/form-data
+      const response = await axios.post(
+        BASE_URL + "/saveProfileImage",
+        requestBody,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "multipart/form-data",
+          },
         }
-        return rejectWithValue(getErrorMessage(error));
+      );
+
+      // Return both object URL for immediate display and API response
+      return {
+        success: response.data.success,
+        url: URL.createObjectURL(imageFile),
+        message: response.data.errors,
+      };
+    } catch (error) {
+      if (error.response?.status === 401) {
+        return rejectWithValue(createAuthError());
       }
+      return rejectWithValue(getErrorMessage(error));
+    }
   }
 );
 
@@ -184,9 +184,9 @@ const profileSlice = createSlice({
       // Fetch Profile cases
       .addCase(fetchProfile.pending, (state) => {
         state.loading = true;
-          state.error = null;
-          state.success = null;
-          state.message = null;
+        state.error = null;
+        state.success = null;
+        state.message = null;
       })
       .addCase(fetchProfile.fulfilled, (state, action) => {
         state.loading = false;
@@ -201,9 +201,9 @@ const profileSlice = createSlice({
       // Save Profile cases
       .addCase(saveProfile.pending, (state) => {
         state.loading = true;
-          state.error = null;
-          state.success = null;
-          state.message = null;
+        state.error = null;
+        state.success = null;
+        state.message = null;
       })
       .addCase(saveProfile.fulfilled, (state, action) => {
         state.loading = false;
@@ -224,9 +224,9 @@ const profileSlice = createSlice({
       // Fetch Profile Image cases
       .addCase(fetchProfileImage.pending, (state) => {
         state.loading = true;
-          state.error = null;
-          state.success = null;
-          state.message = null;
+        state.error = null;
+        state.success = null;
+        state.message = null;
       })
       .addCase(fetchProfileImage.fulfilled, (state, action) => {
         state.loading = false;
@@ -242,9 +242,9 @@ const profileSlice = createSlice({
       // Upload Profile Image cases
       .addCase(uploadProfileImage.pending, (state) => {
         state.loading = true;
-          state.error = null;
-          state.success = null;
-          state.message = null;
+        state.error = null;
+        state.success = null;
+        state.message = null;
       })
       .addCase(uploadProfileImage.fulfilled, (state, action) => {
         state.loading = false;

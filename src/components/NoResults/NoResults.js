@@ -12,11 +12,16 @@ const NoResults = () => {
       <MainNavbar />
       <Container className="pageContainer">
         <div className="contentWrapper">
-        <img src="/images/no-results.png" alt={t("NoResults.title")} className="illustration" />
-        <h1 className="mainTitle">{t("NoResults.title")}</h1>
-        <p className="subText">{t("NoResults.subTitle")}</p>
+          <img
+            src="/images/no-results.png"
+            alt={t("NoResults.title")}
+            className="illustration"
+            loading="lazy"
+          />
+          <h1 className="mainTitle">{t("NoResults.title")}</h1>
+          <p className="subText">{t("NoResults.subTitle")}</p>
         </div>
-      </Container>    
+      </Container>
       {/* Footer at the bottom */}
       {/* <MainFooter /> */}
     </>

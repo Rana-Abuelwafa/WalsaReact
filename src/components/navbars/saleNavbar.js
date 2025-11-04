@@ -1,13 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { Navbar, Container, Button, Row, Col } from "react-bootstrap";
-import { useTranslation } from "react-multi-lang";
+import { useTranslation, getLanguage } from "react-multi-lang";
+import { formatNumber } from "../../helper/helperFN";
 import "./saleNavbar.scss";
 
 const SaleNavbar = () => {
   // Navigation hook for programmatic routing
   const navigate = useNavigate();
-
+  const lang = localStorage.getItem("lang") || getLanguage();
   // Translation hook for multilingual support
   const t = useTranslation();
 
@@ -74,7 +75,13 @@ const SaleNavbar = () => {
           <Col md={4} className="countdown-col">
             <div className="countdown-timer">
               {/* Display time values separated by colons */}
-              {`${timeLeft.days} : ${timeLeft.hours} : ${timeLeft.minutes} : ${timeLeft.seconds}`}
+              {`${formatNumber(timeLeft.days, lang)} : ${formatNumber(
+                timeLeft.hours,
+                lang
+              )} : ${formatNumber(timeLeft.minutes, lang)} : ${formatNumber(
+                timeLeft.seconds,
+                lang
+              )}`}
               {/* Labels for each time unit */}
               <div className="countdown-labels">
                 <span>{t("SaleNavbar.days")}</span>

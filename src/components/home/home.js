@@ -192,68 +192,75 @@ const Home = () => {
 
           {/* Three Steps Cards */}
           <Row className="my-4">
-            <Col md={4} xs={12}>
-              <Card className="p-4 border-0">
-                <img
-                  src="/images/submit-request.png"
-                  alt="Submit Request"
-                  className="steps-img-small mb-3"
-                  loading="lazy"
-                />
-                <h5>{t("Home.submit_request")}</h5>
-                <p className="text-center">
-                  {t("Home.submit_request_text")
-                    .split("\n")
-                    .map((line, index) => (
-                      <React.Fragment key={index}>
-                        {line}
-                        <br />
-                      </React.Fragment>
-                    ))}
-                </p>
-              </Card>
+            <Col md={4} xs={12} className="h-100">
+              <div>
+                <Card className="p-4 border-0 work_card">
+                  <img
+                    src="/images/submit-request.png"
+                    alt="Submit Request"
+                    className="steps-img-small mb-3"
+                    loading="lazy"
+                  />
+                  <h5>{t("Home.submit_request")}</h5>
+                  <p className="text-center">
+                    {t("Home.submit_request_text")
+                      .split("\n")
+                      .map((line, index) => (
+                        <React.Fragment key={index}>
+                          {line}
+                          <br />
+                        </React.Fragment>
+                      ))}
+                  </p>
+                </Card>
+              </div>
             </Col>
-            <Col md={4} xs={12}>
-              <Card className="p-4 border-0">
-                <img
-                  src="/images/designers-work.png"
-                  alt="Designers Work"
-                  className="steps-img-small mb-3"
-                  loading="lazy"
-                />
-                <h5>{t("Home.designers_work")}</h5>
-                <p className="text-center">
-                  {t("Home.designers_work_text")
-                    .split("\n")
-                    .map((line, index) => (
-                      <React.Fragment key={index}>
-                        {line}
-                        <br />
-                      </React.Fragment>
-                    ))}
-                </p>
-              </Card>
+            <Col md={4} xs={12} className="h-100">
+              <div>
+                <Card className="p-4 border-0 work_card">
+                  <img
+                    src="/images/designers-work.png"
+                    alt="Designers Work"
+                    className="steps-img-small mb-3"
+                    loading="lazy"
+                  />
+                  <h5>{t("Home.designers_work")}</h5>
+                  <p className="text-center">
+                    {t("Home.designers_work_text")
+                      .split("\n")
+                      .map((line, index) => (
+                        <React.Fragment key={index}>
+                          {line}
+                          <br />
+                        </React.Fragment>
+                      ))}
+                  </p>
+                </Card>
+              </div>
             </Col>
-            <Col md={4} xs={12}>
-              <Card className="p-4 border-0">
-                <img
-                  src="/images/receive-design.png"
-                  alt="Receive Design"
-                  className="steps-img-small mb-3"
-                  loading="lazy"
-                />
-                <h5>{t("Home.receive_design")}</h5>
-                <p className="text-center">
-                  {t("Home.receive_design_text")
-                    .split("\n")
-                    .map((line, index) => (
-                      <React.Fragment key={index}>
-                        {line}
-                        <br />
-                      </React.Fragment>
-                    ))}
-                </p>
-              </Card>
+            <Col md={4} xs={12} className="h-100">
+              <div>
+                {" "}
+                <Card className="p-4 border-0 work_card">
+                  <img
+                    src="/images/receive-design.png"
+                    alt="Receive Design"
+                    className="steps-img-small mb-3"
+                    loading="lazy"
+                  />
+                  <h5>{t("Home.receive_design")}</h5>
+                  <p className="text-center">
+                    {t("Home.receive_design_text")
+                      .split("\n")
+                      .map((line, index) => (
+                        <React.Fragment key={index}>
+                          {line}
+                          <br />
+                        </React.Fragment>
+                      ))}
+                  </p>
+                </Card>
+              </div>
             </Col>{" "}
           </Row>
 
@@ -274,112 +281,118 @@ const Home = () => {
           {/* Offer Cards (First Row) */}
           <Row className="mb-4">
             <Col md={6}>
-              <Card className="p-4 border-0">
-                <Row className="align-items-center">
-                  <Col xs={3}>
-                    <img
-                      src="/images/fast-reliable.png"
-                      alt="Fast & Reliable"
-                      className="img-fluid offer-img"
-                    />
-                  </Col>
-                  <Col xs={9} className="offer-Text">
-                    <h5>{t("Home.fast_reliable")}</h5>
-                    <p>
-                      {t("Home.fast_reliable_text")
-                        .split("\n")
-                        .map((line, index) => (
-                          <React.Fragment key={index}>
-                            {line}
-                            <br />
-                          </React.Fragment>
-                        ))}
-                    </p>
-                  </Col>
-                </Row>
-              </Card>
+              <div>
+                <Card className="p-4 border-0 design_card">
+                  <Row className="align-items-center">
+                    <Col xs={3}>
+                      <img
+                        src="/images/fast-reliable.png"
+                        alt="Fast & Reliable"
+                        className="img-fluid offer-img"
+                      />
+                    </Col>
+                    <Col xs={9} className="offer-Text">
+                      <h5>{t("Home.fast_reliable")}</h5>
+                      <p>
+                        {t("Home.fast_reliable_text")
+                          .split("\n")
+                          .map((line, index) => (
+                            <React.Fragment key={index}>
+                              {line}
+                              <br />
+                            </React.Fragment>
+                          ))}
+                      </p>
+                    </Col>
+                  </Row>
+                </Card>
+              </div>
             </Col>
             <Col md={6}>
-              <Card className="p-4 border-0">
-                <Row className="align-items-center">
-                  <Col xs={3}>
-                    <img
-                      src="/images/integrated-brand.png"
-                      alt="Integrated Brand"
-                      className="img-fluid offer-img no-flip"
-                    />
-                  </Col>
-                  <Col xs={9} className="offer-Text">
-                    <h5>{t("Home.integrated_brand")}</h5>
-                    <p>
-                      {t("Home.integrated_brand_text")
-                        .split("\n")
-                        .map((line, index) => (
-                          <React.Fragment key={index}>
-                            {line}
-                            <br />
-                          </React.Fragment>
-                        ))}
-                    </p>
-                  </Col>
-                </Row>
-              </Card>
+              <div>
+                <Card className="p-4 border-0 design_card">
+                  <Row className="align-items-center">
+                    <Col xs={3}>
+                      <img
+                        src="/images/integrated-brand.png"
+                        alt="Integrated Brand"
+                        className="img-fluid offer-img no-flip"
+                      />
+                    </Col>
+                    <Col xs={9} className="offer-Text">
+                      <h5>{t("Home.integrated_brand")}</h5>
+                      <p>
+                        {t("Home.integrated_brand_text")
+                          .split("\n")
+                          .map((line, index) => (
+                            <React.Fragment key={index}>
+                              {line}
+                              <br />
+                            </React.Fragment>
+                          ))}
+                      </p>
+                    </Col>
+                  </Row>
+                </Card>
+              </div>
             </Col>
-          </Row>
+      
 
-          {/* Offer Cards (Second Row) */}
-          <Row className="mb-4">
             <Col md={6}>
-              <Card className="p-4 border-0">
-                <Row className="align-items-center">
-                  <Col xs={3}>
-                    <img
-                      src="/images/collaborative-team.png"
-                      alt="Collaborative Team"
-                      className="img-fluid offer-img"
-                    />
-                  </Col>
-                  <Col xs={9} className="offer-Text">
-                    <h5>{t("Home.collaborative_team")}</h5>
-                    <p>
-                      {t("Home.collaborative_team_text")
-                        .split("\n")
-                        .map((line, index) => (
-                          <React.Fragment key={index}>
-                            {line}
-                            <br />
-                          </React.Fragment>
-                        ))}
-                    </p>
-                  </Col>
-                </Row>
-              </Card>
+              <div>
+                <Card className="p-4 border-0 design_card">
+                  <Row className="align-items-center">
+                    <Col xs={3}>
+                      <img
+                        src="/images/collaborative-team.png"
+                        alt="Collaborative Team"
+                        className="img-fluid offer-img"
+                      />
+                    </Col>
+                    <Col xs={9} className="offer-Text">
+                      <h5>{t("Home.collaborative_team")}</h5>
+                      <p>
+                        {t("Home.collaborative_team_text")
+                          .split("\n")
+                          .map((line, index) => (
+                            <React.Fragment key={index}>
+                              {line}
+                              <br />
+                            </React.Fragment>
+                          ))}
+                      </p>
+                    </Col>
+                  </Row>
+                </Card>
+              </div>
             </Col>
             <Col md={6}>
-              <Card className="p-4 border-0">
-                <Row className="align-items-center">
-                  <Col xs={3}>
-                    <img
-                      src="/images/budget-flexible.png"
-                      alt="Budget Flexible"
-                      className="img-fluid offer-img"
-                    />
-                  </Col>
-                  <Col xs={9} className="offer-Text">
-                    <h5>{t("Home.budget_flexible")}</h5>
-                    <p>
-                      {t("Home.budget_flexible_text")
-                        .split("\n")
-                        .map((line, index) => (
-                          <React.Fragment key={index}>
-                            {line}
-                            <br />
-                          </React.Fragment>
-                        ))}
-                    </p>
-                  </Col>
-                </Row>
-              </Card>
+              <div>
+                <Card className="p-4 border-0 design_card">
+                  <Row className="align-items-center">
+                    <Col xs={3}>
+                      <img
+                        src="/images/budget-flexible.png"
+                        alt="Budget Flexible"
+                        className="img-fluid offer-img"
+                      />
+                    </Col>
+                    <Col xs={9} className="offer-Text">
+                      <h5>{t("Home.budget_flexible")}</h5>
+                      <p>
+                        {t("Home.budget_flexible_text")
+                          .split("\n")
+                          .map((line, index) => (
+                            <React.Fragment key={index}>
+                              {line}
+                              <br />
+                            </React.Fragment>
+                          ))}
+                      </p>
+                    </Col>
+                  </Row>
+                </Card>
+              </div>
             </Col>
           </Row>
         </section>

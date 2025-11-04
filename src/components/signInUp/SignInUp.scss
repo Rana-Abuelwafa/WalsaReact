@@ -4,6 +4,9 @@
   margin-top: 10px;
   align-content: center;
   overflow: hidden;
+  @media only screen and (max-width: 992px) {
+    padding: 0 10px;
+  }
   h2 {
     color: variables.$purple-color;
     font-weight: bold;

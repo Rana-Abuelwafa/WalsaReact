@@ -1,8 +1,11 @@
+@import "../../styles/variables";
 .contact-us-section {
   margin-top: 120px;
   padding: 20px;
   background-color: #ffffff;
-
+  @media (max-width: 992px) {
+    text-align: center !important;
+  }
   .content-section {
     max-width: 1200px;
     margin: 0 auto;
@@ -12,10 +15,13 @@
   .contact-header {
     margin-bottom: 40px;
     text-align: start;
+    @media (max-width: 992px) {
+      text-align: center !important;
+    }
 
     h2 {
       font-size: 50px;
-      color: #542d72;
+      color: $purple-color;
       font-weight: bold;
       margin-bottom: 10px;
 
@@ -43,7 +49,11 @@
       align-items: center;
 
       @media (max-width: 768px) {
-        justify-content: center;
+        justify-content: center !important;
+      }
+      @media (max-width: 992px) {
+        justify-content: center !important;
+        margin-bottom: 30px;
       }
 
       .icon {
@@ -82,34 +92,36 @@
       margin: 10px;
       height: 100%;
       transition: transform 0.3s, box-shadow 0.3s;
-
+      @media (max-width: 992px) {
+        text-align: center !important;
+      }
       &:hover {
         transform: translateY(-5px);
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
       }
 
       h5 {
-        color: #542d72;
+        color: $purple-color;
         font-weight: bold;
         margin-bottom: 1rem;
       }
 
       p {
         font-size: 14px;
-        color: #542d72;
+        color: $purple-color;
         line-height: 30px;
         margin-bottom: 1.5rem;
       }
 
       .icon {
         font-size: 40px;
-        color: #542d72;
-        margin-bottom: 15px;
+        color: $purple-color;
+        margin: 15px auto;
       }
 
       .btn {
-        background-color: #542d72;
-        color:#ffffff;
+        background-color: $purple-color;
+        color: #ffffff;
         border-radius: 50px;
         border: 1px solid transparent;
         padding: 0.5rem 1.5rem;

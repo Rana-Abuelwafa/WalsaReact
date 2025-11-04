@@ -3,14 +3,14 @@ import RegisterReducer from "../slices/RegisterSlice";
 import authReducer from "../slices/authSlice";
 import brandReducer from "../slices/brandSlice";
 import profileReducer from "../slices/profileSlice";
-import productReducer from '../slices/productSlice';
-import pricingPlansReducer from '../slices/pricingPlansSlice';
-import languageReducer from '../slices/languageSlice';
-import currencyReducer from '../slices/currencySlice';
-import invoiceReducer  from '../slices/invoiceSlice';
-import contactReducer from '../slices/contactSlice';
-import searchReducer from '../slices/searchSlice';
-import { authMiddleware } from '../middleware/authMiddleware';
+import productReducer from "../slices/productSlice";
+import pricingPlansReducer from "../slices/pricingPlansSlice";
+import languageReducer from "../slices/languageSlice";
+import currencyReducer from "../slices/currencySlice";
+import invoiceReducer from "../slices/invoiceSlice";
+import contactReducer from "../slices/contactSlice";
+import searchReducer from "../slices/searchSlice";
+import { authMiddleware } from "../middleware/authMiddleware";
 
 export const store = configureStore({
   reducer: {
@@ -22,7 +22,7 @@ export const store = configureStore({
     pricingPlans: pricingPlansReducer,
     language: languageReducer,
     currency: currencyReducer,
-    invoice:invoiceReducer,
+    invoice: invoiceReducer,
     contact: contactReducer,
     search: searchReducer,
   },
@@ -30,8 +30,8 @@ export const store = configureStore({
     getDefaultMiddleware().concat(authMiddleware),
   // middleware: (getDefaultMiddleware) =>
   //   getDefaultMiddleware({
-  //     serializableCheck: false
-  //   })
+  //     serializableCheck: false,
+  //   }),
 });
 
 export default store;

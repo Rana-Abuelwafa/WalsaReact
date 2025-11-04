@@ -1,7 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, NavLink } from "react-router-dom";
-import { Navbar, Nav, Row, Col, Container, Form, InputGroup } from "react-bootstrap";
+import {
+  Navbar,
+  Nav,
+  Row,
+  Col,
+  Container,
+  Form,
+  InputGroup,
+} from "react-bootstrap";
 import { GoSearch } from "react-icons/go";
 import { FiUser, FiLogOut, FiX } from "react-icons/fi";
 import { useTranslation } from "react-multi-lang";
@@ -9,7 +17,11 @@ import LanguageDropdown from "../Dropdowns/LanguageDropdown";
 import MenuDropdown from "../Dropdowns/MenuDropdown";
 import UserDropDown from "../Dropdowns/UserDropDown";
 import { setCurrency } from "../../slices/currencySlice";
-import { fetchSearchResults, setSearchTerm, clearSearch } from "../../slices/searchSlice";
+import {
+  fetchSearchResults,
+  setSearchTerm,
+  clearSearch,
+} from "../../slices/searchSlice";
 import {
   fetchUserCountry,
   getCurrencyFromCountry,
@@ -33,10 +45,11 @@ const MainNavbar = () => {
   const [localSearchTerm, setLocalSearchTerm] = useState("");
   const searchInputRef = useRef(null);
 
-  const currentLang = useSelector((state) => state.language.currentLang) || "en";
-  const currency = useSelector((state) => state.currency.currentCurrency) || "USD";
+  const currentLang =
+    useSelector((state) => state.language.currentLang) || "en";
+  const currency =
+    useSelector((state) => state.currency.currentCurrency) || "USD";
   const { searchTerm, results } = useSelector((state) => state.search);
-
 
   // Effect to update 'isMobile' when the window is resized
   useEffect(() => {
@@ -89,26 +102,27 @@ const MainNavbar = () => {
     }
   };
 
-const handleSearchSubmit = (e) => {
-  e.preventDefault();
-  if (!localSearchTerm.trim()) {
-    return; // Don't proceed if search term is empty
-  }
-  
-  dispatch(setSearchTerm(localSearchTerm));
-  dispatch(fetchSearchResults({
-    lang: currentLang,
-    searchTerm: localSearchTerm,
-    curr_code: currency
-  })).then((action) => {
-    if (action.payload && action.payload.length > 0) {
-      navigate("/searchResults");
-    } else {
-      navigate("/NoResults");
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (!localSearchTerm.trim()) {
+      return; // Don't proceed if search term is empty
     }
-  });
-};
 
+    dispatch(setSearchTerm(localSearchTerm));
+    dispatch(
+      fetchSearchResults({
+        lang: currentLang,
+        searchTerm: localSearchTerm,
+        curr_code: currency,
+      })
+    ).then((action) => {
+      if (action.payload && action.payload.length > 0) {
+        navigate("/searchResults");
+      } else {
+        navigate("/NoResults");
+      }
+    });
+  };
 
   const clearSearchInput = () => {
     setLocalSearchTerm("");
@@ -122,7 +136,12 @@ const handleSearchSubmit = (e) => {
       <Container fluid>
         {/* Brand logo linking to the homepage */}
         <Navbar.Brand href="/" className="brand d-flex align-items-center">
-          <img src="/logo/wasla logo.png" alt="Logo" className="logo" />
+          <img
+            src="/logo/wasla logo.png"
+            alt="Logo"
+            className="logo"
+            loading="lazy"
+          />
         </Navbar.Brand>
 
         {/* Toggle button for mobile view */}
@@ -132,8 +151,9 @@ const handleSearchSubmit = (e) => {
         <Navbar.Collapse id="basic-navbar-nav">
           {/* Navigation links, direction-aware alignment */}
           <Nav
-            className={`nav-items ${document.documentElement.dir === "rtl" ? "ms-auto" : "me-auto"
-              }`}
+            className={`nav-items ${
+              document.documentElement.dir === "rtl" ? "ms-auto" : "me-auto"
+            }`}
           >
             {/* Home link */}
             <NavLink to="/" className="nav-item nav-link" end>
@@ -164,8 +184,6 @@ const handleSearchSubmit = (e) => {
 
           {/* Right-aligned icons and dropdowns */}
           <div className="d-flex align-items-center nav-icons">
-
-
             {/* Dropdown with user info */}
             <UserDropDown MyName={MyName} completeprofile={completeprofile} />
 

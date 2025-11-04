@@ -23,3 +23,6 @@ html[dir="ltr"] {
   direction: ltr;
   text-align: left;
 }
+/* html[lang="ar"] * {
+  unicode-bidi: bidi-override;
+} */

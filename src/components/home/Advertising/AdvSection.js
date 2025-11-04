@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import bgImage from "../../../imgs/bf2.png";
+import { useTranslation, setLanguage, getLanguage } from "react-multi-lang";
+import { formatNumber } from "../../../helper/helperFN";
 import "./AdvSection.scss";
 function AdvSection() {
+  const t = useTranslation();
+  const lang = localStorage.getItem("lang") || getLanguage();
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -41,27 +45,42 @@ function AdvSection() {
       <div className="countdown-box">
         <div className="time-item">
           <span className="number">
-            {timeLeft.days.toString().padStart(2, "0")}
+            {formatNumber(
+              Number(timeLeft.days.toString().padStart(2, "0")),
+              lang
+            )}
           </span>
-          <span className="label">days</span>
+          <span className="label">{t("SaleNavbar.days")}</span>
         </div>
+
         <div className="time-item">
           <span className="number">
-            {timeLeft.hours.toString().padStart(2, "0")}
+            {formatNumber(
+              Number(timeLeft.hours.toString().padStart(2, "0")),
+              lang
+            )}
           </span>
-          <span className="label">Hrs</span>
+          <span className="label">{t("SaleNavbar.hours")}</span>
         </div>
+
         <div className="time-item">
           <span className="number">
-            {timeLeft.mins.toString().padStart(2, "0")}
+            {formatNumber(
+              Number(timeLeft.mins.toString().padStart(2, "0")),
+              lang
+            )}
           </span>
-          <span className="label">Mins</span>
+          <span className="label">{t("SaleNavbar.minutes")}</span>
         </div>
+
         <div className="time-item">
           <span className="number">
-            {timeLeft.secs.toString().padStart(2, "0")}
+            {formatNumber(
+              Number(timeLeft.secs.toString().padStart(2, "0")),
+              lang
+            )}
           </span>
-          <span className="label">Secs</span>
+          <span className="label">{t("SaleNavbar.seconds")}</span>
         </div>
       </div>
     </section>

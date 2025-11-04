@@ -1,269 +1,266 @@
+@import "../../styles/variables";
+
 .profile-settings {
+  display: flex;
+  max-width: 1100px;
+  width: 100%;
+  justify-content: center;
+  background: #ffffff;
+  position: relative;
+  margin: 0 auto;
+
+  [dir="rtl"] & {
+    direction: rtl;
+  }
+
+  .form-container {
+    width: 95%;
+    background: #fff;
     display: flex;
-    max-width: 1100px;
-    width: 100%;
-    justify-content: center;
-    background: #ffffff;
+    flex-direction: column;
     position: relative;
-    margin: 0 auto;
-  
-    [dir="rtl"] & {
-      direction: rtl;
-    }
-  
-    .form-container {
-      width: 95%;
-      background: #fff;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-  
-      .form-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 30px;
-        margin-bottom: 40px;
-  
-        @media (min-width: 992px) {
-          grid-template-columns: repeat(3, 1fr);
-          gap: 60px;
-        }
-  
-        .form-column {
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+
+      @media (min-width: 992px) {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 60px;
+      }
+
+      .form-column {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .profile-picture {
+          position: relative;
           display: flex;
-          flex-direction: column;
-          gap: 20px;
+          justify-content: center;
+          margin-bottom: 20px;
 
-          .profile-picture {
+          .avatar-container {
             position: relative;
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-            
-            .avatar-container {
-              position: relative;
-              width: 160px;
-              height: 160px;
-              
-              
-              .avatar-image {
-                width: 140px;
-                height: 140px;
-                object-fit: cover;
-                border-radius: 50%;
-                overflow: hidden;
-                background-color: #ffffff; 
-                transition: transform 0.3s ease;
-                [dir="rtl"] & {
-                  transform: scaleX(-1);
-                }
-              }
-              
-              .camera {
-                position: absolute;
-                bottom: 26px;
-                right: 12px;
-                background: white;
-                width: 38px;
-                height: 38px;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                padding:2px;
+            width: 160px;
+            height: 160px;
 
-                .camera-icon {
-                  color: #542D72;
-                  font-weight: bold;
-                  font-size: 32px;
-                }
-                [dir="rtl"] & {
-                  right: auto;
-                  left: 16px;
-                }
-              }
-            }
-          }
-  
-          .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-  
-            label {
-              font-size: 14px;
-              color: #542D72;
-              font-weight: 500;
-            }  
-            .custom-toggle{
-              appearance: none;
-              background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23542D72' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
-              background-repeat: no-repeat;
-              background-position: right 0.75rem center;
-              background-size: 16px 12px;
+            .avatar-image {
+              width: 140px;
+              height: 140px;
+              object-fit: cover;
+              border-radius: 50%;
+              overflow: hidden;
+              background-color: #ffffff;
+              transition: transform 0.3s ease;
               [dir="rtl"] & {
-                background-position: left 0.75rem center;
+                transform: scaleX(-1);
               }
             }
-            .custom-input {
-              padding: 7px;
-              border: 1px solid #542D72;
-              border-top-left-radius: 6px !important;
-              border-bottom-left-radius: 6px !important;
-              border-radius: 6px;
-              font-size: 14px;
-              width: 100%;
-              padding-right: 2.5rem;
-            
-              [dir="rtl"] & {
-                padding-right: 0.75rem;
-                padding-left: 2.5rem;
-              }
-            }
-          }
-  
-          
-  
-          .payment-section {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-  
-            label {
-              font-size: 14px;
-              color: #542D72;
-              font-weight: 500;
-            }
-  
-            .payment-methods {
-              display: flex;
-              flex-direction: column;
-              gap: 10px;
-  
-              .payment-card {
-                display: flex;
-                align-items: center;
-                background: #ffffff;
-                border: 1px solid #542D72;
-                color: #542D72;
-                padding: 10px;
-                border-radius: 6px;
-                justify-content: space-between;
-                
-                .paypalImg {
-                  width: 40px;
-                  height: 40px;
-                  background-image: url(/imgs/paypal.png);
-                  background-repeat: no-repeat;
-                  background-position: center;
-                  background-size: contain;
-                  position: relative;
-                }
-                
-                .visaImg {
-                  width: 40px;
-                  height: 40px;
-                  background-image: url(/imgs/visa.png);
-                  background-repeat: no-repeat;
-                  background-position: center;
-                  background-size: contain;
-                  position: relative;
-                }
-  
-                span {
-                  flex: 1;
-                  text-align: center;
-                  font-size: 12px;
-                }
-  
-                a {
-                  font-size: 12px;
-                  color: #f00;
-                  text-decoration: none;
-                }
-              }
-            }
-  
-            .add-payment {
-              background: #ffffff;
-              border: 1px solid #542D72;
-              padding: 10px;
-              color: #542D72;
-              border-radius: 6px;
-              font-size: 14px;
-              cursor: pointer;
+
+            .camera {
+              position: absolute;
+              bottom: 26px;
+              right: 12px;
+              background: white;
+              width: 38px;
+              height: 38px;
+              border-radius: 50%;
               display: flex;
               align-items: center;
               justify-content: center;
-              
-              .pay-icon {
-                font-size: 24px;
-                margin-right: 10px;
+              cursor: pointer;
+              padding: 2px;
 
-                [dir="rtl"] & {
-                  margin-right: 0;
-                  margin-left: 10px;
-                }
+              .camera-icon {
+                color: $purple-color;
+                font-weight: bold;
+                font-size: 32px;
+              }
+              [dir="rtl"] & {
+                right: auto;
+                left: 16px;
+              }
+            }
+          }
+        }
+
+        .input-group {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+
+          label {
+            font-size: 14px;
+            color: $purple-color;
+            font-weight: 500;
+          }
+          .custom-toggle {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23542D72' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 16px 12px;
+            [dir="rtl"] & {
+              background-position: left 0.75rem center;
+            }
+          }
+          .custom-input {
+            padding: 7px;
+            border: 1px solid $purple-color;
+            border-top-left-radius: 6px !important;
+            border-bottom-left-radius: 6px !important;
+            border-radius: 6px;
+            font-size: 14px;
+            width: 100%;
+            padding-right: 2.5rem;
+
+            [dir="rtl"] & {
+              padding-right: 0.75rem;
+              padding-left: 2.5rem;
+            }
+          }
+        }
+
+        .payment-section {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+
+          label {
+            font-size: 14px;
+            color: $purple-color;
+            font-weight: 500;
+          }
+
+          .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            .payment-card {
+              display: flex;
+              align-items: center;
+              background: #ffffff;
+              border: 1px solid $purple-color;
+              color: $purple-color;
+              padding: 10px;
+              border-radius: 6px;
+              justify-content: space-between;
+
+              .paypalImg {
+                width: 40px;
+                height: 40px;
+                background-image: url(/imgs/paypal.png);
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: contain;
+                position: relative;
+              }
+
+              .visaImg {
+                width: 40px;
+                height: 40px;
+                background-image: url(/imgs/visa.png);
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: contain;
+                position: relative;
+              }
+
+              span {
+                flex: 1;
+                text-align: center;
+                font-size: 12px;
+              }
+
+              a {
+                font-size: 12px;
+                color: #f00;
+                text-decoration: none;
+              }
+            }
+          }
+
+          .add-payment {
+            background: #ffffff;
+            border: 1px solid $purple-color;
+            padding: 10px;
+            color: $purple-color;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .pay-icon {
+              font-size: 24px;
+              margin-right: 10px;
+
+              [dir="rtl"] & {
+                margin-right: 0;
+                margin-left: 10px;
               }
             }
           }
         }
       }
-  
-      .save-btn {
-        position: absolute;
-        bottom: 30px;
-        right: 30px;
-        background-color: #542D72 !important;
-        color: white !important;
-        border-radius: 20px;
-        padding: 10px 40px;
-        font-weight: bold;
-        border: none;
-        
-        [dir="rtl"] & {
-          right: auto;
-          left: 30px;
-        }
-  
-        &:hover,
-        &:focus {
-          background-color: #542D72 !important;
-          color: white !important;
-        }
-  
-        @media (max-width: 768px) {
-          position: relative;
-          bottom: auto;
-          right: auto;
-          left: auto;
-          margin-top: 20px;
-          width: 100%;
-        }
-      }
     }
-  }
 
-  .dob-selects {
-    display: flex;
-    gap: 10px;
+    .save-btn {
+      position: absolute;
+      bottom: 30px;
+      right: 30px;
+      background-color: $purple-color !important;
+      color: white !important;
+      border-radius: 20px;
+      padding: 10px 40px;
+      font-weight: bold;
+      border: none;
 
-    .form-select.custom-input {
-      flex: 1;
-      appearance: none;
-      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23542D72' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
-      background-repeat: no-repeat;
-      background-position: right 0.5rem center;
-      background-size: 12px 8px;
-      padding-right: 1.5rem;
-  
       [dir="rtl"] & {
-        background-position: left 0.5rem center;
-        padding-right: 0.5rem;
-        padding-left: 1.5rem;
+        right: auto;
+        left: 30px;
+      }
+
+      &:hover,
+      &:focus {
+        background-color: $purple-color !important;
+        color: white !important;
+      }
+
+      @media (max-width: 768px) {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        left: auto !important;
+        margin-top: 20px;
+        width: 100%;
       }
     }
   }
+}
 
- 
+.dob-selects {
+  display: flex;
+  gap: 10px;
+
+  .form-select.custom-input {
+    flex: 1;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23542D72' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 12px 8px;
+    padding-right: 1.5rem;
+
+    [dir="rtl"] & {
+      background-position: left 0.5rem center;
+      padding-right: 0.5rem;
+      padding-left: 1.5rem;
+    }
+  }
+}

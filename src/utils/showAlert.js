@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { createRoot } from 'react-dom/client';
-import PopupMsg from '../components/shared/PopupMsg';
+import React, { useState } from "react";
+import { createRoot } from "react-dom/client";
+import PopupMsg from "../components/shared/PopupMsg";
 
 let popupRoot = null;
 let currentCallback = null;
@@ -8,8 +8,8 @@ let root = null;
 
 export const showAuthPopup = (message, callback) => {
   if (!popupRoot) {
-    popupRoot = document.createElement('div');
-    popupRoot.id = 'auth-popup-root';
+    popupRoot = document.createElement("div");
+    popupRoot.id = "auth-popup-root";
     document.body.appendChild(popupRoot);
     root = createRoot(popupRoot);
   }

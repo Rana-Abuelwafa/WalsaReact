@@ -95,7 +95,11 @@ const GoogleLoginButton = (props) => {
         className="frmBtn transBtn FullWidthBtn"
         onClick={() => googleLogin()}
       >
-        <img src="../images/gmail_icon.png" className="gmail_icon" />
+        <img
+          src="../images/gmail_icon.png"
+          className="gmail_icon"
+          loading="lazy"
+        />
         {props.login
           ? t("Login.LoginWithGoogle")
           : t("Login.RegisterWithGoogle")}
