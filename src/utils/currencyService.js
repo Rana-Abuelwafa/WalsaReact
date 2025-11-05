@@ -7,11 +7,11 @@ export const fetchUserCountry = async () => {
     // const response = await fetch("https://ipapi.co/json/");
     const data = await response.json();
     //console.log("User country:", data.country_name); // e.g., "United States"
-    console.log("User country:", data.country);
+    //console.log("User country:", data.country);
     //return data.country_name;
     return data.country;
   } catch (error) {
-    console.error("Failed to get country", error);
+    //console.error("Failed to get country", error);
   }
 };
 

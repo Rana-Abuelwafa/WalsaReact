@@ -7,6 +7,7 @@ import { useTranslation } from "react-multi-lang";
 import { useNavigate } from "react-router-dom";
 import Chat from "../chatIcon/chat";
 import "./AboutPage.scss";
+import MetaTagsSeo from "../shared/MetaTagsSeo";
 
 const AboutPage = () => {
   const navigate = useNavigate(); // React Router hook to navigate between pages
@@ -14,10 +15,16 @@ const AboutPage = () => {
 
   return (
     <>
+      <MetaTagsSeo
+        description={t("SEO.About.description")}
+        keywords={t("SEO.About.keywords")}
+        title={t("SEO.About.title")}
+        OGDescription={t("SEO.About.OGDescription")}
+        url="https://waslaa.de/AboutUs"
+      />
       {/* Top navigation bars */}
       <MainNavbar />
       {/* <SaleNavbar /> */}
-
       {/* Main about page wrapper */}
       <div className="about-page" dir={t("direction")}>
         <Container className="about-section">
@@ -171,7 +178,6 @@ const AboutPage = () => {
           </div>
         </section>
       </div>
-
       {/* Footer */}
       <MainFooter />
       <Chat /> {/* Floating chat icon for quick support */}

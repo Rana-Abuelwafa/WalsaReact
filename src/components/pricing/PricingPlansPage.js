@@ -17,6 +17,7 @@ import {
 } from "../../utils/currencyService";
 import LoadingPage from "../Loader/LoadingPage";
 import PopUp from "../shared/popoup/PopUp";
+import MetaTagsSeo from "../shared/MetaTagsSeo";
 
 const Section = ({
   title,
@@ -221,6 +222,13 @@ const PricingPlansPage = () => {
 
   return (
     <>
+      <MetaTagsSeo
+        description={t("SEO.Pricing.description")}
+        keywords={t("SEO.Pricing.keywords")}
+        title={t("SEO.Pricing.title")}
+        OGDescription={t("SEO.Pricing.OGDescription")}
+        url="https://waslaa.de/pricing"
+      />
       <MainNavbar />
       {/* Success/Error Popup */}
       {showPopup && (

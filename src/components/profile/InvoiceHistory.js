@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Card, Button, Form } from "react-bootstrap";
+import { Row, Col, Card, Button, Form, Table } from "react-bootstrap";
 import { useTranslation } from "react-multi-lang";
 import LoadingPage from "../Loader/LoadingPage";
 import PopUp from "../shared/popoup/PopUp";
-import { FaClock, FaShoppingCart, FaMoneyBillWave, FaTimesCircle } from "react-icons/fa";
+import {
+  FaClock,
+  FaShoppingCart,
+  FaMoneyBillWave,
+  FaTimesCircle,
+} from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { getInvoices, clearInvoiceState } from "../../slices/invoiceSlice";
 import { fetchProfile } from "../../slices/profileSlice";
@@ -68,7 +73,7 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
       await dispatch(fetchProfile()).unwrap();
 
       downloadInvoice({
-        forceLang:currentLang,
+        forceLang: currentLang,
         user: profileData?.full_name || invoice.client_name || "",
         contact: profileData?.phone_number || invoice.contact_info || "",
         address: profileData?.address || invoice.user_address || "",
@@ -83,7 +88,7 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
       console.error("Failed to fetch profile:", error);
       // Fallback to invoice data if profile fetch fails
       downloadInvoice({
-        forceLang:currentLang,
+        forceLang: currentLang,
         user: invoice.client_name || "",
         contact: invoice.contact_info || "",
         address: invoice.user_address || "",
@@ -102,30 +107,30 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
   );
 
   const getStatusIcon = (status) => {
-      switch (status) {
-        case 1: // pending
-          return <FaClock className="status-icon pending" />;
-        case 2: // checkout
-          return <FaShoppingCart className="status-icon checkout" />;
-        case 3: // paid
-          return <FaMoneyBillWave className="status-icon paid" />;
-        default:
-          return <FaClock className="status-icon pending" />;
-      }
-    };
-  
-    const getStatusText = (status) => {
-      switch (status) {
-        case 1:
-          return t("invoiceHistory.statusPending");
-        case 2:
-          return t("invoiceHistory.statusCheckout");
-        case 3:
-          return t("invoiceHistory.statusPaid");
-        default:
-          return t("invoiceHistory.statusPending");
-      }
-    };
+    switch (status) {
+      case 1: // pending
+        return <FaClock className="status-icon pending" />;
+      case 2: // checkout
+        return <FaShoppingCart className="status-icon checkout" />;
+      case 3: // paid
+        return <FaMoneyBillWave className="status-icon paid" />;
+      default:
+        return <FaClock className="status-icon pending" />;
+    }
+  };
+
+  const getStatusText = (status) => {
+    switch (status) {
+      case 1:
+        return t("invoiceHistory.statusPending");
+      case 2:
+        return t("invoiceHistory.statusCheckout");
+      case 3:
+        return t("invoiceHistory.statusPaid");
+      default:
+        return t("invoiceHistory.statusPending");
+    }
+  };
 
   return (
     <div className="history-page" dir={direction}>
@@ -139,7 +144,10 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
         />
       )}
 
-      <Card className="history-card p-3">
+      {/* <Card className="history-card p-3"> */}
+      <div>
+        <h2>{t("checkout.MyInvoices")}</h2>
+        <hr />
         {/* Search Bar */}
         <Row className="mb-4">
           <Col md={6}>
@@ -152,10 +160,66 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
             />
           </Col>
         </Row>
-
+        {/* new design for invoices by rana to make responsive */}
         {filteredInvoices.length > 0 ? (
-          <>
-            <Row className="align-items-center text-center text-md-start service-title-row">
+          <Table responsive className="invoice_tbl">
+            <thead>
+              <tr>
+                <th>{t("invoiceHistory.invoiceCode")}</th>
+                <th>{t("invoiceHistory.price")}</th>
+                <th>{t("invoiceHistory.currency")}</th>
+                <th>{t("invoiceHistory.date")}</th>
+                <th>{t("invoiceHistory.status")}</th>
+                <th>{t("invoiceHistory.actions")}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredInvoices.map((invoice, index) => (
+                <tr key={index} className="invoice-row">
+                  <td className="service-text">{invoice.invoice_code}</td>
+
+                  <td className="service-text">{invoice.grand_total_price}</td>
+
+                  <td className="service-text">{invoice.curr_code}</td>
+
+                  <td className="service-text">{invoice.invoice_date}</td>
+
+                  <td className="service-text">
+                    <div className="status-container">
+                      {getStatusIcon(invoice.status)}
+                      <span className={`status-text status-${invoice.status}`}>
+                        {getStatusText(invoice.status)}
+                      </span>
+                    </div>
+                  </td>
+                  <td md={2} className="state-btns">
+                    <Button
+                      variant="link"
+                      className="p-3"
+                      onClick={() => handlePreview(invoice)}
+                    >
+                      {t("invoiceHistory.preview")}
+                    </Button>
+                    <Button
+                      variant="link"
+                      className="p-3"
+                      onClick={() => handleDownload(invoice)}
+                    >
+                      {t("invoiceHistory.download")}
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        ) : (
+          <Row className="text-center py-4">
+            <Col>
+              <p>{t("invoiceHistory.noInvoices")}</p>
+            </Col>
+          </Row>
+        )}
+        {/* <Row className="align-items-center text-center text-md-start service-title-row">
               <Col md={2}>
                 <p>{t("invoiceHistory.invoiceCode")}</p>
               </Col>
@@ -174,9 +238,8 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
               <Col md={2}>
                 <p>{t("invoiceHistory.actions")}</p>
               </Col>
-            </Row>
-
-            {filteredInvoices.map((invoice, index) => (
+            </Row> */}
+        {/* {filteredInvoices.map((invoice, index) => (
               <Row
                 key={index}
                 className="align-items-center text-center text-md-start service-item-row"
@@ -190,17 +253,17 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
                 <Col md={2}>
                   <p className="service-text">{invoice.curr_code}</p>
                 </Col>
-                  <Col md={2}>
+                <Col md={2}>
                   <p className="service-text">{invoice.invoice_date}</p>
                 </Col>
                 <Col md={2}>
-                    <div className="status-container">
-                      {getStatusIcon(invoice.status)}
-                      <span className={`status-text status-${invoice.status}`}>
-                        {getStatusText(invoice.status)}
-                      </span>
-                    </div>
-                  </Col>
+                  <div className="status-container">
+                    {getStatusIcon(invoice.status)}
+                    <span className={`status-text status-${invoice.status}`}>
+                      {getStatusText(invoice.status)}
+                    </span>
+                  </div>
+                </Col>
                 <Col md={2} className="state-btns">
                   <Button
                     variant="link"
@@ -226,8 +289,9 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
               <p>{t("invoiceHistory.noInvoices")}</p>
             </Col>
           </Row>
-        )}
-      </Card>
+        )} */}
+        {/* </Card> */}
+      </div>
     </div>
   );
 };

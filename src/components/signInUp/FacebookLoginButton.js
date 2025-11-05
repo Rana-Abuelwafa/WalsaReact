@@ -3,8 +3,7 @@ import FacebookLogin from "react-facebook-login";
 
 const FacebookLoginButton = () => {
   const responseFacebook = (response) => {
-    console.log("Facebook Response:", response);
-
+    //console.log("Facebook Response:", response);
     // if (response.accessToken) {
     //   // Handle successful login
     //   console.log("User ID:", response.userID);

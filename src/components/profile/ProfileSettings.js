@@ -118,7 +118,6 @@ const ProfileSettings = () => {
         setPopupMessage(message);
         setPopupType("error");
         setPopupIcon(<FaTimesCircle className="error-icon" size={24} />);
-        
       }
     }
   }, [success, error, message, dispatch]);
@@ -151,7 +150,7 @@ const ProfileSettings = () => {
       // Refresh the image from server after successful upload
       dispatch(fetchProfileImage());
     } catch (error) {
-      console.error("Image upload failed:", error);
+      //console.error("Image upload failed:", error);
     }
   };
 

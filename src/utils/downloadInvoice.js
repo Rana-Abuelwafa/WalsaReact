@@ -67,7 +67,7 @@ const downloadInvoice = async (invoiceData) => {
 
     document.body.removeChild(tempDiv);
   } catch (error) {
-    console.error("Error generating PDF:", error);
+    //console.error("Error generating PDF:", error);
     if (lang !== "en" && !invoiceData.forceLang) {
       downloadInvoice({ ...invoiceData, forceLang: "en" });
     }

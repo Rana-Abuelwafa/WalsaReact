@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
-import { useDispatch } from 'react-redux';
-import { setLanguages } from '../../slices/languageSlice'; 
-import { CiGlobe } from "react-icons/ci"; 
-import {
-  useTranslation,
-  setLanguage,
-  getLanguage
-} from "react-multi-lang"; 
-import "./LanguageDropdown.scss"; 
+import { useDispatch } from "react-redux";
+import { setLanguages } from "../../slices/languageSlice";
+import { CiGlobe } from "react-icons/ci";
+import { useTranslation, setLanguage, getLanguage } from "react-multi-lang";
+import "./LanguageDropdown.scss";
 
 const LanguageDropdown = () => {
   const dispatch = useDispatch();
@@ -46,7 +42,7 @@ const LanguageDropdown = () => {
           new CustomEvent("languageChanged", { detail: lang })
         );
       } catch (error) {
-        console.error("Language change error:", error);
+        // console.error("Language change error:", error);
       } finally {
         setIsLoading(false); // Done loading
       }
@@ -89,7 +85,7 @@ const LanguageDropdown = () => {
   const languages = [
     { code: "en", name: "ENGLISH", nativeName: "English" },
     { code: "de", name: "GERMAN", nativeName: "German" },
-    { code: "ar", name: "العربية", nativeName: "العربية" }
+    { code: "ar", name: "العربية", nativeName: "العربية" },
   ];
 
   return (

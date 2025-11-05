@@ -332,7 +332,8 @@
     "invoice": "Rechnung",
     "price": "Preis",
     "packageRemovedSuccessfully": "Paket erfolgreich entfernt!",
-    "removePackageError": "Fehler beim Entfernen des Pakets!"
+    "removePackageError": "Fehler beim Entfernen des Pakets!",
+    "MyInvoices": "Meine Rechnungen"
   },
   "invoiceHistory": {
     "searchPlaceholder": "Zoeken op factuurnummer...",
@@ -467,6 +468,38 @@
           "1": "Wir können diese Richtlinie von Zeit zu Zeit aktualisieren. Alle Änderungen werden auf dieser Seite veröffentlicht."
         }
       }
+    }
+  },
+  "SEO": {
+    "About": {
+      "description": "Waslaa ist ein kreativer Service, der Unternehmen hilft, durch einzigartige Markenidentitäten und Webseiten eine starke Verbindung zu ihren Kunden aufzubauen und den Markenerfolg zu fördern.",
+      "keywords": "Waslaa, Branding Agentur, Webdesign, Markenidentität, Kreativagentur, digitale Agentur, Kundenbindung, Deutschland",
+      "title": "Über uns | Waslaa – Kreative Branding- & Webdesign-Agentur",
+      "OGDescription": "Erfahren Sie, wie Waslaa Unternehmen dabei unterstützt, starke Markenidentitäten und Webseiten zu gestalten, die Kunden begeistern und Erfolg bringen."
+    },
+    "Contact": {
+      "description": "Kontaktieren Sie Waslaa – eine kreative Agentur, die Unternehmen hilft, durch einzigartige Markenidentitäten und Webseiten erfolgreich mit Kunden zu kommunizieren.",
+      "keywords": "Waslaa, Kontakt, Branding Agentur, Webdesign, Markenidentität, Kreativagentur, Deutschland, digitales Design, Webseitenentwicklung",
+      "title": "Kontakt | Waslaa – Kreative Branding- & Webdesign-Agentur",
+      "OGDescription": "Starten Sie Ihr nächstes Projekt mit Waslaa. Kontaktieren Sie uns, um eine starke Markenidentität und Webseite zu erstellen, die Ihre Zielgruppe erreicht."
+    },
+    "Home": {
+      "description": "Waslaa ist eine kreative Agentur, die Unternehmen hilft, starke Kundenbindungen durch Markenidentität, professionelles Webdesign und effektive Marketinglösungen aufzubauen.",
+      "keywords": "Waslaa, Branding Agentur, Webdesign, Marketing, Kreativagentur, digitales Branding, Markenidentität, Deutschland",
+      "title": "Waslaa – Kreative Branding-, Webdesign- & Marketing-Agentur",
+      "OGDescription": "Wir helfen Unternehmen, ihre Zielgruppe durch kreative Markenentwicklung, Webdesign und Marketingstrategien zu erreichen, die Wachstum und Erfolg fördern."
+    },
+    "Pricing": {
+      "description": "Entdecken Sie die transparenten Preise von Waslaa für kreative Dienstleistungen – Webdesign, Markenidentität und Marketingpakete, die Ihr Unternehmen hervorheben.",
+      "keywords": "Waslaa, Preise, Pakete, Webdesign, Markenidentität, Marketing, Kreativagentur, digitales Design, Branding Agentur, Deutschland",
+      "title": "Preise | Waslaa – Webdesign-, Branding- & Marketingpakete",
+      "OGDescription": "Entdecken Sie flexible Preispläne von Waslaa für Webdesign, Markenidentität und Marketing – maßgeschneidert für das Wachstum Ihrer Marke."
+    },
+    "Profile": {
+      "description": "Verwalten Sie Ihr Waslaa-Profil, überprüfen Sie Rechnungen und sehen Sie Ihre ausgewählten Design- und Marketingpakete.",
+      "keywords": "Waslaa, Benutzerprofil, Dashboard, Rechnungen, Pakete, Branding, Webdesign",
+      "title": "Benutzerprofil | Waslaa – Webdesign-, Branding- & Marketingpakete",
+      "OGDescription": "Verwalten Sie Ihre persönlichen Daten, Rechnungen und ausgewählten Waslaa-Pakete sicher an einem Ort."
     }
   }
 }

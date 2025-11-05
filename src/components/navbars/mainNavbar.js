@@ -59,7 +59,7 @@ const MainNavbar = () => {
       const currency = await getCurrencyFromCountry(countryCode);
       setCurrCode(currency);
       dispatch(setCurrency(currency)); // Dispatch to Redux
-      console.log("Detected Currency:", currency);
+      //console.log("Detected Currency:", currency);
     }
     getCurrency();
 

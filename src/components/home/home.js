@@ -10,6 +10,7 @@ import OfferPopup from "../OfferPopup/OfferPopup";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./home.scss";
 import AdvSection from "./Advertising/AdvSection";
+import MetaTagsSeo from "../shared/MetaTagsSeo";
 
 const Home = () => {
   const navigate = useNavigate(); // React Router hook to navigate between pages
@@ -17,6 +18,13 @@ const Home = () => {
 
   return (
     <>
+      <MetaTagsSeo
+        description={t("SEO.Home.description")}
+        keywords={t("SEO.Home.keywords")}
+        title={t("SEO.Home.title")}
+        OGDescription={t("SEO.Home.OGDescription")}
+        url="https://waslaa.de"
+      />
       <OfferPopup /> {/* Displays a promotional popup */}
       <MainNavbar /> {/* Main navigation bar */}
       <SaleNavbar /> {/* Secondary navbar showing current sales or offers */}
@@ -336,7 +344,6 @@ const Home = () => {
                 </Card>
               </div>
             </Col>
-      
 
             <Col md={6}>
               <div>

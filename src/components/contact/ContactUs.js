@@ -14,7 +14,8 @@ import {
 import { useTranslation } from "react-multi-lang";
 import SocialLinks from "../shared/SocialLink/SocialLinks";
 import Chat from "../chatIcon/chat";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import MetaTagsSeo from "../shared/MetaTagsSeo";
 import "./ContactUs.scss";
 
 const ContactUs = () => {
@@ -23,6 +24,13 @@ const ContactUs = () => {
   const [showModal, setShowModal] = useState(false);
   return (
     <>
+      <MetaTagsSeo
+        description={t("SEO.Contact.description")}
+        keywords={t("SEO.Contact.keywords")}
+        title={t("SEO.Contact.title")}
+        OGDescription={t("SEO.Contact.OGDescription")}
+        url="https://waslaa.de/contactUs"
+      />
       {showModal ? (
         <ContactModal
           show={showModal}
@@ -144,7 +152,10 @@ const ContactUs = () => {
                       ))}
                   </Card.Text>
                   <div className="mt-auto text-center">
-                    <Button onClick={() => navigate("/helpCenter")} className="btn">
+                    <Button
+                      onClick={() => navigate("/helpCenter")}
+                      className="btn"
+                    >
                       {t("contact.helpBtn")}
                     </Button>
                   </div>

@@ -16,7 +16,7 @@ export const checkAUTH = () => {
     // if (authToken) {
     return true;
   } else {
-    console.log("token is null Or expired");
+    //console.log("token is null Or expired");
     return false;
   }
 };
@@ -24,12 +24,12 @@ export const checkAUTH = () => {
 export const checkIsLogin = () => {
   const authToken = localStorage.getItem("token");
   const userLocal = localStorage.getItem("user");
-  console.log("authToken ", authToken);
-  console.log("userLocal ", userLocal);
+  // console.log("authToken ", authToken);
+  // console.log("userLocal ", userLocal);
   if (authToken && userLocal) {
     return true;
   } else {
-    console.log("there is no login user");
+    //console.log("there is no login user");
     return false;
   }
 };

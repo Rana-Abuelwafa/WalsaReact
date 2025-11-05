@@ -50,13 +50,14 @@
     }
   }
 
-  .service-item-row {
+  .invoice-row {
     .service-text {
-      font-size: 18px;
+      font-size: 16px;
       color: #542d72;
-      font-weight: 500;
+      font-weight: lighter;
       margin: 0;
       text-align: center;
+      vertical-align: middle;
     }
 
     .state-btns {
@@ -315,5 +316,23 @@
       // paid
       color: #00bc82;
     }
+  }
+}
+
+//table style
+.invoice_tbl {
+  margin-bottom: 30px;
+  text-align: center;
+  width: 100%;
+  // table-layout: fixed; /* Makes columns equal-width */
+  white-space: nowrap; /* Prevent text from wrapping */
+  th,
+  td {
+    border-bottom: 1px solid rgb(238, 238, 238);
+    padding: 10px;
+    white-space: nowrap; /* Keep text on one line */
+    text-overflow: ellipsis; /* Optional: show ... when content overflows */
+    //overflow: hidden; /* Hide overflowing text */
+    //width: 1%; /* Let table-layout: fixed distribute width evenly */
   }
 }

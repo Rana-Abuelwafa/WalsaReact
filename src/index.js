@@ -10,6 +10,7 @@ import { setDefaultTranslations, setDefaultLanguage } from "react-multi-lang";
 import { Provider } from "react-redux";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { detectLanguage } from "./utils/languageService";
+import { HelmetProvider } from "react-helmet-async";
 import store from "./redux/store";
 import ar from "./translation/arb.json";
 import en from "./translation/en.json";
@@ -26,7 +27,9 @@ root.render(
   <Provider store={store}>
     {/* <LanguageProvider translations={translations} locale="en"> */}
     <GoogleOAuthProvider clientId={process.env.REACT_APP_CLIENT_ID}>
-      <App />
+      <HelmetProvider>
+        <App />
+      </HelmetProvider>
     </GoogleOAuthProvider>
     {/* </LanguageProvider> */}
   </Provider>

@@ -10,49 +10,68 @@
     justify-content: flex-start;
   }
 
-  .nav-tabs{
-   .nav-link{
-    color:#542D72;
-    border: none;
-   }
-   &:hover{
-    border:none !important;
-   }
-   .nav-link.active{
-    border-bottom: 2px solid #542D72 !important;
-    border: none;
-   }
-  } 
+  .nav-tabs {
+    border-bottom: 0 !important;
+    padding: 0;
+    .nav-item {
+      margin: 0 !important;
+      @media (max-width: 443px) {
+        font-size: 13px !important;
+      }
+      @media (max-width: 768px) {
+        padding: 10px 5px !important;
+      }
+    }
+    .nav-link {
+      color: #542d72;
+      border: none;
+    }
+    &:hover {
+      border: none !important;
+    }
+    .nav-link.active {
+      border-bottom: 2px solid #542d72 !important;
+      border: none;
+    }
+  }
 
   .checkout-card {
     border: none;
     background-color: #fff;
+    @media (max-width: 768px) {
+      padding: 0 !important;
+    }
   }
-  .service-title-row{
-   border-bottom: 1px solid #eee;
+  .tab-content {
+    @media (max-width: 768px) {
+      padding: 15px 5px !important;
+    }
+  }
+  .service-title-row {
+    border-bottom: 1px solid #eee;
     padding: 10px 0;
-    p{
-        font-size: 18px;
-        color: #000;
-        font-weight: 500;
-        text-align: left;
+    p {
+      font-size: 18px;
+      color: #000;
+      font-weight: 500;
+      text-align: left;
     }
   }
   .service-item-row {
     border-bottom: 1px solid #eee;
     padding: 1rem 0;
 
-    .service-text{
-        font-size: 18px;
-        color: #542D72;
-        font-weight: 500;
-        text-align: left;
+    .service-text {
+      font-size: 18px;
+      color: #542d72;
+      font-weight: 500;
+      text-align: left;
     }
 
     .remove-text {
       a,
       button {
-        color: #542D72;
+        color: #542d72;
         text-decoration: underline;
         font-weight: 500;
         font-size: 18px;
@@ -64,7 +83,7 @@
     .voucher-input {
       border-radius: 10px;
       padding: 0.5rem 1rem;
-      border: 1px solid #542D72;
+      border: 1px solid #542d72;
     }
 
     .apply-btn {
@@ -78,27 +97,47 @@
 
   .gift-voucher-text {
     font-size: 0.9rem;
-    color: #542D72;
+    color: #542d72;
   }
 
   .price-details {
     font-size: 14px;
-    color:#542D72;
+    color: #542d72;
 
     div {
       padding: 20px;
-      border-bottom: 1px solid #542D72;
+      border-bottom: 1px solid #542d72;
     }
   }
 
   .checkout-btn-container {
     .checkout-btn {
-      background-color: #542D72;
-      border-color: #542D72;
+      background-color: #542d72;
+      border-color: #542d72;
       border-radius: 10px;
       padding: 0.6rem 2rem;
       font-weight: 600;
       color: #fff;
     }
+  }
+}
+.voucher-price-wrapper {
+  padding-top: 30px;
+}
+//table style
+.invoice_tbl {
+  margin-bottom: 30px;
+  text-align: center;
+  width: 100%;
+  // table-layout: fixed; /* Makes columns equal-width */
+  white-space: nowrap; /* Prevent text from wrapping */
+  th,
+  td {
+    border-bottom: 1px solid rgb(238, 238, 238);
+    padding: 10px;
+    white-space: nowrap; /* Keep text on one line */
+    text-overflow: ellipsis; /* Optional: show ... when content overflows */
+    //overflow: hidden; /* Hide overflowing text */
+    //width: 1%; /* Let table-layout: fixed distribute width evenly */
   }
 }

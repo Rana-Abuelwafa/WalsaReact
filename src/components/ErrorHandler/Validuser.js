@@ -17,7 +17,7 @@ function Validuser(props) {
     if (userLocal) {
       const user = JSON.parse(userLocal);
       if (user) {
-        console.log("user ", user);
+        //console.log("user ", user);
         //check if user confirm its mail or not (otp checked)
         if (user.emailConfirmed != null && user.emailConfirmed == false) {
           setMailConfirmed(false);

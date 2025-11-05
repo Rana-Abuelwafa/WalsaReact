@@ -42,7 +42,7 @@ function LoginForm(props) {
   };
   const signin = (event) => {
     let { isAuthRedirect, redirectPath } = props;
-    console.log("isAuthRedirect ", isAuthRedirect);
+    //console.log("isAuthRedirect ", isAuthRedirect);
     event.preventDefault();
     if (validate()) {
       formData["lang"] = localStorage.getItem("lang") || getLanguage();

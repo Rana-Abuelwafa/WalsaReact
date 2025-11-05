@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Tab, Tabs, Row, Col, Card, Button, Form } from "react-bootstrap";
+import {
+  Tab,
+  Tabs,
+  Row,
+  Col,
+  Card,
+  Button,
+  Form,
+  Table,
+} from "react-bootstrap";
 import { useTranslation } from "react-multi-lang";
 import LoadingPage from "../Loader/LoadingPage";
 import PopUp from "../shared/popoup/PopUp";
@@ -85,45 +94,45 @@ const Invoice = () => {
     }
 
     try {
-      const validationResult = await dispatch(validateCoupon({ copoun: couponCode })).unwrap();
+      const validationResult = await dispatch(
+        validateCoupon({ copoun: couponCode })
+      ).unwrap();
       // console.log(validationResult)
       if (validationResult.valid) {
+        // Update invoice prices with the coupon
+        // console.log(validationResult)
+        await dispatch(
+          UpdateInvoicePrices({
+            total_price: currentInvoice.total_price,
+            copoun_id: validationResult.couponData.id,
+            invoice_id: currentInvoice.invoice_id,
+            copoun_discount: validationResult.couponData.discount_value,
+            tax_id: currentInvoice.tax_id,
+            deduct_amount: 0,
+          })
+        ).unwrap();
 
-      // Update invoice prices with the coupon
-      // console.log(validationResult)
-      await dispatch(
-        UpdateInvoicePrices({
-          total_price: currentInvoice.total_price,
-          copoun_id: validationResult.couponData.id,
-          invoice_id: currentInvoice.invoice_id,
-          copoun_discount: validationResult.couponData.discount_value,
-          tax_id: currentInvoice.tax_id,
-          deduct_amount: 0,
-        })
-      ).unwrap();
+        const getData = {
+          active: true,
+          status: 1,
+          lang_code: currentLang,
+        };
+        // Refresh invoices
+        await dispatch(getInvoices(getData)).unwrap();
 
-      const getData = {
-        active: true,
-        status: 1,
-        lang_code: currentLang,
-      };
-      // Refresh invoices
-      await dispatch(getInvoices(getData)).unwrap();
-      
-      setCoupons(prev => ({
-        ...prev,
-        [currentInvoice.invoice_id]: validationResult.couponData
-      }));
-    }
+        setCoupons((prev) => ({
+          ...prev,
+          [currentInvoice.invoice_id]: validationResult.couponData,
+        }));
+      }
     } catch (error) {
-      console.error("Coupon validation error:", error);
+      //console.error("Coupon validation error:", error);
       // Clear any previous coupon if validation fails
-      setCoupons(prev => {
-      const newCoupons = {...prev};
-      delete newCoupons[currentInvoice.invoice_id];
-      return newCoupons;
-    }); // Store the validated coupon in local state
-
+      setCoupons((prev) => {
+        const newCoupons = { ...prev };
+        delete newCoupons[currentInvoice.invoice_id];
+        return newCoupons;
+      }); // Store the validated coupon in local state
     }
   };
   const handleCheckout = async () => {
@@ -227,7 +236,7 @@ const Invoice = () => {
       // setPopupMessage(t("checkout.packageRemovedSuccessfully"));
       // setShowPopup(true);
     } catch (error) {
-      console.error("Remove package error:", error);
+     // console.error("Remove package error:", error);
     }
   };
 
@@ -257,6 +266,8 @@ const Invoice = () => {
       )}
 
       <Card className="checkout-card p-3">
+        {/* <h2>{t("checkout.MyInvoices")}</h2>
+        <hr /> */}
         {invoices.length > 0 ? (
           <>
             <Tabs
@@ -272,7 +283,53 @@ const Invoice = () => {
                   // title={`${t("checkout.invoice")} ${invoice.invoice_code}`}
                   className="invoice-tab"
                 >
-                  <Row className="align-items-center text-center text-md-start service-title-row">
+                  <Table responsive className="invoice_tbl" bordered hover>
+                    <thead>
+                      <tr>
+                        <th>{t("checkout.service")}</th>
+                        <th>{t("checkout.package")}</th>
+                        <th>{t("checkout.details")}</th>
+                        <th>{t("checkout.price")}</th>
+                        <th>{t("checkout.currency")}</th>
+                        <th>{t("checkout.state")}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {invoice.pkgs.map((pkg, pkgIndex) => (
+                        <tr key={pkgIndex} className="invoice-row">
+                          <td className="service-text">{pkg.service_name}</td>
+
+                          <td className="service-text">{pkg.package_name}</td>
+
+                          <td className="service-text">{pkg.package_desc}</td>
+
+                          <td className="service-text">
+                            {pkg.package_sale_price}
+                          </td>
+
+                          <td className="service-text">{pkg.curr_code}</td>
+
+                          <td className="remove-text">
+                            <Button
+                              variant="link"
+                              className="p-0"
+                              onClick={() =>
+                                handleRemovePackage(
+                                  invoice.invoice_id,
+                                  invoice.total_price,
+                                  pkg
+                                )
+                              }
+                            >
+                              {t("checkout.remove")}
+                            </Button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Table>
+
+                  {/* <Row className="align-items-center text-center text-md-start service-title-row">
                     <Col md={2}>
                       <p>{t("checkout.service")}</p>
                     </Col>
@@ -291,9 +348,9 @@ const Invoice = () => {
                     <Col md={2}>
                       <p>{t("checkout.state")}</p>
                     </Col>
-                  </Row>
+                  </Row> */}
 
-                  {invoice.pkgs.map((pkg, pkgIndex) => (
+                  {/* {invoice.pkgs.map((pkg, pkgIndex) => (
                     <Row
                       key={pkgIndex}
                       className="align-items-center text-center text-md-start service-item-row"
@@ -333,7 +390,7 @@ const Invoice = () => {
                         </Button>
                       </Col>
                     </Row>
-                  ))}
+                  ))} */}
 
                   <hr />
                   <Row className="justify-content-between align-items-start voucher-price-wrapper">

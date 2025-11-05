@@ -1,16 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom"; 
-import { Dropdown } from "react-bootstrap"; 
-import { FiUser } from "react-icons/fi"; 
-import { useTranslation } from "react-multi-lang"; 
+import { Link } from "react-router-dom";
+import { Dropdown } from "react-bootstrap";
+import { FiUser } from "react-icons/fi";
+import { useTranslation } from "react-multi-lang";
 
 function UserDropDown(props) {
   const t = useTranslation(); // Access the translation function
-  console.log(props.MyName)
+  //console.log(props.MyName)
   return (
     // Bootstrap Dropdown component, closes automatically when an item is clicked
     <Dropdown className="d-inline userDropDown" autoClose="inside">
-      
       {/* Dropdown toggle button displaying user name and user icon */}
       <Dropdown.Toggle id="user-dropdown" className="userDropDownBtn">
         {props.MyName} <FiUser className="icon" />

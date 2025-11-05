@@ -332,7 +332,8 @@
     "price": "Price",
     "couponAppliedSuccessfully": "Coupon applied successfully!",
     "packageRemovedSuccessfully": "package Removed Successfully!",
-    "removePackageError": "remove Package Error!"
+    "removePackageError": "remove Package Error!",
+    "MyInvoices": "My Invoices"
   },
   "invoiceHistory": {
     "searchPlaceholder": "Search by invoice code...",
@@ -467,6 +468,38 @@
           "1": "We may update this policy from time to time. Any changes will be posted on this page."
         }
       }
+    }
+  },
+  "SEO": {
+    "About": {
+      "description": "Waslaa is a creative service that helps companies connect with their customers by designing distinctive brand identities and websites—your partner in building brand success.",
+      "keywords": "Waslaa, branding agency, web design, brand identity, creative service, digital agency, customer connection, Germany",
+      "title": "About Us | Waslaa – Creative Branding & Web Design Agency",
+      "OGDescription": "Learn how Waslaa helps businesses build strong brand identities and websites that engage customers and drive success."
+    },
+    "Contact": {
+      "description": "Get in touch with Waslaa — a creative service helping companies connect with customers through distinctive brand identities and websites that drive success.",
+      "keywords": "Waslaa, contact, branding agency, web design, brand identity, creative agency, Germany, digital design, website development",
+      "title": "Contact Us | Waslaa – Creative Branding & Web Design Agency",
+      "OGDescription": "Let’s start your next project together. Contact Waslaa to create a strong brand identity and website that connects you with your audience."
+    },
+    "Home": {
+      "description": "Waslaa is a creative agency that helps businesses build strong connections with customers through distinctive brand identity, professional web design, and effective marketing solutions.",
+      "keywords": "Waslaa, branding agency, web design, marketing, creative agency, digital branding, brand identity, website design, Germany",
+      "title": "Waslaa – Creative Branding, Web Design & Marketing Agency",
+      "OGDescription": "We help companies connect with their audience through creative branding, website design, and marketing strategies that inspire growth and success."
+    },
+    "Pricing": {
+      "description": "Discover Waslaa’s transparent pricing for creative services — web design, brand identity, and marketing packages that help your business stand out and connect with customers.",
+      "keywords": "Waslaa, pricing, packages, web design, brand identity, marketing, creative agency, digital design, branding agency, Germany",
+      "title": "Pricing | Waslaa – Web Design, Brand Identity & Marketing Packages",
+      "OGDescription": "Explore Waslaa’s flexible pricing plans for web design, brand identity, and marketing — tailored to help your brand grow with style and strategy."
+    },
+    "Profile": {
+      "description": "View and manage your Waslaa profile, check your invoices, and review your selected design and marketing packages.",
+      "keywords": "Waslaa, user profile, account dashboard, invoices, packages, branding, web design",
+      "title": "User Profile | Waslaa – Web Design, Brand Identity & Marketing Package",
+      "OGDescription": "Manage your personal data, invoices, and selected Waslaa packages in one secure dashboard."
     }
   }
 }
