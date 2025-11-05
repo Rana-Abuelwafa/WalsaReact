@@ -500,6 +500,18 @@
       "keywords": "Waslaa, Benutzerprofil, Dashboard, Rechnungen, Pakete, Branding, Webdesign",
       "title": "Benutzerprofil | Waslaa – Webdesign-, Branding- & Marketingpakete",
       "OGDescription": "Verwalten Sie Ihre persönlichen Daten, Rechnungen und ausgewählten Waslaa-Pakete sicher an einem Ort."
+    },
+    "HelpCenter": {
+      "description": "Finden Sie Antworten, Anleitungen und Unterstützung für die kreativen Dienstleistungen von Waslaa. Besuchen Sie unser Help Center, um Hilfe zu Ihrem Konto, zu Paketen, Rechnungen und mehr zu erhalten.",
+      "keywords": "Waslaa, Hilfe, Support, FAQs, Kundensupport, Design Services, Branding, Webdesign, Marketing, Deutschland",
+      "title": "Help Center | Waslaa – Support & FAQs zu Design- und Branding-Dienstleistungen",
+      "OGDescription": "Benötigen Sie Hilfe mit Ihrem Waslaa-Konto oder unseren Services? Entdecken Sie unser Help Center mit Anleitungen, FAQs und professionellem Support, um Ihre kreativen Projekte reibungslos zu gestalten."
+    },
+    "Privacy": {
+      "description": "Erfahren Sie, wie Waslaa Ihre persönlichen Daten schützt. Lesen Sie unsere Datenschutzerklärung, um zu verstehen, wie wir Ihre Daten im Rahmen unserer kreativen Branding- und Webdesign-Dienstleistungen erfassen, verwenden und sichern.",
+      "keywords": "Waslaa, Datenschutz, Datenschutzrichtlinie, DSGVO, persönliche Daten, Datensicherheit, Privatsphäre, Kreativagentur, Deutschland",
+      "title": "Datenschutzerklärung | Waslaa – Ihre Daten, unsere Verantwortung",
+      "OGDescription": "Ihre Privatsphäre ist uns wichtig. Bei Waslaa gewährleisten wir volle Transparenz darüber, wie Ihre persönlichen Daten gemäß DSGVO gesammelt, gespeichert und verwendet werden."
     }
   }
 }

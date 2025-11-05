@@ -103,10 +103,9 @@ const MainFooter = () => {
                 <li className="small-text">{t("Footer.company.contact")}</li>
               </Link>
 
-             <Link to="/privicyPolicy" onClick={scrollToTop}>
+              <Link to="/privacyPolicy" onClick={scrollToTop}>
                 <li className="small-text">{t("Footer.company.privacy")}</li>
-             </Link>
-              
+              </Link>
             </ul>
           </Col>
 
@@ -125,10 +124,9 @@ const MainFooter = () => {
 
             {/* Footer slogan or hashtag */}
             <h5 className="mt-4">{t("Footer.ourNew")}</h5>
-             <Link to="/contactUs" onClick={scrollToTop}>
+            <Link to="/contactUs" onClick={scrollToTop}>
               <p className="small-text link-us">#Link_it_with_waslaa</p>
-             </Link> 
-             
+            </Link>
           </Col>
         </Row>
       </Container>

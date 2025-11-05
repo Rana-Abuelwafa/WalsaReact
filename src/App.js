@@ -49,13 +49,17 @@ const AboutPage = lazy(() =>
 const HelpCenterPage = lazy(() =>
   import(/* webpackPrefetch: true */ "./components/HelpCenter/HelpCenterPage")
 );
- 
+
 const HelpCenterTabsPage = lazy(() =>
-  import(/* webpackPrefetch: true */ "./components/HelpCenter/HelpCenterTabsPage")
+  import(
+    /* webpackPrefetch: true */ "./components/HelpCenter/HelpCenterTabsPage"
+  )
 );
 
 const PrivacyPolicyPage = lazy(() =>
-  import(/* webpackPrefetch: true */ "./components/PrivacyPolicy/PrivacyPolicyPage")
+  import(
+    /* webpackPrefetch: true */ "./components/PrivacyPolicy/PrivacyPolicyPage"
+  )
 );
 
 const Profile = lazy(() =>
@@ -83,7 +87,9 @@ const NoResults = lazy(() =>
 );
 
 const SearchResults = lazy(() =>
-  import(/* webpackPrefetch: true */ "./components/SearchResults/SearchResultsPage")
+  import(
+    /* webpackPrefetch: true */ "./components/SearchResults/SearchResultsPage"
+  )
 );
 function App() {
   useEffect(() => {
@@ -137,7 +143,7 @@ function App() {
             <Route path="/AboutUs" element={<AboutPage />} />
             <Route path="/helpCenter" element={<HelpCenterPage />} />
             <Route path="/helpCenter/:tabId" element={<HelpCenterTabsPage />} />
-            <Route path="/privicyPolicy" element={<PrivacyPolicyPage />} />
+            <Route path="/privacyPolicy" element={<PrivacyPolicyPage />} />
             <Route
               path="/profile"
               element={

@@ -500,6 +500,18 @@
       "keywords": "Waslaa, user profile, account dashboard, invoices, packages, branding, web design",
       "title": "User Profile | Waslaa – Web Design, Brand Identity & Marketing Package",
       "OGDescription": "Manage your personal data, invoices, and selected Waslaa packages in one secure dashboard."
+    },
+    "HelpCenter": {
+      "description": "Find answers, guides, and support for Waslaa’s creative services. Visit our Help Center to get assistance with your account, packages, invoices, and more.",
+      "keywords": "Waslaa, help center, support, FAQs, customer support, design services, branding, web design, marketing, Germany",
+      "title": "Help Center | Waslaa – Support & FAQs for Design and Branding Services",
+      "OGDescription": "Need help with your Waslaa account or services? Explore our Help Center for guides, FAQs, and expert support to keep your creative projects running smoothly."
+    },
+    "Privacy": {
+      "description": "Learn how Waslaa protects your personal information. Read our Privacy Policy to understand how we collect, use, and safeguard your data when using our creative branding and web design services.",
+      "keywords": "Waslaa, privacy policy, data protection, GDPR, personal information, data security, user privacy, creative agency, Germany",
+      "title": "Privacy Policy | Waslaa – Your Data, Our Responsibility",
+      "OGDescription": "Your privacy matters. At Waslaa, we ensure full transparency on how your personal data is collected, stored, and used in line with GDPR standards."
     }
   }
 }
