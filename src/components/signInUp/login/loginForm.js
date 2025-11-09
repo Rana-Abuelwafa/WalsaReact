@@ -16,7 +16,9 @@ function LoginForm(props) {
   const [validated, setvalidated] = useState(false);
   const [errorsLst, seterrorsLst] = useState({});
   const [formData, setformData] = useState({ email: "", password: "" });
-  const { User, loading, errors } = useSelector((state) => state.register);
+  const { User, loading, errors, message, success } = useSelector(
+    (state) => state.register
+  );
   const [showAlert, setShowAlert] = useState(false);
 
   //validate form inputs
@@ -51,7 +53,7 @@ function LoginForm(props) {
         if (result.payload && result.payload.isSuccessed) {
           //if user login successfully and his email is confirmed , so navigate to home, if not should verify email first
           setShowAlert(false);
-          if (result.payload.emailConfirmed == true) {
+          if (result.payload?.user?.emailConfirmed == true) {
             if (isAuthRedirect) {
               navigate(redirectPath);
             } else {
@@ -114,7 +116,7 @@ function LoginForm(props) {
       </Button>
       {loading ? <LoadingPage /> : null}
       {showAlert ? (
-        <PopUp msg={User != null ? User.msg : errors} closeAlert={closeAlert} />
+        <PopUp msg={message || errors} closeAlert={closeAlert} />
       ) : null}
     </Form>
   );

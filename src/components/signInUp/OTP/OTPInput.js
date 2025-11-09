@@ -16,7 +16,9 @@ function OTPInput(props) {
   const [showAlert, setShowAlert] = useState(false);
   const [otp, setOtp] = useState("");
   const [myEmail, setMyEmail] = useState("");
-  const { User, loading, errors } = useSelector((state) => state.register);
+  const { User, loading, errors, message } = useSelector(
+    (state) => state.register
+  );
 
   const sendOtpCode = () => {
     const data = { Email: myEmail, otp: otp };
@@ -92,7 +94,7 @@ function OTPInput(props) {
       </div>
       {loading ? <LoadingPage /> : null}
       {showAlert ? (
-        <PopUp msg={User != null ? User.msg : errors} closeAlert={closeAlert} />
+        <PopUp msg={message || errors} closeAlert={closeAlert} />
       ) : null}
     </section>
   );

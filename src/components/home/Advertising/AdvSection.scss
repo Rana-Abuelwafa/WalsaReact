@@ -22,8 +22,8 @@
 
   .countdown-box {
     position: absolute;
-    bottom: 20%;
-    left: 10%;
+    bottom: 17%;
+    left: 5%;
     display: flex;
     //gap: 15px;
     background: rgba(255, 255, 255, 0.9);
@@ -32,6 +32,8 @@
     padding: 12px 20px;
     z-index: 2;
     justify-content: space-between;
+    width: 400px;
+    max-width: 400px;
 
     .time-item {
       display: flex;
@@ -60,6 +62,8 @@
       //bottom: 5px;
       //right: 10px;
       left: 10px;
+      bottom: 10%;
+      width: auto;
       //   padding: 10px 14px;
       //   gap: 8px;
 

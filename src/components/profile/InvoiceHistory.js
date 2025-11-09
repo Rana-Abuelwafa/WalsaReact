@@ -36,7 +36,7 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
   useEffect(() => {
     const getData = {
       active: true,
-      status: -1,
+      status: 2,
       lang_code: currentLang,
     };
     dispatch(getInvoices(getData));

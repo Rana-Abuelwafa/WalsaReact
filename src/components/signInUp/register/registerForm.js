@@ -24,7 +24,9 @@ function RegisterForm() {
     ConfirmPassword: "",
     Role: "User",
   });
-  const { User, loading, errors } = useSelector((state) => state.register);
+  const { User, loading, errors, message, success } = useSelector(
+    (state) => state.register
+  );
 
   //validate form inputs
   const validate = () => {
@@ -207,7 +209,11 @@ function RegisterForm() {
       </Button>
       {loading ? <LoadingPage /> : null}
       {showAlert ? (
-        <PopUp msg={User != null ? User.msg : errors} closeAlert={closeAlert} />
+        <PopUp
+          msg={message}
+          type={success ? "success" : "error"}
+          closeAlert={closeAlert}
+        />
       ) : null}
     </Form>
   );

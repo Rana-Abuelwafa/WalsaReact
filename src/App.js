@@ -92,23 +92,23 @@ const SearchResults = lazy(() =>
   )
 );
 function App() {
-  useEffect(() => {
-    // Programmatic preloading for likely next pages
-    const preloadPages = async () => {
-      if (window.location.pathname === "/login") {
-        await import("./components/signInUp/register/register");
-      }
-    };
+  // useEffect(() => {
+  //   // Programmatic preloading for likely next pages
+  //   const preloadPages = async () => {
+  //     if (window.location.pathname === "/login") {
+  //       await import("./components/signInUp/register/register");
+  //     }
+  //   };
 
-    // async function getCurrency() {
-    //   //get default currency
-    //   const countryCode = await fetchUserCountry();
-    //   const currency = await getCurrencyFromCountry(countryCode);
-    //   console.log("Detected Currency:", currency);
-    // }
-    // getCurrency();
-    preloadPages();
-  }, []);
+  //   // async function getCurrency() {
+  //   //   //get default currency
+  //   //   const countryCode = await fetchUserCountry();
+  //   //   const currency = await getCurrencyFromCountry(countryCode);
+  //   //   console.log("Detected Currency:", currency);
+  //   // }
+  //   // getCurrency();
+  //   preloadPages();
+  // }, []);
   return (
     <div className="App">
       <BrowserRouter>

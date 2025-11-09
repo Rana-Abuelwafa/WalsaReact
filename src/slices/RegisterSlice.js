@@ -2,8 +2,13 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { checkAUTH } from "../helper/helperFN";
 import { history } from "../index";
+import api from "../api/axios";
 const BASE_URL_AUTH = process.env.REACT_APP_AUTH_API_URL;
 const BASE_URL = process.env.REACT_APP_API_URL;
+const authApi = axios.create({
+  baseURL: BASE_URL_AUTH,
+  //withCredentials: true, // important for cookie refresh token
+});
 const initialState = {
   Quesions: [],
   Token: "",
@@ -35,7 +40,7 @@ const AuthHeaders = () => {
 //get questions list after register
 export const GetQuestionsData = createAsyncThunk(
   "GetQuestionsData",
-  async (payload, thunkAPI) => {
+  async (payload, { rejectWithValue }) => {
     if (checkAUTH()) {
       var response = await axios
         .post(BASE_URL + "/getQuesWithAnswers", payload, {
@@ -45,12 +50,7 @@ export const GetQuestionsData = createAsyncThunk(
           return res.data;
         })
         .catch((error) => {
-          if (error.response.status == 401) {
-            history.push("/login");
-            window.location.reload();
-          } else {
-            return error.response.data;
-          }
+          return rejectWithValue(error.response.data);
         });
       return response;
     } else {
@@ -63,7 +63,7 @@ export const GetQuestionsData = createAsyncThunk(
 //save ques List
 export const saveQuesList = createAsyncThunk(
   "saveQuesList",
-  async (payload, thunkAPI) => {
+  async (payload, { rejectWithValue }) => {
     if (checkAUTH()) {
       var response = await axios
         .post(BASE_URL + "/saveRegistrationSteps", payload, {
@@ -73,12 +73,7 @@ export const saveQuesList = createAsyncThunk(
           return res.data;
         })
         .catch((error) => {
-          if (error.response.status == 401) {
-            history.push("/login");
-            window.location.reload();
-          } else {
-            return error.response.data;
-          }
+          return rejectWithValue(error.response.data);
         });
       return response;
     } else {
@@ -91,7 +86,7 @@ export const saveQuesList = createAsyncThunk(
 //complete myprofile (call after answer questions)
 export const CompleteMyProfile = createAsyncThunk(
   "CompleteMyProfile",
-  async (payload, thunkAPI) => {
+  async (payload, { rejectWithValue }) => {
     var response = await axios
       .post(BASE_URL_AUTH + "/CompleteMyProfile", payload)
       .then((res) => {
@@ -160,76 +155,201 @@ const registerSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(RegisterUser.pending, (state, action) => {
-      state.User = null;
-      state.loading = true;
-    });
+    // Handle pending state for all async actions
+    builder
+      .addCase(RegisterUser.pending, (state) => {
+        state.loading = true;
+        state.errors = null;
+        state.success = null;
+        state.message = null;
+      })
+      .addCase(LoginUser.pending, (state) => {
+        state.loading = true;
+        state.errors = null;
+        state.success = null;
+        state.message = null;
+      })
+      .addCase(ConfirmOTP.pending, (state) => {
+        state.loading = true;
+        state.errors = null;
+        state.success = null;
+        state.message = null;
+      });
 
-    //start register
-    builder.addCase(RegisterUser.fulfilled, (state, action) => {
-      if (action.payload.status != null && action.payload.status != 200) {
-        state.User = null;
+    // Handle fulfilled state for each action
+    builder
+      .addCase(RegisterUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.errors = JSON.stringify(action.payload.errors);
-      } else {
-        state.User = action.payload;
-        state.loading = false;
-        localStorage.setItem("token", action.payload.accessToken);
-        localStorage.setItem("user", JSON.stringify(action.payload));
-        state.errors = action.payload !== null ? action.payload.msg : "";
-      }
-    });
-    builder.addCase(RegisterUser.rejected, (state, { payload }) => {
-      state.User = null;
-      state.loading = false;
-    });
-    //end register
+        state.success = action.payload.isSuccessed;
+        state.message = action.payload?.message;
 
-    //start Login
-    builder.addCase(LoginUser.pending, (state, action) => {
-      state.User = null;
-      state.loading = true;
-    });
-    builder.addCase(LoginUser.fulfilled, (state, action) => {
-      if (action.payload.status != null && action.payload.status != 200) {
-        state.User = null;
+        if (action.payload.isSuccessed) {
+          state.User = action.payload?.user;
+          state.Token = action.payload?.user?.accessToken;
+          localStorage.setItem("token", action.payload?.user?.accessToken);
+          localStorage.setItem(
+            "RefreshToken",
+            action.payload?.user?.RefreshToken
+          );
+          localStorage.setItem("user", JSON.stringify(action.payload?.user));
+        } else {
+          state.errors = action.payload?.message || "Registration failed";
+        }
+      })
+      .addCase(LoginUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.errors = JSON.stringify(action.payload.errors);
-      } else {
-        state.User = action.payload;
-        state.loading = false;
-        localStorage.setItem("token", action.payload.accessToken);
-        localStorage.setItem("user", JSON.stringify(action.payload));
-      }
-    });
-    builder.addCase(LoginUser.rejected, (state, action) => {
-      state.User = null;
-      state.loading = false;
-    });
+        state.success = action.payload.isSuccessed;
+        state.message = action.payload?.message;
 
-    //end login
+        if (action.payload.isSuccessed) {
+          state.User = action.payload?.user;
+          state.Token = action.payload?.user?.accessToken;
+          localStorage.setItem("token", action.payload?.user?.accesToken);
+          localStorage.setItem(
+            "RefreshToken",
+            action.payload?.user?.RefreshToken
+          );
+          localStorage.setItem("user", JSON.stringify(action.paylosad?.user));
+        } else {
+          state.errors = action.payload?.message || "Login failed";
+        }
+      })
+      .addCase(ConfirmOTP.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = action.payload.isSuccessed;
+        state.message = action.payload?.message;
 
-    //start confirm otp
-    builder.addCase(ConfirmOTP.pending, (state, action) => {
-      state.User = null;
-      state.loading = true;
-    });
-    builder.addCase(ConfirmOTP.fulfilled, (state, action) => {
-      if (action.payload.status != null && action.payload.status != 200) {
-        state.User = null;
+        if (action.payload.isSuccessed) {
+          state.User = action.payload?.user;
+          state.Token = action.payload?.user?.accessToken;
+          localStorage.setItem("token", action.payload?.user?.accessToken);
+          localStorage.setItem(
+            "RefreshToken",
+            action.payload?.user?.RefreshToken
+          );
+          localStorage.setItem("user", JSON.stringify(action.payload?.user));
+        } else {
+          state.errors = action.payload?.message || "OTP verification failed";
+        }
+      });
+
+    // Handle rejected state for all async actions
+    builder
+      .addCase(RegisterUser.rejected, (state, action) => {
         state.loading = false;
-        state.errors = JSON.stringify(action.payload.errors);
-      } else {
-        state.User = action.payload;
+        state.errors = action.payload;
+        state.success = false;
+        state.message = action.payload;
+      })
+      .addCase(LoginUser.rejected, (state, action) => {
         state.loading = false;
-        localStorage.setItem("token", action.payload.accessToken);
-        localStorage.setItem("user", JSON.stringify(action.payload));
-      }
-    });
-    builder.addCase(ConfirmOTP.rejected, (state, action) => {
-      state.User = null;
-      state.loading = false;
-    });
+        state.errors = action.payload;
+        state.success = false;
+        state.message = action.payload;
+      })
+      .addCase(ConfirmOTP.rejected, (state, action) => {
+        state.loading = false;
+        state.errors = action.payload;
+        state.success = false;
+        state.message = action.payload;
+      });
+    // .addCase(changePassword.pending, (state) => {
+    //   state.loading = true;
+    //   state.errors = null;
+    //   state.success = null;
+    //   state.message = null;
+    // });
+    // Password change successful
+    // .addCase(changePassword.fulfilled, (state, action) => {
+    //   console.log("fulfilled ", action.payload);
+    //   state.loading = false;
+    //   state.success = action.payload?.isSuccessed;
+    //   state.message = action.payload?.message;
+    //   if (action.payload.isSuccessed) {
+    //     state.User = action.payload?.user;
+    //     state.Token = action.payload?.user?.accessToken;
+    //   } else {
+    //     state.errors = action.payload?.message || "OTP verification failed";
+    //   }
+    // })
+    // // Password change failed
+    // .addCase(changePassword.rejected, (state, action) => {
+    //   console.log("rejectttt");
+    //   state.loading = false;
+    //   state.success = false;
+    //   state.errors = action?.payload;
+    //   state.message = action?.payload;
+    // });
+    // builder.addCase(RegisterUser.pending, (state, action) => {
+    //   state.User = null;
+    //   state.loading = true;
+    // });
+
+    // //start register
+    // builder.addCase(RegisterUser.fulfilled, (state, action) => {
+    //   if (action.payload.status != null && action.payload.status != 200) {
+    //     state.User = null;
+    //     state.loading = false;
+    //     state.errors = JSON.stringify(action.payload.errors);
+    //   } else {
+    //     state.User = action.payload;
+    //     state.loading = false;
+    //     localStorage.setItem("token", action.payload.accessToken);
+    //     localStorage.setItem("user", JSON.stringify(action.payload));
+    //     state.errors = action.payload !== null ? action.payload.msg : "";
+    //   }
+    // });
+    // builder.addCase(RegisterUser.rejected, (state, { payload }) => {
+    //   state.User = null;
+    //   state.loading = false;
+    // });
+    // //end register
+
+    // //start Login
+    // builder.addCase(LoginUser.pending, (state, action) => {
+    //   state.User = null;
+    //   state.loading = true;
+    // });
+    // builder.addCase(LoginUser.fulfilled, (state, action) => {
+    //   if (action.payload.status != null && action.payload.status != 200) {
+    //     state.User = null;
+    //     state.loading = false;
+    //     state.errors = JSON.stringify(action.payload.errors);
+    //   } else {
+    //     state.User = action.payload;
+    //     state.loading = false;
+    //     localStorage.setItem("token", action.payload.accessToken);
+    //     localStorage.setItem("user", JSON.stringify(action.payload));
+    //   }
+    // });
+    // builder.addCase(LoginUser.rejected, (state, action) => {
+    //   state.User = null;
+    //   state.loading = false;
+    // });
+
+    // //end login
+
+    // //start confirm otp
+    // builder.addCase(ConfirmOTP.pending, (state, action) => {
+    //   state.User = null;
+    //   state.loading = true;
+    // });
+    // builder.addCase(ConfirmOTP.fulfilled, (state, action) => {
+    //   if (action.payload.status != null && action.payload.status != 200) {
+    //     state.User = null;
+    //     state.loading = false;
+    //     state.errors = JSON.stringify(action.payload.errors);
+    //   } else {
+    //     state.User = action.payload;
+    //     state.loading = false;
+    //     localStorage.setItem("token", action.payload.accessToken);
+    //     localStorage.setItem("user", JSON.stringify(action.payload));
+    //   }
+    // });
+    // builder.addCase(ConfirmOTP.rejected, (state, action) => {
+    //   state.User = null;
+    //   state.loading = false;
+    // });
     //end confirm otp
 
     //start complete my profile
@@ -241,13 +361,18 @@ const registerSlice = createSlice({
       if (action.payload.status != null && action.payload.status != 200) {
         state.User = null;
         state.loading = false;
-        state.errors = JSON.stringify(action.payload.errors);
+        state.errors = JSON.stringify(action.payload?.message);
       } else {
-        state.User = action.payload;
         state.loading = false;
-        localStorage.setItem("token", action.payload.accessToken);
-        localStorage.setItem("user", JSON.stringify(action.payload));
-        state.errors = action.payload !== null ? action.payload.msg : "";
+        state.User = action.payload?.user;
+        state.Token = action.payload?.user?.accessToken;
+        localStorage.setItem("token", action.payload?.user?.accessToken);
+        localStorage.setItem("user", JSON.stringify(action.payload?.user));
+        localStorage.setItem(
+          "RefreshToken",
+          action.payload?.user?.RefreshToken
+        );
+        state.errors = action.payload !== null ? action.payload?.message : "";
       }
     });
     builder.addCase(CompleteMyProfile.rejected, (state, action) => {

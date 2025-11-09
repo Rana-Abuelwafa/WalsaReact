@@ -1,20 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-
+// import api from "../api/axios";
 const BROWSE_URL = process.env.REACT_APP_BROWSE_API_URL;
 
 export const fetchSearchResults = createAsyncThunk(
   "search/fetchSearchResults",
   async ({ lang, searchTerm, curr_code }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        BROWSE_URL + "/GetSearchResult",
-        {
-          lang,
-          searchTerm,
-          curr_code
-        }
-      );
+      const response = await axios.post(BROWSE_URL + "/GetSearchResult", {
+        lang,
+        searchTerm,
+        curr_code,
+      });
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
@@ -28,7 +25,7 @@ const searchSlice = createSlice({
     results: null,
     loading: false,
     error: null,
-    searchTerm: ""
+    searchTerm: "",
   },
   reducers: {
     setSearchTerm: (state, action) => {
@@ -38,7 +35,7 @@ const searchSlice = createSlice({
       state.results = null;
       state.searchTerm = "";
       state.error = null;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -54,7 +51,7 @@ const searchSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       });
-  }
+  },
 });
 
 export const { setSearchTerm, clearSearch } = searchSlice.actions;

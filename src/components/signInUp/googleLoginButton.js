@@ -14,7 +14,7 @@ const GoogleLoginButton = (props) => {
   const dispatch = useDispatch();
   const t = useTranslation();
   const [showAlert, setShowAlert] = useState(false);
-  const { User, loading } = useSelector((state) => state.register);
+  const { User, loading, message } = useSelector((state) => state.register);
 
   const closeAlert = () => {
     setShowAlert(false);
@@ -33,8 +33,8 @@ const GoogleLoginButton = (props) => {
         if (props.login) {
           let formData = {
             email: email,
-            FirstName: given_name,
-            LastName: family_name != null ? family_name : given_name,
+            // FirstName: given_name,
+            // LastName: family_name != null ? family_name : given_name,
             lang: localStorage.getItem("lang") || getLanguage(),
           };
           let data = { payload: formData, path: "/LoginGmail" };
@@ -43,7 +43,7 @@ const GoogleLoginButton = (props) => {
             if (result.payload && result.payload.isSuccessed) {
               setShowAlert(false);
               //if user login successfully and his email is confirmed navigate to home and whole app , if no sholud verify mail first by OTP
-              if (result.payload.emailConfirmed == true) {
+              if (result.payload?.user?.emailConfirmed == true) {
                 if (isAuthRedirect) {
                   navigate(redirectPath);
                 } else {
@@ -68,6 +68,7 @@ const GoogleLoginButton = (props) => {
               email: email,
               password: tokenResponse.access_token,
               lang: localStorage.getItem("lang") || getLanguage(),
+              Role: "User",
             },
             path: "/ExternalRegister",
           };
@@ -105,9 +106,7 @@ const GoogleLoginButton = (props) => {
           : t("Login.RegisterWithGoogle")}
       </Button>
       {loading ? <LoadingPage /> : null}
-      {showAlert ? (
-        <PopUp msg={User != null ? User.msg : ""} closeAlert={closeAlert} />
-      ) : null}
+      {showAlert ? <PopUp msg={message || ""} closeAlert={closeAlert} /> : null}
     </>
   );
 };
