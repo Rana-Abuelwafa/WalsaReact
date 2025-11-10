@@ -64,7 +64,7 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
 
   const handlePreview = (invoice) => {
     setPreviewInvoice(invoice);
-    setActiveTab("invoicePreview");
+    setActiveTab("InvoicePreview");
   };
 
   const handleDownload = async (invoice) => {

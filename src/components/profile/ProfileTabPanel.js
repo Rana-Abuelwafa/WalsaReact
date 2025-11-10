@@ -24,12 +24,12 @@ const ProfileTabPanel = () => {
   const { tabId } = useParams();
   // State to track which tab is currently active
   // Defaults to 'profile' tab on initial render
-  const [activeTab, setActiveTab] = useState(tabId || "profile");
+  const [activeTab, setActiveTab] = useState(tabId || "Setting");
   const [previewInvoice, setPreviewInvoice] = useState(null);
 
   // Array defining all available tabs and their properties
   const tabs = [
-    { id: "profile", icon: profileIcon }, // User profile settings
+    { id: "Setting", icon: profileIcon }, // User profile settings
     { id: "Brand", icon: infoIcon }, // Brand information
     { id: "ChangePassword", icon: passwordIcon }, // Password change form
     // { id: 'product', icon: productIcon },   // Product selection
@@ -80,7 +80,7 @@ const ProfileTabPanel = () => {
         <div className="tab-content-container">
           <div className="tab-content">
             {/* Conditional rendering based on activeTab value */}
-            {activeTab === "profile" && <ProfileSettings />}
+            {activeTab === "Setting" && <ProfileSettings />}
             {activeTab === "Brand" && <Brand />}
             {activeTab === "ChangePassword" && <ChangePasswordForm />}
             {/* {activeTab === 'product' && <Product />} */}
