@@ -1,4 +1,4 @@
-import React,{ useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button, Badge } from "react-bootstrap";
 import MainNavbar from "../navbars/mainNavbar";
 import MainFooter from "../footer/mainFooter";
@@ -39,7 +39,9 @@ const Section = ({
                 <p className="plan-desc">{plan.package_desc}</p>
                 <div className="pricing-info">
                   {plan.isCustom ? (
-                    <span className="old-price custom-price">Custom</span>
+                    <span className="old-price custom-price">
+                      {t("pricing.Custom")}
+                    </span>
                   ) : plan.oldPrice == plan.price ? (
                     plan.price > 0 && (
                       <span className="current-price ms-2">
@@ -90,8 +92,10 @@ const SearchResultsPage = () => {
   const navigate = useNavigate();
   const direction = t("direction");
   const [selectedPackages, setSelectedPackages] = useState({});
-  
-  const { results, loading, error, searchTerm } = useSelector((state) => state.search);
+
+  const { results, loading, error, searchTerm } = useSelector(
+    (state) => state.search
+  );
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const [popupType, setPopupType] = useState("");
@@ -107,7 +111,7 @@ const SearchResultsPage = () => {
   const handleSelectPackage = (packageId, serviceId) => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user) {
-      setPopupMessage("Please login to select packages");
+      setPopupMessage(t("pricing.LoginToSelect"));
       setPopupType("error");
       setShowPopup(true);
       setTimeout(
@@ -137,7 +141,7 @@ const SearchResultsPage = () => {
   const handleContinue = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user) {
-      setPopupMessage("Please login to continue");
+      setPopupMessage(t("pricing.LoginToContinue"));
       setPopupType("error");
       setShowPopup(true);
       setTimeout(() => navigate("/login"), 2000);
@@ -207,7 +211,8 @@ const SearchResultsPage = () => {
         <Container>
           <div className="text-center mt-5">
             <h2 className="search-header">
-              {t("search.results_for")}: "<span className="searchTerm">{searchTerm}</span>"
+              {t("search.results_for")}: "
+              <span className="searchTerm">{searchTerm}</span>"
             </h2>
             <hr className="pricingHr" />
           </div>

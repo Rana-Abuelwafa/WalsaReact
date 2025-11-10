@@ -256,6 +256,8 @@ const Invoice = () => {
   // console.log("currentCoupon ", currentCoupon);
   return (
     <div className="checkout-page" dir={direction}>
+      <h2>{t("checkout.PendingInvoices")}</h2>
+      <hr />
       {loading && <LoadingPage />}
       {showPopup && (
         <PopUp

@@ -83,9 +83,9 @@ const LanguageDropdown = () => {
 
   // Available language options for the dropdown
   const languages = [
-    { code: "en", name: "ENGLISH", nativeName: "English" },
-    { code: "de", name: "GERMAN", nativeName: "German" },
-    { code: "ar", name: "العربية", nativeName: "العربية" },
+    { code: "en", name: t("Navbar.ENGLISH"), nativeName: t("Navbar.ENGLISH") },
+    { code: "de", name: t("Navbar.GERMAN"), nativeName: t("Navbar.GERMAN") },
+    { code: "ar", name: t("Navbar.Arabic"), nativeName: t("Navbar.Arabic") },
   ];
 
   return (

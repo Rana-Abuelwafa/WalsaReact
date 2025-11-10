@@ -76,11 +76,9 @@ const SaleNavbar = () => {
             <div className="countdown-timer">
               {/* Display time values separated by colons */}
               {`${formatNumber(timeLeft.days, lang)} : ${formatNumber(
-                timeLeft.hours,
-                lang
+                timeLeft.hours
               )} : ${formatNumber(timeLeft.minutes, lang)} : ${formatNumber(
-                timeLeft.seconds,
-                lang
+                timeLeft.seconds
               )}`}
               {/* Labels for each time unit */}
               <div className="countdown-labels">

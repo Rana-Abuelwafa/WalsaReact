@@ -200,7 +200,7 @@ const registerSlice = createSlice({
         state.loading = false;
         state.success = action.payload.isSuccessed;
         state.message = action.payload?.message;
-        console.log("action.payload ", action.payload);
+        // console.log("action.payload ", action.payload);
         if (action.payload.isSuccessed) {
           state.User = action.payload?.user;
           state.Token = action.payload?.user?.accessToken;

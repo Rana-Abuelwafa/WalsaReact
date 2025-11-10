@@ -1,11 +1,6 @@
 import axios from "axios";
 // import { useNavigate } from "react-router-dom";
 import { navigate } from "../helper/navigate";
-import {
-  getAccessToken,
-  setAccessToken,
-  clearAccessToken,
-} from "../helper/TokenHelper";
 const BASE_URL = process.env.REACT_APP_API_URL;
 const BASE_URL_AUTH = process.env.REACT_APP_AUTH_API_URL;
 // create instance
@@ -109,83 +104,5 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-// api.interceptors.response.use(
-//   (response) => response,
-//   async (error) => {
-//     // const token = getAccessToken();
-//     const user = JSON.parse(localStorage.getItem("user"));
-//     const token = user?.accessToken;
-//     const refreshToken = user?.refreshToken;
-//     const originalRequest = error.config;
-//     console.log("originalRequest.url ", originalRequest.url);
-//     // Skip refresh for login/register endpoints
-//     if (
-//       originalRequest.url.includes("/api/LoginUser") ||
-//       originalRequest.url.includes("/api/RegisterUser") ||
-//       originalRequest.url.includes("/api/ConfirmOTP") ||
-//       originalRequest.url.includes("/api/LoginGmail") ||
-//       originalRequest.url.includes("/api/ExternalRegister")
-//     ) {
-//       return Promise.reject(error);
-//     }
-//     console.log("error.response?.status", error.response?.status);
-//     // Handle unauthorized
-//     if (error.response?.status === 401 && !originalRequest._retry) {
-//       if (isRefreshing) {
-//         // Wait for refresh to finish, then retry
-//         return new Promise((resolve, reject) => {
-//           failedQueue.push({ resolve, reject });
-//         })
-//           .then((token) => {
-//             originalRequest.headers["Authorization"] = "Bearer " + token;
-//             return api(originalRequest);
-//           })
-//           .catch((err) => Promise.reject(err));
-//       }
-
-//       originalRequest._retry = true;
-//       isRefreshing = true;
-
-//       try {
-//         console.log("token ", token);
-//         // token refresh
-//         // const refreshResponse = await authApi.post("/refresh");
-//         // const refreshToken = localStorage.getItem("RefreshToken");
-//         console.log("refreshToken ", refreshToken);
-//         const refreshResponse = await axios.post(BASE_URL_AUTH + "/refresh", {
-//           AccessToken: token,
-//           RefreshToken: refreshToken,
-//         });
-
-//         console.log("refreshResponse ", refreshResponse);
-//         const newToken = refreshResponse?.data?.user?.accessToken;
-//         const newRefresh = refreshResponse?.data?.user?.refreshToken;
-//         localStorage.setItem("RefreshToken", newRefresh);
-
-//         //setAccessToken(newToken);
-//         localStorage.setItem("token", newToken);
-//         processQueue(null, newToken);
-
-//         // Retry original request
-//         originalRequest.headers["Authorization"] = "Bearer " + newToken;
-//         return api(originalRequest);
-//       } catch (refreshError) {
-//         // 🚨 Refresh failed → clear tokens and redirect
-//         console.log("Refresh failed → clear tokens and redirect", refreshError);
-//         processQueue(refreshError, null);
-//         //clearAccessToken();
-//         localStorage.removeItem("token");
-//         localStorage.removeItem("RefreshToken");
-//         //window.location.href = "/login";
-//         return Promise.reject(refreshError);
-//       } finally {
-//         isRefreshing = false;
-//       }
-//     }
-
-//     // Other errors
-//     return Promise.reject(error);
-//   }
-// );
 
 export default api;

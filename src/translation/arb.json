@@ -75,7 +75,10 @@
     "contact": "اتصل بنا",
     "MyProfile": "الملف الشخصي",
     "MyQuestions": "الأسئلة",
-    "search": "بحث..."
+    "search": "بحث...",
+    "ENGLISH": "الإنجليزية",
+    "GERMAN": "الألمانية",
+    "Arabic": "العربية"
   },
   "search": {
     "results_for": "نتائج البحث عن"
@@ -299,7 +302,10 @@
     "get_started": "ابدأ الآن",
     "select": "اختر",
     "selected": "تم الاختيار",
-    "next": "التالي"
+    "next": "التالي",
+    "LoginToSelect": "الرجاء تسجيل الدخول لاختيار الباقات",
+    "LoginToContinue": "الرجاء تسجيل الدخول للمتابعة",
+    "Custom": "مخصص"
   },
   "confirmation": {
     "termsConditions": "الشروط والأحكام",
@@ -333,7 +339,8 @@
     "price": "السعر",
     "packageRemovedSuccessfully": "تم إزالة الباقة بنجاح!",
     "removePackageError": "هناك خطأ في إزالة الباقة!",
-    "MyInvoices": "الفواتير الخاصه بك"
+    "MyInvoices": "الفواتير الخاصه بك",
+    "PendingInvoices": "الفواتير غير المدفوعة"
   },
   "invoiceHistory": {
     "searchPlaceholder": "ابحث باستخدام كود الفاتورة...",

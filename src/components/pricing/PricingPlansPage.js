@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import Chat from "../chatIcon/chat";
 import "./PricingPlansPage.scss";
 import { useSelector, useDispatch } from "react-redux";
+import { formatNumber } from "../../helper/helperFN";
 import {
   fetchPricingPlans,
   saveClientServices,
@@ -48,23 +49,26 @@ const Section = ({
                 <p className="plan-desc">{plan.package_desc}</p>
                 <div className="pricing-info">
                   {plan.isCustom ? (
-                    <span className="old-price custom-price">Custom</span>
+                    <span className="old-price custom-price">
+                      {" "}
+                      {t("pricing.Custom")}
+                    </span>
                   ) : plan.oldPrice == plan.price ? (
                     plan.price > 0 && (
                       <span className="current-price ms-2">
-                        {plan.price} {plan.curr_code}
+                        {formatNumber(Number(plan.price))} {plan.curr_code}
                       </span>
                     )
                   ) : (
                     <>
                       {plan.oldPrice > 0 && (
                         <span className="old-price">
-                          {plan.oldPrice} {plan.curr_code}
+                          {formatNumber(Number(plan.oldPrice))} {plan.curr_code}
                         </span>
                       )}
                       {plan.price > 0 && (
                         <span className="current-price ms-2">
-                          {plan.price} {plan.curr_code}
+                          {formatNumber(Number(plan.price))} {plan.curr_code}
                         </span>
                       )}
                     </>

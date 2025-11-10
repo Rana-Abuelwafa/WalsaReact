@@ -75,7 +75,10 @@
     "about": "Über uns",
     "MyProfile": "Mein Profil",
     "MyQuestions": "Meine Fragen",
-    "search": "Suchen..."
+    "search": "Suchen...",
+    "ENGLISH": "Englisch",
+    "GERMAN": "Deutsch",
+    "Arabic": "Arabisch"
   },
   "search": {
     "results_for": "Suchergebnisse für"
@@ -299,7 +302,10 @@
     "get_started": "Loslegen",
     "select": "Wählen",
     "selected": "Wählen",
-    "next": "Weiter"
+    "next": "Weiter",
+    "LoginToSelect": "Bitte melden Sie sich an, um Pakete auszuwählen.",
+    "LoginToContinue": "Bitte melden Sie sich an, um fortzufahren",
+    "Custom": "Brauch"
   },
   "confirmation": {
     "termsConditions": "Allgemeine Geschäftsbedingungen",
@@ -333,7 +339,8 @@
     "price": "Preis",
     "packageRemovedSuccessfully": "Paket erfolgreich entfernt!",
     "removePackageError": "Fehler beim Entfernen des Pakets!",
-    "MyInvoices": "Meine Rechnungen"
+    "MyInvoices": "Meine Rechnungen",
+    "PendingInvoices": "Ausstehende Rechnungen"
   },
   "invoiceHistory": {
     "searchPlaceholder": "Zoeken op factuurnummer...",

@@ -1,4 +1,5 @@
 import { jwtDecode } from "jwt-decode";
+import { getLanguage } from "react-multi-lang";
 
 const isTokenExpired = (token) => {
   try {
@@ -34,7 +35,8 @@ export const checkIsLogin = () => {
   }
 };
 
-export const formatNumber = (num, lang) => {
+export const formatNumber = (num) => {
+  const lang = localStorage.getItem("lang") || getLanguage();
   if (typeof num !== "number") num = Number(num);
   return new Intl.NumberFormat(lang === "ar" ? "ar-EG" : "en-US").format(num);
 };

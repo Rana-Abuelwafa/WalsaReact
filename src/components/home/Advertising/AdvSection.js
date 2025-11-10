@@ -45,40 +45,28 @@ function AdvSection() {
       <div className="countdown-box">
         <div className="time-item">
           <span className="number">
-            {formatNumber(
-              Number(timeLeft.days.toString().padStart(2, "0")),
-              lang
-            )}
+            {formatNumber(Number(timeLeft.days.toString().padStart(2, "0")))}
           </span>
           <span className="label">{t("SaleNavbar.days")}</span>
         </div>
 
         <div className="time-item">
           <span className="number">
-            {formatNumber(
-              Number(timeLeft.hours.toString().padStart(2, "0")),
-              lang
-            )}
+            {formatNumber(Number(timeLeft.hours.toString().padStart(2, "0")))}
           </span>
           <span className="label">{t("SaleNavbar.hours")}</span>
         </div>
 
         <div className="time-item">
           <span className="number">
-            {formatNumber(
-              Number(timeLeft.mins.toString().padStart(2, "0")),
-              lang
-            )}
+            {formatNumber(Number(timeLeft.mins.toString().padStart(2, "0")))}
           </span>
           <span className="label">{t("SaleNavbar.minutes")}</span>
         </div>
 
         <div className="time-item">
           <span className="number">
-            {formatNumber(
-              Number(timeLeft.secs.toString().padStart(2, "0")),
-              lang
-            )}
+            {formatNumber(Number(timeLeft.secs.toString().padStart(2, "0")))}
           </span>
           <span className="label">{t("SaleNavbar.seconds")}</span>
         </div>

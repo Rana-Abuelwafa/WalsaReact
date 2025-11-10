@@ -75,7 +75,10 @@
     "about": "About",
     "MyProfile": "My Profile",
     "MyQuestions": "My Questions",
-    "search": "Search..."
+    "search": "Search...",
+    "ENGLISH": "ENGLISH",
+    "GERMAN": "GERMAN",
+    "Arabic": "Arabic"
   },
   "search": {
     "results_for": "Search Results for"
@@ -299,7 +302,10 @@
     "get_started": "Get Started",
     "select": "Select",
     "selected": "Selected",
-    "next": "Next"
+    "next": "Next",
+    "LoginToSelect": "Please login to select packages",
+    "LoginToContinue": "Please login to continue",
+    "Custom": "Custom"
   },
   "confirmation": {
     "termsConditions": "Terms & Conditions",
@@ -333,7 +339,8 @@
     "couponAppliedSuccessfully": "Coupon applied successfully!",
     "packageRemovedSuccessfully": "package Removed Successfully!",
     "removePackageError": "remove Package Error!",
-    "MyInvoices": "My Invoices"
+    "MyInvoices": "My Invoices",
+    "PendingInvoices": "Pending Invoices"
   },
   "invoiceHistory": {
     "searchPlaceholder": "Search by invoice code...",
