@@ -41,22 +41,22 @@ const AuthHeaders = () => {
 export const GetQuestionsData = createAsyncThunk(
   "GetQuestionsData",
   async (payload, { rejectWithValue }) => {
-    if (checkAUTH()) {
-      var response = await axios
-        .post(BASE_URL + "/getQuesWithAnswers", payload, {
-          headers: AuthHeaders(),
-        })
-        .then((res) => {
-          return res.data;
-        })
-        .catch((error) => {
-          return rejectWithValue(error.response.data);
-        });
-      return response;
-    } else {
-      history.push("/login");
-      window.location.reload();
-    }
+    // if (checkAUTH()) {
+    var response = await api
+      .post(BASE_URL + "/getQuesWithAnswers", payload, {
+        headers: AuthHeaders(),
+      })
+      .then((res) => {
+        return res.data;
+      })
+      .catch((error) => {
+        return rejectWithValue(error.response.data);
+      });
+    return response;
+    // } else {
+    //   history.push("/login");
+    //   window.location.reload();
+    // }
   }
 );
 
@@ -64,22 +64,22 @@ export const GetQuestionsData = createAsyncThunk(
 export const saveQuesList = createAsyncThunk(
   "saveQuesList",
   async (payload, { rejectWithValue }) => {
-    if (checkAUTH()) {
-      var response = await axios
-        .post(BASE_URL + "/saveRegistrationSteps", payload, {
-          headers: AuthHeaders(),
-        })
-        .then((res) => {
-          return res.data;
-        })
-        .catch((error) => {
-          return rejectWithValue(error.response.data);
-        });
-      return response;
-    } else {
-      history.push("/login");
-      window.location.reload();
-    }
+    // if (checkAUTH()) {
+    var response = await api
+      .post(BASE_URL + "/saveRegistrationSteps", payload, {
+        headers: AuthHeaders(),
+      })
+      .then((res) => {
+        return res.data;
+      })
+      .catch((error) => {
+        return rejectWithValue(error.response.data);
+      });
+    return response;
+    // } else {
+    //   history.push("/login");
+    //   window.location.reload();
+    // }
   }
 );
 
@@ -189,7 +189,7 @@ const registerSlice = createSlice({
           localStorage.setItem("token", action.payload?.user?.accessToken);
           localStorage.setItem(
             "RefreshToken",
-            action.payload?.user?.RefreshToken
+            action.payload?.user?.refreshToken
           );
           localStorage.setItem("user", JSON.stringify(action.payload?.user));
         } else {
@@ -200,16 +200,16 @@ const registerSlice = createSlice({
         state.loading = false;
         state.success = action.payload.isSuccessed;
         state.message = action.payload?.message;
-
+        console.log("action.payload ", action.payload);
         if (action.payload.isSuccessed) {
           state.User = action.payload?.user;
           state.Token = action.payload?.user?.accessToken;
           localStorage.setItem("token", action.payload?.user?.accesToken);
           localStorage.setItem(
             "RefreshToken",
-            action.payload?.user?.RefreshToken
+            action.payload?.user?.refreshToken
           );
-          localStorage.setItem("user", JSON.stringify(action.paylosad?.user));
+          localStorage.setItem("user", JSON.stringify(action.payload?.user));
         } else {
           state.errors = action.payload?.message || "Login failed";
         }

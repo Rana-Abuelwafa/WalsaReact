@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { checkAUTH } from "../helper/helperFN";
 import { createAuthError } from "../utils/authError";
 import axios from "axios";
-
+import api from "../api/axios";
 // Base URL for API calls from environment variables
 const BROWSE_URL = process.env.REACT_APP_BROWSE_API_URL;
 const BASE_URL = process.env.REACT_APP_API_URL;
@@ -37,7 +37,7 @@ export const fetchPricingPlans = createAsyncThunk(
       curr_code,
       client_id: userId,
     };
-    
+
     try {
       // Make POST request to get client brands
       const response = await axios.post(
@@ -57,23 +57,23 @@ export const fetchPricingPlans = createAsyncThunk(
 export const saveClientServices = createAsyncThunk(
   "pricingPlans/saveClientServices",
   async (requestData, { rejectWithValue }) => {
-      if (!checkAUTH()) {
-            return rejectWithValue(createAuthError());
-        }
+    // if (!checkAUTH()) {
+    //   return rejectWithValue(createAuthError());
+    // }
 
-      try {
-        const response = await axios.post(
-          BASE_URL + "/MakeClientInvoiceForPackages",
-          requestData,
-          getAuthHeaders()
-        );
-        return response.data;
-      } catch (error) {
-        if (error.response?.status === 401) {
-            return rejectWithValue(createAuthError());
-          }
-        return rejectWithValue(error.response?.data?.message || error.message);
+    try {
+      const response = await api.post(
+        BASE_URL + "/MakeClientInvoiceForPackages",
+        requestData,
+        getAuthHeaders()
+      );
+      return response.data;
+    } catch (error) {
+      if (error.response?.status === 401) {
+        return rejectWithValue(createAuthError());
       }
+      return rejectWithValue(error.response?.data?.message || error.message);
+    }
   }
 );
 

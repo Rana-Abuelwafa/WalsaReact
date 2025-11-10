@@ -153,6 +153,14 @@ function App() {
               }
             />
             <Route
+              path="/profile/:tabId"
+              element={
+                <Validuser>
+                  <Profile />
+                </Validuser>
+              }
+            />
+            <Route
               path="/pricing"
               element={
                 // <Validuser>

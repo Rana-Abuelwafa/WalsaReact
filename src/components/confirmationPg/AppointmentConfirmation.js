@@ -45,7 +45,7 @@ const AgreementDisplay = ({ language }) => {
 
         setAgreementText(text);
       } catch (error) {
-        console.error("Error loading agreement text:", error);
+        //console.error("Error loading agreement text:", error);
         setAgreementText("Agreement text not available");
       }
     };
@@ -117,7 +117,7 @@ const AppointmentConfirmation = () => {
       setPopupType("success");
       setShowPopup(true);
       setPopupIcon(<FaCheck className="success-icon" size={30} />);
-      setTimeout(() => navigate("/pricing"), 2000);
+      setTimeout(() => navigate("/profile/MyCart"), 2000);
     } catch (error) {
       setPopupMessage(error || t("product.save_error"));
       setPopupIcon(<FaTimesCircle className="error-icon" size={24} />);

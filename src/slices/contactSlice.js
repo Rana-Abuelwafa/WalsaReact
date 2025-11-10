@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { checkAUTH } from "../helper/helperFN";
 import { createAuthError } from "../utils/authError";
-import axios from "axios";
-
+// import axios from "axios";
+import api from "../api/axios";
 const BASE_URL = process.env.REACT_APP_API_URL;
 
 const getAuthHeaders = () => {
@@ -21,25 +21,25 @@ const getAuthHeaders = () => {
 export const sendContactMail = createAsyncThunk(
   "contact/sendMail",
   async ({ subject, message }, { rejectWithValue }) => {
-    if (!checkAUTH()) {
-      return rejectWithValue(createAuthError());
-    }
+    // if (!checkAUTH()) {
+    //   return rejectWithValue(createAuthError());
+    // }
 
     try {
-      const response = await axios.post(
+      const response = await api.post(
         BASE_URL + "/SendContactMail",
         { subject, message },
         getAuthHeaders()
       );
-      
+
       if (response.data !== true) {
         return rejectWithValue("Failed to send message");
       }
       return true;
     } catch (error) {
-      if (error.response?.status === 401) {
-        return rejectWithValue(createAuthError());
-      }
+      // if (error.response?.status === 401) {
+      //   return rejectWithValue(createAuthError());
+      // }
       return rejectWithValue(error.response?.data?.errors || error.message);
     }
   }

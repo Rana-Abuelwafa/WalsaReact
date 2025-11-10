@@ -46,9 +46,10 @@ const Invoice = () => {
 
   useEffect(() => {
     if (invoices.length > 0) {
-      if (activeTab >= invoices.length) {
-        setActiveTab(invoices.length - 1);
-      }
+      // if (activeTab >= invoices.length) {
+      //   setActiveTab(invoices.length - 1);
+      // }
+      setActiveTab(invoices.length - 1);
     } else {
       setActiveTab(0);
     }
@@ -236,7 +237,7 @@ const Invoice = () => {
       // setPopupMessage(t("checkout.packageRemovedSuccessfully"));
       // setShowPopup(true);
     } catch (error) {
-     // console.error("Remove package error:", error);
+      // console.error("Remove package error:", error);
     }
   };
 

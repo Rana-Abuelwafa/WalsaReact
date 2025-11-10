@@ -8,7 +8,7 @@ import Invoice from "./Invoice";
 import InvoiceHistory from "./InvoiceHistory";
 import InvoicePreview from "./InvoicePreview";
 import ComingSoon from "./ComingSoon";
-
+import { useNavigate, useParams, Navigate } from "react-router-dom";
 // Tab icons - paths to image assets
 const profileIcon = "/images/profile_tab.png";
 const infoIcon = "/images/info_tab.png";
@@ -20,22 +20,24 @@ const shoppingIcon = "/images/shopping_tab.png";
 const historyIcon = "/images/history-tab.png";
 
 const ProfileTabPanel = () => {
+  const navigate = useNavigate();
+  const { tabId } = useParams();
   // State to track which tab is currently active
   // Defaults to 'profile' tab on initial render
-  const [activeTab, setActiveTab] = useState("profile");
+  const [activeTab, setActiveTab] = useState(tabId || "profile");
   const [previewInvoice, setPreviewInvoice] = useState(null);
 
   // Array defining all available tabs and their properties
   const tabs = [
     { id: "profile", icon: profileIcon }, // User profile settings
-    { id: "info", icon: infoIcon }, // Brand information
-    { id: "password", icon: passwordIcon }, // Password change form
+    { id: "Brand", icon: infoIcon }, // Brand information
+    { id: "ChangePassword", icon: passwordIcon }, // Password change form
     // { id: 'product', icon: productIcon },   // Product selection
-    { id: "preview", icon: previewIcon }, // Preview (coming soon)
+    { id: "MyWorks", icon: previewIcon }, // Preview (coming soon)
     { id: "booknote", icon: booknoteIcon }, // Booknotes (coming soon)
-    { id: "shopping", icon: shoppingIcon }, // Shopping
-    { id: "history", icon: historyIcon }, // Shopping
-    { id: "invoicePreview", hidden: true },
+    { id: "MyCart", icon: shoppingIcon }, // Shopping
+    { id: "MyInvoices", icon: historyIcon }, // Shopping
+    { id: "InvoicePreview", hidden: true },
   ];
 
   return (
@@ -53,7 +55,10 @@ const ProfileTabPanel = () => {
                   <button
                     key={tab.id} // Unique key for React list rendering
                     className={`tab ${activeTab === tab.id ? "active" : ""}`} // Apply 'active' class if tab is selected
-                    onClick={() => setActiveTab(tab.id)} // Set this tab as active when clicked
+                    onClick={() => {
+                      setActiveTab(tab.id);
+                      navigate(`/profile/${tab.id}`);
+                    }} // Set this tab as active when clicked
                     aria-label={tab.id} // Accessibility label
                   >
                     {/* Tab icon - using img tag with the path from tab definition */}
@@ -76,21 +81,21 @@ const ProfileTabPanel = () => {
           <div className="tab-content">
             {/* Conditional rendering based on activeTab value */}
             {activeTab === "profile" && <ProfileSettings />}
-            {activeTab === "info" && <Brand />}
-            {activeTab === "password" && <ChangePasswordForm />}
+            {activeTab === "Brand" && <Brand />}
+            {activeTab === "ChangePassword" && <ChangePasswordForm />}
             {/* {activeTab === 'product' && <Product />} */}
             {/* All other tabs show the ComingSoon placeholder component */}
-            {activeTab === "preview" && <ComingSoon />}
+            {activeTab === "MyWorks" && <ComingSoon />}
             {activeTab === "booknote" && <ComingSoon />}
-            {activeTab === "shopping" && <Invoice />}
+            {activeTab === "MyCart" && <Invoice />}
             {/* {activeTab === 'history' && <InvoiceHistory />} */}
-            {activeTab === "history" && (
+            {activeTab === "MyInvoices" && (
               <InvoiceHistory
                 setActiveTab={setActiveTab}
                 setPreviewInvoice={setPreviewInvoice}
               />
             )}
-            {activeTab === "invoicePreview" && previewInvoice && (
+            {activeTab === "InvoicePreview" && previewInvoice && (
               <InvoicePreview
                 invoice={previewInvoice}
                 setActiveTab={setActiveTab}

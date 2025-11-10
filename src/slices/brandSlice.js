@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { checkAUTH } from "../helper/helperFN";
 import { createAuthError } from "../utils/authError";
-import axios from "axios";
-
+// import axios from "axios";
+import api from "../api/axios";
 // Base URL for API calls from environment variables
 const BASE_URL = process.env.REACT_APP_API_URL;
 const getAuthHeaders = () => {
@@ -22,29 +22,31 @@ export const fetchBrand = createAsyncThunk(
   "brand/fetchBrand", // action type prefix
   async (_, { rejectWithValue }) => {
     // Check authentication before making the request
-     if (!checkAUTH()) {
-          return rejectWithValue(createAuthError());
-        }
+    // if (!checkAUTH()) {
+    //   return rejectWithValue(createAuthError());
+    // }
 
-      try {
-        // Make POST request to get client brands
-        const response = await axios.post(
-          BASE_URL + "/GetClientBrands",
-          {}, // empty request body
-          getAuthHeaders()
-        );
-        if (response.data.success === false) {
-          return rejectWithValue(response.data.errors || "Failed to fetch brand");
-        }
-        // Return the brand data (could be single object or first item in array)
-        return Array.isArray(response.data) ? response.data[0] || null : response.data || null;
-      } catch (error) {
-        if (error.response?.status === 401) {
-            return rejectWithValue(createAuthError());
-          }
-        // Return error message if request fails
-        return rejectWithValue(error.response?.data?.errors || error.message);
+    try {
+      // Make POST request to get client brands
+      const response = await api.post(
+        BASE_URL + "/GetClientBrands",
+        {}, // empty request body
+        getAuthHeaders()
+      );
+      if (response.data.success === false) {
+        return rejectWithValue(response.data.errors || "Failed to fetch brand");
       }
+      // Return the brand data (could be single object or first item in array)
+      return Array.isArray(response.data)
+        ? response.data[0] || null
+        : response.data || null;
+    } catch (error) {
+      // if (error.response?.status === 401) {
+      //   return rejectWithValue(createAuthError());
+      // }
+      // Return error message if request fails
+      return rejectWithValue(error.response?.data?.errors || error.message);
+    }
   }
 );
 
@@ -52,36 +54,36 @@ export const fetchBrand = createAsyncThunk(
 export const saveBrand = createAsyncThunk(
   "brand/saveBrand", // action type prefix
   async ({ formData }, { rejectWithValue }) => {
-     if (!checkAUTH()) {
-          return rejectWithValue(createAuthError());
-        }
+    // if (!checkAUTH()) {
+    //   return rejectWithValue(createAuthError());
+    // }
 
-      try {
-        // Prepare payload ensuring ID is never undefined
-        const payload = {
-          ...formData,
-          id: formData.id || 0, // Default to 0 if ID not provided
-        };
-        // Make POST request to save brand data
-        const response = await axios.post(
-          BASE_URL + "/saveClientBrand",
-          payload,
-          getAuthHeaders()
-        );
+    try {
+      // Prepare payload ensuring ID is never undefined
+      const payload = {
+        ...formData,
+        id: formData.id || 0, // Default to 0 if ID not provided
+      };
+      // Make POST request to save brand data
+      const response = await api.post(
+        BASE_URL + "/saveClientBrand",
+        payload,
+        getAuthHeaders()
+      );
 
-        if (response.data.success === false) {
-          return rejectWithValue(response.data.errors || "Operation failed");
-        }
-        return {
-          ...formData,
-          id: response.data.idOut || formData.id || 0,
-        };
-      } catch (error) {
-        if (error.response?.status === 401) {
-            return rejectWithValue(createAuthError());
-          }
-        return rejectWithValue(error.response?.data?.errors || error.message);
+      if (response.data.success === false) {
+        return rejectWithValue(response.data.errors || "Operation failed");
       }
+      return {
+        ...formData,
+        id: response.data.idOut || formData.id || 0,
+      };
+    } catch (error) {
+      // if (error.response?.status === 401) {
+      //   return rejectWithValue(createAuthError());
+      // }
+      return rejectWithValue(error.response?.data?.errors || error.message);
+    }
   }
 );
 

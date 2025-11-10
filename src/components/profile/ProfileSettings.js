@@ -242,13 +242,13 @@ const ProfileSettings = () => {
   };
 
   // Show loading spinner if data is being fetched and profileData isn't loaded yet
-  if (loading && !profileData) {
-    return (
-      <div className="profile-settings">
-        <LoadingPage />
-      </div>
-    );
-  }
+  // if (loading && !profileData) {
+  //   return (
+  //     <div className="profile-settings">
+  //       <LoadingPage />
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="profile-settings" dir={t("direction")}>
@@ -524,6 +524,7 @@ const ProfileSettings = () => {
           </div>
         </Form>
       </div>
+      {loading ? <LoadingPage /> : null}
     </div>
   );
 };

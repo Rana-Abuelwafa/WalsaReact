@@ -15,6 +15,7 @@
     padding: 0;
     .nav-item {
       margin: 0 !important;
+      padding: 5px !important;
       @media (max-width: 443px) {
         font-size: 13px !important;
       }

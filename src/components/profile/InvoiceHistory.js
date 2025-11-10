@@ -85,7 +85,7 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
         services: invoice.pkgs || [],
       });
     } catch (error) {
-      console.error("Failed to fetch profile:", error);
+      //console.error("Failed to fetch profile:", error);
       // Fallback to invoice data if profile fetch fails
       downloadInvoice({
         forceLang: currentLang,

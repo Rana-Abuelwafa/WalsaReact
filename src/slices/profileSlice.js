@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { checkAUTH } from "../helper/helperFN";
 import { createAuthError } from "../utils/authError";
-import axios from "axios";
-
+// import axios from "axios";
+import api from "../api/axios";
 // Base API URL from environment variables
 const BASE_URL = process.env.REACT_APP_API_URL;
 
@@ -40,13 +40,13 @@ const getErrorMessage = (error) => {
 export const fetchProfile = createAsyncThunk(
   "profile/fetchProfile",
   async (_, { rejectWithValue }) => {
-    if (!checkAUTH()) {
-      return rejectWithValue(createAuthError());
-    }
+    // if (!checkAUTH()) {
+    //   return rejectWithValue(createAuthError());
+    // }
 
     try {
       // Make API call to get client profiles
-      const response = await axios.post(
+      const response = await api.post(
         BASE_URL + "/GetClientProfiles",
         {},
         getAuthHeaders()
@@ -54,9 +54,9 @@ export const fetchProfile = createAsyncThunk(
 
       return response.data?.[0] || {};
     } catch (error) {
-      if (error.response?.status === 401) {
-        return rejectWithValue(createAuthError());
-      }
+      // if (error.response?.status === 401) {
+      //   return rejectWithValue(createAuthError());
+      // }
       return rejectWithValue(getErrorMessage(error));
     }
   }
@@ -66,12 +66,12 @@ export const fetchProfile = createAsyncThunk(
 export const saveProfile = createAsyncThunk(
   "profile/saveProfile",
   async (formData, { rejectWithValue }) => {
-    if (!checkAUTH()) {
-      return rejectWithValue(createAuthError());
-    }
+    // if (!checkAUTH()) {
+    //   return rejectWithValue(createAuthError());
+    // }
     try {
       // Make API call to save profile
-      const response = await axios.post(
+      const response = await api.post(
         BASE_URL + "/saveMainProfile",
         formData,
         getAuthHeaders()
@@ -88,9 +88,9 @@ export const saveProfile = createAsyncThunk(
         message: response.data.errors,
       };
     } catch (error) {
-      if (error.response?.status == 401) {
-        return rejectWithValue(createAuthError());
-      }
+      // if (error.response?.status == 401) {
+      //   return rejectWithValue(createAuthError());
+      // }
       return rejectWithValue(getErrorMessage(error));
     }
   }
@@ -100,12 +100,12 @@ export const saveProfile = createAsyncThunk(
 export const fetchProfileImage = createAsyncThunk(
   "profile/fetchProfileImage",
   async (_, { rejectWithValue }) => {
-    if (!checkAUTH()) {
-      return rejectWithValue(createAuthError());
-    }
+    // if (!checkAUTH()) {
+    //   return rejectWithValue(createAuthError());
+    // }
     try {
       // Make API call to get profile image
-      const response = await axios.post(
+      const response = await api.post(
         BASE_URL + "/GetProfileImage",
         {},
         getAuthHeaders()
@@ -113,9 +113,9 @@ export const fetchProfileImage = createAsyncThunk(
 
       return response.data?.[0]?.img_path || null;
     } catch (error) {
-      if (error.response?.status === 401) {
-        return rejectWithValue(createAuthError());
-      }
+      // if (error.response?.status === 401) {
+      //   return rejectWithValue(createAuthError());
+      // }
       return rejectWithValue(getErrorMessage(error));
     }
   }
@@ -125,16 +125,16 @@ export const fetchProfileImage = createAsyncThunk(
 export const uploadProfileImage = createAsyncThunk(
   "profile/uploadProfileImage",
   async (imageFile, { rejectWithValue }) => {
-    if (!checkAUTH()) {
-      return rejectWithValue(createAuthError());
-    }
+    // if (!checkAUTH()) {
+    //   return rejectWithValue(createAuthError());
+    // }
     try {
       const user = JSON.parse(localStorage.getItem("user"));
       const accessToken = user?.accessToken;
       const requestBody = { img: imageFile };
 
       // Make API call to upload image with multipart/form-data
-      const response = await axios.post(
+      const response = await api.post(
         BASE_URL + "/saveProfileImage",
         requestBody,
         {
@@ -152,9 +152,9 @@ export const uploadProfileImage = createAsyncThunk(
         message: response.data.errors,
       };
     } catch (error) {
-      if (error.response?.status === 401) {
-        return rejectWithValue(createAuthError());
-      }
+      // if (error.response?.status === 401) {
+      //   return rejectWithValue(createAuthError());
+      // }
       return rejectWithValue(getErrorMessage(error));
     }
   }

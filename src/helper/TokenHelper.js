@@ -1,12 +1,22 @@
 let inMemoryToken = null;
 
-export const getAccessToken = () =>
-  inMemoryToken || localStorage.getItem("accessToken");
+export const getAccessToken = () => localStorage.getItem("token");
 export const setAccessToken = (token) => {
   inMemoryToken = token;
-  localStorage.setItem("accessToken", token);
+  localStorage.setItem("token", token);
 };
 export const clearAccessToken = () => {
   inMemoryToken = null;
-  localStorage.removeItem("accessToken");
+  localStorage.removeItem("token");
 };
+
+// export const getRefreshToken = () =>
+//   inMemoryToken || localStorage.getItem("accessToken");
+// export const setRefreshToken = (token) => {
+//   inMemoryToken = token;
+//   localStorage.setItem("accessToken", token);
+// };
+// export const clearRefreshToken = () => {
+//   inMemoryToken = null;
+//   localStorage.removeItem("accessToken");
+// };

@@ -2,8 +2,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { checkAUTH } from "../helper/helperFN";
 import { history } from "../index";
-import axios from "axios";
-
+// import axios from "axios";
+import api from "../api/axios";
 // Base API URL from environment variables
 const BASE_URL = process.env.REACT_APP_API_URL;
 
@@ -99,20 +99,20 @@ const getSelectedProductsFromTree = (treeData) => {
 export const fetchProductTree = createAsyncThunk(
   "products/fetchProductTree",
   async () => {
-    if (checkAUTH()) {
-      // Make API call to get product tree
-      const response = await axios.post(
-        `${BASE_URL}/GetProduct_Tree`,
-        {},
-        getAuthHeaders()
-      );
-      return response.data;
-    } else {
-      // Redirect to login if not authenticated
-      history.push("/login");
-      window.location.reload();
-      return null;
-    }
+    // if (checkAUTH()) {
+    // Make API call to get product tree
+    const response = await api.post(
+      `${BASE_URL}/GetProduct_Tree`,
+      {},
+      getAuthHeaders()
+    );
+    return response.data;
+    // } else {
+    //   // Redirect to login if not authenticated
+    //   history.push("/login");
+    //   window.location.reload();
+    //   return null;
+    // }
   }
 );
 
@@ -120,85 +120,85 @@ export const fetchProductTree = createAsyncThunk(
 export const saveSelectedProducts = createAsyncThunk(
   "products/saveSelectedProducts",
   async (changes, { dispatch, getState }) => {
-    if (checkAUTH()) {
-      try {
-        const { added, removed } = changes;
-        const user = JSON.parse(localStorage.getItem("user"));
-        const userId = user?.id;
-        const state = getState();
+    // if (checkAUTH()) {
+    try {
+      const { added, removed } = changes;
+      const user = JSON.parse(localStorage.getItem("user"));
+      const userId = user?.id;
+      const state = getState();
 
-        // Helper function to find product details by ID
-        const findProductDetails = (productId) => {
-          let result = null;
-          const traverse = (node) => {
-            if (node.productId === productId) {
-              result = node;
-              return;
-            }
-            if (node.children) {
-              node.children.forEach((child) => traverse(child));
-            }
-          };
-          state.products.treeData.forEach((node) => traverse(node));
-          return result;
+      // Helper function to find product details by ID
+      const findProductDetails = (productId) => {
+        let result = null;
+        const traverse = (node) => {
+          if (node.productId === productId) {
+            result = node;
+            return;
+          }
+          if (node.children) {
+            node.children.forEach((child) => traverse(child));
+          }
         };
+        state.products.treeData.forEach((node) => traverse(node));
+        return result;
+      };
 
-        // Handle added products
-        if (added.length > 0) {
-          const addPayload = added.map((productId) => {
-            const productDetails = findProductDetails(productId);
-            return {
-              productId,
-              client_id: userId,
-              id: productDetails?.clientServiceId || 0, // Use existing ID or default
-              isSelected: true,
-            };
-          });
+      // Handle added products
+      if (added.length > 0) {
+        const addPayload = added.map((productId) => {
+          const productDetails = findProductDetails(productId);
+          return {
+            productId,
+            client_id: userId,
+            id: productDetails?.clientServiceId || 0, // Use existing ID or default
+            isSelected: true,
+          };
+        });
 
-          // Save added products to server
-          await axios.post(
-            `${BASE_URL}/SaveClientServices`,
-            addPayload,
-            getAuthHeaders()
-          );
-        }
-
-        // Handle removed products
-        if (removed.length > 0) {
-          const removePayload = removed.map((productId) => {
-            const productDetails = findProductDetails(productId);
-            return {
-              productId,
-              client_id: userId,
-              id: productDetails?.clientServiceId || 0,
-              isSelected: false,
-            };
-          });
-
-          // Save removed products to server
-          await axios.post(
-            `${BASE_URL}/SaveClientServices`,
-            removePayload,
-            getAuthHeaders()
-          );
-        }
-
-        // Refresh product tree after changes
-        await dispatch(fetchProductTree());
-
-        return changes;
-      } catch (error) {
-        throw new Error(
-          error.response?.data?.message ||
-            error.message ||
-            "Failed to save products"
+        // Save added products to server
+        await api.post(
+          `${BASE_URL}/SaveClientServices`,
+          addPayload,
+          getAuthHeaders()
         );
       }
-    } else {
-      history.push("/login");
-      window.location.reload();
-      return null;
+
+      // Handle removed products
+      if (removed.length > 0) {
+        const removePayload = removed.map((productId) => {
+          const productDetails = findProductDetails(productId);
+          return {
+            productId,
+            client_id: userId,
+            id: productDetails?.clientServiceId || 0,
+            isSelected: false,
+          };
+        });
+
+        // Save removed products to server
+        await api.post(
+          `${BASE_URL}/SaveClientServices`,
+          removePayload,
+          getAuthHeaders()
+        );
+      }
+
+      // Refresh product tree after changes
+      await dispatch(fetchProductTree());
+
+      return changes;
+    } catch (error) {
+      throw new Error(
+        error.response?.data?.message ||
+          error.message ||
+          "Failed to save products"
+      );
     }
+    // } else {
+    //   history.push("/login");
+    //   window.location.reload();
+    //   return null;
+    // }
   }
 );
 

@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { checkAUTH } from "../helper/helperFN";
 import { createAuthError } from "../utils/authError";
-import axios from "axios";
-
+// import axios from "axios";
+import api from "../api/axios";
 // Base URL for authentication API calls
 const BASE_URL_AUTH = process.env.REACT_APP_AUTH_API_URL;
 
@@ -27,48 +27,46 @@ export const changePassword = createAsyncThunk(
     { rejectWithValue }
   ) => {
     // Check if user is authenticated
-    if (!checkAUTH()) {
-          return rejectWithValue(createAuthError());
-        }
+    // if (!checkAUTH()) {
+    //   return rejectWithValue(createAuthError());
+    // }
 
-      try {
-        // Make POST request to change password endpoint
-        const response = await axios.post(
-          BASE_URL_AUTH + "/changePassword",
-          {
-            userId,
-            oldPassword,
-            newPassword,
-            confirmNewPassword,
-          },
-          getAuthHeaders()
-        );
+    try {
+      // Make POST request to change password endpoint
+      const response = await api.post(
+        BASE_URL_AUTH + "/changePassword",
+        {
+          userId,
+          oldPassword,
+          newPassword,
+          confirmNewPassword,
+        },
+        getAuthHeaders()
+      );
 
-        if (response.data.isSuccessed === false) {
-          
-          return rejectWithValue(response.data.msg);
-        }
-        return response.data; // Return response data on success
-      } catch (error) {
-        
-        if (error.response?.status === 401) {
-            return rejectWithValue(createAuthError());
-          }
+      if (response.data.isSuccessed === false) {
+        return rejectWithValue(response.data.msg);
+      }
+      return response.data; // Return response data on success
+    } catch (error) {
+      // if (error.response?.status === 401) {
+      //   return rejectWithValue(createAuthError());
+      // }
 
-        if (error.response?.status === 400) {
-                return rejectWithValue(
-                  error.response.data?.msg || 
-                  error.message || 
-                  "Invalid request. Please check your input."
-                );
-              }
-      
+      if (error.response?.status === 400) {
         return rejectWithValue(
-          error.response?.data?.msg ||
-          error.message ||
-          "Failed to change password. Please try again."
+          error.response.data?.msg ||
+            error.message ||
+            "Invalid request. Please check your input."
         );
       }
+
+      return rejectWithValue(
+        error.response?.data?.msg ||
+          error.message ||
+          "Failed to change password. Please try again."
+      );
+    }
   }
 );
 
@@ -103,7 +101,7 @@ const authSlice = createSlice({
       // Password change successful
       .addCase(changePassword.fulfilled, (state, action) => {
         state.loading = false;
-         state.success = true;
+        state.success = true;
         state.message = action.payload.msg;
       })
       // Password change failed

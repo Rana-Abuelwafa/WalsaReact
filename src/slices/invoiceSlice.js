@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { checkAUTH } from "../helper/helperFN";
 import { createAuthError } from "../utils/authError";
-import axios from "axios";
-
+// import axios from "axios";
+import api from "../api/axios";
 const BASE_URL = process.env.REACT_APP_API_URL;
 
 const getAuthHeaders = () => {
@@ -20,7 +20,6 @@ const getAuthHeaders = () => {
 
 // Helper function to extract error message from different response formats
 const getErrorMessage = (error) => {
-  
   if (error.response?.data?.success === false) {
     return error.response.data.errors || "Operation failed";
   }
@@ -39,12 +38,12 @@ const getErrorMessage = (error) => {
 export const validateCoupon = createAsyncThunk(
   "invoice/validateCoupon",
   async (couponData, { rejectWithValue }) => {
-    if (!checkAUTH()) {
-      return rejectWithValue(createAuthError());
-    }
+    // if (!checkAUTH()) {
+    //   return rejectWithValue(createAuthError());
+    // }
 
     try {
-      const response = await axios.post(
+      const response = await api.post(
         `${BASE_URL}/ValidateClientCopoun`,
         couponData,
         getAuthHeaders()
@@ -56,9 +55,9 @@ export const validateCoupon = createAsyncThunk(
         couponData: response.data.valid ? response.data : null,
       };
     } catch (err) {
-      if (err.response?.status === 401) {
-        return rejectWithValue(createAuthError());
-      }
+      // if (err.response?.status === 401) {
+      //   return rejectWithValue(createAuthError());
+      // }
       return rejectWithValue({
         valid: false,
         msg: getErrorMessage(err),
@@ -70,11 +69,11 @@ export const validateCoupon = createAsyncThunk(
 export const UpdateInvoicePrices = createAsyncThunk(
   "invoice/updatePrices",
   async (invoiceData, { rejectWithValue }) => {
-    if (!checkAUTH()) {
-      return rejectWithValue(createAuthError());
-    }
+    // if (!checkAUTH()) {
+    //   return rejectWithValue(createAuthError());
+    // }
     try {
-      const response = await axios.post(
+      const response = await api.post(
         `${BASE_URL}/UpdateInvoicePrices`,
         invoiceData,
         getAuthHeaders()
@@ -84,9 +83,9 @@ export const UpdateInvoicePrices = createAsyncThunk(
         data: response.data,
       };
     } catch (err) {
-      if (err.response?.status === 401) {
-        return rejectWithValue(createAuthError());
-      }
+      // if (err.response?.status === 401) {
+      //   return rejectWithValue(createAuthError());
+      // }
       return rejectWithValue({
         success: false,
         msg: getErrorMessage(err),
@@ -98,24 +97,26 @@ export const UpdateInvoicePrices = createAsyncThunk(
 export const checkoutInvoice = createAsyncThunk(
   "invoice/checkout",
   async (invoiceData, { rejectWithValue }) => {
-    if (!checkAUTH()) {
-      return rejectWithValue(createAuthError());
-    }
+    // if (!checkAUTH()) {
+    //   return rejectWithValue(createAuthError());
+    // }
     try {
-      const response = await axios.post(
+      const response = await api.post(
         `${BASE_URL}/CheckoutInvoice`,
         invoiceData,
         getAuthHeaders()
       );
-      
+
       return {
         success: response.data.success,
-        msg: response.data.success ? "Checkout successful" : response.data.errors,
+        msg: response.data.success
+          ? "Checkout successful"
+          : response.data.errors,
       };
     } catch (err) {
-      if (err.response?.status === 401) {
-        return rejectWithValue(createAuthError());
-      }
+      // if (err.response?.status === 401) {
+      //   return rejectWithValue(createAuthError());
+      // }
       return rejectWithValue({
         success: false,
         msg: getErrorMessage(err),
@@ -127,25 +128,25 @@ export const checkoutInvoice = createAsyncThunk(
 export const removeInvoice = createAsyncThunk(
   "invoice/remove",
   async (invoiceData, { rejectWithValue }) => {
-    if (!checkAUTH()) {
-      return rejectWithValue(createAuthError());
-    }
+    // if (!checkAUTH()) {
+    //   return rejectWithValue(createAuthError());
+    // }
     try {
-      const response = await axios.post(
+      const response = await api.post(
         `${BASE_URL}/RemoveInvoice`,
         invoiceData,
         getAuthHeaders()
       );
-      
+
       return {
         success: response.data.success,
         msg: response.data.success ? null : response.data.errors,
-        invoice_id: invoiceData.invoice_id
+        invoice_id: invoiceData.invoice_id,
       };
     } catch (err) {
-      if (err.response?.status === 401) {
-        return rejectWithValue(createAuthError());
-      }
+      // if (err.response?.status === 401) {
+      //   return rejectWithValue(createAuthError());
+      // }
       return rejectWithValue({
         success: false,
         msg: getErrorMessage(err),
@@ -157,21 +158,21 @@ export const removeInvoice = createAsyncThunk(
 export const getInvoices = createAsyncThunk(
   "invoice/getAll",
   async (getData, { rejectWithValue }) => {
-    if (!checkAUTH()) {
-      return rejectWithValue(createAuthError());
-    }
+    // if (!checkAUTH()) {
+    //   return rejectWithValue(createAuthError());
+    // }
     try {
-      const response = await axios.post(
+      const response = await api.post(
         `${BASE_URL}/GetInvoicesByClient`,
         getData,
         getAuthHeaders()
       );
       return response.data;
     } catch (err) {
-      if (err.response?.status === 401) {
-        return rejectWithValue(createAuthError());
-      }
-       return rejectWithValue({
+      // if (err.response?.status === 401) {
+      //   return rejectWithValue(createAuthError());
+      // }
+      return rejectWithValue({
         success: false,
         msg: getErrorMessage(err),
       });
@@ -197,7 +198,6 @@ const invoiceSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-
     builder
       // Validate Coupon
       .addCase(validateCoupon.pending, (state) => {
@@ -284,7 +284,7 @@ const invoiceSlice = createSlice({
         state.error = true;
         state.message = null;
       })
-      
+
       // Update Invoice Prices
       .addCase(UpdateInvoicePrices.pending, (state) => {
         state.loading = true;
