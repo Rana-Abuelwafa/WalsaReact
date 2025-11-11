@@ -6,18 +6,18 @@ import api from "../api/axios";
 // Base URL for authentication API calls
 const BASE_URL_AUTH = process.env.REACT_APP_AUTH_API_URL;
 
-const getAuthHeaders = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
-  const accessToken = user?.accessToken;
-  let lang = localStorage.getItem("lang");
-  return {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      "Content-Type": "application/json",
-      "Accept-Language": lang,
-    },
-  };
-};
+// const getAuthHeaders = () => {
+//   const user = JSON.parse(localStorage.getItem("user"));
+//   const accessToken = user?.accessToken;
+//   let lang = localStorage.getItem("lang");
+//   return {
+//     headers: {
+//       Authorization: `Bearer ${accessToken}`,
+//       "Content-Type": "application/json",
+//       "Accept-Language": lang,
+//     },
+//   };
+// };
 
 // Async thunk for changing password
 export const changePassword = createAsyncThunk(
@@ -40,8 +40,8 @@ export const changePassword = createAsyncThunk(
           oldPassword,
           newPassword,
           confirmNewPassword,
-        },
-        getAuthHeaders()
+        }
+        //getAuthHeaders()
       );
 
       if (response.data.isSuccessed === false) {

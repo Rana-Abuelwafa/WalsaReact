@@ -5,7 +5,7 @@
   height: 100%;
   display: block;
   position: fixed;
-  top: 0;
+  top: 10%;
   left: 0;
   z-index: 9999;
 }
@@ -27,7 +27,7 @@
   padding: 20px 50px;
   // top: 25%;
   // left: 40%;
-  top: 25%;
+  top: 35%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
@@ -107,17 +107,16 @@
   }
 }
 
+.popup-header {
+  margin-bottom: 1rem;
 
- .popup-header {
-      margin-bottom: 1rem;
-      
-      .success-icon {
-        color: #28a745;
-        font-size: 2.5rem;
-      }
+  .success-icon {
+    color: #28a745;
+    font-size: 2.5rem;
+  }
 
-      .error-icon {
-        color: #dc3545;
-        font-size: 2.5rem;
-      }
-    }
+  .error-icon {
+    color: #dc3545;
+    font-size: 2.5rem;
+  }
+}

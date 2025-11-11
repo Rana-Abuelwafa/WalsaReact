@@ -5,18 +5,18 @@ import { createAuthError } from "../utils/authError";
 import api from "../api/axios";
 // Base URL for API calls from environment variables
 const BASE_URL = process.env.REACT_APP_API_URL;
-const getAuthHeaders = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
-  const accessToken = user?.accessToken;
-  let lang = localStorage.getItem("lang");
-  return {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      "Content-Type": "application/json",
-      "Accept-Language": lang,
-    },
-  };
-};
+// const getAuthHeaders = () => {
+//   const user = JSON.parse(localStorage.getItem("user"));
+//   const accessToken = user?.accessToken;
+//   let lang = localStorage.getItem("lang");
+//   return {
+//     headers: {
+//       Authorization: `Bearer ${accessToken}`,
+//       "Content-Type": "application/json",
+//       "Accept-Language": lang,
+//     },
+//   };
+// };
 // Async thunk to fetch brand data
 export const fetchBrand = createAsyncThunk(
   "brand/fetchBrand", // action type prefix
@@ -29,9 +29,9 @@ export const fetchBrand = createAsyncThunk(
     try {
       // Make POST request to get client brands
       const response = await api.post(
-        BASE_URL + "/GetClientBrands",
-        {}, // empty request body
-        getAuthHeaders()
+        BASE_URL + "/GetClientBrands"
+        // {}, // empty request body
+        // getAuthHeaders()
       );
       if (response.data.success === false) {
         return rejectWithValue(response.data.errors || "Failed to fetch brand");
@@ -67,8 +67,8 @@ export const saveBrand = createAsyncThunk(
       // Make POST request to save brand data
       const response = await api.post(
         BASE_URL + "/saveClientBrand",
-        payload,
-        getAuthHeaders()
+        payload
+        // getAuthHeaders()
       );
 
       if (response.data.success === false) {

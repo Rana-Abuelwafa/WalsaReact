@@ -5,18 +5,18 @@ import { createAuthError } from "../utils/authError";
 import api from "../api/axios";
 const BASE_URL = process.env.REACT_APP_API_URL;
 
-const getAuthHeaders = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
-  const accessToken = user?.accessToken;
-  let lang = localStorage.getItem("lang");
-  return {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      "Content-Type": "application/json",
-      "Accept-Language": lang,
-    },
-  };
-};
+// const getAuthHeaders = () => {
+//   const user = JSON.parse(localStorage.getItem("user"));
+//   const accessToken = user?.accessToken;
+//   let lang = localStorage.getItem("lang");
+//   return {
+//     headers: {
+//       Authorization: `Bearer ${accessToken}`,
+//       "Content-Type": "application/json",
+//       "Accept-Language": lang,
+//     },
+//   };
+// };
 
 // Helper function to extract error message from different response formats
 const getErrorMessage = (error) => {
@@ -45,8 +45,8 @@ export const validateCoupon = createAsyncThunk(
     try {
       const response = await api.post(
         `${BASE_URL}/ValidateClientCopoun`,
-        couponData,
-        getAuthHeaders()
+        couponData
+        //getAuthHeaders()
       );
 
       return {
@@ -75,8 +75,8 @@ export const UpdateInvoicePrices = createAsyncThunk(
     try {
       const response = await api.post(
         `${BASE_URL}/UpdateInvoicePrices`,
-        invoiceData,
-        getAuthHeaders()
+        invoiceData
+        //getAuthHeaders()
       );
       return {
         success: true,
@@ -103,8 +103,8 @@ export const checkoutInvoice = createAsyncThunk(
     try {
       const response = await api.post(
         `${BASE_URL}/CheckoutInvoice`,
-        invoiceData,
-        getAuthHeaders()
+        invoiceData
+        //getAuthHeaders()
       );
 
       return {
@@ -134,8 +134,8 @@ export const removeInvoice = createAsyncThunk(
     try {
       const response = await api.post(
         `${BASE_URL}/RemoveInvoice`,
-        invoiceData,
-        getAuthHeaders()
+        invoiceData
+        //getAuthHeaders()
       );
 
       return {
@@ -164,8 +164,8 @@ export const getInvoices = createAsyncThunk(
     try {
       const response = await api.post(
         `${BASE_URL}/GetInvoicesByClient`,
-        getData,
-        getAuthHeaders()
+        getData
+        //getAuthHeaders()
       );
       return response.data;
     } catch (err) {

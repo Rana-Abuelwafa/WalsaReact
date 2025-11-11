@@ -8,18 +8,18 @@ import api from "../api/axios";
 const BASE_URL = process.env.REACT_APP_API_URL;
 
 // Helper function to get authentication headers
-const getAuthHeaders = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
-  const accessToken = user?.accessToken;
-  let lang = localStorage.getItem("lang");
-  return {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      "Content-Type": "application/json",
-      "Accept-Language": lang,
-    },
-  };
-};
+// const getAuthHeaders = () => {
+//   const user = JSON.parse(localStorage.getItem("user"));
+//   const accessToken = user?.accessToken;
+//   let lang = localStorage.getItem("lang");
+//   return {
+//     headers: {
+//       Authorization: `Bearer ${accessToken}`,
+//       "Content-Type": "application/json",
+//       "Accept-Language": lang,
+//     },
+//   };
+// };
 
 // Helper function to update parent selection when child products are selected/deselected
 const updateParentSelection = (state, productId) => {
@@ -101,11 +101,7 @@ export const fetchProductTree = createAsyncThunk(
   async () => {
     // if (checkAUTH()) {
     // Make API call to get product tree
-    const response = await api.post(
-      `${BASE_URL}/GetProduct_Tree`,
-      {},
-      getAuthHeaders()
-    );
+    const response = await api.post(`${BASE_URL}/GetProduct_Tree`);
     return response.data;
     // } else {
     //   // Redirect to login if not authenticated
@@ -158,8 +154,8 @@ export const saveSelectedProducts = createAsyncThunk(
         // Save added products to server
         await api.post(
           `${BASE_URL}/SaveClientServices`,
-          addPayload,
-          getAuthHeaders()
+          addPayload
+          // getAuthHeaders()
         );
       }
 
@@ -178,8 +174,8 @@ export const saveSelectedProducts = createAsyncThunk(
         // Save removed products to server
         await api.post(
           `${BASE_URL}/SaveClientServices`,
-          removePayload,
-          getAuthHeaders()
+          removePayload
+          // getAuthHeaders()
         );
       }
 

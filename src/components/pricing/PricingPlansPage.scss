@@ -195,7 +195,7 @@
           position: absolute;
           top: -40px;
           left: 50%;
-          width:150px;
+          width: 150px;
           transform: translateX(-50%);
           background-color: #ffb300 !important;
           color: #fff;
@@ -336,12 +336,26 @@
       font-weight: 700;
       font-size: 40px;
       color: #542d72;
+      @media (max-width: 992px) {
+        font-size: 22px;
+      }
     }
 
     .custom-img {
-      width: 400px;
-      margin-top: 1rem;
+      max-width: 400px;
+      margin: 20px auto;
       border-radius: 20px;
+      background-color: #f7f7f7;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      img {
+        width: 120px;
+        margin-bottom: 20px;
+      }
     }
   }
 
@@ -388,9 +402,9 @@
       max-width: 100%;
     }
 
-    .custom-package p {
-      font-size: 1.8rem;
-    }
+    // .custom-package p {
+    //   font-size: 1.8rem;
+    // }
   }
 
   @media (max-width: 576px) {

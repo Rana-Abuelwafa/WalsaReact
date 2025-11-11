@@ -24,18 +24,18 @@ const NonAuthHeaders = () => {
     "Accept-Language": lang,
   };
 };
-const AuthHeaders = () => {
-  let token = localStorage.getItem("token");
-  let lang = localStorage.getItem("lang");
-  return {
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "Access-Control-Allow-Origin",
-    "Access-Control-Allow-Credentials": "true",
-    "Accept-Language": lang,
-    Authorization: "Bearer " + token,
-  };
-};
+// const AuthHeaders = () => {
+//   let token = localStorage.getItem("token");
+//   let lang = localStorage.getItem("lang");
+//   return {
+//     "Content-Type": "application/json",
+//     "Access-Control-Allow-Origin": "*",
+//     "Access-Control-Allow-Headers": "Access-Control-Allow-Origin",
+//     "Access-Control-Allow-Credentials": "true",
+//     "Accept-Language": lang,
+//     Authorization: "Bearer " + token,
+//   };
+// };
 
 //get questions list after register
 export const GetQuestionsData = createAsyncThunk(
@@ -43,9 +43,13 @@ export const GetQuestionsData = createAsyncThunk(
   async (payload, { rejectWithValue }) => {
     // if (checkAUTH()) {
     var response = await api
-      .post(BASE_URL + "/getQuesWithAnswers", payload, {
-        headers: AuthHeaders(),
-      })
+      .post(
+        BASE_URL + "/getQuesWithAnswers",
+        payload
+        //   {
+        //   headers: AuthHeaders(),
+        // }
+      )
       .then((res) => {
         return res.data;
       })
@@ -66,9 +70,13 @@ export const saveQuesList = createAsyncThunk(
   async (payload, { rejectWithValue }) => {
     // if (checkAUTH()) {
     var response = await api
-      .post(BASE_URL + "/saveRegistrationSteps", payload, {
-        headers: AuthHeaders(),
-      })
+      .post(
+        BASE_URL + "/saveRegistrationSteps",
+        payload
+        //    {
+        //   headers: AuthHeaders(),
+        // }
+      )
       .then((res) => {
         return res.data;
       })

@@ -86,7 +86,7 @@
 }
 
 .nav-item {
-  font-weight: 400 !important;
+  font-weight: bold !important;
   font-size: 16px !important;
   color: #542d72 !important;
   margin-right: 15px !important;
@@ -111,7 +111,7 @@
     color: #542d72;
     cursor: pointer;
     transition: color 0.3s ease;
-    margin-right: 15px;
+    // margin-right: 15px;
 
     &:hover {
       color: #b181d6;
@@ -268,7 +268,7 @@
 .search-form {
   position: absolute;
   top: 100%; // Position below the navbar
-  right: 0; // Align with the right side of the navbar
+  // Align with the right side of the navbar
   margin-top: 5px; // Small gap from navbar
   z-index: 1000; // Ensure it appears above other elements
   background: white; // Match navbar background
@@ -276,7 +276,12 @@
   border-radius: 6px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); // Add shadow for depth
   animation: fadeIn 0.2s ease-out;
-
+  [dir="ltr"] & {
+    right: 0 !important;
+  }
+  [dir="rtl"] & {
+    left: 0 !important;
+  }
   @keyframes fadeIn {
     from {
       opacity: 0;

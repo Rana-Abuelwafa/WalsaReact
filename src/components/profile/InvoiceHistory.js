@@ -69,6 +69,7 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
 
   const handleDownload = async (invoice) => {
     try {
+      console.log("start download");
       // Ensure we have the latest profile data
       await dispatch(fetchProfile()).unwrap();
 

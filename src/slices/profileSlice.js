@@ -6,18 +6,18 @@ import api from "../api/axios";
 // Base API URL from environment variables
 const BASE_URL = process.env.REACT_APP_API_URL;
 
-const getAuthHeaders = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
-  const accessToken = user?.accessToken;
-  let lang = localStorage.getItem("lang");
-  return {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      "Content-Type": "application/json",
-      "Accept-Language": lang,
-    },
-  };
-};
+// const getAuthHeaders = () => {
+//   const user = JSON.parse(localStorage.getItem("user"));
+//   const accessToken = user?.accessToken;
+//   let lang = localStorage.getItem("lang");
+//   return {
+//     headers: {
+//       Authorization: `Bearer ${accessToken}`,
+//       "Content-Type": "application/json",
+//       "Accept-Language": lang,
+//     },
+//   };
+// };
 
 // Helper to extract error message from different response formats
 const getErrorMessage = (error) => {
@@ -46,11 +46,7 @@ export const fetchProfile = createAsyncThunk(
 
     try {
       // Make API call to get client profiles
-      const response = await api.post(
-        BASE_URL + "/GetClientProfiles",
-        {},
-        getAuthHeaders()
-      );
+      const response = await api.post(BASE_URL + "/GetClientProfiles");
 
       return response.data?.[0] || {};
     } catch (error) {
@@ -71,11 +67,7 @@ export const saveProfile = createAsyncThunk(
     // }
     try {
       // Make API call to save profile
-      const response = await api.post(
-        BASE_URL + "/saveMainProfile",
-        formData,
-        getAuthHeaders()
-      );
+      const response = await api.post(BASE_URL + "/saveMainProfile", formData);
 
       if (response.data.success == false) {
         return rejectWithValue(response.data.errors || "Operation failed");
@@ -105,11 +97,7 @@ export const fetchProfileImage = createAsyncThunk(
     // }
     try {
       // Make API call to get profile image
-      const response = await api.post(
-        BASE_URL + "/GetProfileImage",
-        {},
-        getAuthHeaders()
-      );
+      const response = await api.post(BASE_URL + "/GetProfileImage");
 
       return response.data?.[0]?.img_path || null;
     } catch (error) {
@@ -137,12 +125,13 @@ export const uploadProfileImage = createAsyncThunk(
       const response = await api.post(
         BASE_URL + "/saveProfileImage",
         requestBody,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
+        { isFormData: true }
+        // {
+        //   headers: {
+        //     Authorization: `Bearer ${accessToken}`,
+        //     "Content-Type": "multipart/form-data",
+        //   },
+        // }
       );
 
       // Return both object URL for immediate display and API response

@@ -305,7 +305,8 @@
     "next": "التالي",
     "LoginToSelect": "الرجاء تسجيل الدخول لاختيار الباقات",
     "LoginToContinue": "الرجاء تسجيل الدخول للمتابعة",
-    "Custom": "مخصص"
+    "Custom": "مخصص",
+    "CustomService": "خصّص خدماتك"
   },
   "confirmation": {
     "termsConditions": "الشروط والأحكام",

@@ -14,7 +14,7 @@ const InvoicePreview = ({ invoice, setActiveTab }) => {
           <Button
             variant="link"
             className="mb-1"
-            onClick={() => setActiveTab("history")}
+            onClick={() => setActiveTab("MyInvoices")}
           >
             <img
               src="/images/back.png"

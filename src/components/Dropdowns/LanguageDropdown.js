@@ -89,7 +89,7 @@ const LanguageDropdown = () => {
   ];
 
   return (
-    <Dropdown className="language-dropdown">
+    <Dropdown className="language-dropdown d-inline">
       {/* Dropdown toggle button (disabled if loading) */}
       <Dropdown.Toggle id="dropdown-basic" disabled={isLoading}>
         <div className="language-toggle-content">

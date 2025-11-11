@@ -11,7 +11,7 @@ import {
   InputGroup,
 } from "react-bootstrap";
 import { GoSearch } from "react-icons/go";
-import { FiUser, FiLogOut, FiX } from "react-icons/fi";
+import { FiLogOut, FiX } from "react-icons/fi";
 import { useTranslation } from "react-multi-lang";
 import LanguageDropdown from "../Dropdowns/LanguageDropdown";
 import MenuDropdown from "../Dropdowns/MenuDropdown";
@@ -186,6 +186,8 @@ const MainNavbar = () => {
           <div className="d-flex align-items-center nav-icons">
             {/* Dropdown with user info */}
             <UserDropDown MyName={MyName} completeprofile={completeprofile} />
+            {/* Language switcher dropdown */}
+            <LanguageDropdown />
 
             {/* Search icon */}
             <div className="search-container">
@@ -214,14 +216,15 @@ const MainNavbar = () => {
                 </Form>
               )}
             </div>
-            {/* Language switcher dropdown */}
-            <LanguageDropdown />
 
             {/* Only show extra menu dropdown if not mobile */}
             {/* {!isMobile && <MenuDropdown />} */}
-            <span>{currCode}</span>
+
             {/* Logout icon if user is logged in */}
             {MyName ? <FiLogOut className="icon" onClick={logOut} /> : null}
+            <div>
+              <strong>{currCode}</strong>
+            </div>
           </div>
         </Navbar.Collapse>
       </Container>

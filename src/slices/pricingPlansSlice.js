@@ -7,18 +7,18 @@ import api from "../api/axios";
 const BROWSE_URL = process.env.REACT_APP_BROWSE_API_URL;
 const BASE_URL = process.env.REACT_APP_API_URL;
 
-const getAuthHeaders = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
-  const accessToken = user?.accessToken;
-  let lang = localStorage.getItem("lang");
-  return {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      "Content-Type": "application/json",
-      "Accept-Language": lang,
-    },
-  };
-};
+// const getAuthHeaders = () => {
+//   const user = JSON.parse(localStorage.getItem("user"));
+//   const accessToken = user?.accessToken;
+//   let lang = localStorage.getItem("lang");
+//   return {
+//     headers: {
+//       Authorization: `Bearer ${accessToken}`,
+//       "Content-Type": "application/json",
+//       "Accept-Language": lang,
+//     },
+//   };
+// };
 // Async thunk to fetch brand data
 export const fetchPricingPlans = createAsyncThunk(
   "pricingPlans/fetchPricingPlans", // action type prefix
@@ -64,14 +64,27 @@ export const saveClientServices = createAsyncThunk(
     try {
       const response = await api.post(
         BASE_URL + "/MakeClientInvoiceForPackages",
-        requestData,
-        getAuthHeaders()
+        requestData
+        //getAuthHeaders()
       );
       return response.data;
     } catch (error) {
-      if (error.response?.status === 401) {
-        return rejectWithValue(createAuthError());
-      }
+      return rejectWithValue(error.response?.data?.message || error.message);
+    }
+  }
+);
+
+//request for cutom service
+
+export const RequestForCustomPackage = createAsyncThunk(
+  "pricingPlans/RequestForCustomPackage",
+  async (lang, { rejectWithValue }) => {
+    try {
+      const response = await api.post(
+        BASE_URL + "/RequestForCustomPackage?lang=" + lang
+      );
+      return response.data;
+    } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
     }
   }
@@ -83,6 +96,7 @@ const pricingPlansSlice = createSlice({
     data: null,
     loading: false,
     error: null,
+    message: "",
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -107,6 +121,17 @@ const pricingPlansSlice = createSlice({
         state.loading = false;
       })
       .addCase(saveClientServices.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(RequestForCustomPackage.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(RequestForCustomPackage.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(RequestForCustomPackage.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

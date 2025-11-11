@@ -5,18 +5,18 @@ import { createAuthError } from "../utils/authError";
 import api from "../api/axios";
 const BASE_URL = process.env.REACT_APP_API_URL;
 
-const getAuthHeaders = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
-  const accessToken = user?.accessToken;
-  let lang = localStorage.getItem("lang");
-  return {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      "Content-Type": "application/json",
-      "Accept-Language": lang,
-    },
-  };
-};
+// const getAuthHeaders = () => {
+//   const user = JSON.parse(localStorage.getItem("user"));
+//   const accessToken = user?.accessToken;
+//   let lang = localStorage.getItem("lang");
+//   return {
+//     headers: {
+//       Authorization: `Bearer ${accessToken}`,
+//       "Content-Type": "application/json",
+//       "Accept-Language": lang,
+//     },
+//   };
+// };
 
 export const sendContactMail = createAsyncThunk(
   "contact/sendMail",
@@ -28,8 +28,8 @@ export const sendContactMail = createAsyncThunk(
     try {
       const response = await api.post(
         BASE_URL + "/SendContactMail",
-        { subject, message },
-        getAuthHeaders()
+        { subject, message }
+        //getAuthHeaders()
       );
 
       if (response.data !== true) {

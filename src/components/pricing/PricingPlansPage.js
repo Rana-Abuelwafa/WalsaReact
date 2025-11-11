@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button, Badge } from "react-bootstrap";
 import MainNavbar from "../navbars/mainNavbar";
 import MainFooter from "../footer/mainFooter";
-import { useTranslation } from "react-multi-lang";
+import { useTranslation, getLanguage } from "react-multi-lang";
 import { useNavigate } from "react-router-dom";
 import Chat from "../chatIcon/chat";
 import "./PricingPlansPage.scss";
@@ -11,6 +11,7 @@ import { formatNumber } from "../../helper/helperFN";
 import {
   fetchPricingPlans,
   saveClientServices,
+  RequestForCustomPackage,
 } from "../../slices/pricingPlansSlice";
 import {
   fetchUserCountry,
@@ -134,7 +135,7 @@ const PricingPlansPage = () => {
   const handleSelectPackage = (packageId, serviceId) => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user) {
-      setPopupMessage("Please login to select packages");
+      setPopupMessage(t("pricing.LoginToSelect"));
       setPopupType("error");
       setShowPopup(true);
       setTimeout(
@@ -161,10 +162,36 @@ const PricingPlansPage = () => {
     });
   };
 
+  const handleCustomService = () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      setPopupMessage(t("pricing.LoginToSelect"));
+      setPopupType("error");
+      setShowPopup(true);
+      setTimeout(
+        () =>
+          navigate("/login", {
+            replace: true,
+            state: { redirectPath: "/pricing", isAuthRedirect: true },
+          }),
+        2000
+      );
+      return;
+    }
+
+    //dispatch api here
+
+    const lang = localStorage.getItem("lang") || getLanguage();
+    dispatch(RequestForCustomPackage(lang)).then((result) => {
+      setPopupMessage(result.payload.message);
+      setPopupType(result.payload.success ? "success" : "error");
+      setShowPopup(true);
+    });
+  };
   const handleContinue = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user) {
-      setPopupMessage("Please login to continue");
+      setPopupMessage(t("pricing.LoginToContinue"));
       setPopupType("error");
       setShowPopup(true);
       setTimeout(() => navigate("/login"), 2000);
@@ -179,13 +206,13 @@ const PricingPlansPage = () => {
     });
   };
 
-  if (loading && !pricingData) {
-    return (
-      <div className="pricing-page">
-        <LoadingPage />
-      </div>
-    );
-  }
+  // if (loading && !pricingData) {
+  //   return (
+  //     <div className="pricing-page">
+  //       <LoadingPage />
+  //     </div>
+  //   );
+  // }
 
   if (!pricingData) {
     return null;
@@ -238,6 +265,7 @@ const PricingPlansPage = () => {
       {showPopup && (
         <PopUp msg={popupMessage} closeAlert={closePopup} type={popupType} />
       )}
+      {loading ? <LoadingPage /> : null}
       <div className="pricing-page" dir={direction}>
         <Container>
           <div className="text-center mt-5">
@@ -325,11 +353,19 @@ const PricingPlansPage = () => {
 
           <div className="custom-package text-center">
             <p>{t("pricing.custom_package")}</p>
-            <img
+            <Card className="custom-img" onClick={handleCustomService}>
+              <img
+                src="/images/custom-service.png"
+                alt="Custom Offer"
+                loading="lazy"
+              />
+              <h5>{t("pricing.CustomService")}</h5>
+            </Card>
+            {/* <img
               src="/images/customPricing.jpeg"
               alt="Custom Offer"
               className="custom-img"
-            />
+            /> */}
           </div>
         </Container>
       </div>

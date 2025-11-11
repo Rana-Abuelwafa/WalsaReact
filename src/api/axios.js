@@ -13,9 +13,16 @@ const api = axios.create({
 api.interceptors.request.use(
   async (config) => {
     // const token = getAccessToken();
+    let lang = localStorage.getItem("lang");
     const user = JSON.parse(localStorage.getItem("user"));
     const token = user?.accessToken;
-    config.headers["Content-Type"] = "application/json";
+    //config.headers["Content-Type"] = "application/json";
+    config.headers["Accept-Language"] = lang;
+    if (config.isFormData) {
+      config.headers["Content-Type"] = "multipart/form-data";
+    } else {
+      config.headers["Content-Type"] = "application/json";
+    }
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     } else {
