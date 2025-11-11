@@ -3,7 +3,7 @@ import html2canvas from "html2canvas";
 
 const downloadInvoice = async (invoiceData) => {
   const lang = invoiceData.forceLang || localStorage.getItem("lang") || "en";
-  // console.log("nnnnnnn", lang);
+  console.log("nnnnnnn", invoiceData);
   const templateFile = `/invoices/template_${lang}.html`;
 
   try {
