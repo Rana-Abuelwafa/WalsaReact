@@ -14,6 +14,7 @@ import LoadingPage from "../Loader/LoadingPage";
 import PopUp from "../shared/popoup/PopUp";
 import { FaCheck, FaTimesCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
+import { formatNumber } from "../../helper/helperFN";
 import {
   validateCoupon,
   checkoutInvoice,
@@ -22,10 +23,12 @@ import {
   clearInvoiceState,
   UpdateInvoicePrices,
 } from "../../slices/invoiceSlice";
+import { useNavigate } from "react-router-dom";
 import "./Invoice.scss";
 
 const Invoice = () => {
   const t = useTranslation();
+  const navigate = useNavigate();
   const direction = t("direction");
   const dispatch = useDispatch();
 
@@ -141,37 +144,39 @@ const Invoice = () => {
 
     try {
       const currentInvoice = invoices[activeTab];
+      console.log("currentInvoice ", currentInvoice);
       await dispatch(
         checkoutInvoice({
           status: 2,
           invoice_id: currentInvoice.invoice_id,
           invoice_code: currentInvoice.invoice_code,
           lang: currentLang,
+          //pkgs: currentInvoice.pkgs,
         })
       ).unwrap();
 
-      const getData = {
-        active: true,
-        status: 1,
-        lang_code: currentLang,
-      };
-      // Refresh invoices after successful checkout
-      const updatedInvoices = await dispatch(getInvoices(getData)).unwrap();
+      // const getData = {
+      //   active: true,
+      //   status: 1,
+      //   lang_code: currentLang,
+      // };
+      // // Refresh invoices after successful checkout
+      // const updatedInvoices = await dispatch(getInvoices(getData)).unwrap();
 
-      // Determine which tab to show after checkout
-      if (updatedInvoices.length > 0) {
-        // If the current tab still exists (unlikely after checkout), stay on it
-        // Otherwise go to the first tab
-        const newActiveTab = updatedInvoices.some(
-          (inv) => inv.invoice_id === currentInvoice.invoice_id
-        )
-          ? activeTab
-          : 0;
-        setActiveTab(newActiveTab);
-      } else {
-        // No invoices left after checkout
-        setActiveTab(0);
-      }
+      // // Determine which tab to show after checkout
+      // if (updatedInvoices.length > 0) {
+      //   // If the current tab still exists (unlikely after checkout), stay on it
+      //   // Otherwise go to the first tab
+      //   const newActiveTab = updatedInvoices.some(
+      //     (inv) => inv.invoice_id === currentInvoice.invoice_id
+      //   )
+      //     ? activeTab
+      //     : 0;
+      //   setActiveTab(newActiveTab);
+      // } else {
+      //   // No invoices left after checkout
+      //   setActiveTab(0);
+      // }
 
       // Clear any applied coupon for the checked out invoice
       setCoupons((prev) => {
@@ -186,6 +191,8 @@ const Invoice = () => {
         delete newCodes[currentInvoice.invoice_id];
         return newCodes;
       });
+      window.location.href = "/profile/MyInvoices";
+      //setTimeout(() => navigate("/profile/MyInvoices"), 200);
     } catch (error) {
       console.error("Checkout error:", error);
     }
@@ -307,7 +314,7 @@ const Invoice = () => {
                           <td className="service-text">{pkg.package_desc}</td>
 
                           <td className="service-text">
-                            {pkg.package_sale_price}
+                            {formatNumber(Number(pkg.package_sale_price))}
                           </td>
 
                           <td className="service-text">{pkg.curr_code}</td>
@@ -441,22 +448,34 @@ const Invoice = () => {
                             <div className="d-flex justify-content-between mb-2">
                               <span>{t("checkout.subtotal")}</span>
                               <span>
-                                {invoice.curr_code} {invoice.total_price}
+                                {/* {invoice.curr_code}{" "} */}
+                                {formatNumber(Number(invoice.total_price))}
                               </span>
                             </div>
                             <div className="d-flex justify-content-between mb-2">
                               <span>{t("checkout.discount")}</span>
-                              <span>{invoice.discount}</span>
+                              <span>
+                                {formatNumber(Number(invoice.discount))}
+                              </span>
                             </div>
                             <div className="d-flex justify-content-between mb-2">
                               <span>{t("checkout.giftVoucher")}</span>
                               <span>
-                                {currentCoupon != null && currentCoupon.valid
+                                {invoice.copoun_id != null &&
+                                invoice.copoun_id > 0
+                                  ? formatNumber(
+                                      Number(invoice.copoun_discount)
+                                    ) +
+                                    " " +
+                                    invoice.copoun_discount_type
+                                  : "0"}
+                                {/* {currentCoupon != null && currentCoupon.valid
                                   ? currentCoupon.discount_value
                                   : invoice.copoun_id != null &&
                                     invoice.copoun_id > 0
-                                  ? invoice.copoun_discount + "%"
-                                  : 0}
+                                  ? invoice.copoun_discount +
+                                    invoice.copoun_discount_type
+                                  : 0} */}
                               </span>
                             </div>
                             <div className="d-flex justify-content-between total-row">
@@ -466,7 +485,10 @@ const Invoice = () => {
                             <div className="d-flex justify-content-between total-row">
                               <span>{t("checkout.grandTotal")}</span>
                               <span>
-                                {invoice.curr_code} {invoice.grand_total_price}
+                                {invoice.curr_code}{" "}
+                                {formatNumber(
+                                  Number(invoice.grand_total_price)
+                                )}
                               </span>
                             </div>
                           </div>

@@ -1,9 +1,9 @@
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
-
+import { formatNumber } from "../helper/helperFN";
 const downloadInvoice = async (invoiceData) => {
   const lang = invoiceData.forceLang || localStorage.getItem("lang") || "en";
-  console.log("nnnnnnn", invoiceData);
+  //console.log("nnnnnnn", invoiceData);
   const templateFile = `/invoices/template_${lang}.html`;
 
   try {
@@ -18,9 +18,13 @@ const downloadInvoice = async (invoiceData) => {
       .replace(/{{Address}}/g, invoiceData.address)
       .replace(/{{InvoiceNo}}/g, invoiceData.InvoiceNo)
       .replace(/{{Date}}/g, invoiceData.Date)
-      .replace(/{{SubTtotal}}/g, invoiceData.SubTtotal)
+      .replace(/{{SubTtotal}}/g, formatNumber(Number(invoiceData.SubTtotal)))
       .replace(/{{Discount}}/g, invoiceData.Discount)
-      .replace(/{{Total}}/g, invoiceData.Total)
+      .replace(
+        /{{Total}}/g,
+        formatNumber(Number(invoiceData.Total)) + " " + invoiceData.curr_code
+      )
+      .replace(/{{tax_amount}}/g, formatNumber(Number(invoiceData.tax_amount)))
       .replace(/{{services}}/g, generateServicesHtml(invoiceData.services));
 
     // Create temporary div to render HTML
@@ -83,7 +87,9 @@ const generateServicesHtml = (services) => {
       <td style="padding:10px 0;">${service.package_name} - ${
         service.service_name
       }</td>
-      <td style="padding:10px 0;">${service.package_sale_price}</td>
+      <td style="padding:10px 0;">${formatNumber(
+        Number(service.package_sale_price)
+      )}</td>
     </tr>
   `
     )

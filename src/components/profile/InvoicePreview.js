@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Card, Row, Col } from "react-bootstrap";
 import { useTranslation } from "react-multi-lang";
+import { formatNumber } from "../../helper/helperFN";
 import "./InvoiceHistory.scss";
 
 const InvoicePreview = ({ invoice, setActiveTab }) => {
@@ -43,17 +44,21 @@ const InvoicePreview = ({ invoice, setActiveTab }) => {
                           <>
                             {pkg.package_price > 0 && (
                               <span className="old-price">
-                                {pkg.package_price} {pkg.curr_code}
+                                {formatNumber(Number(pkg.package_price))}{" "}
+                                {pkg.curr_code}
                               </span>
                             )}
                             {pkg.package_sale_price > 0 && (
                               <span className="current-price ms-2">
-                                {pkg.package_sale_price} {pkg.curr_code}
+                                {formatNumber(Number(pkg.package_sale_price))}{" "}
+                                {pkg.curr_code}
                               </span>
                             )}
                           </>
                         ) : (
-                          <span className="old-price custom-price">Custom</span>
+                          <span className="old-price custom-price">
+                            {t("pricing.Custom")}
+                          </span>
                         )}
                       </div>
                       <hr className="pricingHr" />

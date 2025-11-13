@@ -9,6 +9,7 @@ import {
   FaMoneyBillWave,
   FaTimesCircle,
 } from "react-icons/fa";
+import { formatNumber } from "../../helper/helperFN";
 import { useDispatch, useSelector } from "react-redux";
 import { getInvoices, clearInvoiceState } from "../../slices/invoiceSlice";
 import { fetchProfile } from "../../slices/profileSlice";
@@ -69,7 +70,7 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
 
   const handleDownload = async (invoice) => {
     try {
-      console.log("start download");
+      //console.log("start download", invoice.copoun_discount);
       // Ensure we have the latest profile data
       await dispatch(fetchProfile()).unwrap();
 
@@ -81,8 +82,14 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
         InvoiceNo: invoice.invoice_code || "",
         Date: invoice.invoice_date || new Date().toLocaleDateString(),
         SubTtotal: invoice.total_price || "0",
-        Discount: invoice.discount || "0",
+        // Discount: invoice.discount || "0",
+        Discount:
+          invoice.copoun_discount != null
+            ? invoice.copoun_discount + invoice.copoun_discount_type
+            : "0",
+        curr_code: invoice.curr_code || "EGP",
         Total: invoice.grand_total_price || "0",
+        tax_amount: invoice.tax_amount || 0,
         services: invoice.pkgs || [],
       });
     } catch (error) {
@@ -96,8 +103,13 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
         InvoiceNo: invoice.invoice_code || "",
         Date: invoice.invoice_date || new Date().toLocaleDateString(),
         SubTtotal: invoice.total_price || "0",
-        Discount: invoice.discount || "0",
+        Discount:
+          invoice.copoun_discount != null
+            ? invoice.copoun_discount + invoice.copoun_discount_type
+            : "0",
+        curr_code: invoice.curr_code || "EGP",
         Total: invoice.grand_total_price || "0",
+        tax_amount: invoice.tax_amount || 0,
         services: invoice.pkgs || [],
       });
     }
@@ -179,7 +191,9 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
                 <tr key={index} className="invoice-row">
                   <td className="service-text">{invoice.invoice_code}</td>
 
-                  <td className="service-text">{invoice.grand_total_price}</td>
+                  <td className="service-text">
+                    {formatNumber(Number(invoice.grand_total_price))}
+                  </td>
 
                   <td className="service-text">{invoice.curr_code}</td>
 

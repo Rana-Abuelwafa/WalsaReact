@@ -49,7 +49,7 @@
                 </tr>
             </table>
             <hr style="margin: 30px 0;" />
-            <table style="width:100%; margin: 20px auto;border-collapse:collapse;text-align: left;">
+            <table style="width:100%; margin: 20px auto;border-collapse:collapse;text-align: right;">
                 <tr style="border-bottom:1px solid #ccc">
                     <th style="padding: 5px;">تسلسل</th>
                     <th style="padding: 5px;">وصف المنتج</th>
@@ -70,7 +70,16 @@
                 </tr>
                 <tr>
                     <th colspan="2"></th>
-                    <th>لسعر النهائي</th>
+                    <th style="border-bottom: 1px solid #ccc; padding: 10px 0">
+                        الضريبة
+                    </th>
+                    <td style="padding: 10px 0; border-bottom: 1px solid #ccc">
+                        {{tax_amount}}
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="2"></th>
+                    <th>السعرالنهائي</th>
                     <td style="padding:10px 0;">{{Total}}</td>
                 </tr>
             </table>
