@@ -57,19 +57,26 @@ const Section = ({
                   ) : plan.oldPrice == plan.price ? (
                     plan.price > 0 && (
                       <span className="current-price ms-2">
-                        {formatNumber(Number(plan.price))} {plan.curr_code}
+                        {formatNumber(Number(plan.price))}
+                        <small className="price_info">
+                          ({t("pricing.PerMonth")})
+                        </small>
                       </span>
                     )
                   ) : (
                     <>
                       {plan.oldPrice > 0 && (
                         <span className="old-price">
-                          {formatNumber(Number(plan.oldPrice))} {plan.curr_code}
+                          {formatNumber(Number(plan.oldPrice))}{" "}
+                          {/* <small>({t("pricing.PerMonth")})</small> */}
                         </span>
                       )}
                       {plan.price > 0 && (
                         <span className="current-price ms-2">
-                          {formatNumber(Number(plan.price))} {plan.curr_code}
+                          {formatNumber(Number(plan.price))}{" "}
+                          <small className="price_info">
+                            ({t("pricing.PerMonth")})
+                          </small>
                         </span>
                       )}
                     </>
@@ -118,13 +125,17 @@ const PricingPlansPage = () => {
   const currentLang =
     useSelector((state) => state.language.currentLang) || "en";
   const currency =
-    useSelector((state) => state.currency.currentCurrency) || "USD";
+    useSelector((state) => state.currency.currentCurrency) || "EGP";
 
   useEffect(() => {
     if (currentLang && currency)
       dispatch(fetchPricingPlans({ lang: currentLang, curr_code: currency }));
   }, [dispatch, currentLang, currency]);
-
+  // useEffect(() => {
+  //   const currentLang = localStorage.getItem("lang") || getLanguage();
+  //   const currency = localStorage.getItem("currency") || "EGP";
+  //   dispatch(fetchPricingPlans({ lang: currentLang, curr_code: currency }));
+  // }, [dispatch]);
   useEffect(() => {
     if (error) {
       setPopupMessage(error);
@@ -214,12 +225,12 @@ const PricingPlansPage = () => {
   //   );
   // }
 
-  if (!pricingData) {
-    return null;
-  }
+  // if (!pricingData) {
+  //   return null;
+  // }
 
   const transformData = (data) => {
-    return data.map((service) => ({
+    return data?.map((service) => ({
       service_id: service.service_id,
       serviceName: service.service_name,
       pkgs: service.pkgs
@@ -244,13 +255,13 @@ const PricingPlansPage = () => {
   };
 
   const transformedData = transformData(pricingData);
-  const activeServices = transformedData.filter(
-    (service) => service.pkgs.length > 0
-  );
+  // const activeServices = transformedData.filter(
+  //   (service) => service.pkgs.length > 0
+  // );
 
   // Check if at least one package is selected in each section
   const isContinueDisabled = Object.keys(selectedPackages).length === 0;
-
+  // console.log("loading ", loading);
   return (
     <>
       <MetaTagsSeo
@@ -265,7 +276,7 @@ const PricingPlansPage = () => {
       {showPopup && (
         <PopUp msg={popupMessage} closeAlert={closePopup} type={popupType} />
       )}
-      {loading ? <LoadingPage /> : null}
+
       <div className="pricing-page" dir={direction}>
         <Container>
           <div className="text-center mt-5">
@@ -277,7 +288,7 @@ const PricingPlansPage = () => {
           </div>
 
           {/* Render sections dynamically based on API data */}
-          {activeServices.map((service) => (
+          {/* {activeServices.map((service) => (
             <Section
               key={service.service_id}
               title={service.serviceName}
@@ -286,17 +297,32 @@ const PricingPlansPage = () => {
               serviceId={service.service_id}
               selectedPackageId={selectedPackages[service.service_id]}
             />
-          ))}
-
-          <div className="continue-btn-container">
-            <button
-              className="continue-btn"
-              onClick={handleContinue}
-              disabled={isContinueDisabled}
-            >
-              {t("pricing.next")}
-            </button>
-          </div>
+          ))} */}
+          {transformedData != null && transformedData.length > 0 ? (
+            <>
+              {transformedData
+                .filter((service) => service.pkgs.length > 0)
+                .map((service) => (
+                  <Section
+                    key={service.service_id}
+                    title={service.serviceName}
+                    items={service.pkgs}
+                    onSelectPackage={handleSelectPackage}
+                    serviceId={service.service_id}
+                    selectedPackageId={selectedPackages[service.service_id]}
+                  />
+                ))}
+              <div className="continue-btn-container">
+                <button
+                  className="continue-btn"
+                  onClick={handleContinue}
+                  disabled={isContinueDisabled}
+                >
+                  {t("pricing.next")}
+                </button>
+              </div>
+            </>
+          ) : null}
 
           <div className="payment-security-section mt-5 mb-4">
             <Container>
@@ -371,6 +397,7 @@ const PricingPlansPage = () => {
       </div>
       <MainFooter />
       <Chat />
+      {loading ? <LoadingPage /> : null}
     </>
   );
 };

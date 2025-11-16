@@ -144,7 +144,7 @@ const Invoice = () => {
 
     try {
       const currentInvoice = invoices[activeTab];
-      console.log("currentInvoice ", currentInvoice);
+      //.log("currentInvoice ", currentInvoice);
       await dispatch(
         checkoutInvoice({
           status: 2,
@@ -194,7 +194,7 @@ const Invoice = () => {
       window.location.href = "/profile/MyInvoices";
       //setTimeout(() => navigate("/profile/MyInvoices"), 200);
     } catch (error) {
-      console.error("Checkout error:", error);
+      //console.error("Checkout error:", error);
     }
   };
 
@@ -299,7 +299,12 @@ const Invoice = () => {
                         <th>{t("checkout.service")}</th>
                         <th>{t("checkout.package")}</th>
                         <th>{t("checkout.details")}</th>
-                        <th>{t("checkout.price")}</th>
+                        <th>
+                          {t("checkout.price")}{" "}
+                          <small className="price_info">
+                            ({t("pricing.PerMonth")})
+                          </small>
+                        </th>
                         <th>{t("checkout.currency")}</th>
                         <th>{t("checkout.state")}</th>
                       </tr>
@@ -450,6 +455,9 @@ const Invoice = () => {
                               <span>
                                 {/* {invoice.curr_code}{" "} */}
                                 {formatNumber(Number(invoice.total_price))}
+                                <small className="price_info">
+                                  ({t("pricing.PerYear")})
+                                </small>
                               </span>
                             </div>
                             <div className="d-flex justify-content-between mb-2">
@@ -489,6 +497,9 @@ const Invoice = () => {
                                 {formatNumber(
                                   Number(invoice.grand_total_price)
                                 )}
+                                <small className="price_info">
+                                  ({t("pricing.PerYear")})
+                                </small>
                               </span>
                             </div>
                           </div>

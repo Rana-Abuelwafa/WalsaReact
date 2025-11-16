@@ -306,7 +306,9 @@
     "LoginToSelect": "Bitte melden Sie sich an, um Pakete auszuwählen.",
     "LoginToContinue": "Bitte melden Sie sich an, um fortzufahren",
     "Custom": "Brauch",
-    "CustomService": "Passe deine Dienstleistungen an"
+    "CustomService": "Passe deine Dienstleistungen an",
+    "PerMonth": "Monatlich",
+    "PerYear": "Jährlich"
   },
   "confirmation": {
     "termsConditions": "Allgemeine Geschäftsbedingungen",

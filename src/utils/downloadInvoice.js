@@ -20,10 +20,7 @@ const downloadInvoice = async (invoiceData) => {
       .replace(/{{Date}}/g, invoiceData.Date)
       .replace(/{{SubTtotal}}/g, formatNumber(Number(invoiceData.SubTtotal)))
       .replace(/{{Discount}}/g, invoiceData.Discount)
-      .replace(
-        /{{Total}}/g,
-        formatNumber(Number(invoiceData.Total)) + " " + invoiceData.curr_code
-      )
+      .replace(/{{Total}}/g, formatNumber(Number(invoiceData.Total)))
       .replace(/{{tax_amount}}/g, formatNumber(Number(invoiceData.tax_amount)))
       .replace(/{{services}}/g, generateServicesHtml(invoiceData.services));
 

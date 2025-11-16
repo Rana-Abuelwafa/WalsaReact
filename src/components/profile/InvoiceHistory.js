@@ -179,7 +179,10 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
             <thead>
               <tr>
                 <th>{t("invoiceHistory.invoiceCode")}</th>
-                <th>{t("invoiceHistory.price")}</th>
+                <th>
+                  {t("invoiceHistory.price")}{" "}
+                  <small className="price_info">({t("pricing.PerYear")})</small>
+                </th>
                 <th>{t("invoiceHistory.currency")}</th>
                 <th>{t("invoiceHistory.date")}</th>
                 <th>{t("invoiceHistory.status")}</th>
@@ -193,6 +196,9 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
 
                   <td className="service-text">
                     {formatNumber(Number(invoice.grand_total_price))}
+                    {/* <small className="price_info">
+                      ({t("pricing.PerYear")})
+                    </small> */}
                   </td>
 
                   <td className="service-text">{invoice.curr_code}</td>

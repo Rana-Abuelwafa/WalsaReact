@@ -45,6 +45,7 @@ export const fetchPricingPlans = createAsyncThunk(
         requestParams
       );
       // Find and return the brand matching the clientId
+      // console.log("response.data ", response.data);
       return response.data;
     } catch (error) {
       // Return error message if request fails

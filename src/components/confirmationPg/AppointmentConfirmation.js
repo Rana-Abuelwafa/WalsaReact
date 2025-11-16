@@ -79,7 +79,7 @@ const AppointmentConfirmation = () => {
   const currentLang =
     useSelector((state) => state.language.currentLang) || "en";
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     if (!agreed) return;
 
     try {
@@ -112,12 +112,28 @@ const AppointmentConfirmation = () => {
         }
       );
 
-      await dispatch(saveClientServices(invoiceData)).unwrap();
-      setPopupMessage("");
-      setPopupType("success");
-      setShowPopup(true);
-      setPopupIcon(<FaCheck className="success-icon" size={30} />);
-      setTimeout(() => navigate("/profile/MyCart"), 2000);
+      dispatch(saveClientServices(invoiceData)).then((result) => {
+        if (result.payload && result.payload.success == true) {
+          setPopupMessage("");
+          setPopupType("success");
+          setShowPopup(true);
+          setPopupIcon(<FaCheck className="success-icon" size={30} />);
+          setTimeout(() => navigate("/profile/MyCart"), 2000);
+        } else {
+          setPopupMessage(result.payload.errors);
+          setPopupType("error");
+          setShowPopup(true);
+          setPopupIcon(<FaTimesCircle className="error-icon" size={30} />);
+          setTimeout(() => navigate("/pricing"), 2000);
+        }
+      });
+
+      // dispatch(saveClientServices(invoiceData)).unwrap();
+      // setPopupMessage("");
+      // setPopupType("success");
+      // setShowPopup(true);
+      // setPopupIcon(<FaCheck className="success-icon" size={30} />);
+      // setTimeout(() => navigate("/profile/MyCart"), 2000);
     } catch (error) {
       setPopupMessage(error || t("product.save_error"));
       setPopupIcon(<FaTimesCircle className="error-icon" size={24} />);

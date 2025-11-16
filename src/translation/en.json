@@ -306,7 +306,9 @@
     "LoginToSelect": "Please login to select packages",
     "LoginToContinue": "Please login to continue",
     "Custom": "Custom",
-    "CustomService": "Custom Your Services"
+    "CustomService": "Custom Your Services",
+    "PerMonth": "Monthly",
+    "PerYear": "Yearly"
   },
   "confirmation": {
     "termsConditions": "Terms & Conditions",

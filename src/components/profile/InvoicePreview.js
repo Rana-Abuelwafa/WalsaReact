@@ -45,13 +45,16 @@ const InvoicePreview = ({ invoice, setActiveTab }) => {
                             {pkg.package_price > 0 && (
                               <span className="old-price">
                                 {formatNumber(Number(pkg.package_price))}{" "}
-                                {pkg.curr_code}
+                                {/* {pkg.curr_code} */}
                               </span>
                             )}
                             {pkg.package_sale_price > 0 && (
                               <span className="current-price ms-2">
                                 {formatNumber(Number(pkg.package_sale_price))}{" "}
-                                {pkg.curr_code}
+                                {/* {pkg.curr_code} */}
+                                <small className="price_info">
+                                  ({t("pricing.PerMonth")})
+                                </small>
                               </span>
                             )}
                           </>

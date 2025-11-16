@@ -306,7 +306,9 @@
     "LoginToSelect": "الرجاء تسجيل الدخول لاختيار الباقات",
     "LoginToContinue": "الرجاء تسجيل الدخول للمتابعة",
     "Custom": "مخصص",
-    "CustomService": "خصّص خدماتك"
+    "CustomService": "خصّص خدماتك",
+    "PerMonth": "شهري",
+    "PerYear": "سنوى"
   },
   "confirmation": {
     "termsConditions": "الشروط والأحكام",
