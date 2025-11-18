@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoadingPage from "./components/Loader/LoadingPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "react-phone-number-input/style.css";
 import {
   fetchUserCountry,
   getCurrencyFromCountry,
@@ -163,9 +164,9 @@ function App() {
             <Route
               path="/pricing"
               element={
-                // <Validuser>
-                <Pricing />
-                // </Validuser>
+                <Validuser>
+                  <Pricing />
+                </Validuser>
               }
             />
             <Route

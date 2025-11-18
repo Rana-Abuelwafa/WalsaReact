@@ -115,7 +115,7 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
     }
   };
 
-  const filteredInvoices = invoices.filter((invoice) =>
+  const filteredInvoices = invoices?.filter((invoice) =>
     invoice.invoice_code.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -181,7 +181,7 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
                 <th>{t("invoiceHistory.invoiceCode")}</th>
                 <th>
                   {t("invoiceHistory.price")}{" "}
-                  <small className="price_info">({t("pricing.PerYear")})</small>
+                  {/* <small className="price_info">({t("pricing.PerYear")})</small> */}
                 </th>
                 <th>{t("invoiceHistory.currency")}</th>
                 <th>{t("invoiceHistory.date")}</th>
@@ -190,7 +190,7 @@ const InvoiceHistory = ({ setActiveTab, setPreviewInvoice }) => {
               </tr>
             </thead>
             <tbody>
-              {filteredInvoices.map((invoice, index) => (
+              {filteredInvoices?.map((invoice, index) => (
                 <tr key={index} className="invoice-row">
                   <td className="service-text">{invoice.invoice_code}</td>
 

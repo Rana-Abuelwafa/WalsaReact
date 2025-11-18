@@ -231,7 +231,8 @@
     "saving": "Saving...",
     "save": "Save",
     "update": "Update",
-    "CompleteProfileErr": "You did not Answer to Registeration's Questions , You should Complete these steps to can continu",
+    "CompleteQuesErr": "You did not Answer to Registeration's Questions , You should Complete these steps to can continu",
+    "CompleteProfileErr": "Please Complete Your Profile First",
     "MailConfirmedErr": "You did not Confirm Your Mail"
   },
   "profile": {
@@ -308,7 +309,8 @@
     "Custom": "Custom",
     "CustomService": "Custom Your Services",
     "PerMonth": "Monthly",
-    "PerYear": "Yearly"
+    "PerYear": "Yearly",
+    "PerProject": "Per Project"
   },
   "confirmation": {
     "termsConditions": "Terms & Conditions",

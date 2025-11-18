@@ -14,10 +14,10 @@
       background-color: #f7f7f7;
     ">
   <div style="
-        max-width: 600px;
+        max-width: 700px;
         margin: 20px auto;
         background-color: #ffffff;
-        padding: 30px;
+        padding: 20px 10px;
         border: 1px solid #ddd;
       ">
     <div style="text-align: center; border-bottom: 1px solid #707070">
@@ -69,9 +69,9 @@
             text-align: left;
           ">
         <tr style="border-bottom: 1px solid #ccc">
-          <th style="padding: 5px">No.</th>
-          <th style="padding: 5px">Product Item Description</th>
-          <th style="padding: 5px">Price (Monthly)</th>
+          <th style="padding: 5px 8px">No.</th>
+          <th style="padding: 5px 80px">Product Item Description</th>
+          <th style="padding: 5px 8px">Price</th>
         </tr>
 
         {{services}}
@@ -81,8 +81,8 @@
           <th style="border-bottom: 1px solid #ccc; padding: 10px 0">
             Sub Total
           </th>
-          <td style="padding: 10px 0; border-bottom: 1px solid #ccc">
-            {{SubTtotal}} (Yearly)
+          <td style="padding: 10px 5px; border-bottom: 1px solid #ccc">
+            {{SubTtotal}}
           </td>
         </tr>
         <tr>
@@ -90,7 +90,7 @@
           <th style="border-bottom: 1px solid #ccc; padding: 10px 0">
             Discount
           </th>
-          <td style="padding: 10px 0; border-bottom: 1px solid #ccc">
+          <td style="padding: 10px 5px; border-bottom: 1px solid #ccc">
             {{Discount}}
           </td>
         </tr>
@@ -99,7 +99,7 @@
           <th style="border-bottom: 1px solid #ccc; padding: 10px 0">
             Vat
           </th>
-          <td style="padding: 10px 0; border-bottom: 1px solid #ccc">
+          <td style="padding: 10px 5px; border-bottom: 1px solid #ccc">
             {{tax_amount}}
           </td>
         </tr>
@@ -107,7 +107,7 @@
         <tr>
           <th colspan="2"></th>
           <th>Total</th>
-          <td style="padding: 10px 0">{{Total}} (Yearly)</td>
+          <td style="padding: 10px 5px">{{Total}}</td>
         </tr>
       </table>
     </div>

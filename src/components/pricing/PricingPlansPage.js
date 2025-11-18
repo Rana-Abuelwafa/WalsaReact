@@ -30,7 +30,7 @@ const Section = ({
 }) => {
   const t = useTranslation();
   const navigate = useNavigate();
-
+  const currencySymbol = localStorage.getItem("currencySymbol");
   return (
     <div className="pricing-section">
       <h3 className="section-title">{title}</h3>
@@ -57,9 +57,12 @@ const Section = ({
                   ) : plan.oldPrice == plan.price ? (
                     plan.price > 0 && (
                       <span className="current-price ms-2">
-                        {formatNumber(Number(plan.price))}
+                        {formatNumber(Number(plan.price))}{" "}
+                        <small className="price_sym">{currencySymbol}</small>
                         <small className="price_info">
-                          ({t("pricing.PerMonth")})
+                          {plan.price_calc_type == 3
+                            ? t("pricing.PerProject")
+                            : t("pricing.PerMonth")}
                         </small>
                       </span>
                     )
@@ -68,15 +71,16 @@ const Section = ({
                       {plan.oldPrice > 0 && (
                         <span className="old-price">
                           {formatNumber(Number(plan.oldPrice))}{" "}
-                          {/* <small>({t("pricing.PerMonth")})</small> */}
+                          <small className="price_sym">{currencySymbol}</small>
                         </span>
                       )}
                       {plan.price > 0 && (
                         <span className="current-price ms-2">
-                          {formatNumber(Number(plan.price))}{" "}
-                          <small className="price_info">
-                            ({t("pricing.PerMonth")})
-                          </small>
+                          {formatNumber(Number(plan.price))}
+                          <small className="price_sym">{currencySymbol}</small>
+                          {plan.price_calc_type == 3
+                            ? t("pricing.PerProject")
+                            : t("pricing.PerMonth")}
                         </span>
                       )}
                     </>
@@ -243,6 +247,7 @@ const PricingPlansPage = () => {
           isCustom: pkg.is_custom,
           isSelected: pkg.isSelected,
           service_package_id: pkg.service_package_id,
+          price_calc_type: pkg.price_calc_type,
         }))
         .sort((a, b) => a.order - b.order),
     }));

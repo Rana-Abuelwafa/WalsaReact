@@ -4,6 +4,7 @@ import { MdOutlineCameraAlt, MdOutlinePayment } from "react-icons/md";
 import defaultProfileImg from "../../imgs/profileImg.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-multi-lang";
+import PhoneInput from "react-phone-number-input";
 import {
   fetchProfile,
   saveProfile,
@@ -20,7 +21,7 @@ import "./ProfileSettings.scss";
 const ProfileSettings = () => {
   // Internationalization hook for translations
   const t = useTranslation();
-
+  const [errors, setErrors] = useState({});
   // Get user data from localStorage
   const user = JSON.parse(localStorage.getItem("user"));
   const accessToken = user?.accessToken;
@@ -208,9 +209,27 @@ const ProfileSettings = () => {
     }));
   };
 
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.phone_number) {
+      newErrors.phone = t("profile.enter_phone");
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+  const handlePhoneChange = (value) => {
+    setFormData((prev) => ({
+      ...prev,
+      phone_number: value,
+    }));
+  };
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!validateForm()) {
+      return;
+    }
     const updatedFormData = {
       ...formData,
       // Ensure birthday components are properly formatted
@@ -332,7 +351,7 @@ const ProfileSettings = () => {
               </div>
 
               {/* Phone number field */}
-              <div className="input-group">
+              {/* <div className="input-group">
                 <Form.Label>{t("profile.phone")}</Form.Label>
                 <Form.Control
                   type="text"
@@ -343,8 +362,24 @@ const ProfileSettings = () => {
                   className="custom-input"
                   required
                 />
-              </div>
-
+              </div> */}
+              <Form.Group className="input-group">
+                <Form.Label>{t("profile.phone")}</Form.Label>
+                <PhoneInput
+                  international
+                  countryCallingCodeEditable={false}
+                  defaultCountry="EG"
+                  name="phone_number"
+                  value={formData.phone_number}
+                  onChange={handlePhoneChange}
+                  placeholder={t("profile.phone")}
+                  className="custom-input"
+                  // className={`phone-input ${errors.phone ? "is-invalid" : ""}`}
+                />
+                {errors.phone && (
+                  <div className="error-message">{errors.phone}</div>
+                )}
+              </Form.Group>
               {/* Nationality field */}
               <div className="input-group">
                 <Form.Label>{t("profile.nation")}</Form.Label>

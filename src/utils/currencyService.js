@@ -19,6 +19,14 @@ export const getCurrencyFromCountry = async (countryCode) => {
   const response = await fetch(
     "https://restcountries.com/v3.1/name/" + countryCode + "?fields=currencies"
   );
+
   let data = await response.json();
-  return Object.keys(data[0].currencies)[0]; // e.g., "USD"
+  const currencies = data[0].currencies;
+
+  //let currency = Object.keys(data[0].currencies)[0]; // e.g., "USD"
+  const currencyCode = Object.keys(currencies)[0]; // e.g., "EGP"
+  const currencySymbol = currencies[currencyCode]?.symbol; // e.g., "£"
+  localStorage.setItem("currencySymbol", currencySymbol);
+  console.log("currencySymbol ", currencySymbol);
+  return currencyCode;
 };

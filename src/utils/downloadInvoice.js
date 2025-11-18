@@ -18,9 +18,17 @@ const downloadInvoice = async (invoiceData) => {
       .replace(/{{Address}}/g, invoiceData.address)
       .replace(/{{InvoiceNo}}/g, invoiceData.InvoiceNo)
       .replace(/{{Date}}/g, invoiceData.Date)
-      .replace(/{{SubTtotal}}/g, formatNumber(Number(invoiceData.SubTtotal)))
+      .replace(
+        /{{SubTtotal}}/g,
+        formatNumber(Number(invoiceData.SubTtotal)) +
+          " " +
+          invoiceData.curr_code
+      )
       .replace(/{{Discount}}/g, invoiceData.Discount)
-      .replace(/{{Total}}/g, formatNumber(Number(invoiceData.Total)))
+      .replace(
+        /{{Total}}/g,
+        formatNumber(Number(invoiceData.Total)) + " " + invoiceData.curr_code
+      )
       .replace(/{{tax_amount}}/g, formatNumber(Number(invoiceData.tax_amount)))
       .replace(/{{services}}/g, generateServicesHtml(invoiceData.services));
 
@@ -80,13 +88,16 @@ const generateServicesHtml = (services) => {
     .map(
       (service, i) => `
     <tr style="border-bottom:1px solid #ccc">
-      <td style="padding:10px 0;">${i + 1}</td>
-      <td style="padding:10px 0;">${service.package_name} - ${
+      <td style="padding:10px 10px;">${i + 1}</td>
+      <td style="padding:10px 10px;">${service.package_name} - ${
         service.service_name
       }</td>
-      <td style="padding:10px 0;">${formatNumber(
-        Number(service.package_sale_price)
-      )}</td>
+      <td style="padding:10px 10px;">
+      ${formatNumber(Number(service.package_sale_price))}
+      <small className="price_info">
+       (${service.price_calc_type_str})
+                                </small>
+      </td>
     </tr>
   `
     )

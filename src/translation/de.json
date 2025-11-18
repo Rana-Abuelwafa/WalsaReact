@@ -231,7 +231,8 @@
     "saving": "Wird gespeichert...",
     "save": "Save",
     "update": "Update",
-    "CompleteProfileErr": "Sie haben die Registrierungsfragen nicht beantwortet. Sie sollten diese Schritte ausführen, um fortfahren zu können",
+    "CompleteQuesErr": "Sie haben die Registrierungsfragen nicht beantwortet. Sie sollten diese Schritte ausführen, um fortfahren zu können",
+    "CompleteProfileErr": "Bitte vervollständigen Sie zuerst Ihr Profil",
     "MailConfirmedErr": "Sie haben Ihre E-Mail nicht bestätigt"
   },
   "profile": {
@@ -308,7 +309,8 @@
     "Custom": "Brauch",
     "CustomService": "Passe deine Dienstleistungen an",
     "PerMonth": "Monatlich",
-    "PerYear": "Jährlich"
+    "PerYear": "Jährlich",
+    "PerProject": "Preis pro Projekt"
   },
   "confirmation": {
     "termsConditions": "Allgemeine Geschäftsbedingungen",

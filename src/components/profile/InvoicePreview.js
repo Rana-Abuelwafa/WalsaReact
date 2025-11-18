@@ -7,7 +7,7 @@ import "./InvoiceHistory.scss";
 const InvoicePreview = ({ invoice, setActiveTab }) => {
   const t = useTranslation();
   const direction = t("direction");
-
+  const currencySymbol = localStorage.getItem("currencySymbol");
   return (
     <div className="history-page" dir={direction}>
       <Card className="history-card">
@@ -44,16 +44,24 @@ const InvoicePreview = ({ invoice, setActiveTab }) => {
                           <>
                             {pkg.package_price > 0 && (
                               <span className="old-price">
-                                {formatNumber(Number(pkg.package_price))}{" "}
+                                {formatNumber(Number(pkg.package_price))}
+                                <small className="price_sym">
+                                  {currencySymbol}
+                                </small>
                                 {/* {pkg.curr_code} */}
                               </span>
                             )}
                             {pkg.package_sale_price > 0 && (
                               <span className="current-price ms-2">
-                                {formatNumber(Number(pkg.package_sale_price))}{" "}
+                                {formatNumber(Number(pkg.package_sale_price))}
+                                <small className="price_sym">
+                                  {currencySymbol}
+                                </small>
                                 {/* {pkg.curr_code} */}
                                 <small className="price_info">
-                                  ({t("pricing.PerMonth")})
+                                  {pkg.price_calc_type == 3
+                                    ? t("pricing.PerProject")
+                                    : t("pricing.PerMonth")}
                                 </small>
                               </span>
                             )}

@@ -46,7 +46,7 @@ const Invoice = () => {
 
   const currentLang =
     useSelector((state) => state.language.currentLang) || "en";
-
+  const currencySymbol = localStorage.getItem("currencySymbol");
   useEffect(() => {
     if (invoices.length > 0) {
       // if (activeTab >= invoices.length) {
@@ -301,9 +301,9 @@ const Invoice = () => {
                         <th>{t("checkout.details")}</th>
                         <th>
                           {t("checkout.price")}{" "}
-                          <small className="price_info">
+                          {/* <small className="price_info">
                             ({t("pricing.PerMonth")})
-                          </small>
+                          </small> */}
                         </th>
                         <th>{t("checkout.currency")}</th>
                         <th>{t("checkout.state")}</th>
@@ -320,6 +320,11 @@ const Invoice = () => {
 
                           <td className="service-text">
                             {formatNumber(Number(pkg.package_sale_price))}
+                            <small className="price_info">
+                              {pkg.price_calc_type == 3
+                                ? t("pricing.PerProject")
+                                : t("pricing.PerMonth")}
+                            </small>
                           </td>
 
                           <td className="service-text">{pkg.curr_code}</td>
@@ -451,14 +456,20 @@ const Invoice = () => {
                         <>
                           <div className="price-details mt-3">
                             <div className="d-flex justify-content-between mb-2">
-                              <span>{t("checkout.subtotal")}</span>
                               <span>
+                                {t("checkout.subtotal")}{" "}
+                                {/* <small className="price_info">
+                                  ({t("pricing.PerYear")})
+                                </small> */}
+                              </span>
+
+                              <strong>
                                 {/* {invoice.curr_code}{" "} */}
                                 {formatNumber(Number(invoice.total_price))}
                                 <small className="price_info">
-                                  ({t("pricing.PerYear")})
+                                  {currencySymbol}
                                 </small>
-                              </span>
+                              </strong>
                             </div>
                             <div className="d-flex justify-content-between mb-2">
                               <span>{t("checkout.discount")}</span>
@@ -491,16 +502,24 @@ const Invoice = () => {
                               <span>{invoice.tax_amount}</span>
                             </div>
                             <div className="d-flex justify-content-between total-row">
-                              <span>{t("checkout.grandTotal")}</span>
                               <span>
-                                {invoice.curr_code}{" "}
+                                {t("checkout.grandTotal")}
+                                {/* <small className="price_info">
+                                  ({t("pricing.PerYear")})
+                                </small> */}
+                              </span>
+
+                              <strong>
                                 {formatNumber(
                                   Number(invoice.grand_total_price)
                                 )}
                                 <small className="price_info">
-                                  ({t("pricing.PerYear")})
+                                  {currencySymbol}{" "}
                                 </small>
-                              </span>
+                                {/* <small className="price_info">
+                                  ({t("pricing.PerYear")})
+                                </small> */}
+                              </strong>
                             </div>
                           </div>
                           <div className="checkout-btn-container text-end mt-4">

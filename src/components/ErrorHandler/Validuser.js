@@ -11,6 +11,7 @@ function Validuser(props) {
 
   const [mailConfirmed, setMailConfirmed] = useState(true);
   const [answerQues, setIsAnswerQues] = useState(true);
+  const [completeProfile, setIscompleteProfile] = useState(true);
   const [error, setIsError] = useState(false);
   useEffect(() => {
     const userLocal = localStorage.getItem("user");
@@ -31,7 +32,11 @@ function Validuser(props) {
         //check if user answer to questions or not
         else if (user.completeprofile != null && user.completeprofile == 0) {
           setIsAnswerQues(false);
-
+          setMsg(t("general.CompleteQuesErr"));
+          setIsError(true);
+          // navigate("/RegisterQues");
+        } else if (user.completeprofile != null && user.completeprofile == 1) {
+          setIscompleteProfile(false);
           setMsg(t("general.CompleteProfileErr"));
           setIsError(true);
           // navigate("/RegisterQues");
@@ -39,6 +44,7 @@ function Validuser(props) {
           setMailConfirmed(true);
           setMsg("");
           setIsError(false);
+          setIscompleteProfile(true);
           setIsAnswerQues(true);
         }
       }
@@ -57,6 +63,8 @@ function Validuser(props) {
               ? "/RegisterQues"
               : mailConfirmed == false
               ? "/login"
+              : completeProfile == false
+              ? "/profile"
               : "/login"
           }
           closeAlert={() => setIsError(false)}

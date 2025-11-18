@@ -231,7 +231,8 @@
     "saving": "جاري الحفظ...",
     "save": "حفظ",
     "update": "تعديل",
-    "CompleteProfileErr": "لم تجيب على أسئلة التسجيل، يجب عليك إكمال هذه الخطوات لتتمكن من الاستمرار",
+    "CompleteQuesErr": "لم تجيب على أسئلة التسجيل، يجب عليك إكمال هذه الخطوات لتتمكن من الاستمرار",
+    "CompleteProfileErr": "الرجاء إكمال ملفك الشخصي أولاً",
     "MailConfirmedErr": " لم تقم بتأكيد بريدك الالكتروني"
   },
   "profile": {
@@ -308,7 +309,8 @@
     "Custom": "مخصص",
     "CustomService": "خصّص خدماتك",
     "PerMonth": "شهري",
-    "PerYear": "سنوى"
+    "PerYear": "سنوى",
+    "PerProject": "سعر لكل مشروع"
   },
   "confirmation": {
     "termsConditions": "الشروط والأحكام",

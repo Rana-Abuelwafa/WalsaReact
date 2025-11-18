@@ -107,6 +107,7 @@ const AppointmentConfirmation = () => {
             productId: parseInt(serviceId),
             package_id: parseInt(packageId),
             is_custom: pkg?.is_custom,
+            price_calc_type: pkg?.price_calc_type,
             service_package_id: pkg.service_package_id,
           };
         }
