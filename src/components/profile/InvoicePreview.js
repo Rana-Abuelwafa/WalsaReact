@@ -33,8 +33,14 @@ const InvoicePreview = ({ invoice, setActiveTab }) => {
           <Row>
             {invoice.pkgs &&
               invoice.pkgs.map((pkg, index) => (
-                <Col md={6} key={index} className="mb-4">
-                  <h3 className="section-title">{pkg.service_name}</h3>
+                <Col md={6} sm={6} xs={12} key={index} className="mb-4">
+                  <div className="section-title">
+                    <h3>{pkg.service_name}</h3>
+                    <small>
+                      {pkg?.price_calc_type == 2 ? t("pricing.PriceInfo") : ""}
+                    </small>
+                  </div>
+
                   <Card className="pricing-card">
                     <Card.Body>
                       <Card.Title>{pkg.package_name}</Card.Title>
@@ -59,9 +65,11 @@ const InvoicePreview = ({ invoice, setActiveTab }) => {
                                 </small>
                                 {/* {pkg.curr_code} */}
                                 <small className="price_info">
+                                  (
                                   {pkg.price_calc_type == 3
                                     ? t("pricing.PerProject")
                                     : t("pricing.PerMonth")}
+                                  )
                                 </small>
                               </span>
                             )}

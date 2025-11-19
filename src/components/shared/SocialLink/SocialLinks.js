@@ -8,7 +8,9 @@ import {
   FaFacebookF,
   FaTwitter,
   FaInstagram,
+  FaLinkedinIn,
 } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 function SocialLinks() {
@@ -42,13 +44,16 @@ function SocialLinks() {
         </div>
         <div>
           <Link to="https://x.com/waslaade" className="icon" target="_blank">
-            <FaTwitter />
+            <FaXTwitter />
           </Link>
         </div>
         <div>
-          <Button onClick={() => setShowModal(true)} className="icon">
+          {/* <Button onClick={() => setShowModal(true)} className="icon">
             <FaEnvelope />
-          </Button>
+          </Button> */}
+          <Link to="https://www.linkedin.com/" className="icon" target="_blank">
+            <FaLinkedinIn />
+          </Link>
         </div>
       </div>
     </>

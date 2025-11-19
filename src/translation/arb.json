@@ -310,7 +310,8 @@
     "CustomService": "خصّص خدماتك",
     "PerMonth": "شهري",
     "PerYear": "سنوى",
-    "PerProject": "سعر لكل مشروع"
+    "PerProject": "سعر لكل مشروع",
+    "PriceInfo": "الأسعار تُعرض لكل شهر، بينما تُحتسب في الفاتورة بشكل سنوي للباقة المطلوبة."
   },
   "confirmation": {
     "termsConditions": "الشروط والأحكام",

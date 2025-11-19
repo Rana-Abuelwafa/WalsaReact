@@ -310,7 +310,8 @@
     "CustomService": "Custom Your Services",
     "PerMonth": "Monthly",
     "PerYear": "Yearly",
-    "PerProject": "Per Project"
+    "PerProject": "Per Project",
+    "PriceInfo": "The website displays prices per month, but the invoice reflects the total yearly price for the selected package."
   },
   "confirmation": {
     "termsConditions": "Terms & Conditions",

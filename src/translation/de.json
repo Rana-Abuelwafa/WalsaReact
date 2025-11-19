@@ -310,7 +310,8 @@
     "CustomService": "Passe deine Dienstleistungen an",
     "PerMonth": "Monatlich",
     "PerYear": "Jährlich",
-    "PerProject": "Preis pro Projekt"
+    "PerProject": "Preis pro Projekt",
+    "PriceInfo": "Bitte beachten: Die Preise auf der Webseite werden monatlich angezeigt.In dieser Rechnung wird der Paketpreis jedoch jährlich berechnet."
   },
   "confirmation": {
     "termsConditions": "Allgemeine Geschäftsbedingungen",

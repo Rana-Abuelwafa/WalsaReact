@@ -319,11 +319,26 @@ const Invoice = () => {
                           <td className="service-text">{pkg.package_desc}</td>
 
                           <td className="service-text">
-                            {formatNumber(Number(pkg.package_sale_price))}
+                            {pkg.price_calc_type == 2 ? (
+                              <span>
+                                {formatNumber(Number(pkg.package_sale_price))} x{" "}
+                                {formatNumber(Number(12))} ={" "}
+                                {formatNumber(
+                                  Number(pkg.package_sale_price * 12)
+                                )}
+                              </span>
+                            ) : (
+                              formatNumber(Number(pkg.package_sale_price))
+                            )}
+
                             <small className="price_info">
+                              ({" "}
                               {pkg.price_calc_type == 3
                                 ? t("pricing.PerProject")
+                                : pkg.price_calc_type == 2
+                                ? t("pricing.PerYear")
                                 : t("pricing.PerMonth")}
+                              )
                             </small>
                           </td>
 
@@ -466,7 +481,7 @@ const Invoice = () => {
                               <strong>
                                 {/* {invoice.curr_code}{" "} */}
                                 {formatNumber(Number(invoice.total_price))}
-                                <small className="price_info">
+                                <small className="price_sym">
                                   {currencySymbol}
                                 </small>
                               </strong>
@@ -479,7 +494,7 @@ const Invoice = () => {
                             </div>
                             <div className="d-flex justify-content-between mb-2">
                               <span>{t("checkout.giftVoucher")}</span>
-                              <span>
+                              <strong>
                                 {invoice.copoun_id != null &&
                                 invoice.copoun_id > 0
                                   ? formatNumber(
@@ -495,11 +510,11 @@ const Invoice = () => {
                                   ? invoice.copoun_discount +
                                     invoice.copoun_discount_type
                                   : 0} */}
-                              </span>
+                              </strong>
                             </div>
                             <div className="d-flex justify-content-between total-row">
                               <span>{invoice.tax_code}</span>
-                              <span>{invoice.tax_amount}</span>
+                              <strong>{invoice.tax_amount}</strong>
                             </div>
                             <div className="d-flex justify-content-between total-row">
                               <span>
@@ -513,7 +528,7 @@ const Invoice = () => {
                                 {formatNumber(
                                   Number(invoice.grand_total_price)
                                 )}
-                                <small className="price_info">
+                                <small className="price_sym">
                                   {currencySymbol}{" "}
                                 </small>
                                 {/* <small className="price_info">

@@ -33,79 +33,98 @@ const Section = ({
   const currencySymbol = localStorage.getItem("currencySymbol");
   return (
     <div className="pricing-section">
-      <h3 className="section-title">{title}</h3>
-      <Row>
-        {items.map((plan, idx) => (
-          <Col key={idx} md={3} className="mb-4">
-            <Card
-              className={`pricing-card ${plan.recommended ? "best" : ""} ${
-                selectedPackageId === plan.package_id ? "selected" : ""
-              }`}
-            >
-              {plan.recommended && (
-                <Badge className="best-badge">{t("pricing.recommended")}</Badge>
-              )}
-              <Card.Body>
-                <Card.Title>{plan.package_name}</Card.Title>
-                <p className="plan-desc">{plan.package_desc}</p>
-                <div className="pricing-info">
-                  {plan.isCustom ? (
-                    <span className="old-price custom-price">
-                      {" "}
-                      {t("pricing.Custom")}
-                    </span>
-                  ) : plan.oldPrice == plan.price ? (
-                    plan.price > 0 && (
-                      <span className="current-price ms-2">
-                        {formatNumber(Number(plan.price))}{" "}
-                        <small className="price_sym">{currencySymbol}</small>
-                        <small className="price_info">
-                          {plan.price_calc_type == 3
-                            ? t("pricing.PerProject")
-                            : t("pricing.PerMonth")}
-                        </small>
+      <div className="section-title">
+        <h3>{title}</h3>
+        <small>
+          {items[0]?.price_calc_type == 2 ? t("pricing.PriceInfo") : ""}
+        </small>
+      </div>
+      <div>
+        <Row>
+          {items.map((plan, idx) => (
+            <Col key={idx} md={3} className="mb-4">
+              <Card
+                className={`pricing-card ${plan.recommended ? "best" : ""} ${
+                  selectedPackageId === plan.package_id ? "selected" : ""
+                }`}
+              >
+                {plan.recommended && (
+                  <Badge className="best-badge">
+                    {t("pricing.recommended")}
+                  </Badge>
+                )}
+                <Card.Body>
+                  <Card.Title>{plan.package_name}</Card.Title>
+                  <p className="plan-desc">{plan.package_desc}</p>
+                  <div className="pricing-info">
+                    {plan.isCustom ? (
+                      <span className="old-price custom-price">
+                        {" "}
+                        {t("pricing.Custom")}
                       </span>
-                    )
-                  ) : (
-                    <>
-                      {plan.oldPrice > 0 && (
-                        <span className="old-price">
-                          {formatNumber(Number(plan.oldPrice))}{" "}
-                          <small className="price_sym">{currencySymbol}</small>
-                        </span>
-                      )}
-                      {plan.price > 0 && (
+                    ) : plan.oldPrice == plan.price ? (
+                      plan.price > 0 && (
                         <span className="current-price ms-2">
-                          {formatNumber(Number(plan.price))}
+                          {formatNumber(Number(plan.price))}{" "}
                           <small className="price_sym">{currencySymbol}</small>
-                          {plan.price_calc_type == 3
-                            ? t("pricing.PerProject")
-                            : t("pricing.PerMonth")}
+                          <small className="price_info">
+                            (
+                            {plan.price_calc_type == 3
+                              ? t("pricing.PerProject")
+                              : t("pricing.PerMonth")}
+                            )
+                          </small>
                         </span>
-                      )}
-                    </>
-                  )}
-                </div>
-                <hr className="pricingHr" />
-                <ul className="features-list">
-                  {plan.features.map((feat, i) => (
-                    <li key={i}>{feat.feature_name}</li>
-                  ))}
-                </ul>
-                <Button
-                  variant={plan.recommended ? "warning" : "outline-dark"}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onSelectPackage(plan.package_id, serviceId);
-                  }}
-                >
-                  {t("pricing.select")}
-                </Button>
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
-      </Row>
+                      )
+                    ) : (
+                      <>
+                        {plan.oldPrice > 0 && (
+                          <span className="old-price">
+                            {formatNumber(Number(plan.oldPrice))}{" "}
+                            <small className="price_sym">
+                              {currencySymbol}
+                            </small>
+                          </span>
+                        )}
+                        {plan.price > 0 && (
+                          <span className="current-price ms-2">
+                            {formatNumber(Number(plan.price))}
+                            <small className="price_sym">
+                              {currencySymbol}
+                            </small>
+                            <small className="price_info">
+                              (
+                              {plan.price_calc_type == 3
+                                ? t("pricing.PerProject")
+                                : t("pricing.PerMonth")}
+                              )
+                            </small>
+                          </span>
+                        )}
+                      </>
+                    )}
+                  </div>
+                  <hr className="pricingHr" />
+                  <ul className="features-list">
+                    {plan.features.map((feat, i) => (
+                      <li key={i}>{feat.feature_name}</li>
+                    ))}
+                  </ul>
+                  <Button
+                    variant={plan.recommended ? "warning" : "outline-dark"}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onSelectPackage(plan.package_id, serviceId);
+                    }}
+                  >
+                    {t("pricing.select")}
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      </div>
     </div>
   );
 };
