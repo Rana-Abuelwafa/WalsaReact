@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Row, Col, Card, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-multi-lang";
+import { useTranslation, getLanguage } from "react-multi-lang";
 import MainNavbar from "../navbars/mainNavbar";
 import SaleNavbar from "../navbars/saleNavbar";
 import MainFooter from "../footer/mainFooter";
@@ -15,7 +15,7 @@ import MetaTagsSeo from "../shared/MetaTagsSeo";
 const Home = () => {
   const navigate = useNavigate(); // React Router hook to navigate between pages
   const t = useTranslation(); // Hook for multilingual translation
-
+  const lang = localStorage.getItem("lang") || getLanguage();
   return (
     <>
       <MetaTagsSeo
@@ -28,7 +28,7 @@ const Home = () => {
       <OfferPopup /> {/* Displays a promotional popup */}
       <MainNavbar /> {/* Main navigation bar */}
       <SaleNavbar /> {/* Secondary navbar showing current sales or offers */}
-      <AdvSection /> {/* advrtising section */}
+      {/* <AdvSection /> advrtising section */}
       <Container fluid className="content-section">
         {/* ===================== Hero Section ===================== */}
         <section className="hero-section" dir={t("dir")}>
@@ -69,7 +69,7 @@ const Home = () => {
             <Col lg={7} xs={12} className="order-lg-2 order-1 text-center">
               <img
                 // src="images/webs3.png"
-                src="images/home/home_01_img.png"
+                src="images/home/home_01_bg.png"
                 alt={t("Home.heroImageAlt")}
                 loading="lazy"
                 className="img-fluid illustration no-flip"
@@ -99,7 +99,7 @@ const Home = () => {
             <Col md={6} className="order-md-2 order-1 text-center">
               <img
                 // src="images/confused.png"
-                src="images/home/home_02_img.png"
+                src="images/home/home_02_bg.png"
                 alt="Brand Identity"
                 className="img-fluid illustration"
                 loading="lazy"
@@ -130,7 +130,7 @@ const Home = () => {
             <Col md={7} className="text-left order-md-2 order-1">
               <img
                 //src="images/web-design.png"
-                src="images/home/home_03_img.png"
+                src="images/home/home_03_bg.png"
                 alt="Website Design"
                 className="img-fluid service-img"
                 loading="lazy"
@@ -405,8 +405,21 @@ const Home = () => {
         </section>
 
         {/* ===================== Final Hero Mission Statement ===================== */}
-        <section className="hero-container-section">
-          <div className="hero-container">
+        {/* <section className="hero-container-section"> */}
+      </Container>
+      <section className="prefotter-section">
+        <img
+          src={
+            "/images/home/home_last_bg_" +
+            lang?.trim().toLocaleLowerCase() +
+            ".png"
+          }
+          // src="/images/home/home_last_bg.png"
+          alt="waslaa_pre_footer"
+          className="mb-3"
+          loading="lazy"
+        />
+        {/* <div className="hero-container">
             <div className="hero-content">
               <h2>
                 {t("Home.wasla_mission")
@@ -422,9 +435,8 @@ const Home = () => {
             <button className="hero-button" onClick={() => navigate("/login")}>
               {t("Home.getStarted")}
             </button>
-          </div>
-        </section>
-      </Container>
+          </div> */}
+      </section>
       <MainFooter /> {/* Footer Component */}
       <Chat /> {/* Floating chat icon for quick support */}
     </>
